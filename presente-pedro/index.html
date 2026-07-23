@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Presente do Pedro — Projeto Cronos · Brito Mídias</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --roxo:#7C3AED; --roxo-dark:#5B21B6; --roxo-deep:#3B0F73;
+    --roxo-light:#A78BFA; --roxo-xlight:#EDE9FE;
+    --preto:#0A0A0A; --ink:#141018; --cinza:#5B5566;
+    --linha:#E7E3EE; --bg:#FFFFFF; --bg-soft:#FAF9FC;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:'Poppins',sans-serif;font-weight:300;line-height:1.6;-webkit-font-smoothing:antialiased}
+  ::selection{background:var(--roxo);color:#fff}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 28px}
+
+  /* ---------- TOPBAR ---------- */
+  .topbar{position:absolute;top:0;left:0;right:0;z-index:5}
+  .topbar .wrap{display:flex;align-items:center;justify-content:space-between;padding-top:26px;padding-bottom:26px}
+  .brand{display:flex;align-items:center;gap:14px;color:#fff}
+  .brand svg{width:40px;height:40px}
+  .brand .word{display:flex;align-items:center;gap:11px;font-weight:300}
+  .brand .word b{font-weight:800;font-size:17px}
+  .brand .word .bar{width:2px;height:26px;background:rgba(255,255,255,.55)}
+  .brand .word span{font-size:17px;letter-spacing:.22em}
+  .top-pill{border:1px solid var(--roxo-light);color:#fff;border-radius:100px;padding:8px 18px;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;background:rgba(124,58,237,.18)}
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative;overflow:hidden;color:#fff;text-align:center;padding:170px 28px 110px;
+    background:
+      radial-gradient(1100px 500px at 78% -10%, rgba(124,58,237,.55), transparent 60%),
+      linear-gradient(150deg,#0A0A0A 0%,#17111F 45%,#3B0F73 100%);}
+  .hero::before{content:"";position:absolute;inset:0;
+    background-image:linear-gradient(rgba(255,255,255,.14) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.14) 1px,transparent 1px);
+    background-size:44px 44px;opacity:.35;
+    -webkit-mask-image:radial-gradient(ellipse 75% 65% at 50% 40%,#000 30%,transparent 75%);
+            mask-image:radial-gradient(ellipse 75% 65% at 50% 40%,#000 30%,transparent 75%);}
+  .hero>*{position:relative}
+  .conf{display:inline-block;border:1px solid rgba(255,120,120,.55);color:#FFB4AE;border-radius:100px;padding:8px 18px;font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;margin-bottom:34px}
+  .hero .kicker{font-size:13px;font-weight:600;letter-spacing:.4em;text-transform:uppercase;color:var(--roxo-light);margin-bottom:18px}
+  .hero h1{font-weight:800;font-size:clamp(46px,9vw,84px);line-height:1.02;letter-spacing:-.02em}
+  .hero h1 span{background:linear-gradient(90deg,#A78BFA,#7C3AED);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero .sub{font-style:italic;font-weight:300;font-size:clamp(17px,2.6vw,22px);color:rgba(255,255,255,.82);margin-top:24px;max-width:640px;margin-left:auto;margin-right:auto}
+  .hero .dedic{margin-top:44px;font-size:12px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.65)}
+  .hero .dedic strong{display:block;margin-top:6px;font-size:16px;font-weight:700;letter-spacing:.1em;color:#fff}
+
+  /* ---------- SECTIONS ---------- */
+  section{padding:88px 0}
+  section.soft{background:var(--bg-soft)}
+  .section-label{display:flex;align-items:center;gap:12px;font-size:13px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--roxo);margin-bottom:16px}
+  .section-label::before{content:"";width:34px;height:2px;background:var(--roxo);border-radius:2px;flex-shrink:0}
+  h2{font-weight:700;font-size:clamp(26px,4.4vw,34px);line-height:1.2;margin-bottom:18px;letter-spacing:-.01em}
+  h3{font-weight:600;font-size:21px;margin:38px 0 12px}
+  p{margin-bottom:15px}
+  .intro{color:var(--cinza);max-width:760px}
+  em{font-style:italic;color:var(--roxo-dark)}
+
+  .quote{border-left:3px solid var(--roxo);padding:10px 0 10px 26px;margin:34px 0;font-size:clamp(18px,2.8vw,23px);font-weight:400;font-style:italic;line-height:1.5;color:var(--ink)}
+  .quote strong{font-weight:700;color:var(--roxo-dark)}
+  .quote .who{display:block;font-style:normal;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--cinza);margin-top:14px}
+
+  /* tradição */
+  .trad{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:34px}
+  .trad .t{background:#fff;border:1px solid var(--linha);border-radius:16px;padding:24px}
+  section.soft .trad .t{background:#fff}
+  .trad .t .yr{color:var(--roxo);font-size:11px;font-weight:600;letter-spacing:.14em;margin-bottom:8px;text-transform:uppercase}
+  .trad .t .nm{font-weight:600;font-size:15px;margin-bottom:6px}
+  .trad .t .ds{font-size:13px;color:var(--cinza);line-height:1.55}
+  .trad .t.now{background:linear-gradient(135deg,#5B21B6 0%,#7C3AED 100%);border-color:transparent;color:#fff}
+  .trad .t.now .yr{color:var(--roxo-xlight)}
+  .trad .t.now .ds{color:rgba(255,255,255,.85)}
+
+  /* storyboard */
+  .beats{counter-reset:beat;margin-top:26px;background:#fff;border:1px solid var(--linha);border-radius:20px;padding:10px 30px}
+  .beat{display:flex;gap:22px;padding:24px 0;border-bottom:1px solid var(--linha)}
+  .beat:last-child{border-bottom:none}
+  .beat .n{counter-increment:beat;flex-shrink:0;width:42px;height:42px;border-radius:50%;background:var(--roxo-xlight);color:var(--roxo-dark);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px}
+  .beat .n::before{content:counter(beat,decimal-leading-zero)}
+  .beat .b-title{font-weight:600;font-size:15px;margin-bottom:4px}
+  .b-tag{display:inline-block;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:3px 10px;border-radius:100px;margin-left:8px;vertical-align:2px}
+  .tag-ia{background:linear-gradient(90deg,#7C3AED,#5B21B6);color:#fff}
+  .tag-real{border:1px solid var(--roxo-light);color:var(--roxo-dark)}
+  .beat .b-desc{font-size:14px;color:var(--cinza);line-height:1.65}
+
+  .rule-box{background:var(--roxo-xlight);border:1px solid var(--roxo-light);border-radius:16px;padding:26px 30px;margin:34px 0}
+  .rule-box .rb-t{font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--roxo-dark);margin-bottom:12px}
+  .rule-box p{font-size:14px;margin-bottom:10px}
+  .rule-box p:last-child{margin-bottom:0}
+
+  /* placa */
+  .placa{background:linear-gradient(150deg,#0A0A0A 0%,#17111F 45%,#3B0F73 100%);color:#fff;border-radius:18px;padding:38px 30px;text-align:center;margin:30px 0;letter-spacing:.16em}
+  .placa .p1{font-weight:800;font-size:24px;letter-spacing:.14em}
+  .placa .p2{font-size:14px;letter-spacing:.3em;color:var(--roxo-light);margin-top:8px}
+  .placa .p3{font-size:11px;letter-spacing:.22em;color:rgba(255,255,255,.7);margin-top:10px;text-transform:uppercase}
+
+  /* itens */
+  .item{background:#fff;border:1px solid var(--linha);border-radius:20px;padding:32px 36px;margin-bottom:20px}
+  .item .it-num{font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--roxo);margin-bottom:8px}
+  .item h4{font-weight:700;font-size:21px;margin-bottom:12px;line-height:1.25}
+  .item p{font-size:14.5px;color:var(--cinza)}
+  .item p strong{color:var(--ink);font-weight:600}
+  .carta{background:var(--roxo-xlight);border-radius:14px;padding:22px 26px;margin-top:16px;font-style:italic;font-weight:400;font-size:15.5px;line-height:1.8;color:var(--roxo-deep)}
+  .folders{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:18px}
+  .folders div{border:1px solid var(--linha);background:var(--bg-soft);border-radius:12px;padding:12px 14px;font-size:12.5px;color:var(--ink)}
+  .folders div span{display:block;font-size:10px;font-weight:600;color:var(--roxo);letter-spacing:.14em;margin-bottom:4px}
+  .item.envelope{background:linear-gradient(135deg,#FBFAFF 0%,var(--roxo-xlight) 100%);border-color:var(--roxo-light)}
+
+  /* ritual 936 */
+  .math{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;margin:30px 0}
+  .math>div{border:1px solid var(--linha);border-radius:16px;padding:24px;background:var(--bg-soft);text-align:center}
+  .math .num{font-weight:800;font-size:42px;line-height:1;color:var(--roxo)}
+  .math .lbl{font-size:12.5px;color:var(--cinza);margin-top:10px;line-height:1.5}
+  .ritual-steps{list-style:none;margin:24px 0}
+  .ritual-steps li{padding:14px 0 14px 32px;position:relative;font-size:15px;border-bottom:1px solid var(--linha)}
+  .ritual-steps li::before{content:"";position:absolute;left:4px;top:22px;width:10px;height:10px;border-radius:50%;background:linear-gradient(90deg,#7C3AED,#5B21B6)}
+  .ritual-steps li strong{font-weight:600}
+
+  /* cards genéricos */
+  .fronts{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin-top:28px}
+  .front{background:#fff;border:1px solid var(--linha);border-radius:16px;padding:24px}
+  section:not(.soft) .front{background:var(--bg-soft)}
+  .front .f-n{font-size:11px;font-weight:600;color:var(--roxo);letter-spacing:.16em;text-transform:uppercase;margin-bottom:8px}
+  .front .f-t{font-weight:600;font-size:15px;margin-bottom:8px}
+  .front .f-d{font-size:13px;color:var(--cinza);line-height:1.6}
+  .front.hot{border:1.5px solid var(--roxo);background:#fff}
+
+  .pend{background:linear-gradient(135deg,#FBFAFF 0%,var(--roxo-xlight) 100%);border:1.5px solid var(--roxo);border-radius:18px;padding:28px 32px;margin-top:38px}
+  .pend .p-t{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--roxo-dark);margin-bottom:14px}
+  .pend ul{padding-left:20px}
+  .pend li{font-size:14.5px;margin-bottom:8px}
+  .pend li strong{font-weight:600}
+
+  footer{background:var(--ink);color:#fff;padding:64px 0 52px;text-align:center}
+  footer .brand{justify-content:center;margin-bottom:18px}
+  footer p{font-size:12px;color:rgba(255,255,255,.55);line-height:1.8}
+
+  @media(max-width:640px){
+    .topbar .wrap{padding-top:20px;padding-bottom:20px}
+    .top-pill{padding:6px 12px;font-size:10px}
+    .hero{padding:150px 22px 90px}
+    .item{padding:26px 24px}
+    .beats{padding:6px 20px}
+  }
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand">
+      <svg viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" aria-label="BM Mídias">
+        <polygon points="50,4 90,27 90,73 50,96 10,73 10,27"></polygon>
+        <polygon points="50,33 65,59 35,59"></polygon>
+        <line x1="50" y1="4" x2="50" y2="33"></line><line x1="90" y1="73" x2="65" y2="59"></line>
+        <line x1="10" y1="73" x2="35" y2="59"></line><line x1="90" y1="27" x2="50" y2="33"></line>
+        <line x1="90" y1="27" x2="65" y2="59"></line><line x1="50" y1="96" x2="65" y2="59"></line>
+        <line x1="50" y1="96" x2="35" y2="59"></line><line x1="10" y1="27" x2="35" y2="59"></line>
+        <line x1="10" y1="27" x2="50" y2="33"></line>
+      </svg>
+      <span class="word"><b>BM</b><i class="bar"></i><span>MÍDIAS</span></span>
+    </div>
+    <div class="top-pill">Presente do Pedro</div>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="conf">Confidencial — não compartilhar com o homenageado</div>
+  <div class="kicker">A Máquina do Tempo</div>
+  <h1>PROJETO<br><span>CRONOS</span></h1>
+  <p class="sub">«Viemos do futuro para garantir que algumas coisas não sejam esquecidas.»</p>
+  <div class="dedic">O presente anual dos mentorados para<strong>Pedro &amp; Priscila</strong></div>
+</div>
+
+<!-- A TRADIÇÃO -->
+<section>
+  <div class="wrap">
+    <div class="section-label">Capítulo 00 — A Tradição</div>
+    <h2>Todo ano, um presente. Este ano, uma missão.</h2>
+    <p class="intro">Todo ano os mentorados entregam ao Pedro um presente que conta uma história. Este ano, Pedro e Priscila esperam o primeiro filho — e o presente não fala do que ele já construiu. Fala do que ainda vai construir.</p>
+    <div class="trad">
+      <div class="t"><div class="yr">Ano 1</div><div class="nm">O Quadro Mosaico</div><div class="ds">1,5m. O rosto do Pedro formado por centenas de fotos dos mentorados — cada aluno, um pixel.</div></div>
+      <div class="t"><div class="yr">Ano 2</div><div class="nm">A Mala 007</div><div class="ds">Vídeo estilo James Bond, uma mala secreta e um livro com uma carta de cada aluno.</div></div>
+      <div class="t"><div class="yr">Ano 3</div><div class="nm">A Prancha</div><div class="ds">Depois da perna quebrada, a comunidade devolveu o mar para ele.</div></div>
+      <div class="t now"><div class="yr">Ano 4 — 2026</div><div class="nm">Projeto Cronos</div><div class="ds">Uma máquina do tempo. Um presente que só termina de ser aberto em 2044.</div></div>
+    </div>
+    <div class="quote">
+      Nos outros anos, falamos <strong>com</strong> o Pedro.<br>
+      Este ano, falamos com quem ele mais vai amar na vida — <strong>sobre</strong> ele e a Priscila.
+      <span class="who">A grande virada do conceito</span>
+    </div>
+    <p class="intro">O destinatário real do presente ainda não nasceu. Pedro e Priscila assistem agora; o filho, daqui a 18 anos. Um presente com dois momentos de impacto separados por décadas. Essa é a máquina do tempo de verdade.</p>
+  </div>
+</section>
+
+<!-- ATO I -->
+<section class="soft">
+  <div class="wrap">
+    <div class="section-label">Ato I — A Chegada</div>
+    <h2>O vídeo de abertura</h2>
+    <p class="intro">Fim do evento, clima de encerramento. O apresentador anuncia: <em>“Você acha que acabou, né? A gente tem uma coisinha pra você.”</em> Luzes apagam. Música épica. Tela gigante.</p>
+
+    <div class="beats">
+      <div class="beat">
+        <div class="n"></div>
+        <div>
+          <div class="b-title">ANO 2044 — O Pedro do futuro <span class="b-tag tag-ia">IA</span></div>
+          <div class="b-desc">Pedro envelhecido (gerado por IA), em tom solene: <em>“Essa missão é muito importante. Eu quero que eles dois saibam. Eu quero que eles saibam como preservar um futuro glorioso.”</em></div>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="n"></div>
+        <div>
+          <div class="b-title">A entrega <span class="b-tag tag-real">Real</span></div>
+          <div class="b-desc">Plano fechado: uma mão entrega a caixa de madeira a outra mão. Simples de filmar de verdade — e emenda perfeito com a cena de IA.</div>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="n"></div>
+        <div>
+          <div class="b-title">A missão é aceita <span class="b-tag tag-real">Real</span></div>
+          <div class="b-desc">O mensageiro recebe a caixa: <em>“Pode deixar. Eu volto, a gente entrega, e a missão será cumprida.”</em> Os três agentes — terno preto, óculos escuros — caminham até a máquina do tempo. A porta fecha. <strong>FLASH.</strong></div>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="n"></div>
+        <div>
+          <div class="b-title">2026 — HOJE. A materialização <span class="b-tag tag-ia">IA</span></div>
+          <div class="b-desc">Área externa do próprio local do evento, à noite. O ar distorce. Faíscas. Um clarão — a máquina do tempo se materializa. Vapor. A porta abre. Três silhuetas saem, a do meio carregando a caixa.</div>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="n"></div>
+        <div>
+          <div class="b-title">A caminhada <span class="b-tag tag-real">Real</span></div>
+          <div class="b-desc">Filmada no local, um dia antes: os três atravessam os corredores reais do evento, sobem as escadas, chegam à porta do auditório. A câmera fecha na maçaneta. A mão toca a porta. <strong>CORTA.</strong></div>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="n"></div>
+        <div>
+          <div class="b-title">A transição — vídeo vira realidade <span class="b-tag tag-real">Ao vivo</span></div>
+          <div class="b-desc">No exato momento do corte, a porta real do auditório se abre. Os três entram de verdade — mesma formação, mesma caixa. Esse momento sozinho já vale o presente.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rule-box">
+      <div class="rb-t">Regra de ouro da produção</div>
+      <p><strong>IA para o impossível, câmera real para a transição.</strong> Os planos da máquina se materializando são gerados com image-to-video (Veo, Kling, Runway) usando <strong>fotos reais do local do evento</strong> como referência — o público reconhece a fachada, o estacionamento. É isso que arrepia.</p>
+      <p>A caminhada pelos corredores é filmada de verdade, com as pessoas reais, no local real — a transição vídeo→porta só funciona assim. O corte de costura: último plano de IA com rostos em contraluz, primeiro plano real de frente.</p>
+      <p><strong>⚠ Teste primeiro o plano mais arriscado:</strong> o deepfake do Pedro envelhecido falando em close. Se voz ou rosto caírem no estranho, plano B — Pedro de 2044 em silhueta/contraluz com voz tratada como “transmissão”. O mistério até ajuda.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ATO II -->
+<section>
+  <div class="wrap">
+    <div class="section-label">Ato II — O Palco</div>
+    <h2>O discurso e a abertura da caixa</h2>
+    <div class="quote">
+      “Pedro. Priscila. Isso é uma máquina do tempo. A gente veio do futuro pra dizer uma coisa: se vocês acham que o que construíram até aqui foi grande... aguardem. Porque a maior missão de vocês ainda não começou — e ela nasce daqui a alguns meses.”
+      <span class="who">Texto-âncora do palco</span>
+    </div>
+    <p class="intro">A caixa: madeira escura, fechaduras metálicas, extremamente premium. Placa gravada:</p>
+    <div class="placa">
+      <div class="p1">PROJETO CRONOS</div>
+      <div class="p2">PEDRO &amp; PRISCILA</div>
+      <div class="p3">Abrir somente em caso de legado</div>
+    </div>
+    <p class="intro">Cada item sai da caixa um por um, em crescendo emocional.</p>
+  </div>
+</section>
+
+<!-- A CAIXA -->
+<section class="soft">
+  <div class="wrap">
+    <div class="section-label">Ato III — O Conteúdo</div>
+    <h2>O que há dentro da caixa</h2>
+
+    <div class="item">
+      <div class="it-num">Item 01</div>
+      <h4>A Carta do Futuro</h4>
+      <p>Não é uma carta dos mentorados. É uma carta <strong>escrita pelo filho, como se ele tivesse 18 anos</strong>, agradecendo aos dois pelo que viveram juntos.</p>
+      <div class="carta">
+        Oi pai. Oi mãe.<br>
+        Se vocês estão lendo isso, significa que a missão deu certo.<br>
+        Obrigado por terem me ensinado a rir. Obrigado por terem brincado comigo.
+        Obrigado por terem me levado pra surfar — a prancha os mentorados já tinham garantido antes de eu nascer.<br>
+        Obrigado por nunca terem deixado o trabalho ser mais importante que a nossa família.
+      </div>
+      <p style="margin-top:16px;">As características reais entram via <strong>operação de espionagem</strong>: alguém de confiança na equipe/família levanta, em segredo, o que o Pedro já disse que quer fazer com o filho + os maneirismos dos dois (a risada icônica, as piadas ruins, a fé dela, o cuidado nos bastidores da mentoria).</p>
+    </div>
+
+    <div class="item">
+      <div class="it-num">Item 02</div>
+      <h4>O Manual dos Pais — “As coisas que vocês não podem esquecer”</h4>
+      <p>Não é um livro de elogios. É um <strong>manual de instruções</strong>, com capítulos-ordem: <em>Continue fazendo cócegas. Continue contando histórias. Continue sorrindo alto. Continue fazendo piadas ruins. Continue levando para o mar. Continue rezando por ele. Continue sendo exemplo.</em></p>
+      <p>Capítulos do Pedro e capítulos da Priscila. Dentro de cada um, depoimentos curtos dos mentorados confirmando: <em>“é isso que muda vidas — não pare.”</em></p>
+    </div>
+
+    <div class="item">
+      <div class="it-num">Item 03</div>
+      <h4>O M-DISC — a cápsula de 100 anos</h4>
+      <p>Não é um pendrive. É um <strong>artefato</strong>: um disco arquival feito para durar um século, selado, com a inscrição <em>“Propriedade do filho de Pedro e Priscila. Abrir aos 18 anos.”</em> Dentro, vídeos organizados para um ritual: <strong>um vídeo por semana</strong> a partir dos 18 anos (arquivos numerados Semana_001, Semana_002...).</p>
+      <div class="folders">
+        <div><span>PASTA 01</span>Pai — vídeos do Pedro: cortes, bastidores, a risada, mensagens gravadas por ele</div>
+        <div><span>PASTA 02</span>Mãe — vídeos da Priscila</div>
+        <div><span>PASTA 03</span>Família — avós, irmãos, amigos</div>
+        <div><span>PASTA 04</span>Equipe — quem convive todo dia</div>
+        <div><span>PASTA 05</span>Vidas Transformadas — os mentorados</div>
+      </div>
+      <p style="margin-top:18px;">Na Pasta 05, a abordagem muda tudo: ninguém fala <em>sobre</em> o Pedro — todos falam <strong>com o filho</strong>: <em>“Oi. Quando você assistir isso, provavelmente já vai ser adulto. Mas eu precisava te contar quem eram os seus pais...”</em></p>
+    </div>
+
+    <div class="item">
+      <div class="it-num">Item 04</div>
+      <h4>O Livro — “O Legado dos Seus Pais: antes de você nascer”</h4>
+      <p>A evolução do livro de cartas do Ano 2. Cada mentorado tem sua página: <strong>foto de antes, foto de agora</strong>, o relato em linha do tempo (<em>“entrei em 2021 assim → hoje estou assim → e foi por causa de vocês dois”</em>) e QR codes para o vídeo, o depoimento e a história completa. Sempre endereçado aos dois.</p>
+    </div>
+
+    <div class="item">
+      <div class="it-num">Item 05</div>
+      <h4>O Pote das 936 Semanas + o Terço da Priscila</h4>
+      <p>Do nascimento aos 18 anos são <strong>936 semanas</strong>. Um pote de vidro com 936 contas — e o ritual semanal do casal descrito abaixo. Junto, o item pessoal dela: um <strong>terço gravado</strong>, com um cartão explicando a devoção das 936 Ave Marias.</p>
+    </div>
+
+    <div class="item envelope">
+      <div class="it-num">O Envelope — entregue por último, depois das lágrimas</div>
+      <h4>ÚLTIMA MISSÃO</h4>
+      <div class="carta">
+        Pedro. Priscila.<br>
+        Agora é a vez de vocês.<br>
+        Gravem uma mensagem para ele assistir daqui a 18 anos.<br>
+        Nós cuidamos do resto.
+      </div>
+      <p style="margin-top:16px;">E o sistema continua rodando: a Pasta 01 e a Pasta 02 do arquivo mestre ficam <strong>abertas</strong>. Todo aniversário do filho, os dois gravam um vídeo novo e enviam para ser adicionado. O presente não termina naquele dia — ele existe pelos próximos 18 anos.</p>
+    </div>
+  </div>
+</section>
+
+<!-- RITUAL 936 -->
+<section>
+  <div class="wrap">
+    <div class="section-label">O Ritual — 936 Semanas</div>
+    <h2>O tempo que rezamos por você, materializado</h2>
+    <div class="math">
+      <div><div class="num">936</div><div class="lbl">semanas do nascimento aos 18 anos<br>(18 anos × 52 semanas)</div></div>
+      <div><div class="num">18</div><div class="lbl">terços completos<br>(50 Ave Marias cada = 900)<br>um terço por ano de infância</div></div>
+      <div><div class="num">19º</div><div class="lbl">terço que <strong>nunca fecha</strong><br>(faltam 14 Ave Marias)<br>o lembrete de continuar rezando depois dos 18</div></div>
+    </div>
+    <p class="intro" style="font-size:13.5px;">Na conta do Rosário completo (20 mistérios, 200 Ave Marias): 936 = 4 Rosários completos + o 5º inacabado, faltando 64. As duas leituras carregam o mesmo símbolo — <strong>o último propositalmente não fecha</strong>, porque mãe e pai não param de rezar quando o filho faz 18.</p>
+
+    <h3>O ritual semanal do casal</h3>
+    <ul class="ritual-steps">
+      <li><strong>Pedro tira uma conta do pote</strong> — lembrando que o tempo da infância é finito e precioso.</li>
+      <li><strong>Priscila reza uma Ave Maria pelo filho</strong> com aquela conta na mão.</li>
+      <li><strong>A conta vai para o cordão.</strong> Semana a semana, o pote esvazia e o cordão cresce.</li>
+      <li>Em 936 semanas, o cordão está completo: <strong>um rosário de 936 contas construído pelos pais durante toda a infância dele.</strong></li>
+    </ul>
+    <div class="quote">
+      Aos 18 anos, o filho recebe duas coisas: o M-DISC e o cordão.<br>
+      “O tempo que rezamos por você, materializado.”
+      <span class="who">Placa do pote: “Quando o pote esvaziar, o cordão estará completo — entregue os dois.”</span>
+    </div>
+
+    <h3>CRONOS 936 — o companheiro digital</h3>
+    <p class="intro">O físico é o artefato; o digital é o lembrete. Um web app simples acompanha o ritual: a grade das 936 semanas, toque para marcar, contagem do que falta, marcos destacados (1 ano, primeiro dia de aula, 15 anos...), opção de marcar mês ou ano inteiro. O QR code do app vai dentro da caixa.</p>
+  </div>
+</section>
+
+<!-- KIT -->
+<section class="soft">
+  <div class="wrap">
+    <div class="section-label">Engenharia do Tempo</div>
+    <h2>O kit de sobrevivência dos 18 anos</h2>
+    <p class="intro">Pendrive e DVD comuns provavelmente estarão ilegíveis ou obsoletos em 2044. O plano de redundância é invisível no palco, mas é o que garante que o presente chegue ao destinatário real:</p>
+    <div class="fronts">
+      <div class="front"><div class="f-n">Camada 01</div><div class="f-t">M-DISC selado na caixa</div><div class="f-d">Mídia arquival com vida útil estimada de 100 anos. O artefato cerimonial.</div></div>
+      <div class="front"><div class="f-n">Camada 02</div><div class="f-t">Leitor USB de M-DISC dentro da caixa</div><div class="f-d">Em 2044 ninguém terá um em casa. E ainda rende piada na carta: “o futuro é estranho, confia.”</div></div>
+      <div class="front"><div class="f-n">Camada 03</div><div class="f-t">Priscila, a guardiã</div><div class="f-d">Pendrive de backup + pasta na nuvem entregues a ela, com os arquivos mestres.</div></div>
+      <div class="front"><div class="f-n">Camada 04</div><div class="f-t">O livro impresso</div><div class="f-d">Papel sobrevive a qualquer formato digital. QR codes apontando para a pasta na nuvem.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUÇÃO -->
+<section>
+  <div class="wrap">
+    <div class="section-label">Execução</div>
+    <h2>As 5 frentes de produção</h2>
+    <div class="fronts">
+      <div class="front hot"><div class="f-n">Frente 01 — dispara primeiro</div><div class="f-t">Coleta dos depoimentos</div><div class="f-d">Brief + formulário de upload + deadline com folga de 2 semanas (metade vai atrasar). Roteiro fechado: 60–90s, celular na horizontal, 3 blocos — se apresente para o bebê, conte UMA história específica, deixe um desejo. Falando com a câmera, como se o filho estivesse ali.</div></div>
+      <div class="front"><div class="f-n">Frente 02</div><div class="f-t">Vídeo Cronos</div><div class="f-d">Fotos do local → gerações de IA (teste do deepfake primeiro) → filmagem real da caminhada no local, um dia antes → edição e sound design.</div></div>
+      <div class="front"><div class="f-n">Frente 03</div><div class="f-t">Operação Espionagem</div><div class="f-d">Contato de confiança na equipe/família levanta o material da Carta do Futuro e do Manual — sem vazar.</div></div>
+      <div class="front"><div class="f-n">Frente 04</div><div class="f-t">O Livro</div><div class="f-d">Coleta de fotos antes/depois + relatos, diagramação, QR codes, gráfica (prazo: 3–4 semanas).</div></div>
+      <div class="front"><div class="f-n">Frente 05</div><div class="f-t">Os Objetos</div><div class="f-d">Caixa premium gravada, M-DISC (gravação + cópias), leitor USB, pote + 936 contas, terço gravado, envelope, web app CRONOS 936.</div></div>
+    </div>
+
+    <div class="pend">
+      <div class="p-t">⚠ Decisões pendentes para destravar o cronograma</div>
+      <ul>
+        <li><strong>Data do evento</strong> — define o cronograma reverso de todas as frentes</li>
+        <li><strong>Quantos mentorados gravam</strong> — define se todo vídeo entra inteiro ou se há curadoria (52 vídeos = 1 ano de ritual semanal; ~150 = quase 3 anos)</li>
+        <li><strong>Orçamento</strong> — caixa, gráfica, objetos, eventual produtora para a filmagem real</li>
+        <li><strong>Quem edita</strong> — vídeo Cronos + compilação dos depoimentos</li>
+        <li><strong>O contato da espionagem</strong> — quem na equipe/família topa conspirar</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="brand">
+    <svg viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" aria-label="BM Mídias">
+      <polygon points="50,4 90,27 90,73 50,96 10,73 10,27"></polygon>
+      <polygon points="50,33 65,59 35,59"></polygon>
+      <line x1="50" y1="4" x2="50" y2="33"></line><line x1="90" y1="73" x2="65" y2="59"></line>
+      <line x1="10" y1="73" x2="35" y2="59"></line><line x1="90" y1="27" x2="50" y2="33"></line>
+      <line x1="90" y1="27" x2="65" y2="59"></line><line x1="50" y1="96" x2="65" y2="59"></line>
+      <line x1="50" y1="96" x2="35" y2="59"></line><line x1="10" y1="27" x2="35" y2="59"></line>
+      <line x1="10" y1="27" x2="50" y2="33"></line>
+    </svg>
+    <span class="word"><b>BM</b><i class="bar"></i><span>MÍDIAS</span></span>
+  </div>
+  <p>Projeto Cronos — o presente dos mentorados para Pedro &amp; Priscila · 2026<br>Documento confidencial. O futuro agradece a discrição.</p>
+</footer>
+
+</body>
+</html>
