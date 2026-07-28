@@ -5,154 +5,211 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <title>Painel de Clientes — Brito Mídias</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#F5F6F8; --panel:#FFFFFF; --ink:#161A1F; --soft:#5B6472; --line:#E3E6EB;
-    --accent:#2452E8; --accent-soft:#EAF0FF; --ok:#1E8E5A; --ok-soft:#E6F6EE;
-    --warn:#B4740E; --warn-soft:#FCF1DE; --off:#8A93A2; --off-soft:#EEF0F3;
-    --shadow:0 1px 2px rgba(22,26,31,.04), 0 8px 24px rgba(22,26,31,.06);
-  }
-  @media (prefers-color-scheme: dark){
-    :root{
-      --bg:#0F1216; --panel:#171B21; --ink:#EEF1F5; --soft:#98A2AE; --line:#262C34;
-      --accent:#5C8DFF; --accent-soft:#1B2740; --ok:#3FCE8E; --ok-soft:#12301F;
-      --warn:#E4A93A; --warn-soft:#332508; --off:#7A8492; --off-soft:#1C2129;
-      --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
-    }
+    --roxo:#7C3AED; --roxo-dark:#5B21B6; --roxo-deep:#3B0F73; --roxo-light:#A78BFA; --roxo-xlight:#EDE9FE;
+    --preto:#0A0A0A; --ink:#141018; --cinza:#5B5566; --linha:#E7E3EE; --bg:#FFFFFF; --bg-soft:#FAF9FC;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  body{background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,sans-serif;-webkit-font-smoothing:antialiased}
-  .wrap{max-width:1200px;margin:0 auto;padding:36px 24px 80px}
+  body{background:var(--bg);color:var(--ink);font-family:'Poppins',sans-serif;font-weight:300;-webkit-font-smoothing:antialiased}
   a{color:inherit}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 28px}
 
-  /* HOME */
-  header{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;margin-bottom:28px}
-  .brand{display:flex;align-items:center;gap:12px}
-  .brand .mark{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#0F2E9E);
-    display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:14px;letter-spacing:-.02em}
-  header h1{font-size:22px;font-weight:700;letter-spacing:-.01em}
-  header .sub{font-size:13px;color:var(--soft);margin-top:2px}
+  /* HERO */
+  .hero{position:relative;overflow:hidden;padding:52px 0 44px;color:#fff;
+    background:
+      radial-gradient(1100px 500px at 78% -10%, rgba(124,58,237,.55), transparent 60%),
+      linear-gradient(150deg, #0A0A0A 0%, #17111F 45%, #3B0F73 100%)}
+  .hero::before{content:"";position:absolute;inset:0;pointer-events:none;
+    background-image:linear-gradient(rgba(255,255,255,.14) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255,255,255,.14) 1px, transparent 1px);
+    background-size:44px 44px;
+    -webkit-mask-image:radial-gradient(ellipse 80% 80% at 50% 30%, #000 40%, transparent 85%);
+    mask-image:radial-gradient(ellipse 80% 80% at 50% 30%, #000 40%, transparent 85%)}
+  .hero .wrap{position:relative}
+  .brand{display:flex;align-items:center;gap:16px}
+  .brand svg{width:40px;height:40px;flex-shrink:0}
+  .brand .word{display:flex;align-items:center;gap:12px;font-weight:300}
+  .brand .word b{font-weight:800;font-size:19px}
+  .brand .word .bar{width:2px;height:26px;background:rgba(255,255,255,.55)}
+  .brand .word span{font-size:19px;letter-spacing:.22em}
+  .hero h1{margin-top:26px;font-weight:800;font-size:clamp(28px,4.5vw,42px);letter-spacing:-.02em;line-height:1.1}
+  .hero .sub{margin-top:12px;font-weight:300;font-size:15px;color:rgba(255,255,255,.72);max-width:520px;line-height:1.6}
 
-  .toolbar{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:26px}
+  /* SECTION LABEL */
+  .section-label{display:flex;align-items:center;gap:12px;font-size:12px;font-weight:600;
+    letter-spacing:.16em;text-transform:uppercase;color:var(--roxo);margin-bottom:14px}
+  .section-label::before{content:"";width:34px;height:2px;background:var(--roxo);border-radius:2px;flex-shrink:0}
+
+  /* MAIN */
+  main{padding:44px 0 60px}
+  .toolbar{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px}
   .search{flex:1;min-width:220px;position:relative}
-  .search input{width:100%;padding:11px 14px 11px 38px;border-radius:10px;border:1px solid var(--line);
-    background:var(--panel);color:var(--ink);font-size:14px;outline:none}
-  .search input:focus{border-color:var(--accent)}
-  .search::before{content:"⌕";position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--soft);font-size:16px}
-  .chip{padding:9px 16px;border-radius:100px;border:1px solid var(--line);background:var(--panel);color:var(--soft);
-    font-size:13px;font-weight:600;cursor:pointer;user-select:none;transition:.15s}
-  .chip:hover{border-color:var(--accent)}
-  .chip.active{background:var(--accent);border-color:var(--accent);color:#fff}
+  .search input{width:100%;padding:12px 16px 12px 40px;border-radius:10px;border:1px solid var(--linha);
+    background:var(--bg-soft);color:var(--ink);font-family:inherit;font-size:14px;font-weight:400;outline:none}
+  .search input:focus{border-color:var(--roxo)}
+  .search::before{content:"⌕";position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--cinza);font-size:17px}
 
-  .count{font-size:12px;color:var(--soft);margin-bottom:14px}
+  .pill{border:1px solid var(--roxo-light);color:var(--roxo-dark);border-radius:100px;padding:9px 18px;
+    font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;user-select:none;
+    background:transparent;font-family:inherit;transition:.15s}
+  .pill.solid{background:linear-gradient(90deg,var(--roxo),var(--roxo-dark));color:#fff;border-color:transparent}
+
+  .count{font-size:12px;color:var(--cinza);margin-bottom:16px;font-weight:400}
 
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
-  .ccard{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:var(--shadow);
+  .ccard{background:var(--bg-soft);border:1px solid var(--linha);border-radius:16px;padding:22px;
     cursor:pointer;transition:transform .15s ease, box-shadow .15s ease;text-align:left;display:block;
     color:var(--ink);font-family:inherit;width:100%}
-  .ccard:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(22,26,31,.10)}
-  .ccard .avatar{width:44px;height:44px;border-radius:11px;background:var(--accent-soft);color:var(--accent);
+  .ccard:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(59,15,115,.12)}
+  .ccard .avatar{width:44px;height:44px;border-radius:11px;background:var(--roxo-xlight);color:var(--roxo-dark);
     display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;margin-bottom:14px}
-  .ccard h2{font-size:15px;font-weight:700;line-height:1.35;margin-bottom:8px}
-  .ccard .status{font-size:10px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;padding:3px 9px;border-radius:100px;display:inline-block}
-  .status.ativo{background:var(--ok-soft);color:var(--ok)}
-  .status.pausado{background:var(--warn-soft);color:var(--warn)}
-  .status.encerrado{background:var(--off-soft);color:var(--off)}
-  .ccard .entrar{margin-top:14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:700}
+  .ccard h2{font-size:15px;font-weight:700;line-height:1.35;margin-bottom:10px}
+  .status-pill{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:4px 11px;
+    border-radius:100px;display:inline-block;border:1px solid var(--roxo-light);color:var(--roxo-dark)}
+  .status-pill.solid{background:linear-gradient(90deg,var(--roxo),var(--roxo-dark));color:#fff;border-color:transparent}
+  .ccard .entrar{margin-top:16px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--roxo);font-weight:600}
 
-  .empty{text-align:center;padding:60px 20px;color:var(--soft);font-size:14px}
+  .empty{text-align:center;padding:60px 20px;color:var(--cinza);font-size:14px}
 
-  footer{margin-top:40px;text-align:center;font-size:12px;color:var(--soft)}
+  /* FOOTER */
+  footer{background:var(--ink);color:rgba(255,255,255,.6);padding:26px 0;font-size:12px;font-weight:400}
+  footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
+  footer code{color:var(--roxo-light)}
 
   /* CLIENT PAGE */
   .cpage{display:none}
-  .voltar{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;
-    color:var(--accent)!important;text-decoration:none;font-weight:700;margin-bottom:28px;cursor:pointer;background:none;border:none;
-    font-family:inherit}
-  .voltar:hover{text-decoration:underline}
-  .cpage-head{display:flex;align-items:center;gap:16px;margin-bottom:30px}
-  .cpage-head .avatar{width:64px;height:64px;border-radius:16px;background:var(--accent-soft);color:var(--accent);
-    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:24px;flex-shrink:0}
-  .cpage-head h2{font-size:24px;font-weight:800;letter-spacing:-.01em}
+  .voltar{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;
+    color:#fff!important;text-decoration:none;font-weight:600;cursor:pointer;background:none;border:none;
+    font-family:inherit;opacity:.85}
+  .voltar:hover{opacity:1;text-decoration:underline}
+  .cpage-hero{padding:36px 0 40px}
+  .cpage-head{display:flex;align-items:center;gap:16px;margin-top:22px}
+  .cpage-head .avatar{width:60px;height:60px;border-radius:16px;background:rgba(255,255,255,.12);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:22px;flex-shrink:0;
+    border:1px solid rgba(255,255,255,.2)}
+  .cpage-head h2{font-size:26px;font-weight:800;letter-spacing:-.01em;color:#fff}
 
-  .section{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px 26px;box-shadow:var(--shadow);margin-bottom:18px}
-  .section .stitle{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--soft);margin-bottom:16px}
+  .section{background:var(--bg);border:1px solid var(--linha);border-radius:16px;padding:26px 28px;margin-bottom:18px}
+  .section.soft{background:var(--bg-soft)}
   .tags{display:flex;flex-wrap:wrap;gap:8px}
-  .tag{font-size:12px;font-weight:600;background:var(--accent-soft);color:var(--accent);padding:6px 12px;border-radius:8px}
-  .row{display:flex;gap:14px;padding:11px 0;border-top:1px dashed var(--line);font-size:14px;align-items:flex-start}
+  .row{display:flex;gap:14px;padding:12px 0;border-top:1px dashed var(--linha);font-size:14px;align-items:flex-start;font-weight:400}
   .row:first-child{border-top:none}
-  .row .k{color:var(--soft);min-width:150px;flex-shrink:0}
+  .row .k{color:var(--cinza);min-width:150px;flex-shrink:0}
   .row .v{flex:1;word-break:break-word}
-  .row .v a{color:var(--accent);text-decoration:none;font-weight:600}
+  .row .v a{color:var(--roxo-dark);text-decoration:none;font-weight:600}
   .row .v a:hover{text-decoration:underline}
-  .placeholder{color:var(--off);font-style:italic}
-  .btnlink{display:inline-block;margin-top:2px;font-size:13px;font-weight:700;color:var(--accent);text-decoration:none;
-    background:var(--accent-soft);padding:9px 16px;border-radius:9px}
-  .btnlink:hover{text-decoration:underline}
+  .placeholder{color:#B7B2C2;font-style:italic}
+
+  .mini-card{border:1px solid var(--linha);border-radius:14px;padding:16px 18px;background:var(--bg-soft);
+    display:flex;flex-direction:column;gap:4px}
+  .mini-card small{color:var(--roxo);font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
+  .mini-card b{font-size:15px;font-weight:600}
+  .mini-card a{color:var(--roxo-dark);text-decoration:none}
+  .mini-card a:hover{text-decoration:underline}
+  .mini-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
 </style>
 </head>
 <body>
-<div class="wrap">
 
   <!-- HOME -->
   <div id="home">
-    <header>
-      <div class="brand">
-        <div class="mark">BM</div>
-        <div>
-          <h1>Painel Geral de Clientes</h1>
-          <div class="sub">Brito Mídias — clique em um cliente para entrar no sistema dele</div>
+    <div class="hero">
+      <div class="wrap">
+        <div class="brand">
+          <svg viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="2.4"
+               stroke-linejoin="round" stroke-linecap="round" aria-label="BM Mídias">
+            <polygon points="50,4 90,27 90,73 50,96 10,73 10,27"></polygon>
+            <polygon points="50,33 65,59 35,59"></polygon>
+            <line x1="50" y1="4" x2="50" y2="33"></line><line x1="90" y1="73" x2="65" y2="59"></line>
+            <line x1="10" y1="73" x2="35" y2="59"></line><line x1="90" y1="27" x2="50" y2="33"></line>
+            <line x1="90" y1="27" x2="65" y2="59"></line><line x1="50" y1="96" x2="65" y2="59"></line>
+            <line x1="50" y1="96" x2="35" y2="59"></line><line x1="10" y1="27" x2="35" y2="59"></line>
+            <line x1="10" y1="27" x2="50" y2="33"></line>
+          </svg>
+          <span class="word"><b>BM</b><i class="bar"></i><span>MÍDIAS</span></span>
+        </div>
+        <h1>Painel Geral de Clientes</h1>
+        <div class="sub">Central de estratégia e resultados — skills, funis, contas de anúncio e pastas de cada cliente, num só lugar.</div>
+      </div>
+    </div>
+
+    <main>
+      <div class="wrap">
+        <div class="section-label">VISÃO GERAL</div>
+
+        <div class="toolbar">
+          <div class="search"><input id="search" type="text" placeholder="Buscar cliente, skill, conta de anúncio..."></div>
+          <div id="filters"></div>
+        </div>
+
+        <div class="count" id="count"></div>
+        <div class="grid" id="grid"></div>
+        <div class="empty" id="empty" style="display:none">Nenhum cliente encontrado.</div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="wrap">
+        <span>Brito Mídias — Painel interno</span>
+        <span>edite o array <code>CLIENTES</code> em index.html para atualizar dados</span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- PER-CLIENT PAGE -->
+  <div class="cpage" id="cpage">
+    <div class="hero cpage-hero">
+      <div class="wrap">
+        <button class="voltar" onclick="goHome()">← Voltar ao painel geral</button>
+        <div class="cpage-head">
+          <div class="avatar" id="cp-avatar"></div>
+          <div>
+            <h2 id="cp-nome"></h2>
+            <span class="status-pill solid" id="cp-status" style="margin-top:8px;display:inline-block"></span>
+          </div>
         </div>
       </div>
-    </header>
-
-    <div class="toolbar">
-      <div class="search"><input id="search" type="text" placeholder="Buscar cliente, skill, conta de anúncio..."></div>
-      <div id="filters"></div>
     </div>
 
-    <div class="count" id="count"></div>
-    <div class="grid" id="grid"></div>
-    <div class="empty" id="empty" style="display:none">Nenhum cliente encontrado.</div>
+    <main>
+      <div class="wrap">
 
-    <footer>Painel interno — Brito Mídias · edite o array <code>CLIENTES</code> em index.html para atualizar dados</footer>
-  </div>
+        <div class="section-label">SKILLS &amp; AUTOMAÇÕES</div>
+        <div class="section soft">
+          <div class="tags" id="cp-skills"></div>
+        </div>
 
-  <!-- PER-CLIENT PAGE (template filled by JS) -->
-  <div class="cpage" id="cpage">
-    <button class="voltar" onclick="goHome()">← Voltar ao painel geral</button>
-    <div class="cpage-head">
-      <div class="avatar" id="cp-avatar"></div>
-      <div>
-        <h2 id="cp-nome"></h2>
-        <span class="status" id="cp-status"></span>
+        <div class="section-label">FUNIL E PÁGINA</div>
+        <div class="section">
+          <div class="row"><span class="k">Funil ativo</span><span class="v" id="cp-funil"></span></div>
+          <div class="row"><span class="k">Página / URL</span><span class="v" id="cp-pagina"></span></div>
+        </div>
+
+        <div class="section-label">CONTAS DE ANÚNCIO (META ADS)</div>
+        <div class="section soft">
+          <div class="mini-grid" id="cp-contas"></div>
+        </div>
+
+        <div class="section-label">ACESSO RÁPIDO</div>
+        <div class="section">
+          <div class="row"><span class="k">Pasta do cliente (Drive)</span><span class="v" id="cp-drive"></span></div>
+          <div class="row"><span class="k">Pasta de criativos</span><span class="v" id="cp-criativos"></span></div>
+        </div>
+
       </div>
-    </div>
+    </main>
 
-    <div class="section">
-      <div class="stitle">Skills / automações vinculadas</div>
-      <div class="tags" id="cp-skills"></div>
-    </div>
-
-    <div class="section">
-      <div class="stitle">Funil e página</div>
-      <div class="row"><span class="k">Funil ativo</span><span class="v" id="cp-funil"></span></div>
-      <div class="row"><span class="k">Página / URL</span><span class="v" id="cp-pagina"></span></div>
-    </div>
-
-    <div class="section">
-      <div class="stitle">Contas de anúncio (Meta Ads)</div>
-      <div id="cp-contas"></div>
-    </div>
-
-    <div class="section">
-      <div class="stitle">Acesso rápido</div>
-      <div class="row"><span class="k">Pasta do cliente (Drive)</span><span class="v" id="cp-drive"></span></div>
-      <div class="row"><span class="k">Pasta de criativos</span><span class="v" id="cp-criativos"></span></div>
-    </div>
+    <footer>
+      <div class="wrap">
+        <span>Brito Mídias — Painel interno</span>
+        <span>Central de Estratégia e Resultados</span>
+      </div>
+    </footer>
   </div>
-
-</div>
 
 <script>
 // Edite esta lista para adicionar/atualizar clientes.
@@ -320,7 +377,7 @@ function cardHtml(c){
   <button class="ccard" data-blob="${esc((c.nome+' '+c.skills.join(' ')+' '+c.contas.map(a=>a.label+a.id).join(' ')+' '+c.funil).toLowerCase())}" onclick="openClient('${c.id}')">
     <div class="avatar">${esc(initials(c.nome))}</div>
     <h2>${esc(c.nome)}</h2>
-    <span class="status ${c.status}">${esc(c.status)}</span>
+    <span class="status-pill">${esc(c.status)}</span>
     <div class="entrar">Entrar no sistema →</div>
   </button>`;
 }
@@ -334,11 +391,11 @@ const statuses = ["todos", ...new Set(CLIENTES.map(c => c.status))];
 let activeStatus = "todos";
 let query = "";
 
-filtersEl.innerHTML = statuses.map(s => `<span class="chip${s==='todos'?' active':''}" data-status="${s}">${s}</span>`).join('');
-filtersEl.querySelectorAll('.chip').forEach(chip => {
+filtersEl.innerHTML = statuses.map(s => `<button class="pill${s==='todos'?' solid':''}" data-status="${s}">${s}</button>`).join('');
+filtersEl.querySelectorAll('.pill').forEach(chip => {
   chip.addEventListener('click', () => {
     activeStatus = chip.dataset.status;
-    filtersEl.querySelectorAll('.chip').forEach(c => c.classList.toggle('active', c === chip));
+    filtersEl.querySelectorAll('.pill').forEach(c => c.classList.toggle('solid', c === chip));
     renderGrid();
   });
 });
@@ -361,11 +418,11 @@ function renderGrid(){
 }
 
 function contasHtml(c){
-  if(!c.contas.length) return `<div class="row"><span class="k">Conta de anúncio</span><span class="v placeholder">preencher</span></div>`;
+  if(!c.contas.length) return `<div class="mini-card"><small>Conta de anúncio</small><b class="placeholder">preencher</b></div>`;
   return c.contas.map(a => `
-    <div class="row">
-      <span class="k">${esc(a.label)}${a.tipo === 'APOIO' ? ' (apoio)' : ''}</span>
-      <span class="v"><a href="https://adsmanager.facebook.com/adsmanager/manage/campaigns?act=${esc(a.id)}" target="_blank" rel="noopener">${esc(a.id)}</a></span>
+    <div class="mini-card">
+      <small>${esc(a.label)}${a.tipo === 'APOIO' ? ' · apoio' : ''}</small>
+      <b><a href="https://adsmanager.facebook.com/adsmanager/manage/campaigns?act=${esc(a.id)}" target="_blank" rel="noopener">${esc(a.id)}</a></b>
     </div>`).join('');
 }
 
@@ -374,10 +431,9 @@ function openClient(id){
   if(!c) return;
   document.getElementById('cp-avatar').textContent = initials(c.nome);
   document.getElementById('cp-nome').textContent = c.nome;
-  const st = document.getElementById('cp-status');
-  st.textContent = c.status; st.className = 'status ' + c.status;
+  document.getElementById('cp-status').textContent = c.status;
   document.getElementById('cp-skills').innerHTML = c.skills.length
-    ? c.skills.map(s => `<span class="tag">${esc(s)}</span>`).join('')
+    ? c.skills.map(s => `<span class="pill solid">${esc(s)}</span>`).join('')
     : '<span class="placeholder">nenhuma skill vinculada ainda</span>';
   document.getElementById('cp-funil').innerHTML = fieldValue(c.funil);
   document.getElementById('cp-pagina').innerHTML = fieldValue(c.pagina);
