@@ -111,6 +111,25 @@
   .mini-card a{color:var(--roxo-dark);text-decoration:none}
   .mini-card a:hover{text-decoration:underline}
   .mini-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+
+  /* PROJECT CARDS (inside client page) */
+  .proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+  .pcard{background:var(--bg);border:1px solid var(--linha);border-radius:14px;padding:20px;
+    cursor:pointer;transition:transform .15s ease, box-shadow .15s ease;text-align:left;display:block;
+    color:var(--ink);font-family:inherit;width:100%}
+  .pcard:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(59,15,115,.12)}
+  .pcard h3{font-size:15px;font-weight:700;margin-bottom:6px}
+  .pcard p{font-size:13px;color:var(--cinza);font-weight:400;line-height:1.5;margin-bottom:12px}
+  .pcard .entrar{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--roxo);font-weight:600}
+
+  /* PROJECT PAGE */
+  .ppage{display:none}
+  .link-list{display:flex;flex-direction:column;gap:10px}
+  .link-item{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 16px;
+    border:1px solid var(--linha);border-radius:12px;background:var(--bg-soft);text-decoration:none;color:var(--ink)}
+  .link-item:hover{border-color:var(--roxo-light)}
+  .link-item .lbl{font-size:14px;font-weight:500}
+  .link-item .go{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--roxo-dark);flex-shrink:0}
 </style>
 </head>
 <body>
@@ -178,6 +197,9 @@
     <main>
       <div class="wrap">
 
+        <div class="section-label">PROJETOS</div>
+        <div class="proj-grid" id="cp-projetos" style="margin-bottom:18px"></div>
+
         <div class="section-label">SKILLS &amp; AUTOMAÇÕES</div>
         <div class="section soft">
           <div class="tags" id="cp-skills"></div>
@@ -211,6 +233,54 @@
     </footer>
   </div>
 
+  <!-- PER-PROJECT PAGE -->
+  <div class="ppage" id="ppage">
+    <div class="hero cpage-hero">
+      <div class="wrap">
+        <button class="voltar" onclick="goClient()">← Voltar ao cliente</button>
+        <div class="cpage-head">
+          <div>
+            <h2 id="pp-nome"></h2>
+            <div class="sub" id="pp-cliente" style="margin-top:6px"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <main>
+      <div class="wrap">
+
+        <div class="section-label">RESUMO</div>
+        <div class="section soft">
+          <div id="pp-resumo" style="font-size:14px;line-height:1.7"></div>
+        </div>
+
+        <div class="section-label">LINKS ÚTEIS</div>
+        <div class="section">
+          <div class="link-list" id="pp-links"></div>
+        </div>
+
+        <div class="section-label">INFORMAÇÕES PRINCIPAIS</div>
+        <div class="section soft">
+          <div id="pp-info"></div>
+        </div>
+
+        <div class="section-label">SKILLS VINCULADAS</div>
+        <div class="section">
+          <div class="tags" id="pp-skills"></div>
+        </div>
+
+      </div>
+    </main>
+
+    <footer>
+      <div class="wrap">
+        <span>Brito Mídias — Painel interno</span>
+        <span>Central de Estratégia e Resultados</span>
+      </div>
+    </footer>
+  </div>
+
 <script>
 // Edite esta lista para adicionar/atualizar clientes.
 // contas: lista de {label, id, tipo:"VEICULA"|"APOIO"}. driveUrl: pasta raiz do cliente no Drive.
@@ -229,7 +299,8 @@ const CLIENTES = [
       {label:"CA Reserva", id:"168749748643128", tipo:"APOIO"}
     ],
     driveUrl: "https://drive.google.com/drive/folders/1Hg7HEcKVrNyPRyJeMA1nLGyzu-xnx9FL",
-    pastaCriativos: ""
+    pastaCriativos: "",
+    projetos: []
   },
   {
     id: "voa-conhecimento",
@@ -246,7 +317,8 @@ const CLIENTES = [
       {label:"Criadora Públicos", id:"1010234013033197", tipo:"APOIO"}
     ],
     driveUrl: "https://drive.google.com/drive/folders/1RG3DSEiUkXj1gwOlvHDSi1a-1FoDdHcZ",
-    pastaCriativos: ""
+    pastaCriativos: "",
+    projetos: []
   },
   {
     id: "anatex",
@@ -270,7 +342,28 @@ const CLIENTES = [
       {label:"Criadora Públicos", id:"1014653205673132", tipo:"APOIO"}
     ],
     driveUrl: "https://drive.google.com/drive/folders/1ShFTC2sIrQcoqJfnhL6nSEkAvLaCJ2k7",
-    pastaCriativos: ""
+    pastaCriativos: "",
+    projetos: [
+      {
+        id: "ls",
+        nome: "Lançamento Semanal (LS)",
+        resumo: "Lançamento pago <b>recorrente semanal</b> do <b>Workshop Especialista com Inteligência Artificial</b> (6 aulas ao vivo). Funil de captação com order bumps (OB1, OB2, OB3) e upsell para a <b>Mentoria Paraíso Digital</b> (R$ 12.800). Cada semana é um lançamento novo (LS001, LS002, LS003...), rodando nas contas ANEX.",
+        skills: ["ls-trafego-pago-relatorio", "marketex-subir-campanhas-ls", "skill-atualizacao-ls-marketex-v1"],
+        links: [
+          {label:"Planilha geral de acompanhamento (Captação, Funil, Criativos)", url:"https://docs.google.com/spreadsheets/d/1Gbd4113TxgnZA0pvhZaJ0cj1NCJyhlULMtFgaX-7pMA/edit"}
+        ],
+        info: [
+          {k:"Cadência", v:"Semanal — um lançamento novo por semana (LS001, LS002, LS003...)"},
+          {k:"Produto de entrada", v:"Ingresso — Workshop Especialista com IA · bruto R$ 67,00 / líquido R$ 62,25"},
+          {k:"Order bumps", v:"OB1 Fotos com IA (R$ 62 / R$ 57,53) · OB2 Palestra em Minutos (R$ 50 / R$ 46,20) · OB3 Fotos com IA Acesso Estendido (R$ 50 / R$ 46,20)"},
+          {k:"Upsell / back-end", v:"Mentoria Paraíso Digital — bruto R$ 12.800,00 / líquido R$ 11.891,20"},
+          {k:"Fontes de dados", v:"VK Metrics (org Marketex) + Hotmart (export semanal) + Meta Ads (aba MTADS via IMPORTRANGE)"},
+          {k:"Contas de anúncio", v:"Contas ANEX (ver seção Contas de Anúncio do cliente)"},
+          {k:"Imposto Meta", v:"13,83% sobre o investimento bruto"},
+          {k:"Lançamentos ativos", v:"LS001 (18–24/05/26) · LS002 (25–31/05/26) — novos IDs via VK Metrics"}
+        ]
+      }
+    ]
   },
   {
     id: "ifb",
@@ -285,7 +378,8 @@ const CLIENTES = [
       {label:"Criador de Públicos", id:"1008074127159106", tipo:"APOIO"}
     ],
     driveUrl: "https://drive.google.com/drive/folders/1vGtkGZz31HStyMu1QOLMHSTU0GbZBk_I",
-    pastaCriativos: ""
+    pastaCriativos: "",
+    projetos: []
   },
   {
     id: "brain-coffee",
@@ -296,7 +390,8 @@ const CLIENTES = [
     pagina: "",
     contas: [],
     driveUrl: "https://drive.google.com/drive/folders/1K5A-ray9ejioCwMVfY3sAHNGX9sv3v0h",
-    pastaCriativos: ""
+    pastaCriativos: "",
+    projetos: []
   },
   {
     id: "tamara-damares",
@@ -310,7 +405,8 @@ const CLIENTES = [
       {label:"C4", id:"713406198402350", tipo:"VEICULA"}
     ],
     driveUrl: "https://drive.google.com/drive/folders/1DqDt3abmvBA47P8-9p6peBy8Y19UjXBc",
-    pastaCriativos: ""
+    pastaCriativos: "",
+    projetos: []
   },
   {
     id: "urus",
@@ -323,7 +419,8 @@ const CLIENTES = [
       {label:"Grupo Urus", id:"2544913929197744", tipo:"VEICULA"}
     ],
     driveUrl: "https://drive.google.com/drive/folders/1kUyL-thqDLgEVLiHWDXjxQ4DWsGNGU3C",
-    pastaCriativos: ""
+    pastaCriativos: "",
+    projetos: []
   },
   {
     id: "armigh",
@@ -334,7 +431,8 @@ const CLIENTES = [
     pagina: "",
     contas: [],
     driveUrl: "https://drive.google.com/drive/folders/1oaYM-RxLWK8DZzYRTZMHmsARraLZnu9S",
-    pastaCriativos: ""
+    pastaCriativos: "",
+    projetos: []
   },
   {
     id: "real-plan",
@@ -347,7 +445,8 @@ const CLIENTES = [
       {label:"Anunciante", id:"944689576621206", tipo:"VEICULA"}
     ],
     driveUrl: "https://drive.google.com/drive/folders/1xB_AjTsMBE8iaBh5DPRF59ShXnOEy50d",
-    pastaCriativos: ""
+    pastaCriativos: "",
+    projetos: []
   },
   {
     id: "tm-vendas",
@@ -360,7 +459,8 @@ const CLIENTES = [
       {label:"Pri & Tassia 01", id:"857209303367605", tipo:"VEICULA"}
     ],
     driveUrl: "https://drive.google.com/drive/folders/15lasA15a92Q1kJ97en4N4AjtDPBCSAmz",
-    pastaCriativos: ""
+    pastaCriativos: "",
+    projetos: []
   }
 ];
 
@@ -426,12 +526,26 @@ function contasHtml(c){
     </div>`).join('');
 }
 
+function projetosHtml(c){
+  if(!c.projetos || !c.projetos.length) return '<div class="placeholder" style="grid-column:1/-1">nenhum projeto cadastrado ainda</div>';
+  return c.projetos.map(p => `
+    <button class="pcard" onclick="openProject('${c.id}','${p.id}')">
+      <h3>${esc(p.nome)}</h3>
+      <p>${(p.resumo||'').replace(/<[^>]+>/g,'').slice(0,110)}${(p.resumo||'').replace(/<[^>]+>/g,'').length>110?'…':''}</p>
+      <div class="entrar">Abrir projeto →</div>
+    </button>`).join('');
+}
+
+let currentClientId = null;
+
 function openClient(id){
   const c = CLIENTES.find(x => x.id === id);
   if(!c) return;
+  currentClientId = id;
   document.getElementById('cp-avatar').textContent = initials(c.nome);
   document.getElementById('cp-nome').textContent = c.nome;
   document.getElementById('cp-status').textContent = c.status;
+  document.getElementById('cp-projetos').innerHTML = projetosHtml(c);
   document.getElementById('cp-skills').innerHTML = c.skills.length
     ? c.skills.map(s => `<span class="pill solid">${esc(s)}</span>`).join('')
     : '<span class="placeholder">nenhuma skill vinculada ainda</span>';
@@ -442,20 +556,56 @@ function openClient(id){
   document.getElementById('cp-criativos').innerHTML = fieldValue(c.pastaCriativos);
 
   document.getElementById('home').style.display = 'none';
+  document.getElementById('ppage').style.display = 'none';
   document.getElementById('cpage').style.display = 'block';
   window.scrollTo(0,0);
   history.replaceState(null, '', '#' + id);
 }
 
+function openProject(clientId, projectId){
+  const c = CLIENTES.find(x => x.id === clientId);
+  if(!c) return;
+  const p = (c.projetos||[]).find(x => x.id === projectId);
+  if(!p) return;
+  currentClientId = clientId;
+
+  document.getElementById('pp-nome').textContent = p.nome;
+  document.getElementById('pp-cliente').textContent = c.nome;
+  document.getElementById('pp-resumo').innerHTML = p.resumo || '<span class="placeholder">sem resumo cadastrado</span>';
+  document.getElementById('pp-links').innerHTML = (p.links && p.links.length)
+    ? p.links.map(l => `<a class="link-item" href="${esc(l.url)}" target="_blank" rel="noopener"><span class="lbl">${esc(l.label)}</span><span class="go">Abrir →</span></a>`).join('')
+    : '<span class="placeholder">nenhum link cadastrado ainda</span>';
+  document.getElementById('pp-info').innerHTML = (p.info && p.info.length)
+    ? p.info.map(row => `<div class="row"><span class="k">${esc(row.k)}</span><span class="v">${row.v}</span></div>`).join('')
+    : '<span class="placeholder">nenhuma informação cadastrada ainda</span>';
+  document.getElementById('pp-skills').innerHTML = (p.skills && p.skills.length)
+    ? p.skills.map(s => `<span class="pill solid">${esc(s)}</span>`).join('')
+    : '<span class="placeholder">nenhuma skill vinculada a este projeto</span>';
+
+  document.getElementById('home').style.display = 'none';
+  document.getElementById('cpage').style.display = 'none';
+  document.getElementById('ppage').style.display = 'block';
+  window.scrollTo(0,0);
+  history.replaceState(null, '', '#' + clientId + '/' + projectId);
+}
+
 function goHome(){
   document.getElementById('cpage').style.display = 'none';
+  document.getElementById('ppage').style.display = 'none';
   document.getElementById('home').style.display = 'block';
   history.replaceState(null, '', '#');
 }
 
+function goClient(){
+  document.getElementById('ppage').style.display = 'none';
+  if(currentClientId) openClient(currentClientId);
+  else goHome();
+}
+
 renderGrid();
-const hash = location.hash.replace('#','');
-if(hash) openClient(hash);
+const hash = location.hash.replace('#','').split('/');
+if(hash[0] && hash[1]) openProject(hash[0], hash[1]);
+else if(hash[0]) openClient(hash[0]);
 </script>
 </body>
 </html>
