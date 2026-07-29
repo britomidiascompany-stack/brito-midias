@@ -154,6 +154,15 @@
   .note{display:flex;align-items:center;gap:8px;margin-top:12px;font-size:12.5px;color:var(--roxo-dark);font-weight:600}
   .note::before{content:"👉";font-size:15px}
 
+  /* PRINT REAL + destaque */
+  .real{display:block;width:100%;height:auto;}
+  .imgwrap{position:relative;line-height:0}
+  .hlbox{position:absolute;border:3px solid var(--roxo);border-radius:10px;
+    box-shadow:0 0 0 5000px rgba(10,10,15,.38), 0 0 0 6px rgba(124,58,237,.22);
+    pointer-events:none}
+  .imgcap{padding:11px 16px;font-size:12px;color:var(--cinza);background:#fff;border-top:1px solid var(--linha)}
+  .imgcap b{color:var(--roxo-dark);font-weight:600}
+
   /* OBSERVAÇÃO destacada */
   .obs{display:flex;gap:16px;align-items:flex-start;border:1px solid var(--linha);
     border-left:4px solid var(--amarelo);background:#FFFBEB;border-radius:12px;padding:20px 24px;margin-top:32px}
@@ -239,32 +248,11 @@
         <div class="path"><span>Contas do WhatsApp</span><b>›</b><span>selecionar a conta</span><b>›</b><span>Summary</span></div>
         <div class="shot">
           <div class="bar"><i></i><i></i><i></i><span class="url">business.facebook.com/latest/settings/whatsapp_account</span></div>
-          <div class="ui">
-            <div class="rail">
-              <div class="cap">Usuários</div>
-              <div class="grp">Pessoas</div>
-              <div class="grp">Parceiros</div>
-              <div class="cap">Contas</div>
-              <div class="grp">Páginas</div>
-              <div class="grp">Contas de anúncios</div>
-              <div class="grp on">Contas do WhatsApp</div>
-              <div class="grp">Contas do Instagram</div>
-            </div>
-            <div class="main">
-              <div class="tabsx"><span class="on">Summary</span><span>Pessoas</span><span>Parceiros</span><span>Phone numbers</span><span>Preferências</span></div>
-              <h4>ANEX BM</h4>
-              <div class="muted">Nome comercial: ANEX BM · Moeda: USD · Status da conta: Aprovada</div>
-              <div class="card-pay hl">
-                <div class="cc"></div>
-                <div><b>MASTERCARD •••• 5978</b><em>Expira em 10/2029 — forma de pagamento desta conta</em></div>
-              </div>
-              <div class="btnrow">
-                <span class="btnx">Configurações de pagamento</span>
-                <span class="btnx hl">Gerenciador do WhatsApp ↗</span>
-              </div>
-              <div class="note">O cartão que aparece aqui é o que é cobrado por essa conta.</div>
-            </div>
+          <div class="imgwrap">
+            <img class="real" src="./img/passo-2-contas-whatsapp.png" alt="Tela Contas do WhatsApp com o método de pagamento MASTERCARD 5978 em destaque">
+            <div class="hlbox" style="left:46%;top:64.5%;width:17.5%;height:6.8%"></div>
           </div>
+          <div class="imgcap">👉 O <b>método de pagamento</b> (aqui, MASTERCARD •••• 5978) aparece nesta mesma aba <b>Summary</b>.</div>
         </div>
       </div>
     </div>
@@ -291,28 +279,11 @@
         <div class="path"><span>Gerenciador do WhatsApp</span><b>›</b><span>Números de telefone</span><b>›</b><span>clicar no número</span></div>
         <div class="shot">
           <div class="bar"><i></i><i></i><i></i><span class="url">.../whatsapp_manager · Telefones</span></div>
-          <div class="ui">
-            <div class="rail">
-              <div class="grp">Visão geral</div>
-              <div class="cap">Ferramentas da conta</div>
-              <div class="grp">Insights</div>
-              <div class="grp">Limites de mensagens</div>
-              <div class="grp">Flows</div>
-              <div class="grp on">Números de telefone</div>
-              <div class="grp">Catálogo</div>
-            </div>
-            <div class="main">
-              <h4>Telefones</h4>
-              <div class="row hl">
-                <div class="who"><span class="av"></span><div><b>+55 19 99138-5901</b><em>🇧🇷 Brasil · ANEX BM</em></div></div>
-                <div style="display:flex;gap:12px;align-items:center">
-                  <span class="badge on">Conectado</span>
-                  <span style="font-size:11px;color:var(--cinza)"><span class="dot"></span>Alta</span>
-                </div>
-              </div>
-              <div class="note">Clique em cima da linha do número — é isso que abre os Insights dele.</div>
-            </div>
+          <div class="imgwrap">
+            <img class="real" src="./img/passo-4-numeros-telefone.png" alt="Tela Números de telefone com o número +55 19 99138-5901 conectado em destaque">
+            <div class="hlbox" style="left:21%;top:22%;width:77%;height:5.3%"></div>
           </div>
+          <div class="imgcap">👉 Clique em cima da <b>linha do número</b> — é isso que abre os Insights dele.</div>
         </div>
       </div>
     </div>
@@ -329,30 +300,11 @@
         <div class="path"><span>Número selecionado</span><b>›</b><span>aba Insights</span><b>›</b><span>Cobrança total aproximada</span></div>
         <div class="shot">
           <div class="bar"><i></i><i></i><i></i><span class="url">.../whatsapp_manager/insights · +55 19 99138-5901</span></div>
-          <div class="ui">
-            <div class="main" style="border-right:0">
-              <h4>+55 19 99138-5901 · ANEX BM</h4>
-              <div class="muted">Identificação do número: 1176906135508076</div>
-              <div class="tabsx"><span class="on">Insights</span><span>Perfil</span><span>Automações</span><span>Links da mensagem</span><span>Configurações de ligação</span></div>
-              <div class="mcards" style="grid-template-columns:1fr 1fr 1fr">
-                <div class="mc"><small>Mensagens enviadas</small><b>691</b></div>
-                <div class="mc"><small>Mensagens entregues</small><b>691</b></div>
-                <div class="mc"><small>Mensagens recebidas</small><b>624</b></div>
-              </div>
-              <div class="mcards" style="margin-top:8px">
-                <div class="mc"><small>Gratuitas entregues</small><b>634</b>
-                  <div class="mlist"><div class="li"><span>Atend. ao cliente grátis</span><b>634</b></div></div>
-                </div>
-                <div class="mc"><small>Pagas entregues</small><b>57</b>
-                  <div class="mlist"><div class="li"><span>Utilidade</span><b>57</b></div></div>
-                </div>
-                <div class="mc big hl"><small>Cobrança total</small><b>$0,41</b>
-                  <div class="mlist"><div class="li"><span>Utilitárias</span><b>$0,41</b></div></div>
-                </div>
-              </div>
-              <div class="note">O card roxo “Cobrança total aproximada” é o valor que foi cobrado.</div>
-            </div>
+          <div class="imgwrap">
+            <img class="real" src="./img/passo-5-insights.png" alt="Tela de Insights do número +55 19 99138-5901 com a cobrança total aproximada de $0,41 em destaque">
+            <div class="hlbox" style="left:55%;top:81.5%;width:16.6%;height:17.5%"></div>
           </div>
+          <div class="imgcap">👉 O card <b>“Cobrança total aproximada”</b> (aqui, $0,41) é o valor que foi cobrado nesse número.</div>
         </div>
       </div>
     </div>
@@ -368,13 +320,11 @@
         <div class="path"><span>Insights</span><b>›</b><span>seletor de data</span><b>›</b><span>escolher o período</span></div>
         <div class="shot">
           <div class="bar"><i></i><i></i><i></i><span class="url">.../whatsapp_manager/insights</span></div>
-          <div class="ui">
-            <div class="main" style="border-right:0">
-              <div class="muted" style="margin-bottom:8px">Insights sobre entrega de mensagens</div>
-              <span class="datesel hl">📅 1 de jul de 2026 a 28 de jul de 2026 ▾</span>
-              <div class="note">Clique aqui e escolha o mês ou intervalo que você quer consultar.</div>
-            </div>
+          <div class="imgwrap">
+            <img class="real" src="./img/passo-6-data.png" alt="Seletor de datas do Insights, mostrando o período de 1 a 28 de julho de 2026">
+            <div class="hlbox" style="left:36%;top:6%;width:62%;height:36%"></div>
           </div>
+          <div class="imgcap">👉 Clique nesse seletor (ex.: “1 de jul a 28 de jul de 2026”) e escolha o período que precisa.</div>
         </div>
       </div>
     </div>
