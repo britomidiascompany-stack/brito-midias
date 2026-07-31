@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carta do Augusto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  /* =========================================================
+     PALCO FIXO 1920 x 1080 (16:9)
+     Escala inteiro para caber em qualquer tela, sem deformar.
+     ========================================================= */
+  :root{ --azul:#0B4EE3; --branco:#FFFFFF; --s:1; }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%;overflow:hidden;background:var(--azul)}
+  body{font-family:'Montserrat',sans-serif;-webkit-font-smoothing:antialiased}
+
+  .palco{
+    position:fixed;left:50%;top:50%;
+    width:1920px;height:1080px;
+    transform:translate(-50%,-50%) scale(var(--s));
+    transform-origin:center center;
+  }
+
+  .slide{
+    position:absolute;inset:0;display:none;
+    flex-direction:column;align-items:center;justify-content:center;
+    padding:90px 150px;text-align:center;
+    background:var(--azul);color:var(--branco);
+  }
+  .slide.on{display:flex}
+  .slide.inv{background:var(--branco);color:var(--azul)}
+
+  .slide::before{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);
+    background-size:80px 80px;
+  }
+  .slide.inv::before{
+    background-image:linear-gradient(rgba(11,78,227,.05) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(11,78,227,.05) 1px,transparent 1px);
+  }
+  .slide>*{position:relative;z-index:1}
+
+  h1{font-weight:800;font-size:104px;line-height:1.03;letter-spacing:-.03em}
+  h2{font-weight:800;font-size:70px;line-height:1.1;letter-spacing:-.025em}
+  .kicker{font-weight:700;font-size:20px;letter-spacing:.42em;text-transform:uppercase;opacity:.7;margin-bottom:44px}
+  .corpo{font-weight:500;font-size:34px;line-height:1.5;max-width:24ch;margin-top:44px;opacity:.95}
+  .corpo.wide{max-width:34ch}
+  .assin{font-weight:700;font-size:24px;letter-spacing:.2em;text-transform:uppercase;margin-top:54px;opacity:.8}
+  .rule{width:110px;height:6px;background:currentColor;opacity:.45;margin:46px auto}
+
+  .letra-wrap{display:flex;align-items:center;gap:110px;text-align:left;max-width:1620px}
+  .letra{font-weight:900;font-size:340px;line-height:.8;letter-spacing:-.06em;color:var(--branco);opacity:.26;flex-shrink:0}
+  .letra-txt .palavra{font-weight:800;font-size:82px;line-height:1;letter-spacing:-.02em;text-transform:uppercase;margin-bottom:30px}
+  .letra-txt .frase{font-weight:500;font-size:32px;line-height:1.5;max-width:26ch;opacity:.95}
+
+  .nav{position:fixed;bottom:16px;right:20px;z-index:30;display:flex;gap:8px;align-items:center;
+    font-size:12px;font-weight:600;letter-spacing:.1em;color:rgba(255,255,255,.45)}
+  .nav button{background:rgba(150,150,150,.22);border:none;color:inherit;width:30px;height:30px;
+    border-radius:50%;cursor:pointer;font-size:14px;line-height:1}
+  .hint{position:fixed;bottom:16px;left:20px;z-index:30;font-size:11px;font-weight:600;
+    letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.32)}
+  .nav.esconde,.hint.esconde{opacity:0;transition:opacity .4s}
+
+  /* ---- PDF / impressão: 16:9 (13,333in x 7,5in) ---- */
+  @page{ size:13.333in 7.5in; margin:0 }
+  @media print{
+    html,body{overflow:visible;height:auto;background:#fff}
+    .palco{position:static;width:auto;height:auto;transform:none;zoom:.6667}
+    .slide{position:relative;display:flex!important;width:1920px;height:1080px;page-break-after:always;break-after:page}
+    .nav,.hint{display:none}
+  }
+</style>
+</head>
+<body>
+<div class="palco" id="palco">
+
+  <!-- 01 -->
+  <section class="slide inv">
+    <div class="kicker">Transmissão recebida</div>
+    <h1>UMA CARTA<br>DO FUTURO</h1>
+  </section>
+
+  <!-- 02 -->
+  <section class="slide">
+    <h1>ANO 2044</h1>
+    <div class="corpo wide">Dezoito anos à frente.</div>
+  </section>
+
+  <!-- 03 -->
+  <section class="slide inv">
+    <h1>Oi, papai.<br>Oi, mamãe.</h1>
+  </section>
+
+  <!-- 04 -->
+  <section class="slide">
+    <h2>Eu mandei essa carta do futuro<br>pra contar umas coisas<br>pra vocês.</h2>
+  </section>
+
+  <!-- 05 -->
+  <section class="slide inv">
+    <h2>E como tudo na nossa família<br>sempre foi alegre,<br>eu quis fazer de um jeito divertido.</h2>
+  </section>
+
+  <!-- 06 -->
+  <section class="slide">
+    <h1>DO JEITO QUE<br>O PAPAI AMA:</h1>
+    <div class="corpo wide">com um acrônimo.</div>
+  </section>
+
+  <!-- 07 -->
+  <section class="slide inv">
+    <div class="kicker">Tudo o que vocês me ensinaram</div>
+    <h1>SUBIDO PRO</h1>
+  </section>
+
+  <!-- 08 S -->
+  <section class="slide">
+    <div class="letra-wrap">
+      <div class="letra">S</div>
+      <div class="letra-txt">
+        <div class="palavra">Sabedoria</div>
+        <div class="frase">Vocês sempre foram estudiosos, curiosos, inquietos. Nunca pararam de aprender, e isso passou pra mim.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 09 U -->
+  <section class="slide">
+    <div class="letra-wrap">
+      <div class="letra">U</div>
+      <div class="letra-txt">
+        <div class="palavra">Usufruir</div>
+        <div class="frase">Não basta conquistar, tem que aproveitar. Muita gente aprende só a primeira metade. Vocês me ensinaram as duas.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 B -->
+  <section class="slide">
+    <div class="letra-wrap">
+      <div class="letra">B</div>
+      <div class="letra-txt">
+        <div class="palavra">Bondade</div>
+        <div class="frase">Eu vi vocês serem bons com quem estava perto e com quem nem conheciam. Sem plateia, sem ninguém olhando.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11 I -->
+  <section class="slide">
+    <div class="letra-wrap">
+      <div class="letra">I</div>
+      <div class="letra-txt">
+        <div class="palavra">Integridade</div>
+        <div class="frase">No trabalho, com as pessoas à sua volta, dentro de casa e com quem a gente nem conhece. Essa é uma das maiores lições que vocês me deram.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12 D -->
+  <section class="slide">
+    <div class="letra-wrap">
+      <div class="letra">D</div>
+      <div class="letra-txt">
+        <div class="palavra">Deus</div>
+        <div class="frase">O pilar da nossa família desde antes de eu nascer, e que me acompanhou durante todo o meu crescimento. Soube que vocês levaram até um padre para abençoar o Subido ao Vivo. Obrigado por terem me ensinado a ter fé.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 13 O -->
+  <section class="slide">
+    <div class="letra-wrap">
+      <div class="letra">O</div>
+      <div class="letra-txt">
+        <div class="palavra">Ousadia</div>
+        <div class="frase">Vocês nunca tiveram medo de revolucionar, de começar algo novo, de trazer o melhor. Tiveram medo, e foram do mesmo jeito. Foi assim que eu aprendi que quem define o meu teto sou eu.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 14 P -->
+  <section class="slide">
+    <div class="letra-wrap">
+      <div class="letra">P</div>
+      <div class="letra-txt">
+        <div class="palavra">Presença</div>
+        <div class="frase">Vocês tinham todos os motivos do mundo pra trabalhar mais um pouquinho. E escolheram estar.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 15 R -->
+  <section class="slide">
+    <div class="letra-wrap">
+      <div class="letra">R</div>
+      <div class="letra-txt">
+        <div class="palavra">Risadas</div>
+        <div class="frase">Papai, a sua gargalhada é a mais icônica que eu já vi. Sempre que você ri, me dá vontade de rir junto. Eu cresci dentro dessa alegria.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 16 O -->
+  <section class="slide">
+    <div class="letra-wrap">
+      <div class="letra">O</div>
+      <div class="letra-txt">
+        <div class="palavra">Obrigado</div>
+        <div class="frase">Por serem quem vocês são. Pelos sacrifícios, pelo trabalho, pelas noites mal dormidas que eu nunca vi, mas sei que existiram.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 17 -->
+  <section class="slide inv">
+    <h2>Vocês transformaram<br>a vida de muita gente.</h2>
+    <div class="rule"></div>
+    <h2>Mas a vida que vocês mais<br>transformaram foi a vida<br>do seu filho, Augusto.</h2>
+  </section>
+
+  <!-- 18 -->
+  <section class="slide">
+    <h2>Obviamente,<br>a gente não consegue<br>vir do futuro.</h2>
+  </section>
+
+  <!-- 19 -->
+  <section class="slide inv">
+    <h2>Mas tudo isso é o que a gente<br>enxerga em vocês hoje.</h2>
+    <div class="corpo wide">E é o que a gente deseja, do fundo do coração, que o pequeno Augusto tenha na vida.</div>
+  </section>
+
+  <!-- 20 -->
+  <section class="slide">
+    <h2>Ele vai ter motivos de sobra<br>pra se orgulhar de vocês.</h2>
+  </section>
+
+  <!-- 21 -->
+  <section class="slide inv">
+    <div class="kicker">Um dia, na escola</div>
+    <h1>“MEUS PAIS<br>TRANSFORMAM<br>VIDAS.”</h1>
+  </section>
+
+  <!-- 22 -->
+  <section class="slide">
+    <h2>E essas vidas<br>não são um número.</h2>
+    <div class="corpo wide">Elas têm nome, têm rosto, e quatro delas estão aqui hoje.</div>
+  </section>
+
+  <!-- 23 -->
+  <section class="slide inv">
+    <div class="kicker">Ao vivo</div>
+    <h1>O LEGADO DO<br>GRUPO PERMANEO</h1>
+  </section>
+
+  <!-- 24 -->
+  <section class="slide">
+    <h2>Mas ainda<br>não acabou.</h2>
+    <div class="corpo wide">A gente começou pelo futuro, foi ao passado, voltou ao presente. E vai terminar no futuro de novo.</div>
+  </section>
+
+  <!-- 25 -->
+  <section class="slide inv">
+    <h2>Vocês não apenas construíram<br>condições para dar uma vida boa<br>ao Augusto e à sua família.</h2>
+    <div class="corpo wide">Existem tantas outras crianças e outras famílias que também terão uma vida boa por conta de vocês.</div>
+  </section>
+
+  <!-- 26 -->
+  <section class="slide">
+    <div class="kicker">As famílias</div>
+    <h2>[ NOMES E FOTOS ]</h2>
+  </section>
+
+  <!-- 27 -->
+  <section class="slide inv">
+    <div class="kicker">Alguém quer falar com vocês</div>
+    <h1>[ VÍDEO ]</h1>
+  </section>
+
+  <!-- 28 -->
+  <section class="slide">
+    <h1>VOCÊS JÁ<br>TRANSFORMARAM<br>A VIDA DE QUEM<br>AINDA NEM NASCEU.</h1>
+  </section>
+
+  <!-- 29 -->
+  <section class="slide inv">
+    <div class="kicker">Em nome de todos os Subidos Pro</div>
+    <h1>MUITO<br>OBRIGADO.</h1>
+  </section>
+
+  <!-- 30 -->
+  <section class="slide">
+    <h2>Pedro &amp; Priscila</h2>
+    <div class="assin">2026</div>
+  </section>
+
+</div>
+
+<div class="hint" id="hint">← → navegar · F tela cheia</div>
+<div class="nav" id="nav">
+  <button onclick="ir(-1)">‹</button>
+  <span id="contador">1</span>
+  <button onclick="ir(1)">›</button>
+</div>
+
+<script>
+  const slides=[...document.querySelectorAll('.slide')];
+  const contador=document.getElementById('contador');
+  const nav=document.getElementById('nav'), hint=document.getElementById('hint');
+  let i=0;
+
+  /* escala o palco 1920x1080 para caber na tela */
+  function ajustar(){
+    const s=Math.min(window.innerWidth/1920, window.innerHeight/1080);
+    document.documentElement.style.setProperty('--s', s);
+  }
+  window.addEventListener('resize', ajustar);
+
+  function mostrar(n){
+    slides[i].classList.remove('on');
+    i=Math.max(0,Math.min(slides.length-1,n));
+    slides[i].classList.add('on');
+    contador.textContent=(i+1)+'/'+slides.length;
+    const claro=slides[i].classList.contains('inv');
+    /* fundo da página acompanha o slide, para as bordas não destoarem */
+    document.body.style.background = claro ? '#FFFFFF' : '#0B4EE3';
+    nav.style.color  = claro?'rgba(11,78,227,.45)':'rgba(255,255,255,.45)';
+    hint.style.color = claro?'rgba(11,78,227,.32)':'rgba(255,255,255,.32)';
+  }
+  function ir(d){mostrar(i+d)}
+
+  document.addEventListener('keydown',e=>{
+    if(['ArrowRight','ArrowDown',' ','PageDown','Enter'].includes(e.key)){e.preventDefault();ir(1)}
+    if(['ArrowLeft','ArrowUp','PageUp','Backspace'].includes(e.key)){e.preventDefault();ir(-1)}
+    if(e.key==='Home')mostrar(0);
+    if(e.key==='End')mostrar(slides.length-1);
+    if(e.key.toLowerCase()==='f'){
+      document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+    }
+  });
+  document.addEventListener('click',e=>{if(!e.target.closest('.nav'))ir(1)});
+
+  /* esconde os controles quando o mouse para */
+  let t; document.addEventListener('mousemove',()=>{
+    nav.classList.remove('esconde');hint.classList.remove('esconde');
+    clearTimeout(t);t=setTimeout(()=>{nav.classList.add('esconde');hint.classList.add('esconde')},2500);
+  });
+
+  ajustar(); mostrar(0);
+</script>
+</body>
+</html>
