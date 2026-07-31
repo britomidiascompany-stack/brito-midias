@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="robots" content="noindex, nofollow">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <title>Carta do Augusto</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -135,13 +135,6 @@
     letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.32)}
   .nav.esconde,.hint.esconde{opacity:0;transition:opacity .4s}
 
-  @page{ size:13.333in 7.5in; margin:0 }
-  @media print{
-    html,body{overflow:visible;height:auto;background:#fff}
-    .palco{position:static;width:auto;height:auto;transform:none;zoom:.6667}
-    .slide{position:relative;display:flex!important;width:1920px;height:1080px;page-break-after:always;break-after:page}
-    .nav,.hint{display:none}
-  }
 </style>
 </head>
 <body>
@@ -615,6 +608,16 @@
     nav.classList.remove('esconde');hint.classList.remove('esconde');
     clearTimeout(t);t=setTimeout(()=>{nav.classList.add('esconde');hint.classList.add('esconde')},2500);
   });
+
+  /* deslizar o dedo no celular */
+  let tx=0, ty=0;
+  document.addEventListener('touchstart', e=>{
+    tx=e.changedTouches[0].clientX; ty=e.changedTouches[0].clientY;
+  }, {passive:true});
+  document.addEventListener('touchend', e=>{
+    const dx=e.changedTouches[0].clientX-tx, dy=e.changedTouches[0].clientY-ty;
+    if(Math.abs(dx)>40 && Math.abs(dx)>Math.abs(dy)) ir(dx<0?1:-1);
+  }, {passive:true});
 
   ajustar(); mostrar(0);
 </script>
