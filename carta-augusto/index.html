@@ -79,6 +79,24 @@
   }
   .marca small{display:block;font-size:16px;letter-spacing:.12em;text-transform:none;font-weight:500;opacity:.8;max-width:34ch}
 
+  /* ---------- SLIDES DE ANTES E DEPOIS ---------- */
+  .slide.ad{padding:70px 80px;justify-content:flex-start}
+  .ad-topo{font-weight:700;font-size:19px;letter-spacing:.34em;text-transform:uppercase;opacity:.62;margin-bottom:16px}
+  .ad-nome{font-weight:800;font-size:62px;letter-spacing:-.02em;line-height:1}
+  .ad-cols{display:flex;align-items:stretch;width:100%;margin-top:38px}
+  .ad-col{flex:1;display:flex;flex-direction:column;align-items:center;padding:0 46px}
+  .ad-div{width:2px;background:rgba(255,255,255,.26);flex-shrink:0}
+  .ad-label{font-weight:800;font-size:24px;letter-spacing:.36em;text-transform:uppercase;opacity:.7;margin-bottom:22px}
+  .leque{display:flex;align-items:center;justify-content:center;height:380px;margin-bottom:24px}
+  .leque img{
+    width:236px;height:320px;object-fit:cover;background:#08142f;
+    border:8px solid #fff;box-shadow:0 22px 46px rgba(0,0,0,.5)
+  }
+  .leque.dois img:first-child{transform:rotate(-7deg);margin-right:-34px}
+  .leque.dois img:last-child{transform:rotate(6deg);margin-left:-34px;z-index:2}
+  .leque.um img{width:286px;height:380px;transform:rotate(-2deg)}
+  .ad-txt{font-weight:500;font-size:25px;line-height:1.45;max-width:31ch;opacity:.95}
+
   .nav{position:fixed;bottom:16px;right:20px;z-index:30;display:flex;gap:8px;align-items:center;
     font-size:12px;font-weight:600;letter-spacing:.1em;color:rgba(255,255,255,.45)}
   .nav button{background:rgba(150,150,150,.22);border:none;color:inherit;width:30px;height:30px;
@@ -296,72 +314,93 @@
     <div class="corpo wide">Existem tantas outras crianças e outras famílias que também terão uma vida boa por conta de vocês.</div>
   </section>
 
-  <!-- ============ ESPAÇO PARA AS HISTÓRIAS ============
-       Salve as imagens na pasta "fotos" com os nomes
-       01.jpg, 02.jpg, 03.jpg, 04.jpg, 05.jpg, 06.jpg
-       e edite o nome e o texto de cada legenda.
-       Slides que sobrarem, é só pular na apresentação.
-  ==================================================== -->
+  <!-- ============ AS HISTÓRIAS: ANTES E DEPOIS ============
+       Fotos na pasta "fotos". Para novas histórias, duplique
+       um bloco e troque as imagens, o nome e os dois textos.
+  ======================================================= -->
 
-  <!-- 26 -->
-  <section class="slide foto">
-    <img src="fotos/01.jpg" alt="" onerror="this.style.display='none'">
-    <div class="marca">Foto 01<small>Salve a imagem como <b>fotos/01.jpg</b></small></div>
-    <div class="legenda">
-      <div class="nome">[ NOME ]</div>
-      <div class="txt">[ uma linha sobre a história dessa pessoa ]</div>
+  <!-- 26 — NEMORA SCHUH -->
+  <section class="slide ad">
+    <div class="ad-topo">Antes e depois de vocês entrarem na minha vida</div>
+    <div class="ad-nome">Nemora Schuh</div>
+    <div class="ad-cols">
+      <div class="ad-col">
+        <div class="ad-label">Antes</div>
+        <div class="leque um"><img src="fotos/nemora-antes.jpg" alt=""></div>
+        <div class="ad-txt">Chefe de gabinete na política, incomodada de viver à sombra da carreira de outra pessoa. Em 2021 veio o diagnóstico de câncer.</div>
+      </div>
+      <div class="ad-div"></div>
+      <div class="ad-col">
+        <div class="ad-label">Depois</div>
+        <div class="leque um"><img src="fotos/nemora-depois.jpg" alt=""></div>
+        <div class="ad-txt">Trabalhou entre uma quimio e outra. Pediu demissão e foi ao primeiro Subido ao Vivo careca. Hoje é Master e consultora.</div>
+      </div>
     </div>
   </section>
 
-  <!-- 27 -->
-  <section class="slide foto">
-    <img src="fotos/02.jpg" alt="" onerror="this.style.display='none'">
-    <div class="marca">Foto 02<small>Salve a imagem como <b>fotos/02.jpg</b></small></div>
-    <div class="legenda">
-      <div class="nome">[ NOME ]</div>
-      <div class="txt">[ uma linha sobre a história dessa pessoa ]</div>
+  <!-- 27 — PAULO BRAGA -->
+  <section class="slide ad">
+    <div class="ad-topo">Antes e depois de vocês entrarem na minha vida</div>
+    <div class="ad-nome">Paulo Braga</div>
+    <div class="ad-cols">
+      <div class="ad-col">
+        <div class="ad-label">Antes</div>
+        <div class="leque dois">
+          <img src="fotos/paulo-antes-1.jpg" alt="">
+          <img src="fotos/paulo-antes-2.jpg" alt="">
+        </div>
+        <div class="ad-txt">Doze anos na loja de roupas da família. A pandemia desarrumou tudo, e o segundo filho vinha a caminho.</div>
+      </div>
+      <div class="ad-div"></div>
+      <div class="ad-col">
+        <div class="ad-label">Depois</div>
+        <div class="leque dois">
+          <img src="fotos/paulo-depois-1.jpg" alt="">
+          <img src="fotos/paulo-depois-2.jpg" alt="">
+        </div>
+        <div class="ad-txt">A esposa comprou o ingresso do Subido ao Vivo de surpresa, parcelado. Hoje a PB5 fatura quase R$ 100 mil.</div>
+      </div>
     </div>
   </section>
 
-  <!-- 28 -->
-  <section class="slide foto">
-    <img src="fotos/03.jpg" alt="" onerror="this.style.display='none'">
-    <div class="marca">Foto 03<small>Salve a imagem como <b>fotos/03.jpg</b></small></div>
-    <div class="legenda">
-      <div class="nome">[ NOME ]</div>
-      <div class="txt">[ uma linha sobre a história dessa pessoa ]</div>
+  <!-- 28 — RAFAEL LEMOS -->
+  <section class="slide ad">
+    <div class="ad-topo">Antes e depois de vocês entrarem na minha vida</div>
+    <div class="ad-nome">Rafael Lemos</div>
+    <div class="ad-cols">
+      <div class="ad-col">
+        <div class="ad-label">Antes</div>
+        <div class="leque um"><img src="fotos/rafael-antes.jpg" alt=""></div>
+        <div class="ad-txt">Um acidente o deixou quebrado no hospital. Foi desligado da empresa sem direito nenhum, antes mesmo de se recuperar. Precisou se reconstruir do zero, física e financeiramente.</div>
+      </div>
+      <div class="ad-div"></div>
+      <div class="ad-col">
+        <div class="ad-label">Depois</div>
+        <div class="leque um"><img src="fotos/rafael-depois.jpg" alt=""></div>
+        <div class="ad-txt">A irmã o apresentou ao tráfego pago e montaram a operação juntos. Veio oportunidade também para a esposa, e a família trocou o Rio de Janeiro pelo interior da Bahia.</div>
+      </div>
     </div>
   </section>
 
-  <!-- 29 -->
-  <section class="slide foto">
-    <img src="fotos/04.jpg" alt="" onerror="this.style.display='none'">
-    <div class="marca">Foto 04<small>Salve a imagem como <b>fotos/04.jpg</b></small></div>
-    <div class="legenda">
-      <div class="nome">[ NOME ]</div>
-      <div class="txt">[ uma linha sobre a história dessa pessoa ]</div>
+  <!-- 29 — HISTÓRIA 4 (aguardando material) -->
+  <section class="slide ad">
+    <div class="ad-topo">Antes e depois de vocês entrarem na minha vida</div>
+    <div class="ad-nome">[ NOME ]</div>
+    <div class="ad-cols">
+      <div class="ad-col">
+        <div class="ad-label">Antes</div>
+        <div class="leque um"><img src="fotos/04-antes.jpg" alt="" onerror="this.style.opacity=.15"></div>
+        <div class="ad-txt">[ como era a vida antes ]</div>
+      </div>
+      <div class="ad-div"></div>
+      <div class="ad-col">
+        <div class="ad-label">Depois</div>
+        <div class="leque um"><img src="fotos/04-depois.jpg" alt="" onerror="this.style.opacity=.15"></div>
+        <div class="ad-txt">[ o que conquistou depois ]</div>
+      </div>
     </div>
   </section>
 
-  <!-- 30 -->
-  <section class="slide foto">
-    <img src="fotos/05.jpg" alt="" onerror="this.style.display='none'">
-    <div class="marca">Foto 05<small>Salve a imagem como <b>fotos/05.jpg</b></small></div>
-    <div class="legenda">
-      <div class="nome">[ NOME ]</div>
-      <div class="txt">[ uma linha sobre a história dessa pessoa ]</div>
-    </div>
-  </section>
-
-  <!-- 31 -->
-  <section class="slide foto">
-    <img src="fotos/06.jpg" alt="" onerror="this.style.display='none'">
-    <div class="marca">Foto 06<small>Salve a imagem como <b>fotos/06.jpg</b></small></div>
-    <div class="legenda">
-      <div class="nome">[ NOME ]</div>
-      <div class="txt">[ uma linha sobre a história dessa pessoa ]</div>
-    </div>
-  </section>
 
   <!-- 32 — vídeo -->
   <section class="slide inv">
