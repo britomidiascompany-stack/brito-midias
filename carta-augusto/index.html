@@ -11,7 +11,6 @@
 <style>
   /* =========================================================
      PALCO FIXO 1920 x 1080 (16:9)
-     Escala inteiro para caber em qualquer tela, sem deformar.
      ========================================================= */
   :root{ --azul:#0B4EE3; --branco:#FFFFFF; --s:1; }
   *{margin:0;padding:0;box-sizing:border-box}
@@ -29,7 +28,7 @@
     position:absolute;inset:0;display:none;
     flex-direction:column;align-items:center;justify-content:center;
     padding:90px 150px;text-align:center;
-    background:var(--azul);color:var(--branco);
+    background:var(--azul);color:var(--branco);overflow:hidden;
   }
   .slide.on{display:flex}
   .slide.inv{background:var(--branco);color:var(--azul)}
@@ -44,6 +43,7 @@
     background-image:linear-gradient(rgba(11,78,227,.05) 1px,transparent 1px),
                      linear-gradient(90deg,rgba(11,78,227,.05) 1px,transparent 1px);
   }
+  .slide.foto::before{display:none}
   .slide>*{position:relative;z-index:1}
 
   h1{font-weight:800;font-size:104px;line-height:1.03;letter-spacing:-.03em}
@@ -51,13 +51,33 @@
   .kicker{font-weight:700;font-size:20px;letter-spacing:.42em;text-transform:uppercase;opacity:.7;margin-bottom:44px}
   .corpo{font-weight:500;font-size:34px;line-height:1.5;max-width:24ch;margin-top:44px;opacity:.95}
   .corpo.wide{max-width:34ch}
-  .assin{font-weight:700;font-size:24px;letter-spacing:.2em;text-transform:uppercase;margin-top:54px;opacity:.8}
   .rule{width:110px;height:6px;background:currentColor;opacity:.45;margin:46px auto}
 
   .letra-wrap{display:flex;align-items:center;gap:110px;text-align:left;max-width:1620px}
   .letra{font-weight:900;font-size:340px;line-height:.8;letter-spacing:-.06em;color:var(--branco);opacity:.26;flex-shrink:0}
   .letra-txt .palavra{font-weight:800;font-size:82px;line-height:1;letter-spacing:-.02em;text-transform:uppercase;margin-bottom:30px}
   .letra-txt .frase{font-weight:500;font-size:32px;line-height:1.5;max-width:26ch;opacity:.95}
+
+  /* ---------- SLIDES DE FOTO ----------
+     Para usar: crie a pasta "fotos" ao lado deste arquivo
+     e salve as imagens como 01.jpg, 02.jpg, 03.jpg...
+     Se a foto não existir, aparece a marcação de espaço.
+  ------------------------------------- */
+  .slide.foto{padding:0;background:#07132E}
+  .slide.foto img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+  .slide.foto .legenda{
+    position:absolute;left:0;right:0;bottom:0;z-index:2;
+    padding:120px 120px 90px;text-align:left;color:#fff;
+    background:linear-gradient(to top, rgba(4,12,32,.92) 12%, rgba(4,12,32,.55) 55%, transparent 100%);
+  }
+  .slide.foto .legenda .nome{font-weight:800;font-size:72px;line-height:1.05;letter-spacing:-.02em}
+  .slide.foto .legenda .txt{font-weight:500;font-size:32px;line-height:1.45;max-width:44ch;margin-top:18px;opacity:.92}
+  .marca{
+    position:absolute;inset:80px;z-index:1;border:4px dashed rgba(255,255,255,.28);border-radius:20px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;color:rgba(255,255,255,.55);
+    font-weight:700;letter-spacing:.3em;text-transform:uppercase;font-size:24px;gap:16px;text-align:center;padding:40px
+  }
+  .marca small{display:block;font-size:16px;letter-spacing:.12em;text-transform:none;font-weight:500;opacity:.8;max-width:34ch}
 
   .nav{position:fixed;bottom:16px;right:20px;z-index:30;display:flex;gap:8px;align-items:center;
     font-size:12px;font-weight:600;letter-spacing:.1em;color:rgba(255,255,255,.45)}
@@ -67,7 +87,6 @@
     letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.32)}
   .nav.esconde,.hint.esconde{opacity:0;transition:opacity .4s}
 
-  /* ---- PDF / impressão: 16:9 (13,333in x 7,5in) ---- */
   @page{ size:13.333in 7.5in; margin:0 }
   @media print{
     html,body{overflow:visible;height:auto;background:#fff}
@@ -202,7 +221,7 @@
       <div class="letra">R</div>
       <div class="letra-txt">
         <div class="palavra">Risadas</div>
-        <div class="frase">Papai, a sua gargalhada é a mais icônica que eu já vi. Sempre que você ri, me dá vontade de rir junto. Eu cresci dentro dessa alegria.</div>
+        <div class="frase">Papai, a sua gargalhada é a trilha sonora da minha infância. Dava pra ouvir do outro lado da casa. É a risada mais icônica que eu já vi, e sempre que você sorri, me dá vontade de sorrir também.</div>
       </div>
     </div>
   </section>
@@ -213,7 +232,7 @@
       <div class="letra">O</div>
       <div class="letra-txt">
         <div class="palavra">Obrigado</div>
-        <div class="frase">Por serem quem vocês são. Pelos sacrifícios, pelo trabalho, pelas noites mal dormidas que eu nunca vi, mas sei que existiram.</div>
+        <div class="frase">Por serem quem vocês são e por fazerem tudo que vocês fizeram. Todos os sacrifícios, todo o trabalho, todo o tempo dedicado.</div>
       </div>
     </div>
   </section>
@@ -253,7 +272,7 @@
     <div class="corpo wide">Elas têm nome, têm rosto, e quatro delas estão aqui hoje.</div>
   </section>
 
-  <!-- 23 -->
+  <!-- 23 — deixa para os 4 depoimentos -->
   <section class="slide inv">
     <div class="kicker">Ao vivo</div>
     <h1>O LEGADO DO<br>GRUPO PERMANEO</h1>
@@ -271,33 +290,93 @@
     <div class="corpo wide">Existem tantas outras crianças e outras famílias que também terão uma vida boa por conta de vocês.</div>
   </section>
 
+  <!-- ============ ESPAÇO PARA AS HISTÓRIAS ============
+       Salve as imagens na pasta "fotos" com os nomes
+       01.jpg, 02.jpg, 03.jpg, 04.jpg, 05.jpg, 06.jpg
+       e edite o nome e o texto de cada legenda.
+       Slides que sobrarem, é só pular na apresentação.
+  ==================================================== -->
+
   <!-- 26 -->
-  <section class="slide">
-    <div class="kicker">As famílias</div>
-    <h2>[ NOMES E FOTOS ]</h2>
+  <section class="slide foto">
+    <img src="fotos/01.jpg" alt="" onerror="this.style.display='none'">
+    <div class="marca">Foto 01<small>Salve a imagem como <b>fotos/01.jpg</b></small></div>
+    <div class="legenda">
+      <div class="nome">[ NOME ]</div>
+      <div class="txt">[ uma linha sobre a história dessa pessoa ]</div>
+    </div>
   </section>
 
   <!-- 27 -->
+  <section class="slide foto">
+    <img src="fotos/02.jpg" alt="" onerror="this.style.display='none'">
+    <div class="marca">Foto 02<small>Salve a imagem como <b>fotos/02.jpg</b></small></div>
+    <div class="legenda">
+      <div class="nome">[ NOME ]</div>
+      <div class="txt">[ uma linha sobre a história dessa pessoa ]</div>
+    </div>
+  </section>
+
+  <!-- 28 -->
+  <section class="slide foto">
+    <img src="fotos/03.jpg" alt="" onerror="this.style.display='none'">
+    <div class="marca">Foto 03<small>Salve a imagem como <b>fotos/03.jpg</b></small></div>
+    <div class="legenda">
+      <div class="nome">[ NOME ]</div>
+      <div class="txt">[ uma linha sobre a história dessa pessoa ]</div>
+    </div>
+  </section>
+
+  <!-- 29 -->
+  <section class="slide foto">
+    <img src="fotos/04.jpg" alt="" onerror="this.style.display='none'">
+    <div class="marca">Foto 04<small>Salve a imagem como <b>fotos/04.jpg</b></small></div>
+    <div class="legenda">
+      <div class="nome">[ NOME ]</div>
+      <div class="txt">[ uma linha sobre a história dessa pessoa ]</div>
+    </div>
+  </section>
+
+  <!-- 30 -->
+  <section class="slide foto">
+    <img src="fotos/05.jpg" alt="" onerror="this.style.display='none'">
+    <div class="marca">Foto 05<small>Salve a imagem como <b>fotos/05.jpg</b></small></div>
+    <div class="legenda">
+      <div class="nome">[ NOME ]</div>
+      <div class="txt">[ uma linha sobre a história dessa pessoa ]</div>
+    </div>
+  </section>
+
+  <!-- 31 -->
+  <section class="slide foto">
+    <img src="fotos/06.jpg" alt="" onerror="this.style.display='none'">
+    <div class="marca">Foto 06<small>Salve a imagem como <b>fotos/06.jpg</b></small></div>
+    <div class="legenda">
+      <div class="nome">[ NOME ]</div>
+      <div class="txt">[ uma linha sobre a história dessa pessoa ]</div>
+    </div>
+  </section>
+
+  <!-- 32 — vídeo -->
   <section class="slide inv">
     <div class="kicker">Alguém quer falar com vocês</div>
     <h1>[ VÍDEO ]</h1>
   </section>
 
-  <!-- 28 -->
+  <!-- 33 — a pausa antes do fecho -->
   <section class="slide">
+    <h1>E o impressionante...</h1>
+  </section>
+
+  <!-- 34 -->
+  <section class="slide inv">
     <h1>VOCÊS JÁ<br>TRANSFORMARAM<br>A VIDA DE QUEM<br>AINDA NEM NASCEU.</h1>
   </section>
 
-  <!-- 29 -->
-  <section class="slide inv">
+  <!-- 35 -->
+  <section class="slide">
     <div class="kicker">Em nome de todos os Subidos Pro</div>
     <h1>MUITO<br>OBRIGADO.</h1>
-  </section>
-
-  <!-- 30 -->
-  <section class="slide">
-    <h2>Pedro &amp; Priscila</h2>
-    <div class="assin">2026</div>
   </section>
 
 </div>
@@ -315,7 +394,6 @@
   const nav=document.getElementById('nav'), hint=document.getElementById('hint');
   let i=0;
 
-  /* escala o palco 1920x1080 para caber na tela */
   function ajustar(){
     const s=Math.min(window.innerWidth/1920, window.innerHeight/1080);
     document.documentElement.style.setProperty('--s', s);
@@ -328,8 +406,8 @@
     slides[i].classList.add('on');
     contador.textContent=(i+1)+'/'+slides.length;
     const claro=slides[i].classList.contains('inv');
-    /* fundo da página acompanha o slide, para as bordas não destoarem */
-    document.body.style.background = claro ? '#FFFFFF' : '#0B4EE3';
+    const foto=slides[i].classList.contains('foto');
+    document.body.style.background = foto ? '#07132E' : (claro ? '#FFFFFF' : '#0B4EE3');
     nav.style.color  = claro?'rgba(11,78,227,.45)':'rgba(255,255,255,.45)';
     hint.style.color = claro?'rgba(11,78,227,.32)':'rgba(255,255,255,.32)';
   }
@@ -346,7 +424,6 @@
   });
   document.addEventListener('click',e=>{if(!e.target.closest('.nav'))ir(1)});
 
-  /* esconde os controles quando o mouse para */
   let t; document.addEventListener('mousemove',()=>{
     nav.classList.remove('esconde');hint.classList.remove('esconde');
     clearTimeout(t);t=setTimeout(()=>{nav.classList.add('esconde');hint.classList.add('esconde')},2500);
