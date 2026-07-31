@@ -121,6 +121,12 @@
   .grade .pol:nth-child(odd){transform:rotate(-3.5deg)}
   .grade .pol:nth-child(even){transform:rotate(3deg)}
 
+
+  /* ---------- SLIDE DE VÍDEO ---------- */
+  .slide.video{padding:0;background:#000}
+  .slide.video::before{display:none}
+  .slide.video video{width:100%;height:100%;object-fit:contain;background:#000}
+
   .nav{position:fixed;bottom:16px;right:20px;z-index:30;display:flex;gap:8px;align-items:center;
     font-size:12px;font-weight:600;letter-spacing:.1em;color:rgba(255,255,255,.45)}
   .nav button{background:rgba(150,150,150,.22);border:none;color:inherit;width:30px;height:30px;
@@ -394,25 +400,6 @@
     </div>
   </section>
 
-  <!-- 29 — HISTÓRIA 4 (aguardando material) -->
-  <section class="slide ad">
-    <div class="ad-topo">Antes e depois de vocês entrarem na minha vida</div>
-    <div class="ad-nome">[ NOME ]</div>
-    <div class="ad-cols">
-      <div class="ad-col">
-        <div class="ad-label">Antes</div>
-        <div class="leque um"><img src="fotos/04-antes.jpg" alt="" onerror="this.style.opacity=.15"></div>
-        <div class="ad-txt">[ como era a vida antes ]</div>
-      </div>
-      <div class="ad-div"></div>
-      <div class="ad-col">
-        <div class="ad-label">Depois</div>
-        <div class="leque um"><img src="fotos/04-depois.jpg" alt="" onerror="this.style.opacity=.15"></div>
-        <div class="ad-txt">[ o que conquistou depois ]</div>
-      </div>
-    </div>
-  </section>
-
 
   <!-- 24 -->
   <section class="slide">
@@ -535,10 +522,9 @@
       <div class="pol"><img src="fotos/familias/Pedro%20e%20Let%C3%ADcia.jpg" alt=""><div class="pnome">Pedro e Letícia</div></div>
     </div>
   </section>
-  <!-- 32 — vídeo -->
-  <section class="slide inv">
-    <div class="kicker">Alguém quer falar com vocês</div>
-    <h1>[ VÍDEO ]</h1>
+  <!-- vídeo -->
+  <section class="slide video">
+    <video src="video/depoimento.mp4" playsinline preload="auto" controls></video>
   </section>
 
   <!-- 33 — a pausa antes do fecho -->
@@ -586,6 +572,9 @@
     const claro=slides[i].classList.contains('inv');
     const foto=slides[i].classList.contains('foto');
     document.body.style.background = foto ? '#07132E' : (claro ? '#FFFFFF' : '#0B4EE3');
+    document.querySelectorAll('video').forEach(v=>{v.pause();v.currentTime=0});
+    const v=slides[i].querySelector('video');
+    if(v){ v.play().catch(()=>{}); }
     nav.style.color  = claro?'rgba(11,78,227,.45)':'rgba(255,255,255,.45)';
     hint.style.color = claro?'rgba(11,78,227,.32)':'rgba(255,255,255,.32)';
   }
@@ -600,7 +589,10 @@
       document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
     }
   });
-  document.addEventListener('click',e=>{if(!e.target.closest('.nav'))ir(1)});
+  document.addEventListener('click',e=>{
+  if(e.target.closest('.nav')||e.target.tagName==='VIDEO')return;
+  ir(1);
+});
 
   let t; document.addEventListener('mousemove',()=>{
     nav.classList.remove('esconde');hint.classList.remove('esconde');
