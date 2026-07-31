@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<title>Carta do Augusto — para impressão</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     CARTA EM A4 (210 x 297 mm) — pronta para impressão
+     ============================================================ */
+  :root{ --azul:#0B4EE3; --ink:#141018; --cinza:#4A4550; --linha:#D9D5E0; }
+  *{margin:0;padding:0;box-sizing:border-box}
+  @page{ size:A4; margin:0 }
+  body{
+    font-family:'Montserrat',sans-serif;color:var(--ink);background:#e9e9ee;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;
+  }
+
+  .folha{
+    width:210mm;height:297mm;background:#fff;margin:0 auto;
+    padding:22mm 24mm 18mm;position:relative;overflow:hidden;
+    page-break-after:always;break-after:page;
+  }
+  .folha:last-child{page-break-after:auto;break-after:auto}
+
+  /* filete azul no topo da folha */
+  .folha::before{
+    content:"";position:absolute;top:0;left:0;right:0;height:7mm;background:var(--azul);
+  }
+
+  /* ---------- cabeçalho ---------- */
+  .selo{
+    font-size:7.6pt;font-weight:700;letter-spacing:.42em;text-transform:uppercase;
+    color:var(--azul);margin-bottom:5mm
+  }
+  h1{
+    font-size:26pt;font-weight:800;line-height:1.06;letter-spacing:-.02em;color:var(--azul);
+    margin-bottom:7mm
+  }
+  .abertura{font-size:15pt;font-weight:700;color:var(--ink);margin-bottom:5mm}
+
+  p{font-size:10.5pt;font-weight:400;line-height:1.62;color:var(--cinza);margin-bottom:3.6mm}
+  p strong{color:var(--ink);font-weight:600}
+
+  .destaque{
+    text-align:center;margin:9mm 0 8mm;padding:5mm 0;
+    border-top:1px solid var(--linha);border-bottom:1px solid var(--linha)
+  }
+  .destaque .palavra{
+    font-size:24pt;font-weight:800;letter-spacing:.12em;color:var(--azul);line-height:1
+  }
+
+  /* ---------- blocos do acrônimo ---------- */
+  .item{display:flex;gap:6mm;align-items:flex-start;margin-bottom:5.4mm;page-break-inside:avoid;break-inside:avoid}
+  .item .letra{
+    flex-shrink:0;width:12mm;font-size:27pt;font-weight:900;line-height:.92;
+    color:var(--azul);text-align:center
+  }
+  .item .txt{flex:1;padding-top:1mm}
+  .item .nome{
+    font-size:12pt;font-weight:800;text-transform:uppercase;letter-spacing:.05em;
+    color:var(--ink);margin-bottom:1.6mm
+  }
+  .item .frase{font-size:10.2pt;font-weight:400;line-height:1.58;color:var(--cinza)}
+
+  /* ---------- fecho ---------- */
+  .fecho{margin-top:9mm;padding-top:7mm;border-top:1px solid var(--linha)}
+  .fecho p{font-size:11pt;color:var(--ink);font-weight:500;margin-bottom:2.5mm}
+  .assinatura{margin-top:9mm;text-align:right}
+  .assinatura .com{font-size:10pt;color:var(--cinza);margin-bottom:2mm}
+  .assinatura .nome{font-size:22pt;font-weight:800;color:var(--azul);letter-spacing:-.01em}
+  .rodape{
+    position:absolute;left:24mm;right:24mm;bottom:11mm;
+    font-size:7.2pt;font-weight:600;letter-spacing:.3em;text-transform:uppercase;
+    color:#9A95A2;text-align:center
+  }
+
+  @media screen{
+    body{padding:24px}
+    .folha{box-shadow:0 8px 32px rgba(0,0,0,.16);margin-bottom:24px}
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= FOLHA 1 ================= -->
+<div class="folha">
+  <div class="selo">Ano 2044 · dezoito anos à frente</div>
+  <h1>Uma carta<br>do futuro</h1>
+
+  <div class="abertura">Oi, papai. Oi, mamãe.</div>
+
+  <p>Tem uma coisa que vocês só iam descobrir daqui a 18 anos. E eu não quis esperar tudo isso pra contar.</p>
+
+  <p>E como tudo na nossa família sempre foi alegre, eu quis fazer de um jeito divertido. Do jeito que o papai ama: <strong>com um acrônimo</strong>.</p>
+
+  <p>Como vocês estão hoje no evento do Subido Pro, eu vou usar essa palavra tão querida pra demonstrar tudo o que vocês me ensinaram.</p>
+
+  <div class="destaque">
+    <div class="palavra">SUBIDO PRO</div>
+  </div>
+
+  <div class="item">
+    <div class="letra">S</div>
+    <div class="txt">
+      <div class="nome">Sabedoria</div>
+      <div class="frase">Vocês sempre foram estudiosos, curiosos, inquietos. Nunca pararam de aprender. E isso passou pra mim: eu cresci querendo entender as coisas. Obrigado por terem me ensinado a nunca achar que eu já sei o bastante.</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="letra">U</div>
+    <div class="txt">
+      <div class="nome">Usufruir</div>
+      <div class="frase">Vocês me ensinaram que não basta conquistar, tem que aproveitar. Correr atrás do que a gente quer, sim, mas viver o que a gente conquistou também. Muita gente aprende só a primeira metade. Vocês me ensinaram as duas.</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="letra">B</div>
+    <div class="txt">
+      <div class="nome">Bondade</div>
+      <div class="frase">Eu vi vocês serem bons com quem estava perto e com quem vocês nem conheciam. Sem plateia, sem ninguém olhando. Foi assim que eu aprendi que bondade não é o que a gente faz quando estão vendo.</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="letra">I</div>
+    <div class="txt">
+      <div class="nome">Integridade</div>
+      <div class="frase">No trabalho, com as pessoas à sua volta, dentro de casa e com quem a gente nem conhece. Essa é uma das maiores lições que vocês me deram.</div>
+    </div>
+  </div>
+
+  <div class="rodape">Para Pedro &amp; Priscila</div>
+</div>
+
+<!-- ================= FOLHA 2 ================= -->
+<div class="folha">
+  <div class="item">
+    <div class="letra">D</div>
+    <div class="txt">
+      <div class="nome">Deus</div>
+      <div class="frase">O pilar da nossa família desde antes de eu nascer, e que me acompanhou durante todo o meu crescimento. Soube que vocês levaram até um padre para abençoar o Subido ao Vivo. Obrigado por terem me ensinado a ter fé.</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="letra">O</div>
+    <div class="txt">
+      <div class="nome">Ousadia</div>
+      <div class="frase">Vocês nunca tiveram medo de revolucionar, de começar algo novo, de trazer o melhor. Ou melhor: tiveram medo, e foram do mesmo jeito. Foi vendo isso que eu aprendi que quem define o meu teto sou eu.</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="letra">P</div>
+    <div class="txt">
+      <div class="nome">Presença</div>
+      <div class="frase">Vocês tinham todos os motivos do mundo pra trabalhar mais um pouquinho. E escolheram estar. Nos jogos, nos jantares, nas viagens, nas conversas bobas. Obrigado por terem escolhido estar.</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="letra">R</div>
+    <div class="txt">
+      <div class="nome">Risadas</div>
+      <div class="frase">Papai, a sua gargalhada é a trilha sonora da minha infância. Dava pra ouvir do outro lado da casa. É a risada mais icônica que eu já vi, e sempre que você sorri, me dá vontade de sorrir também.</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="letra">O</div>
+    <div class="txt">
+      <div class="nome">Obrigado</div>
+      <div class="frase">Por serem quem vocês são e por fazerem tudo que vocês fizeram. Todos os sacrifícios, todo o trabalho, todo o tempo dedicado. Amo vocês. Nos encontramos daqui a pouco.</div>
+    </div>
+  </div>
+
+  <div class="fecho">
+    <p>Vocês transformaram a vida de muita gente.</p>
+    <p>Mas a vida que vocês mais transformaram foi a vida do seu filho, Augusto.</p>
+  </div>
+
+  <div class="assinatura">
+    <div class="com">Com amor,</div>
+    <div class="nome">Augusto</div>
+  </div>
+
+  <div class="rodape">Guardado em 2026 · para você abrir no futuro</div>
+</div>
+
+</body>
+</html>
