@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Processo · Criar conta no ChatGPT Ads · Brito Mídias</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --roxo:#7C3AED; --roxo-dark:#5B21B6; --roxo-deep:#3B0F73;
+    --roxo-light:#A78BFA; --roxo-xlight:#EDE9FE;
+    --preto:#0A0A0A; --ink:#141018; --cinza:#5B5566;
+    --linha:#E7E3EE; --bg:#FFFFFF; --bg-soft:#FAF9FC;
+    --verde:#16A34A; --amarelo:#D97706; --vermelho:#DC2626;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Poppins',system-ui,-apple-system,sans-serif;font-weight:300;font-size:16px;
+    line-height:1.6;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 28px}
+
+  /* HERO */
+  .hero{position:relative;overflow:hidden;color:#fff;
+    background:
+      radial-gradient(1100px 500px at 78% -10%, rgba(124,58,237,.55), transparent 60%),
+      linear-gradient(150deg,#0A0A0A 0%,#17111F 45%,#3B0F73 100%);}
+  .hero::before{content:"";position:absolute;inset:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.14) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.14) 1px,transparent 1px);
+    background-size:44px 44px;
+    -webkit-mask-image:radial-gradient(circle at 50% 30%,#000 25%,transparent 72%);
+    mask-image:radial-gradient(circle at 50% 30%,#000 25%,transparent 72%);pointer-events:none}
+  .hero-in{position:relative;padding:40px 0 50px}
+  .brand{display:flex;align-items:center;gap:16px}
+  .brand svg{width:46px;height:46px;flex-shrink:0}
+  .brand .word{display:flex;align-items:center;gap:14px;font-weight:300}
+  .brand .word b{font-weight:800;font-size:20px}
+  .brand .word .bar{width:2px;height:30px;background:rgba(255,255,255,.55)}
+  .brand .word span{font-size:20px;letter-spacing:.22em}
+  .crumb{margin-top:32px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+    font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--roxo-light)}
+  .crumb b{color:#fff}
+  .crumb .sep{color:rgba(255,255,255,.35);font-weight:400;letter-spacing:0;text-transform:none}
+  .hero h1{font-weight:800;font-size:clamp(28px,4.4vw,44px);letter-spacing:-.02em;line-height:1.15;
+    margin-top:12px;text-wrap:balance}
+  .hero .sub{font-weight:300;font-size:16.5px;color:rgba(255,255,255,.74);margin-top:14px;max-width:62ch}
+  .pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+  .pill{border:1px solid var(--roxo-light);color:#fff;border-radius:100px;padding:8px 16px;
+    font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
+  .pill.solid{background:linear-gradient(90deg,#7C3AED,#5B21B6);border-color:transparent}
+
+  /* SEÇÕES */
+  .sec{padding:52px 0}
+  .sec.soft{background:var(--bg-soft);border-top:1px solid var(--linha);border-bottom:1px solid var(--linha)}
+  .section-label{display:flex;align-items:center;gap:12px;font-size:13px;font-weight:600;
+    letter-spacing:.16em;text-transform:uppercase;color:var(--roxo)}
+  .section-label::before{content:"";width:34px;height:2px;background:var(--roxo);border-radius:2px}
+  .sec h2{font-weight:700;font-size:clamp(22px,3vw,28px);letter-spacing:-.01em;margin-top:14px;text-wrap:balance}
+  .sec .intro{color:var(--cinza);margin-top:12px;max-width:70ch}
+
+  .callout{border:1px solid var(--linha);border-left:4px solid var(--roxo);border-radius:12px;
+    padding:20px 24px;margin-top:22px;background:#fff}
+  .callout.amber{border-left-color:var(--amarelo);background:#FFFBEB}
+  .callout.green{border-left-color:var(--verde);background:#F0FDF4}
+  .callout h3{font-size:15px;font-weight:700;margin-bottom:8px}
+  .callout p{color:var(--cinza);font-size:14.5px}
+  .callout p+p{margin-top:9px}
+  .callout strong{color:var(--ink);font-weight:600}
+
+  /* PASSO */
+  .step{display:grid;grid-template-columns:60px 1fr;gap:20px;margin-top:40px}
+  .step:first-of-type{margin-top:24px}
+  .step .idx{width:60px;height:60px;border-radius:16px;flex-shrink:0;
+    background:linear-gradient(135deg,#7C3AED,#5B21B6);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:24px;
+    box-shadow:0 10px 22px rgba(124,58,237,.28)}
+  .step .body h3{font-size:19px;font-weight:700;letter-spacing:-.01em}
+  .step .body p{color:var(--cinza);font-size:14.5px;margin-top:7px}
+  .step .body p strong{color:var(--ink);font-weight:600}
+  .path{display:inline-flex;flex-wrap:wrap;align-items:center;gap:7px;margin-top:11px;
+    font-size:12px;font-weight:500;color:var(--roxo-dark)}
+  .path span{background:var(--roxo-xlight);padding:5px 11px;border-radius:8px;white-space:nowrap}
+  .path b{color:var(--roxo-light);font-weight:700}
+
+  /* SCREENSHOT */
+  .shot{margin-top:15px;border:1px solid var(--linha);border-radius:14px;overflow:hidden;
+    background:#fff;box-shadow:0 14px 40px rgba(20,16,24,.10)}
+  .shot .bar{display:flex;align-items:center;gap:8px;padding:10px 14px;background:#F3F0F8;
+    border-bottom:1px solid var(--linha)}
+  .shot .bar i{width:10px;height:10px;border-radius:50%;background:#D9D2E6;display:inline-block}
+  .shot .bar .url{margin-left:10px;font-size:11px;color:var(--cinza);background:#fff;
+    border:1px solid var(--linha);border-radius:7px;padding:4px 12px;font-weight:400;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:78%}
+  .real{display:block;width:100%;height:auto}
+  .imgcap{padding:11px 16px;font-size:12px;color:var(--cinza);background:#fff;border-top:1px solid var(--linha)}
+  .imgcap b{color:var(--roxo-dark);font-weight:600}
+
+  /* URL BOX — step sem imagem */
+  .url-box{margin-top:16px;display:flex;align-items:center;gap:14px;
+    border:1px solid var(--linha);border-radius:12px;padding:16px 20px;background:var(--bg-soft)}
+  .url-box .icon{font-size:28px;flex-shrink:0}
+  .url-box .url-text{font-size:14px;font-weight:600;color:var(--roxo-dark);word-break:break-all}
+  .url-box .url-text span{display:block;font-size:12px;font-weight:400;color:var(--cinza);margin-top:2px}
+
+  /* OBSERVAÇÃO */
+  .obs{display:flex;gap:16px;align-items:flex-start;border:1px solid var(--linha);
+    border-left:4px solid var(--amarelo);background:#FFFBEB;border-radius:12px;padding:20px 24px;margin-top:20px}
+  .obs .ic{font-size:24px;flex-shrink:0}
+  .obs h3{font-size:15px;font-weight:700;color:var(--amarelo);margin-bottom:6px}
+  .obs p{color:var(--cinza);font-size:14.5px}
+  .obs strong{color:var(--ink);font-weight:600}
+
+  footer{background:var(--ink);color:rgba(255,255,255,.62);padding:40px 0}
+  footer .brand svg{width:34px;height:34px}
+  footer .brand .word b{font-size:15px}footer .brand .word span{font-size:15px}
+  footer .brand .word .bar{height:22px}
+  footer .fnote{margin-top:16px;font-size:12.5px;max-width:80ch;line-height:1.7}
+
+  @media (max-width:640px){
+    .step{grid-template-columns:1fr;gap:12px}
+    .step .idx{width:48px;height:48px;font-size:20px;border-radius:13px}
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap hero-in">
+    <div class="brand">
+      <svg viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="2.4"
+           stroke-linejoin="round" stroke-linecap="round" aria-label="BM Mídias">
+        <polygon points="50,4 90,27 90,73 50,96 10,73 10,27"></polygon>
+        <polygon points="50,33 65,59 35,59"></polygon>
+        <line x1="50" y1="4" x2="50" y2="33"></line><line x1="90" y1="73" x2="65" y2="59"></line>
+        <line x1="10" y1="73" x2="35" y2="59"></line><line x1="90" y1="27" x2="50" y2="33"></line>
+        <line x1="90" y1="27" x2="65" y2="59"></line><line x1="50" y1="96" x2="65" y2="59"></line>
+        <line x1="50" y1="96" x2="35" y2="59"></line><line x1="10" y1="27" x2="35" y2="59"></line>
+        <line x1="10" y1="27" x2="50" y2="33"></line>
+      </svg>
+      <span class="word"><b>BM</b><i class="bar"></i><span>MÍDIAS</span></span>
+    </div>
+
+    <div class="crumb">
+      <b>Brito Mídias</b><span class="sep">/</span>
+      <b>Processos</b><span class="sep">/</span>
+      Criar conta no ChatGPT Ads
+    </div>
+
+    <h1>Como criar uma conta<br>no ChatGPT Ads</h1>
+    <p class="sub">Passo a passo completo para criar sua conta no Gerenciador de Anúncios do ChatGPT (ads.openai.com) do zero até o acesso ao painel.</p>
+
+    <div class="pills">
+      <span class="pill solid">17 passos</span>
+      <span class="pill">ChatGPT Ads</span>
+      <span class="pill">Processo Brito Mídias</span>
+    </div>
+  </div>
+</header>
+
+<!-- PASSOS -->
+<section class="sec">
+  <div class="wrap">
+    <div class="section-label">Passo a passo</div>
+    <h2>Criando a conta no ChatGPT Ads</h2>
+    <p class="intro">Siga cada etapa na ordem indicada. O processo leva de 10 a 15 minutos e você precisará de um e-mail de acesso e dados básicos da empresa.</p>
+
+    <!-- PASSO 1 -->
+    <div class="step">
+      <div class="idx">1</div>
+      <div class="body">
+        <h3>Acesse o ChatGPT Ads</h3>
+        <p>Abra o navegador e acesse diretamente o site do Gerenciador de Anúncios do ChatGPT.</p>
+        <div class="url-box">
+          <div class="icon">🌐</div>
+          <div>
+            <div class="url-text">ads.openai.com</div>
+            <span>Cole no navegador e pressione Enter</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PASSO 2 -->
+    <div class="step">
+      <div class="idx">2</div>
+      <div class="body">
+        <h3>Clique em "Começar" na página inicial</h3>
+        <p>Na página do Gerenciador de Anúncios do ChatGPT, clique no botão para começar a criação da conta.</p>
+        <div class="shot">
+          <div class="bar"><i></i><i></i><i></i><span class="url">ads.openai.com</span></div>
+          <img src="img/passo-2.png" class="real" alt="Página inicial do ChatGPT Ads" loading="lazy">
+        </div>
+      </div>
+    </div>
+
+    <!-- PASSO 3 -->
+    <div class="step">
+      <div class="idx">3</div>
+      <div class="body">
+        <h3>Verifique seu e-mail ou continue com a conta atual</h3>
+        <p>O sistema pode exibir um aviso sobre o tipo de e-mail. Se quiser usar o e-mail atual, clique em <strong>"Continuar com a conta atual"</strong>. Para trocar de conta, clique em <strong>"Trocar de conta"</strong>.</p>
+        <div class="shot">
+          <div class="bar"><i></i><i></i><i></i><span class="url">ads.openai.com</span></div>
+          <img src="img/passo-3.png" class="real" alt="Modal de verificação de e-mail" loading="lazy">
+        </div>
+      </div>
+    </div>
+
+    <!-- PASSO 4 -->
+    <div class="step">
+      <div class="idx">4</div>
+      <div class="body">
+        <h3>Clique em "Criar uma conta"</h3>
+        <p>Na tela de login, clique em <strong>"Criar uma conta"</strong> para iniciar o cadastro com seu e-mail, Google ou Apple.</p>
+        <div class="shot">
+          <div class="bar"><i></i><i></i><i></i><span class="url">auth.openai.com</span></div>
+          <img src="img/passo-4.png" class="real" alt="Tela de criar conta" loading="lazy">
+        </div>
+      </div>
+    </div>
+
+    <!-- PASSO 5 -->
+    <div class="step">
+      <div class="idx">5</div>
+      <div class="body">
+        <h3>Verifique o código enviado para o seu e-mail</h3>
+        <p>O ChatGPT envia um código de verificação para o seu endereço de e-mail. Abra sua caixa de entrada, copie o código e cole no campo indicado.</p>
+        <div class="shot">
+          <div class="bar"><i></i><i></i><i></i><span class="url">auth.openai.com</span></div>
+          <img src="img/passo-5.png" class="real" alt="Tela de verificação por e-mail" loading="lazy">
+          <div class="imgcap"><b>Dica:</b> Se não encontrar o e-mail, verifique a caixa de spam ou clique em "Reenviar e-mail".</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PASSO 6 -->
+    <div class="step">
+      <div class="idx">6</div>
+      <div class="body">
+        <h3>Confirme sua data de nascimento</h3>
+        <p>Informe sua data de nascimento para verificação de idade. Preencha o campo e clique em <strong>"Continuar"</strong>.</p>
+        <div class="shot">
+          <div class="bar"><i></i><i></i><i></i><span class="url">auth.openai.com</span></div>
+          <img src="img/passo-6.png" class="real" alt="Confirmação de data de nascimento" loading="lazy">
+        </div>
+      </div>
+    </div>
+
+    <!-- PASSO 7 -->
+    <div class="step">
+      <div class="idx">7</div>
+      <div class="body">
+        <h3>Inicie a configuração da conta de anúncios</h3>
+        <p>Após o login, o sistema exibe a tela de boas-vindas ao Gerenciador de Anúncios. Clique para iniciar a configuração em poucas etapas.</p>
+        <div class="shot">
+          <div class="bar"><i></i><i></i><i></i><span class="url">ads.openai.com</span></div>
+          <img src="img/passo-7.png" class="real" alt="Tela de início da configuração" loading="lazy">
+        </div>
+      </div>
+    </div>
+
+    <!-- PASSO 8 -->
+    <div class="step">
+      <div class="idx">8</div>
+      <div class="body">
+        <h3>Preencha as informações da empresa</h3>
+        <p>Informe o <strong>nome da empresa</strong>, o <strong>site</strong> e o <strong>setor</strong> em que atua. Preencha todos os campos e avance para a próxima etapa.</p>
+        <div class="shot">
+          <div class="bar"><i></i><i></i><i></i><span class="url">ads.openai.com</span></div>
+          <img src="img/passo-8.png" class="real" alt="Informações da empresa" loading="lazy">
+        </div>
+      </div>
+    </div>
+
+    <!-- PASSO 9 -->
+    <div class="step">
+      <div class="idx">9</div>
+      <div class="body">
+        <h3>Confirme os dados da conta</h3>
+        <p>Revise as informações exibidas (país e tipo de conta). Confirme que estão corretas e clique em <strong>"Continuar"</strong>.</p>
+        <div class="shot">
+          <div class="bar"><i></i><i></i><i></i><span class="url">ads.openai.com</span></div>
+          <img src="img/passo-9.png" class="real" alt="Confirmação dos dados da conta" loading="lazy">
+        </div>
+      </div>
+    </div>
+
+    <!-- PASSO 10 -->
+    <div class="step">
+      <div class="idx">10</div>
+      <div class="body">
+        <h3>Configure (ou pule) a primeira campanha</h3>
+        <p>O sistema sugere criar sua primeira campanha. Se preferir fazer isso depois, clique em <strong>"Configurar depois"</strong> para avançar diretamente para o painel.</p>
+        <div class="shot">
+          <div class="bar"><i></i><i></i><i></i><span class="url">ads.openai.com</span></div>
+          <img src="img/passo-10.png" class="real" alt="Configuração da primeira campanha" loading="lazy">
+        </div>
+        <div class="obs">
+          <div class="ic">💡</div>
+          <div>
+            <h3>Pode pular por agora</h3>
+            <p>Você pode criar a primeira campanha depois, diretamente pelo painel do Gerenciador de Anúncios.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PASSO 11 -->
+    <div class="step">
+      <div class="idx">11</div>
+      <div class="body">
+        <h3>Configure o perfil de cobrança</h3>
+        <p>Preencha os dados de <strong>cartão de crédito</strong>, <strong>endereço de cobrança</strong> e o <strong>e-mail para envio de faturas</strong>. Clique em <strong>"Concluir configuração"</strong> ao terminar.</p>
+        <div class="shot">
+          <div class="bar"><i></i><i></i><i></i><span class="url">ads.openai.com</span></div>
+          <img src="img/passo-11.png" class="real" alt="Configuração do perfil de cobrança" loading="lazy">
+        </div>
+      </div>
+    </div>
+
+    <!-- PASSO 12 -->
+    <div class="step">
+      <div class="idx">12</div>
+      <div class="body">
+        <h3>Boas-vindas ao Gerenciador de Anúncios</h3>
+        <p>Conta criada com sucesso! O painel do <strong>Gerenciador de Anúncios Beta</strong> já está disponível para você começar a criar campanhas.</p>
+        <div class="shot">
+          <div class="bar"><i></i><i></i><i></i><span class="url">ads.openai.com</span></div>
+          <img src="img/passo-12.png" class="real" alt="Boas-vindas ao Gerenciador de Anúncios" loading="lazy">
+        </div>
+      </div>
+    </div>
+
+    <!-- PASSO 13 -->
+    <div class="step">
+      <div class="idx">13</div>
+      <div class="body">
+        <h3>Conclua a configuração da conta</h3>
+        <p>O sistema pode solicitar a conclusão de algumas configurações. Clique em <strong>"Continuar a verificação"</strong> para completar o perfil da empresa.</p>
+        <div class="shot">
+          <div class="bar"><i></i><i></i><i></i><span class="url">ads.openai.com</span></div>
+          <img src="img/passo-13.png" class="real" alt="Conclusão da configuração" loading="lazy">
+        </div>
+      </div>
+    </div>
+
+    <!-- PASSO 14 -->
+    <div class="step">
+      <div class="idx">14</div>
+      <div class="body">
+        <h3>Preencha os detalhes da empresa (parte 1)</h3>
+        <p>No modal <strong>"Detalhes da empresa"</strong>, selecione o <strong>tipo de número de registro</strong>, preencha o <strong>valor</strong> correspondente e continue.</p>
+        <div class="shot">
+          <div class="bar"><i></i><i></i><i></i><span class="url">ads.openai.com</span></div>
+          <img src="img/passo-14.png" class="real" alt="Detalhes da empresa - parte 1" loading="lazy">
+        </div>
+      </div>
+    </div>
+
+    <!-- PASSO 15 -->
+    <div class="step">
+      <div class="idx">15</div>
+      <div class="body">
+        <h3>Preencha os detalhes da empresa (parte 2)</h3>
+        <p>Complete o modal com o <strong>site da empresa</strong> (ou perfil do Instagram), a <strong>indústria empresarial</strong> e o <strong>endereço físico</strong>. Clique em <strong>"Continuar"</strong>.</p>
+        <div class="shot">
+          <div class="bar"><i></i><i></i><i></i><span class="url">ads.openai.com</span></div>
+          <img src="img/passo-15.png" class="real" alt="Detalhes da empresa - parte 2 com site" loading="lazy">
+        </div>
+      </div>
+    </div>
+
+    <!-- PASSO 16 -->
+    <div class="step">
+      <div class="idx">16</div>
+      <div class="body">
+        <h3>Candidatura enviada — aguarde a análise</h3>
+        <p>Após preencher os detalhes, sua conta entra em análise. O ChatGPT Ads vai revisar as informações e liberar o acesso completo em breve.</p>
+        <div class="shot">
+          <div class="bar"><i></i><i></i><i></i><span class="url">ads.openai.com</span></div>
+          <img src="img/passo-16.png" class="real" alt="Candidatura em análise" loading="lazy">
+          <div class="imgcap"><b>Aguarde:</b> O prazo de análise pode variar. Você receberá um e-mail quando a conta for aprovada.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PASSO 17 -->
+    <div class="step">
+      <div class="idx">17</div>
+      <div class="body">
+        <h3>Acesse o Gerenciador de Anúncios</h3>
+        <p>Com a conta aprovada, acesse novamente <strong>ads.openai.com</strong> para entrar no painel. A partir daqui você pode criar campanhas, grupos de anúncios e acompanhar os resultados.</p>
+        <div class="shot">
+          <div class="bar"><i></i><i></i><i></i><span class="url">ads.openai.com</span></div>
+          <img src="img/passo-17.png" class="real" alt="Gerenciador de Anúncios pronto para uso" loading="lazy">
+        </div>
+        <div class="callout green" style="margin-top:20px">
+          <h3>Conta criada com sucesso!</h3>
+          <p>Seu Gerenciador de Anúncios do ChatGPT está pronto. Agora é só criar suas primeiras campanhas e acompanhar os resultados pelo painel.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="brand">
+      <svg viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="2.4"
+           stroke-linejoin="round" stroke-linecap="round">
+        <polygon points="50,4 90,27 90,73 50,96 10,73 10,27"></polygon>
+        <polygon points="50,33 65,59 35,59"></polygon>
+        <line x1="50" y1="4" x2="50" y2="33"></line><line x1="90" y1="73" x2="65" y2="59"></line>
+        <line x1="10" y1="73" x2="35" y2="59"></line><line x1="90" y1="27" x2="50" y2="33"></line>
+        <line x1="90" y1="27" x2="65" y2="59"></line><line x1="50" y1="96" x2="65" y2="59"></line>
+        <line x1="50" y1="96" x2="35" y2="59"></line><line x1="10" y1="27" x2="35" y2="59"></line>
+        <line x1="10" y1="27" x2="50" y2="33"></line>
+      </svg>
+      <span class="word"><b>BM</b><i class="bar"></i><span>MÍDIAS</span></span>
+    </div>
+    <p class="fnote">Brito Mídias · Processos internos — documento gerado para uso do time e clientes.</p>
+  </div>
+</footer>
+
+</body>
+</html>
