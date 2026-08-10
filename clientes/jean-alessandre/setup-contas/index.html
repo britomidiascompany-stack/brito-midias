@@ -101,6 +101,14 @@
     border-radius:100px; padding:7px 14px; font-size:12.5px; font-weight:500; color:var(--ink);
   }
   .tag b{font-weight:600; color:var(--roxo-dark);}
+  .copy-email-btn{
+    background:none; border:none; cursor:pointer; padding:2px 5px; margin-left:2px;
+    color:var(--roxo-dark); opacity:.55; transition:.15s;
+    display:inline-flex; align-items:center; border-radius:5px; vertical-align:middle;
+  }
+  .copy-email-btn:hover{opacity:1; background:rgba(124,58,237,.1);}
+  .copy-email-btn.copied{color:#059669; opacity:1;}
+  .copy-email-btn svg{width:12px; height:12px; stroke:currentColor; fill:none; stroke-width:2.2;}
   .tag.level{background:var(--roxo-xlight); border-color:transparent; color:var(--roxo-dark); font-weight:600;}
   .howto{
     margin-top:12px; padding-top:12px; border-top:1px dashed var(--linha);
@@ -355,6 +363,27 @@
     <div>Central de Estratégia e Resultados · rafael@britomidias.com.br</div>
   </div>
 </footer>
+
+<script>
+const COPY_IC = '<svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>';
+const CHECK_IC = '<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>';
+document.querySelectorAll('.tag b').forEach(b => {
+  if (!b.textContent.includes('@')) return;
+  const email = b.textContent.trim();
+  const btn = document.createElement('button');
+  btn.className = 'copy-email-btn';
+  btn.title = 'Copiar e-mail';
+  btn.innerHTML = COPY_IC;
+  btn.addEventListener('click', () => {
+    navigator.clipboard.writeText(email).then(() => {
+      btn.classList.add('copied');
+      btn.innerHTML = CHECK_IC;
+      setTimeout(() => { btn.classList.remove('copied'); btn.innerHTML = COPY_IC; }, 2000);
+    });
+  });
+  b.after(btn);
+});
+</script>
 
 </body>
 </html>
