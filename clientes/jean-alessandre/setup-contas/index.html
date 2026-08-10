@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Setup de Contas · Jean Alessandre B</title>
+<meta name="description" content="Checklist de acessos para colocar a gestão de tráfego pago em ação.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --roxo:#7C3AED; --roxo-dark:#5B21B6; --roxo-deep:#3B0F73; --roxo-light:#A78BFA; --roxo-xlight:#EDE9FE;
+    --preto:#0A0A0A; --ink:#141018; --cinza:#5B5566; --linha:#E7E3EE; --bg:#FFFFFF; --bg-soft:#FAF9FC;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:'Poppins',sans-serif; font-weight:300; color:var(--ink); background:var(--bg);
+    line-height:1.6; -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--roxo);}
+  .wrap{max-width:1000px; margin:0 auto; padding:0 28px;}
+
+  /* HERO */
+  .hero{
+    position:relative; overflow:hidden; color:#fff; padding:76px 0 84px;
+    background:
+      radial-gradient(1100px 500px at 78% -10%, rgba(124,58,237,.55), transparent 60%),
+      linear-gradient(150deg, #0A0A0A 0%, #17111F 45%, #3B0F73 100%);
+  }
+  .hero .grid{
+    position:absolute; inset:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.12) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.12) 1px, transparent 1px);
+    background-size:44px 44px;
+    -webkit-mask-image: radial-gradient(circle at 60% 20%, #000 30%, transparent 75%);
+            mask-image: radial-gradient(circle at 60% 20%, #000 30%, transparent 75%);
+  }
+  .hero-inner{position:relative; z-index:2;}
+  .brand{display:flex; align-items:center; gap:14px; margin-bottom:40px;}
+  .brand svg{width:38px; height:38px;}
+  .brand .word{display:flex; align-items:center; gap:11px; font-weight:300;}
+  .brand .word b{font-weight:800; font-size:17px;}
+  .brand .word .bar{width:2px; height:22px; background:rgba(255,255,255,.5);}
+  .brand .word span{font-size:17px; letter-spacing:.22em;}
+  .pill{
+    display:inline-flex; align-items:center; gap:8px; border:1px solid #A78BFA; color:#EDE9FE;
+    border-radius:100px; padding:7px 16px; font-size:11.5px; font-weight:600; letter-spacing:.14em;
+    text-transform:uppercase; margin-bottom:22px;
+  }
+  .hero h1{font-size:38px; font-weight:800; letter-spacing:-.02em; line-height:1.18; margin:0 0 16px; max-width:640px;}
+  .hero p.lead{font-size:15.5px; font-weight:300; color:rgba(255,255,255,.82); max-width:580px; margin:0;}
+
+  /* SECTIONS */
+  section{padding:56px 0;}
+  section.soft{background:var(--bg-soft);}
+  .section-label{
+    display:flex; align-items:center; gap:12px; font-size:12.5px; font-weight:600;
+    letter-spacing:.16em; text-transform:uppercase; color:var(--roxo); margin-bottom:14px;
+  }
+  .section-label::before{content:""; width:32px; height:2px; background:var(--roxo); border-radius:2px;}
+  h2{font-size:24px; font-weight:700; letter-spacing:-.01em; margin:0 0 10px;}
+  .intro-text{color:var(--cinza); font-size:14.5px; max-width:680px; margin:0 0 4px;}
+
+  .why-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin-top:28px;}
+  .why-card{border:1px solid var(--linha); border-radius:16px; padding:20px 22px; background:var(--bg);}
+  .why-card .n{
+    display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px;
+    border-radius:8px; background:var(--roxo-xlight); color:var(--roxo-dark); font-weight:700; font-size:12px;
+    margin-bottom:12px;
+  }
+  .why-card h3{font-size:14.5px; font-weight:600; margin:0 0 6px;}
+  .why-card p{font-size:13px; color:var(--cinza); margin:0;}
+
+  /* ACCESS CARDS */
+  .acc-list{display:flex; flex-direction:column; gap:14px; margin-top:26px;}
+  .acc{
+    border:1px solid var(--linha); border-radius:16px; padding:22px 24px; background:var(--bg);
+    display:grid; grid-template-columns:44px 1fr; gap:18px;
+  }
+  .acc.optional{border-style:dashed; opacity:.85;}
+  .acc .ic{
+    width:44px; height:44px; border-radius:12px; background:var(--roxo-xlight);
+    display:flex; align-items:center; justify-content:center; flex:none;
+  }
+  .acc .ic svg{width:22px; height:22px; stroke:var(--roxo-dark);}
+  .acc h3{font-size:16px; font-weight:600; margin:0 0 4px;}
+  .acc .plat{
+    display:flex; align-items:center; gap:8px;
+    font-size:11px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--roxo); margin-bottom:8px;
+  }
+  .badge-opt{
+    font-size:10px; font-weight:600; letter-spacing:.06em; text-transform:uppercase;
+    background:#FFF7ED; color:#C2410C; border:1px solid #FED7AA; border-radius:100px; padding:2px 8px;
+  }
+  .acc p{margin:0 0 10px; font-size:13.5px; color:var(--cinza);}
+  .acc .row{display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-top:4px;}
+  .tag{
+    display:inline-flex; align-items:center; gap:7px; background:var(--bg-soft); border:1px solid var(--linha);
+    border-radius:100px; padding:7px 14px; font-size:12.5px; font-weight:500; color:var(--ink);
+  }
+  .tag b{font-weight:600; color:var(--roxo-dark);}
+  .tag.level{background:var(--roxo-xlight); border-color:transparent; color:var(--roxo-dark); font-weight:600;}
+  .howto{
+    margin-top:12px; padding-top:12px; border-top:1px dashed var(--linha);
+    font-size:12.5px; color:var(--cinza);
+  }
+  .howto b{color:var(--ink); font-weight:600;}
+
+  /* BONUS */
+  .bonus-box{
+    border:1px solid var(--linha); border-radius:16px; padding:24px 26px; background:var(--bg);
+    margin-top:26px;
+  }
+  .bonus-item{display:flex; gap:14px; padding:14px 0; border-bottom:1px solid var(--linha);}
+  .bonus-item:last-child{border-bottom:none; padding-bottom:0;}
+  .bonus-item:first-child{padding-top:0;}
+  .bonus-item .dot{width:8px; height:8px; border-radius:50%; background:var(--roxo); margin-top:7px; flex:none;}
+  .bonus-item h4{font-size:14px; font-weight:600; margin:0 0 4px;}
+  .bonus-item p{font-size:13px; color:var(--cinza); margin:0;}
+
+  /* STRIP */
+  .strip{
+    background:linear-gradient(90deg,#7C3AED,#5B21B6); border-radius:18px; padding:28px 30px;
+    color:#fff; display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap;
+    margin-top:8px;
+  }
+  .strip div h3{margin:0 0 6px; font-size:17px; font-weight:700;}
+  .strip div p{margin:0; font-size:13px; color:rgba(255,255,255,.85); max-width:520px;}
+  .strip a.btn{
+    background:#fff; color:var(--roxo-dark); text-decoration:none; font-weight:600; font-size:13.5px;
+    padding:12px 22px; border-radius:10px; white-space:nowrap; flex-shrink:0;
+  }
+
+  /* FOOTER */
+  footer{background:var(--ink); color:rgba(255,255,255,.6); padding:36px 0; font-size:12.5px;}
+  footer .wrap{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;}
+  footer .brand2{display:flex; align-items:center; gap:10px; color:#fff; font-weight:600; font-size:13px;}
+  footer .brand2 svg{width:20px; height:20px;}
+
+  @media (max-width:640px){
+    .hero{padding:52px 0 60px;}
+    .hero h1{font-size:28px;}
+    .why-grid{grid-template-columns:1fr;}
+    .acc{grid-template-columns:1fr;}
+    .acc .ic{margin-bottom:4px;}
+    .strip{flex-direction:column; align-items:flex-start;}
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="grid"></div>
+  <div class="wrap hero-inner">
+    <div class="brand">
+      <svg viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round" aria-label="BM Mídias">
+        <polygon points="50,4 90,27 90,73 50,96 10,73 10,27"></polygon>
+        <polygon points="50,33 65,59 35,59"></polygon>
+        <line x1="50" y1="4" x2="50" y2="33"></line><line x1="90" y1="73" x2="65" y2="59"></line>
+        <line x1="10" y1="73" x2="35" y2="59"></line><line x1="90" y1="27" x2="50" y2="33"></line>
+        <line x1="90" y1="27" x2="65" y2="59"></line><line x1="50" y1="96" x2="65" y2="59"></line>
+        <line x1="50" y1="96" x2="35" y2="59"></line><line x1="10" y1="27" x2="35" y2="59"></line>
+        <line x1="10" y1="27" x2="50" y2="33"></line>
+      </svg>
+      <span class="word"><b>BM</b><i class="bar"></i><span>MÍDIAS</span></span>
+    </div>
+    <div class="pill">Onboarding · Jean Alessandre B</div>
+    <h1>Setup de Contas</h1>
+    <p class="lead">Para colocar a gestão de tráfego pago em ação e também avaliar com precisão tudo que ja foi feito até aqui, precisamos dos acessos abaixo. Assim que estiverem liberados, começamos a configuração.</p>
+  </div>
+</div>
+
+<!-- POR QUE PEDIMOS -->
+<section>
+  <div class="wrap">
+    <div class="section-label">Por que pedimos isso</div>
+    <h2>Dois motivos para cada acesso</h2>
+    <p class="intro-text">Cada acesso abaixo serve tanto para configurarmos a estrutura de campanhas quanto para avaliarmos estrategicamente o que ja existe nas contas: histórico, públicos, pixels e dados ja coletados.</p>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="n">1</div>
+        <h3>Configurar a operação</h3>
+        <p>Criar e organizar campanhas, conectar rastreamento (pixel, GTM, conversões) e ajustar o que for necessário na estrutura das contas.</p>
+      </div>
+      <div class="why-card">
+        <div class="n">2</div>
+        <h3>Avaliar o que já foi feito</h3>
+        <p>Analisar histórico de campanhas, dados de conversão e desempenho ja existentes antes de definir a estratégia dos próximos passos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHECKLIST -->
+<section class="soft">
+  <div class="wrap">
+    <div class="section-label">Checklist de acessos</div>
+    <h2>O que precisamos liberar</h2>
+    <p class="intro-text">Adicione os e-mails abaixo com o nível de acesso indicado em cada plataforma.</p>
+
+    <div class="acc-list">
+
+      <!-- META ADS -->
+      <div class="acc">
+        <div class="ic">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8 12h8M12 8v8"/></svg>
+        </div>
+        <div>
+          <div class="plat">Meta Ads</div>
+          <h3>Facebook Ads &amp; Instagram Ads</h3>
+          <p>Acesso ao Gerenciador de Negócios (Business Manager) para gerenciar campanhas, pixel e conta de anúncios.</p>
+          <div class="row">
+            <span class="tag">E-mail <b>rafael@britomidias.com.br</b></span>
+            <span class="tag level">Nível: Administrador</span>
+          </div>
+          <div class="howto"><b>Como liberar:</b> Business Manager → Configurações de Negócios → Pessoas → Adicionar pessoas → conceda acesso total (Admin) à conta de anúncios e, se possível, ao Gerenciador de Negócios como um todo. Isso ja libera Pixel, Página do Facebook e conta do Instagram conectada.</div>
+        </div>
+      </div>
+
+      <!-- GTM -->
+      <div class="acc">
+        <div class="ic">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+        </div>
+        <div>
+          <div class="plat">Google Tag Manager</div>
+          <h3>GTM: contêiner do site</h3>
+          <p>Acesso ao contêiner para configurar e manter as tags de rastreamento (pixel, conversões, eventos).</p>
+          <div class="row">
+            <span class="tag">E-mail <b>britomidiascompany@gmail.com</b></span>
+            <span class="tag level">Nível: Administrador do contêiner</span>
+          </div>
+          <div class="howto"><b>Como liberar:</b> Admin → Gerenciamento de usuários do contêiner → Adicionar usuários.</div>
+        </div>
+      </div>
+
+      <!-- GA4 -->
+      <div class="acc">
+        <div class="ic">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M4 19V9l8-5 8 5v10"/><path d="M9 19v-6h6v6"/></svg>
+        </div>
+        <div>
+          <div class="plat">Google Analytics 4</div>
+          <h3>GA4: caso ja tenham</h3>
+          <p>Se ja usa GA4, precisamos de acesso à propriedade para cruzar dados de tráfego e conversão.</p>
+          <div class="row">
+            <span class="tag">E-mail <b>britomidiascompany@gmail.com</b></span>
+            <span class="tag level">Nível: Administrador da propriedade</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- LINKEDIN ADS -->
+      <div class="acc optional">
+        <div class="ic">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 11v5M12 8v8M16 13v3"/></svg>
+        </div>
+        <div>
+          <div class="plat">LinkedIn Ads <span class="badge-opt">Quando aplicável</span></div>
+          <h3>Campaign Manager</h3>
+          <p>Acesso à conta de anúncios do LinkedIn para gestão das campanhas. Necessário apenas se LinkedIn fizer parte da estratégia.</p>
+          <div class="row">
+            <span class="tag">E-mail <b>rafael@britomidias.com.br</b></span>
+            <span class="tag level">Nível: Administrador da conta</span>
+          </div>
+          <div class="howto"><b>Como liberar:</b> Campaign Manager → Configurações da conta → Usuários da conta → Adicionar usuário.</div>
+        </div>
+      </div>
+
+      <!-- SITE -->
+      <div class="acc">
+        <div class="ic">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v5"/></svg>
+        </div>
+        <div>
+          <div class="plat">Site</div>
+          <h3>WordPress ou outra plataforma</h3>
+          <p>Acesso de administrador ao painel do site (wp-admin, se WordPress, ou o painel equivalente da plataforma usada). Pode criar um usuário para nós ou repassar as credenciais.</p>
+          <div class="row">
+            <span class="tag">E-mail para criar usuário <b>britomidiascompany@gmail.com</b></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PLATAFORMA DE VENDAS -->
+      <div class="acc">
+        <div class="ic">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M3 6h18M3 6l1.5 12.5A2 2 0 006.5 20h11a2 2 0 002-2L21 6M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
+        </div>
+        <div>
+          <div class="plat">Plataforma de vendas</div>
+          <h3>Hotmart, Kiwify, Eduzz ou Ozônio</h3>
+          <p>Acesso à plataforma onde os produtos são vendidos, para cruzar vendas reais com o investimento em anúncios e calcular ROAS de verdade.</p>
+          <div class="row">
+            <span class="tag">E-mail <b>rafael@britomidias.com.br</b></span>
+            <span class="tag level">Nível: relatórios/vendas (sem acesso financeiro)</span>
+          </div>
+          <div class="howto"><b>Como liberar:</b> adicione como membro da equipe/coprodutor no painel. Hotmart: Ferramentas → Equipe; Kiwify: Configurações → Membros da equipe; Eduzz: Configurações → Usuários; Ozônio: Configurações → Equipe. Sempre com permissão de visualizar vendas e relatórios, sem acesso a saques.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- OPCIONAL -->
+<section>
+  <div class="wrap">
+    <div class="section-label">Também ajuda (opcional)</div>
+    <h2>Itens que costumam acelerar o início</h2>
+    <p class="intro-text">Não são obrigatórios para começar, mas se ja estiverem disponíveis, adiantam etapas importantes da estratégia.</p>
+    <div class="bonus-box">
+      <div class="bonus-item">
+        <div class="dot"></div>
+        <div>
+          <h4>Página do Facebook e perfil do Instagram</h4>
+          <p>Normalmente ja vêm junto com o acesso ao Gerenciador de Negócios do Meta, mas vale confirmar que estão conectados à conta de anúncios.</p>
+        </div>
+      </div>
+      <div class="bonus-item">
+        <div class="dot"></div>
+        <div>
+          <h4>Drive / repositório de materiais</h4>
+          <p>Compartilhar a pasta onde ficam os criativos, briefings, logotipos e referências visuais ajuda a adiantar a produção.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="soft">
+  <div class="wrap">
+    <div class="strip">
+      <div>
+        <h3>Liberou os acessos?</h3>
+        <p>Nos avise pelo WhatsApp assim que concluir. Confirmamos o recebimento e ja iniciamos a configuração.</p>
+      </div>
+      <a class="btn" href="mailto:rafael@britomidias.com.br">Confirmar por e-mail</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="brand2">
+      <svg viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+        <polygon points="50,4 90,27 90,73 50,96 10,73 10,27"></polygon>
+        <polygon points="50,33 65,59 35,59"></polygon>
+      </svg>
+      Brito Mídias
+    </div>
+    <div>Central de Estratégia e Resultados · rafael@britomidias.com.br</div>
+  </div>
+</footer>
+
+</body>
+</html>
