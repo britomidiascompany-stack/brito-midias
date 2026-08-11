@@ -419,7 +419,7 @@ const CLIENTES = [
     status: "ativo",
     skills: ["ifb-icv-relatorio-dashboard", "ifb-relatorio-lancamento-pago"],
     funil: "ICV — Imersão Clínica de Valor",
-    pagina: "",
+    pagina: "https://imersao.institutofernandaben.com.br/ser-encontrada",
     contas: [
       {label:"Instituto Ben", id:"463327393755502", tipo:"VEICULA"},
       {label:"Fernanda Ben", id:"817369278919318", tipo:"VEICULA"},
@@ -427,7 +427,36 @@ const CLIENTES = [
     ],
     driveUrl: "https://drive.google.com/drive/folders/1vGtkGZz31HStyMu1QOLMHSTU0GbZBk_I",
     pastaCriativos: "",
-    projetos: []
+    projetos: [
+      {
+        id: "icv-2026",
+        nome: "IFB-ICV-2026",
+        resumo: "Lançamento pago da <b>Imersão Clínica de Valor</b> (front-end) com 4 order bumps (Mapa Clínico, Gravação Vitalícia, Segunda Cadeira, Curso Os Pilares). Dashboard HTML atualizado sob demanda direto das 2 planilhas Google (Hotmart + Meta Ads), publicado no GitHub Pages — qualquer Claude consegue rodar do zero só com a skill abaixo.",
+        skills: ["ifb-icv-relatorio-dashboard"],
+        links: [
+          {label:"Dashboard publicado (relatório principal)", url:"https://britomidiascompany-stack.github.io/ifb/"},
+          {label:"Comparativo dos 4 lançamentos (OPS001, MEIF004, LPICT001, IFB-ICV)", url:"https://britomidiascompany-stack.github.io/ifb/comparativo-lancamentos.html"},
+          {label:"Análise de criativos novos (carrosséis + vídeos com legenda)", url:"https://britomidiascompany-stack.github.io/ifb/criativos-novos.html"},
+          {label:"Planilha Hotmart — \"Fernanda Bem\" (pública, export direto)", url:"https://docs.google.com/spreadsheets/d/1-zmPlShbnkNw8hKz8eH97Xkxr794ml-5TAZOCdYkoko/edit"},
+          {label:"Planilha Tráfego — \"RESULTADOS CRIATIVO - IFB-ICV-2026\" (restrita, via Google Drive)", url:"https://docs.google.com/spreadsheets/d/14j5Ckni2LM0kV_BSUF7LGWBVuUUbdVLD8DfvAOZ8zSU/edit"},
+          {label:"Repositório do dashboard no GitHub", url:"https://github.com/britomidiascompany-stack/ifb"}
+        ],
+        info: [
+          {k:"Como atualizar", v:"Peça \"atualiza o relatório do IFB\" — a skill <b>ifb-icv-relatorio-dashboard</b> baixa as 2 planilhas, roda o gerador (<code>build_html_icv.py</code>) e publica sozinha. Não precisa anexar nada."},
+          {k:"Fonte Hotmart", v:"Pública — baixa direto por <code>curl</code> do export xlsx. Aba <code>Geral Hotmart</code> (export cru da API)."},
+          {k:"Fonte Meta Ads", v:"Restrita — precisa do conector Google Drive (<code>download_file_content</code>). Aba <code>MTADS | IFB-ICV-2026</code>."},
+          {k:"Produto de entrada", v:"Ingresso Imersão Clínica de Valor — lotes de R$ 27,00 e R$ 47,00 (ticket médio real ≈ R$ 33)"},
+          {k:"Order bumps", v:"Mapa Clínico do Emagrecimento · Gravação Vitalícia da ICV · Segunda Cadeira · Curso Os Pilares da Saúde"},
+          {k:"Imposto Meta", v:"13,83% sobre o investimento bruto"},
+          {k:"Exposição (definição do Rafael)", v:"Receita TOTAL bruta do funil − investimento c/ imposto. Positiva = retorno já cobre o investimento."},
+          {k:"Split pago × orgânico", v:"Sem UTM confiável na Hotmart — o pixel do Meta (coluna COMPRA) é a única fonte do canal pago; paridade por quantidade no dia"},
+          {k:"Identidade visual", v:"Brito Mídias (tema claro, Poppins, hero escuro com logo BM) — não é mais o tema dark roxo antigo"},
+          {k:"Atenção — webhook Hotmart", v:"A planilha da Hotmart já travou de gravar pedidos novos mais de uma vez. O gerador detecta e mostra aviso automático no relatório quando isso acontece."},
+          {k:"Atenção — GitHub Pages", v:"O builder legado deste repo (<code>ifb</code>) às vezes trava/falha o build sem motivo aparente. Forçar rebuild via <code>gh api -X POST repos/.../pages/builds</code> costuma resolver."},
+          {k:"Python", v:"Usar <code>/usr/bin/python3</code> (tem openpyxl) — o <code>python3</code> do PATH (homebrew) não tem."}
+        ]
+      }
+    ]
   },
   {
     id: "brain-coffee",
