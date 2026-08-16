@@ -238,6 +238,13 @@
           <div class="mini-grid" id="cp-contas"></div>
         </div>
 
+        <div id="cp-midia-wrap">
+          <div class="section-label">BIBLIOTECAS DE MÍDIA</div>
+          <div class="section">
+            <div class="mini-grid" id="cp-midia"></div>
+          </div>
+        </div>
+
         <div class="section-label">FACEBOOK &amp; INSTAGRAM</div>
         <div class="section">
           <div class="mini-grid" id="cp-meta"></div>
@@ -657,9 +664,19 @@ function contasHtml(c){
     <div class="mini-card">
       <small>${esc(a.label)}${a.tipo === 'APOIO' ? ' · apoio' : ''}</small>
       <b><a href="${url}" target="_blank" rel="noopener">${esc(a.id)}</a></b>
-      ${a.midiaUrl ? `<a href="${esc(a.midiaUrl)}" target="_blank" rel="noopener" style="font-size:12px;color:var(--roxo-dark);font-weight:600">Biblioteca de mídia →</a>` : ''}
     </div>`;
   }).join('');
+}
+
+function midiaHtml(c){
+  const contasComMidia = (c.contas || []).filter(a => a.midiaUrl);
+  document.getElementById('cp-midia-wrap').style.display = contasComMidia.length ? 'block' : 'none';
+  if(!contasComMidia.length) return '';
+  return contasComMidia.map(a => `
+    <div class="mini-card">
+      <small>${esc(a.label)}</small>
+      <b><a href="${esc(a.midiaUrl)}" target="_blank" rel="noopener">Abrir biblioteca →</a></b>
+    </div>`).join('');
 }
 
 function metaHtml(c){
@@ -779,6 +796,7 @@ function openClient(id){
   document.getElementById('cp-funil').innerHTML = fieldValue(c.funil);
   document.getElementById('cp-pagina').innerHTML = fieldValue(c.pagina);
   document.getElementById('cp-contas').innerHTML = contasHtml(c);
+  document.getElementById('cp-midia').innerHTML = midiaHtml(c);
   document.getElementById('cp-meta').innerHTML = metaHtml(c);
   document.getElementById('cp-drive').innerHTML = fieldValue(c.driveUrl);
   document.getElementById('cp-criativos').innerHTML = fieldValue(c.pastaCriativos);
