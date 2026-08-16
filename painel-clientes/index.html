@@ -378,12 +378,12 @@ const CLIENTES = [
     contas: [
       {label:"ANEX 01", id:"933461317179477", tipo:"VEICULA"},
       {label:"ANEX 02 Perpétuos", id:"1558879025022417", tipo:"VEICULA"},
-      {label:"ANEX 03", id:"1982984478780347", tipo:"VEICULA"},
+      {label:"ANEX 03", id:"1982984478780347", tipo:"VEICULA", midiaUrl:"https://business.facebook.com/asset_library/ad_accounts?global_scope_id=182240426173935&business_id=182240426173935&ad_account=1982984478780347"},
       {label:"ANEX 04", id:"1040271973060496", tipo:"VEICULA"},
       {label:"ANEX 05 Distrib & Leads", id:"870034975015887", tipo:"VEICULA"},
       {label:"ANEX 06", id:"379885793393304", tipo:"VEICULA"},
-      {label:"ANEX 07", id:"387724389268455", tipo:"VEICULA"},
-      {label:"ANEX 08 Leads", id:"394899594978731", tipo:"VEICULA"},
+      {label:"ANEX 07", id:"387724389268455", tipo:"VEICULA", midiaUrl:"https://business.facebook.com/asset_library/ad_accounts?global_scope_id=182240426173935&business_id=182240426173935&ad_account=387724389268455"},
+      {label:"ANEX 08 Leads", id:"394899594978731", tipo:"VEICULA", midiaUrl:"https://business.facebook.com/asset_library/ad_accounts?global_scope_id=182240426173935&business_id=182240426173935&ad_account=394899594978731"},
       {label:"ANEX 09", id:"1317674681916475", tipo:"VEICULA"},
       {label:"ANEX 10", id:"3173393232885946", tipo:"VEICULA"},
       {label:"ANEX 11 Reserva", id:"501713787854174", tipo:"APOIO"},
@@ -657,6 +657,7 @@ function contasHtml(c){
     <div class="mini-card">
       <small>${esc(a.label)}${a.tipo === 'APOIO' ? ' · apoio' : ''}</small>
       <b><a href="${url}" target="_blank" rel="noopener">${esc(a.id)}</a></b>
+      ${a.midiaUrl ? `<a href="${esc(a.midiaUrl)}" target="_blank" rel="noopener" style="font-size:12px;color:var(--roxo-dark);font-weight:600">Biblioteca de mídia →</a>` : ''}
     </div>`;
   }).join('');
 }
