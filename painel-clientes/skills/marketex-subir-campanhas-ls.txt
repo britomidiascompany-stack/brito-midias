@@ -1,0 +1,789 @@
+﻿GUIA COMPLETO — Subir campanhas de Meta Ads do LS (Workshop Especialista com IA)
+Cliente: Ana Tex / Marketex — Brito Mídias
+Este arquivo é auto-contido: cole o link dele em qualquer Claude (Claude.ai, Claude Code, etc) e peça
+"sobe uma campanha do LS com esses criativos" — todas as instruções, contas, copy e regras estão aqui.
+
+================================================================================
+PARTE 1 — INSTRUÇÕES GERAIS DA SKILL (SKILL.md)
+================================================================================
+
+---
+name: marketex-subir-campanhas-ls
+description: Sobe campanhas de Meta Ads do LS (Workshop Especialista com IA — Marketex / Ana Tex) nas contas ANEX. Use SEMPRE que o Rafael pedir "sobe uma campanha", "sobe esses criativos", "duplica essa campanha", "cria campanha de cost cap / de ROAS / de maior volume", ou passar uma lista de criativos + ID de conjunto/campanha. Cobre as 3 estratégias de lance (maior volume · cost cap · meta de ROAS), o mapa das contas ANEX, o fluxo API vs tela, e as armadilhas conhecidas. NÃO usar pra relatórios (essa é a ls-trafego-pago-relatorio).
+---
+
+# Skill: Subir Campanhas Meta Ads — Marketex
+
+Cliente **Marketex** (expert **Ana Tex**). Business Manager **ANEX BM** `182240426173935`.
+
+---
+
+## 🚦 REGRA Nº 1 — Portão da copy
+
+**Antes de subir QUALQUER anúncio, confira em `copies.md` se o funil em questão já tem legenda, título e descrição preenchidos.**
+
+Se **não** tiver, PARE e avise o Rafael literalmente:
+
+> "Não tenho ainda a legenda, título e descrição do funil **[NOME DO FUNIL]**. Me passa que eu guardo na skill e já subo."
+
+**Nunca invente copy. Nunca reaproveite a copy de outro funil sem ele mandar.**
+Quando ele mandar, **grave em `copies.md`** antes de subir — assim não pergunta de novo.
+
+---
+
+## 📌 Constantes fixas (Marketex — nunca mudam)
+
+| Item | Valor |
+|---|---|
+| Business Manager | `182240426173935` · ANEX BM |
+| Página (FB) | `100849768829838` · **Anatex** |
+| Instagram | `17841400072450024` · **@anatex** |
+| Pixel oficial | `1117829508632155` |
+| Anunciante/beneficiário | ANEX SOLUCOES EM VENDAS E TREINAMENTO LTDA |
+
+**Página e IG são SEMPRE Anatex/@anatex — inclusive nas campanhas internacionais.** Não usar Anatex.es, High Ticket IA nem Marketex como página de anúncio.
+
+**UTM padrão** (vai em `url_tags`, no topo do criativo, sem "?" inicial):
+```
+src=MTADS-{FUNIL}_{{adset.name}}_{{ad.name}}_{{campaign.name}}&utm_source=MTADS-{FUNIL}&utm_medium={{adset.name}}&utm_content={{ad.name}}&utm_campaign={{campaign.name}}&vk_source=paid_metaads&vk_ad_id={{ad.id}}
+```
+`{FUNIL}` = a sigla do funil (ex.: `LS-CAP` pra captação do lançamento). Ver `referencia.md`.
+
+---
+
+## 🏦 Mapa das contas (confirmado pelo Rafael)
+
+| Conta | ID | Uso |
+|---|---|---|
+| ANEX 01 | `933461317179477` | ❌ **Não usa mais** — não dá pra criar campanha |
+| ANEX 02 \| PERPÉTUOS | `1558879025022417` | Perpétuo — low ticket e outros produtos |
+| **ANEX 03** | `1982984478780347` | **Lançamento pago.** Hoje roda quase só Advantage; virou 2ª opção pra testar |
+| ANEX 04 \| ADVANTAGE | `1040271973060496` | Advantage **nacional** (par do 06). "ILD" no nome = evento legado, não roda mais |
+| ANEX 05 \| DISTRIBUIÇÃO | `870034975015887` | **Só distribuição de conteúdo.** Não é mais leads (nome vai mudar) |
+| ANEX 06 \| ADVANTAGE INTERNACIONAL | `379885793393304` | Advantage **internacional** (par do 04) |
+| **ANEX 07 \| ADVANTAGE** | `387724389268455` | **Advantage puro**, pouco teste. Mesma função da 03 mas só Advantage |
+| **ANEX 08 \| LEADS** | `394899594978731` | **Só leads** |
+| ANEX 09 | `1317674681916475` | ❌ Não usa (e MCP não liberado) |
+| ANEX 10 \| ADVANTAGE INTERNACIONAL | `3173393232885946` | Advantage internacional — funis de lançamento pago |
+| ANEX 11 \| RESERVA | `501713787854174` | Reserva |
+| CRIADORA DE PÚBLICOS | `1014653205673132` | Só cria públicos, não roda campanha |
+
+**Se o Rafael não disser a conta, pergunte.** Não deduza.
+
+---
+
+## 🎯 Os 6 tipos de funil
+
+Detalhe completo (objetivo, otimização, evento, o que perguntar) em **`referencia.md`**.
+
+| # | Funil | Objetivo Meta | Conta típica |
+|---|---|---|---|
+| 1 | **Vendas — lançamento pago** (high ticket) | `OUTCOME_SALES` · otimizar **Compra** | ANEX 03 / 07 |
+| 2 | **Captação de leads** | `OUTCOME_LEADS` · evento Lead | ANEX 08 |
+| 3 | **Leads com evento personalizado** | `OUTCOME_LEADS` · conversão personalizada | ANEX 08 |
+| 4 | **Distribuição de conteúdo** | ⚠️ confirmar com Rafael | ANEX 05 |
+| 5 | **Mensagens** | ⚠️ confirmar com Rafael | ⚠️ confirmar |
+| 6 | **Engajamento** (alcance / cliques) | ⚠️ confirmar com Rafael | ⚠️ confirmar |
+
+⚠️ Nos funis 4, 5 e 6 a config exata ainda **não foi validada com o Rafael**. Pergunte antes de subir; depois **grave a resposta em `referencia.md`**.
+
+---
+
+## ⚙️ Fluxo — do zero ao anúncio
+
+### Passo 1 — Campanha · **API** ✅
+`ads_create_campaign`. Nome exato, objetivo, CBO na campanha, estratégia de lance (ver tabela abaixo). Nasce PAUSADA.
+Orçamento em **centavos**: R$ 400/dia = `40000` · R$ 5.000/dia = `500000`.
+
+#### ⭐ Estratégias de lance — as 3 que o Rafael usa (definido 18/07/26)
+
+Objetivo da campanha é **sempre `OUTCOME_SALES`** e local de conversão **sempre Site**. O que muda é a estratégia de lance:
+
+| # | Como o Rafael pede | Estratégia (API) | Meta de desempenho | Parâmetro | Atribuição |
+|---|---|---|---|---|---|
+| 1 | "objetivo de venda" · "maior volume" | `LOWEST_COST_WITHOUT_CAP` | **volume** (`OFFSITE_CONVERSIONS`) | — | Padrão **ou** Incremental |
+| 2 | "cost cap" · "meta de custo" | `COST_CAP` | **volume** (`OFFSITE_CONVERSIONS`) | **R$ 110** (padrão — pode pedir outro) | Padrão **ou** Incremental |
+| 3 | "meta de ROAS" · "objetivo de ROAS" | `LOWEST_COST_WITH_MIN_ROAS` | volume (padrão) **ou** valor, se pedir | **0,9** (padrão — pode pedir outro) | Padrão **ou** Incremental |
+
+**Regras que valem pras 3:**
+- **Modelo de atribuição: SEMPRE existe a escolha `Padrão` ou `Incremental` — nos três tipos, sem exceção.** O Rafael **diz no prompt** qual é. Não é campo de tipo 2/3 só, e não tem default: é decisão dele em toda campanha. Config no conjunto, **na tela**.
+- **Meta de desempenho = VOLUME** ("Maximizar o número de conversões") por padrão. **VALOR** ("Maximizar o valor das conversões") só quando o Rafael pedir explicitamente — e isso só existe como opção no tipo 3.
+- **Local da conversão = Site**, sempre. Nunca "site e app".
+
+**Se o pedido vier incompleto:**
+- cost cap sem valor → assumir **R$ 110** e avisar
+- ROAS sem meta → assumir **0,9** e avisar
+- **atribuição não dita → PERGUNTAR.** Não assumir. A tag `[PADRAO]`/`[INCREMENTAL]` no nome da campanha serve de pista, mas confirmar antes de subir.
+
+⚠️ **Tipos 2 e 3 não fecham por API em campanha CBO** (a ferramenta recusa `bid_amount`/`bid_constraints` sob CBO, e o Meta exige). Criar a campanha por API com a `campaign_bid_strategy` certa e **setar o valor da meta na tela**, no conjunto.
+
+### Passo 2 — Conjunto · **SÓ PELA TELA** ⛔
+**A ferramenta `ads_create_ad_set` existe (apareceu ~18/07/26), mas NÃO resolve — não perca tempo tentando:**
+- Na ANEX03 dá erro `3858634 "Advertiser is missing"`. **3 caminhos testados, todos falham** (18/07/26, TESTE ENXUTO S009): (a) sem nada; (b) com `dsa_beneficiary`/`dsa_payor` — são texto livre de declaração DSA, não a seleção da entidade verificada; (c) com `source_adset_id` copiando de conjunto vivo — **não herda o anunciante**. A conexão não expõe o campo do anunciante verificado. Fim da linha por API.
+- ⚠️ Se o erro vier `1487866 "Campaign Archived"`, a campanha-destino foi **deletada** — isso mascara o erro real. Sintoma: `ads_update_entity` de nome funciona (nome é o único campo editável em campanha deletada) mas o de status dá `1487566`, e a campanha some da listagem.
+- **Campanha CBO + COST_CAP = beco sem saída por API:** com `bid_amount` a ferramenta rejeita ("parent uses CBO, do not pass bid_amount"); sem `bid_amount` o Meta rejeita (`1815857` "Bid Amount Required"). Meta de custo **só na tela**.
+- Conjunto criado por API **nasce com Criativo Dinâmico ligado** e não desliga → aceita 1–2 anúncios e trava.
+
+→ Rafael cria pelo botão **Criar** (não Duplicar), ou **duplica** um conjunto-molde certo pelo Ads Manager (a duplicação preserva o anunciante).
+→ **Peça o ID do conjunto** e siga.
+
+#### ✅ Alternativa: eu mesmo faço pelo Claude in Chrome (validado 18/07/26)
+Funciona e leva ~15 min pelos 2 conjuntos. Receita testada:
+1. Ir na lista de **conjuntos** da campanha-molde → marcar o checkbox do conjunto → **Duplicar**.
+2. Modal "Aplicar recomendações": **DESMARCAR** (vem com "Criativo Advantage+" e "música no Reels" ligados). O botão vira "Continuar".
+3. Escolher **"Campanha existente"** → buscar a campanha-destino pelo nome → selecionar.
+4. Conferir que **"Ativar cópias..." está DESMARCADO** (é o que garante que nasce pausado).
+5. Duplicar → abre o editor em rascunho → renomear o conjunto, ajustar meta de desempenho e meta de custo → **Publicar**.
+
+⚠️ **Armadilhas do Chrome nessa tela:**
+- A seleção de conjuntos **acumula entre operações**. Antes de duplicar o segundo, limpar o chip "N selecionados" — senão duplica o recém-criado junto (o título vira "Duplique seus **conjuntos**", no plural — é o sinal).
+- `cmd+a` seleciona a **página inteira**, não o campo. Usar `triple_click` no `ref` do elemento (via `find`) e digitar por cima.
+- Clicar por coordenada em dropdown aberto **erra o alvo** (o clique cai no acordeão de trás). Pegar o `ref` com `find`, clicar no ref, `find` de novo pra achar a opção, clicar no ref da opção.
+- A duplicação **traz todos os anúncios do molde junto**. Limpar depois: por API dá erro `2446289` (valida criativo antes de deletar) → deletar em massa **pela tela** (selecionar tudo → lixeira), aí subir os certos por API.
+- O conjunto-molde costuma vir com **"Maximizar o valor das conversões"** (= valor, armadilha nº 5). Trocar para **"Maximizar o número de conversões"** e conferir evento = Comprar. Só deixar em valor se o Rafael pediu.
+- **Criativo dinâmico foi descontinuado pelo Meta** ("não está mais disponível"), então esse risco acabou.
+
+### Passo 3 — Anúncios · **API** ✅
+`ads_create_ad`, um por criativo. Sempre `page_id`, `url_tags` com UTM, link de destino e CTA. Nascem PAUSADOS.
+
+- **Vídeo** — `video_data` com `video_id` + `image_hash` (**miniatura obrigatória**, senão erro `1443226`)
+- **Imagem** — `link_data` com `image_hash`
+- **Carrossel** — `link_data` + `child_attachments` (1 card por asset). O `link_data` precisa de um `image_hash` no nível de cima também. Card de vídeo precisa do **próprio** `image_hash` de miniatura (senão erro `1443052`)
+
+**Miniatura de vídeo — jeito certo (vale em qualquer conta):**
+Pegue o frame nativo do próprio vídeo e use como `image_url`:
+`ads_get_ad_videos` (com `video_ids` + `fields:["id","title","picture"]`) → joga o `picture` no `video_data.image_url`.
+Funciona em qualquer conta e usa a capa real do vídeo. ⚠️ `image_hash` só vale na **mesma conta** — placeholder `43903945847a250b96b4f31df8de9c58` existe só na ANEX 03.
+
+**Carrossel — manter a ORDEM dos cards:**
+Sempre incluir no `link_data`:
+- `"multi_share_optimized": false` → **impede o Meta de reordenar** os cards sozinho (sem isso ele reordena por performance)
+- `"multi_share_end_card": false` → remove o card final automático do Meta, ficando só os cards que você mandou
+
+Hashes de imagem são por **conteúdo**: a mesma imagem tem o mesmo hash na ANEX 03 e na ANEX 07 — dá pra reaproveitar entre as duas contas.
+
+**Vídeo — estrutura de `video_data` validada (24/07/26):** `video_id` + `image_url` (o `picture` do vídeo) + `title` (headline) + `message` (legenda) + `link_description` (descrição) + `call_to_action` `LEARN_MORE` com `value.link`. `url_tags` no topo do creative. `instagram_user_id` = `17841400072450024`.
+
+**♻️ Clonar anúncio entre conjuntos = reaproveitar `creative_id` (validado 24/07/26).**
+Quando o Rafael pede pra pegar criativos que já estão num conjunto (ex.: o modelo) e jogar em campanhas de teste, **não remonte** — pegue o `creative_id` de cada anúncio e recrie com `creative: {"creative_id":"<id>"}`. Vantagens: carrossel entra com a **ordem de cards idêntica** (é literalmente o mesmo creative), e copy/UTM/link/CTA vêm juntos. Como achar: `ads_get_ad_entities` level `ad`, campo **`creative`** (devolve `creative_id`), filtrando por `ad.adset_id` ou `ad.campaign_id`. Os macros do `url_tags` (`{{ad.id}}`, `{{campaign.name}}`…) resolvem por-anúncio na entrega, então funcionam certo mesmo no conjunto novo.
+> ⚠️ A campanha modelo do LS separa criativos por **conjunto por formato** (um conjunto só de VÍDEO, outro de IMAGEM/CARROSSEL). Se procurar carrossel no conjunto de vídeo, não acha — varra a **campanha** inteira (`ad.campaign_id`) pra achar todos.
+> ⚠️ Conjunto de teste pode já ter anúncios **ACTIVE** de controle (ex.: motores confirmados). Ao subir os novos (pausados), **avisar** quais já estavam lá ativos — quando ligar a campanha, eles saem gastando.
+
+### Passo 4 — 5 textos/títulos/descrições
+- **Vídeo e imagem:** por API (`asset_feed_spec` com `ad_formats`, `bodies`, `titles`, `descriptions`, `instagram_user_id`). **Um por vez**, e **só depois** que o anúncio sair de "em análise" e voltar pra PAUSED. Sucesso real = `updated_fields` vem cheio.
+- **Carrossel:** ⛔ **só pela tela** ("Adicionar opção de texto"). Por API dá erro `1885858`.
+
+### Passo 5 — Revisar · **Tela**
+Confirme otimização, orçamento, meta de custo e atribuição. Depois de editar segmentação por API, Rafael dá `Cmd+Shift+R` e **não** salva por cima (a tela sobrescreve a API).
+
+---
+
+## 📖 Como ler os assets
+
+| Formato | Valor | Vai em |
+|---|---|---|
+| Vídeo | Número longo (~15-17 díg.) = `video_id` | `video_data.video_id` + `image_hash` |
+| Imagem | String hexadecimal (32 chars) = `image_hash` | `link_data.image_hash` |
+| Carrossel | Lista por vírgula, 1 card cada. Hex = card imagem · número longo = card **vídeo** | `child_attachments[]`, **em ordem** |
+
+`video_id` ≠ `ad_id` ≠ `creative_id`. O `video_id` tem que ser da **mesma conta** do anúncio, senão dá `INTERNAL` no create.
+
+Pra achar IDs/hashes: `ads_get_ad_videos` e `ads_get_ad_images` (pagina com `cursor`). Os nomes dos assets batem com a planilha de criativos.
+
+---
+
+## ⚠️ Armadilhas (já custaram retrabalho)
+
+1. **Conjunto por API = dinâmico** → sempre tela. (ver Passo 2)
+2. **"Advertiser is missing" (3858634)** na ANEX03 → conjunto na tela; anúncios por API herdam.
+3. **Carrossel multi-texto** → só tela.
+4. **Miniatura de vídeo obrigatória** → usar hash placeholder ou frame real.
+5. **VALOR em vez de VOLUME na meta de desempenho** → a meta de desempenho é quase sempre **"Maximizar o número de conversões"** (`OFFSITE_CONVERSIONS` = volume). **"Maximizar o VALOR das conversões"** (`VALUE`) só se o Rafael pedir explicitamente. Conjuntos duplicados de molde **vêm errados como valor** — sempre trocar e avisar. Foi otimização por valor que derrubou o LS na ANEX07 em junho (não saía do aprendizado, CPM R$ 109–177, CPA R$ 127–230).
+   ⚠️ Não confundir com **estratégia de lance "Meta de ROAS"**, que é permitida — ver §Estratégias de lance.
+6. **Nomenclatura de assets** — já apareceram `ADI…_NEW_VI_` (i em vez de V1) e `DC024_` sem o "A". Não quebra o anúncio, mas quebra PROCV/AppScript. Avise o Rafael quando ver.
+
+---
+
+## ✅ Checklist antes de dizer "pronto"
+
+- [ ] Copy do funil existe em `copies.md` (senão, portão da regra nº 1)
+- [ ] Nome de campanha e conjunto **exatamente** como o Rafael pediu
+- [ ] Objetivo e otimização certos pro funil
+- [ ] Orçamento e estratégia de lance certos (qual dos 3 tipos? valor da meta? atribuição padrão ou incremental?)
+- [ ] Meta de desempenho em **volume** — a menos que o Rafael tenha pedido valor
+- [ ] Local da conversão = **Site**
+- [ ] Só os criativos **daquela** campanha — nem a mais, nem a menos
+- [ ] UTM, link de destino e CTA em todos
+- [ ] Tudo **PAUSADO**
+- [ ] Reportar os ad_ids numa tabela + o que sobrou pra fazer na tela
+
+---
+
+## 🔗 Arquivos da skill
+
+- **`referencia.md`** — detalhe dos 6 funis, objetivos/otimizações válidas, siglas de UTM
+- **`copies.md`** — legendas, títulos e descrições por funil (**preencher aos poucos**)
+
+
+================================================================================
+PARTE 2 — REFERÊNCIA TÉCNICA (referencia.md)
+================================================================================
+
+# Referência técnica — Funis, objetivos e otimizações
+
+Complementa o `SKILL.md`. Aqui fica o detalhe de cada tipo de campanha.
+
+---
+
+## Objetivos válidos no Meta (ODAX)
+
+Só estes são aceitos por API. Objetivos legados (`LINK_CLICKS`, `VIDEO_VIEWS`, `REACH`, `LEAD_GENERATION`…) **falham com VALIDATION**.
+
+| Objetivo | Pra que serve |
+|---|---|
+| `OUTCOME_SALES` | Vendas / compras |
+| `OUTCOME_LEADS` | Cadastros, leads |
+| `OUTCOME_ENGAGEMENT` | Engajamento, mensagens, visualizações |
+| `OUTCOME_TRAFFIC` | Tráfego, cliques no link |
+| `OUTCOME_AWARENESS` | Alcance, reconhecimento |
+| `OUTCOME_APP_PROMOTION` | App (não usamos) |
+
+### Otimizações válidas em `OUTCOME_SALES` (confirmado pela API)
+`OFFSITE_CONVERSIONS` · `VALUE` · `LANDING_PAGE_VIEWS` · `LINK_CLICKS` · `POST_ENGAGEMENT` · `REACH` · `IMPRESSIONS` · `CONVERSATIONS` · `MESSAGING_PURCHASE_CONVERSION`
+
+> Recomendado pela Meta pra vendas: **`OFFSITE_CONVERSIONS`** ✅
+
+---
+
+## 1. VENDAS — Lançamento pago (high ticket) ✅ VALIDADO
+
+| Campo | Valor |
+|---|---|
+| Objetivo | `OUTCOME_SALES` |
+| Otimização | **`OFFSITE_CONVERSIONS`** (= "Compra") |
+| Evento | Purchase (pixel `1117829508632155`) |
+| Local de conversão | **Somente site** — nunca "site e app" |
+| Público | Advantage+ · 34-55 · Mulheres |
+| Orçamento | CBO (na campanha) |
+| Criativo dinâmico | **DESLIGADO** |
+| Contas | ANEX 03 · ANEX 07 (nacional) · ANEX 06 / ANEX 10 (internacional) |
+| Sigla UTM | `LS-CAP` |
+| Destino padrão | `https://lp.lucrocomia.com.br/ws-especialista-com-ia/v1-2` (variante: `/v1-2-6`) |
+
+### Campanhas MODELO do LS (confirmadas 17/07/26 — usar estas p/ subir criativo novo)
+
+| Conta | Campanha modelo | Conjunto modelo |
+|---|---|---|
+| **ANEX 03** `1982984478780347` | `120248030658520109` · `[00] [LS] … [VIDEO\|IMAGEM\|CARROSSEL] [PAGINA V1-2] [MODELO 2]` | `120248030657980109` · MODELO 6 \| VIDEO — ⚠️ conjunto ÚNICO (mistura ADV/ADC/ADI), em 29/07/26 já estava com **49 anúncios** (até ADV357). Novo conjunto MODELO 8 \| VIDEO `120248885249170109` (duplicado 29/07/26 pelo Rafael na tela, otimização mantida em **VALUE** de propósito — "é campanha modelo, não precisa mudar") — usar este a partir do ADV358 |
+| **ANEX 07** `387724389268455` | `120249540888680558` · `[00] [LS] … [PAGINA V1-2] [MODELO]` | CARROSSEL `120249541843480558` · VIDEO `120251038843370558` · VIDEO 2 `120251038843360558` (cheio até ~ADV349) · VIDEO 3 `120253827042030558` (duplicado 29/07/26 pra continuar a partir do ADV350+, otimização trocada pra **volume**/OFFSITE_CONVERSIONS) · IMAGEM `120251038654850558` |
+
+> ⚠️ Os dois conjuntos-modelo (referência) estão com otimização **`VALUE`**, não `OFFSITE_CONVERSIONS`. Como são modelos de duplicação, avisar o Rafael para conferir a otimização ao duplicar pra valer (ver armadilha nº 5 no SKILL.md). **Exceção confirmada 29/07/26:** o Rafael disse que numa campanha-modelo em si (não uma campanha real de veiculação) não precisa forçar volume — só ajustar quando for campanha de verdade.
+
+> 📏 **Regra do Rafael: máx. 50 anúncios por conjunto.** Quando um conjunto-modelo bate perto de 50, duplica um novo (nomeando "vídeo N"/"MODELO N") e os criativos seguintes vão pro conjunto novo. Ao aproximar de 50 em qualquer conta (inclusive ANEX03, que só tem 1 conjunto pra todos os tipos), avisar o Rafael antes de estourar.
+> ⚠️ Conjuntos duplicados trazem junto os anúncios do molde original (ex.: `VIDEO 3` do ANEX07 e `MODELO 8` do ANEX03 nasceram cada um com 2 anúncios herdados, IN_PROCESS/PAUSED). **Isso é DE PROPÓSITO** (Rafael confirmou 29/07/26): ele deixa sempre 2 criativos num conjunto novo/vazio porque com só 1 o Meta converte o conjunto sozinho em **Criativo Dinâmico** (e aí não dá pra operar direito). **Regra padrão:** depois de subir os criativos REAIS da remessa nesse conjunto (o conjunto já tem ≥2 anúncios de verdade, então não corre mais risco de virar dinâmico), pode APAGAR os anúncios herdados do molde — a menos que o Rafael peça pra não apagar. Apagar: `ads_update_entity` entity_type=ad, `fields:{"status":"DELETED"}`.
+> ⚠️ Às vezes esse delete falha com `2446289` "Ad Creative Is Incomplete... reel... not available" (confirmado 29/07/26 na ANEX03) — problema do lado do Meta com a mídia do anúncio herdado, não do pedido. Nesse caso avisar o Rafael e apagar pela TELA.
+> ⚠️ **Conflito de otimização entre conjuntos da mesma campanha:** se a campanha usa uma estratégia de lance compartilhada, o Meta bloqueia publicar um conjunto com otimização diferente dos outros já ativos na campanha (erro `1885760` "todos os conjuntos... devem usar a mesma otimização"). Ao duplicar um conjunto-molde numa campanha com conjuntos JÁ ATIVOS, ou combina a otimização com os existentes, ou pergunta ao Rafael antes de mudar — não presuma que dá pra só trocar pra volume.
+> ⚠️ **Ad creative é imutável nesta conexão (confirmado 29/07/26):** `ads_update_entity` em `ad` com `fields.creative` retorna erro de VALIDATION ("Ad creatives are immutable"). O fluxo antigo de "criar simples → editar com asset_feed_spec" NÃO funciona mais. Fluxo certo agora: `ads_create_creative` (já com `instagram_user_id`, `video_id`/`image_hash`, `message`, `headline`, `description`, `call_to_action_type`, `link_url` — tudo de uma vez) → pegar `creative_id` → `ads_create_ad` com `creative: {"creative_id": "..."}`. Pra texto único (a maioria dos funis LS) isso substitui o asset_feed inteiro — só precisa de asset_feed mesmo pra 5 variações (que também deve ter mudado de comportamento, não testado ainda). Apagar um ad errado: `ads_update_entity` entity_type=ad, `fields:{"status":"DELETED"}` — funciona direto, sem precisar da tela.
+
+**Estratégias de lance usadas** (detalhe completo no SKILL.md, Passo 1):
+- **Maior volume** → `LOWEST_COST_WITHOUT_CAP`
+- **Meta de custo (cost cap)** → `COST_CAP` + valor da meta (**padrão R$ 110**)
+- **Meta de ROAS** → `LOWEST_COST_WITH_MIN_ROAS` + meta (**padrão 0,9**)
+
+> **Atribuição `Padrão` ou `Incremental` vale pras TRÊS**, sempre — o Rafael diz no prompt qual é. Se não disser, perguntar.
+
+> ✅ Meta de ROAS **é permitida** (Rafael confirmou 18/07/26). O que se evita é a **meta de desempenho em VALOR** — usar sempre **volume** (`OFFSITE_CONVERSIONS`), exceto se ele pedir valor. Valor só é opção no tipo ROAS. Ver armadilha nº 5 no SKILL.md.
+
+### Nomenclatura (padrão do Rafael)
+**Campanha:**
+`[NN] [LS] [CAPTACAO PAGA] [VENDAS] [COMPRA] [P-ADVANTAGE] [VIDEO|IMAGEM|CARROSSEL] [AUTO] [PAGINA V1-2] [VARIANTE]`
+
+**Conjunto:**
+`01 | P-ADVANTAGE | 34-55 | M | CBO | PAGINA V1-2 | VARIANTE`
+
+**Criativo:** `NOME_TAG_TIPO_VERSÃO_HEADLINE_TERMO_TEMPO`
+Prefixos: `ADV` = vídeo · `ADI` = imagem · `ADC` = carrossel
+
+---
+
+## 2. CAPTAÇÃO DE LEADS ⚠️ A VALIDAR
+
+| Campo | Valor |
+|---|---|
+| Objetivo | `OUTCOME_LEADS` |
+| Otimização | ⚠️ **confirmar** — provável `OFFSITE_CONVERSIONS` com evento Lead (lead no site) ou `LEAD_GENERATION` (formulário instantâneo) |
+| Formulário ou site? | ⚠️ **perguntar ao Rafael** — muda tudo |
+| Conta | **ANEX 08** `394899594978731` |
+| Sigla UTM | ⬜ definir |
+
+**Perguntar antes de subir:**
+1. Lead no site (pixel) ou formulário instantâneo do Meta?
+2. Qual o evento/conversão a otimizar?
+3. Qual a página de destino?
+
+---
+
+## 3. CAPTAÇÃO DE LEADS — evento personalizado ⚠️ A VALIDAR
+
+Igual ao nº 2, mas o `promoted_object` aponta pra uma **conversão personalizada**.
+
+**Perguntar antes de subir:**
+1. Qual conversão personalizada? (usar `ads_get_customconversions` pra listar as da conta)
+2. Página de destino?
+
+| Campo | Valor |
+|---|---|
+| Objetivo | `OUTCOME_LEADS` |
+| Otimização | `OFFSITE_CONVERSIONS` |
+| `promoted_object` | `{pixel_id, custom_conversion_id}` |
+| Conta | **ANEX 08** |
+
+---
+
+## 4. DISTRIBUIÇÃO DE CONTEÚDO ⚠️ A VALIDAR
+
+Conta dedicada: **ANEX 05** `870034975015887` (hoje é *só* distribuição — não é mais leads).
+
+**Perguntar antes de subir:**
+1. Objetivo: engajamento no post, tráfego, ou visualização de vídeo?
+2. É impulsionar post existente (`object_story_id`) ou criar anúncio novo?
+3. Tem link de destino ou é só o post?
+
+| Campo | Valor |
+|---|---|
+| Objetivo | ⚠️ provável `OUTCOME_ENGAGEMENT` ou `OUTCOME_TRAFFIC` |
+| Otimização | ⚠️ `POST_ENGAGEMENT` / `THRUPLAY` / `LINK_CLICKS` |
+| Sigla UTM | ⬜ definir |
+
+> 💡 Pra impulsionar post existente do Instagram existe `ads_boost_ig_post`.
+
+---
+
+## 5. MENSAGENS ⚠️ A VALIDAR
+
+**Perguntar antes de subir:**
+1. Destino: WhatsApp, Messenger ou Instagram Direct?
+2. Qual a mensagem de saudação?
+3. Qual conta?
+
+| Campo | Valor |
+|---|---|
+| Objetivo | ⚠️ `OUTCOME_ENGAGEMENT` (otimização `CONVERSATIONS`) ou `OUTCOME_SALES` (`MESSAGING_PURCHASE_CONVERSION`) |
+| CTA | `WHATSAPP_MESSAGE` · `MESSAGE_PAGE` · `CHAT_NOW` |
+| Sigla UTM | ⬜ definir |
+
+---
+
+## 6. ENGAJAMENTO (alcance / cliques) ⚠️ A VALIDAR
+
+**Perguntar antes de subir:**
+1. O que otimizar: alcance, cliques no link, ou engajamento no post?
+2. Qual conta?
+
+| Campo | Valor |
+|---|---|
+| Objetivo | ⚠️ `OUTCOME_AWARENESS` (alcance) · `OUTCOME_TRAFFIC` (cliques) · `OUTCOME_ENGAGEMENT` (post) |
+| Otimização | `REACH` · `LINK_CLICKS` · `POST_ENGAGEMENT` |
+| Sigla UTM | ⬜ definir |
+
+---
+
+## 7. PERPÉTUO (ANEX 02) ⚠️ A VALIDAR
+
+Conta: **ANEX 02 \| PERPÉTUOS** `1558879025022417` — low tickets e outros produtos.
+
+**Perguntar antes de subir:** qual produto, qual página, qual objetivo.
+
+---
+
+## 8. SALA SECRETA (SST) — Leads / aulas semanais ✅ VALIDADO
+
+Funil de **captação de leads** da Sala Secreta (aula gratuita toda quarta 18h). Copy em `copies.md` §9.
+
+| Campo | Valor |
+|---|---|
+| Objetivo | `OUTCOME_LEADS` · buying_type `AUCTION` |
+| Otimização (conjunto) | `OFFSITE_CONVERSIONS` (evento Lead) |
+| Público | Advantage+ · `HM 30-50` · CBO |
+| Conta | **ANEX 08** `394899594978731` (pode ter 2ª conta — não cadastrada) |
+| Campanha modelo | `120255073018440196` · `[00] [SST] … [PAGINA A] [CBO] [MODELO]` (PAUSADA) |
+| Conjunto modelo | `120255073018480196` · `00 \| P-ADVANTAGE \| HM \| 30-50 \| CBO` (ATIVO) |
+| Página / IG / Pixel | Anatex `100849768829838` / @anatex `17841400072450024` / `1117829508632155` |
+| Destino | `https://lp.marketex.com.br/sala-secreta-aulas-gratuitas-com-anatex-td` |
+| Sigla UTM | `SST` (string completa em `copies.md` §9) |
+
+**Fluxo:** subir os anúncios direto no **conjunto modelo** `120255073018480196` por API (mesmo padrão do LS). Vídeo que já está na conta → `video_id` + miniatura via frame nativo (`ads_get_ad_videos` → `picture` → `image_url`).
+
+**Doc-fonte:** `~/Downloads/SETUP_CAMPANHAS_SALA_SECRETA_MARKETEX.md` (+ HANDOVER.md). Gerado 06/07/26.
+
+---
+
+## Ferramentas MCP úteis
+
+| Preciso de… | Ferramenta |
+|---|---|
+| Listar contas | `ads_get_ad_accounts` |
+| Listar páginas do BM | `ads_get_pages_for_business` (business `182240426173935`) |
+| Achar `video_id` | `ads_get_ad_videos` (filtro `title`, pagina com `cursor`) |
+| Achar `image_hash` | `ads_get_ad_images` (pagina com `cursor`) |
+| Ver campanhas/conjuntos/anúncios | `ads_get_ad_entities` (level: campaign/adset/ad) |
+| Ver o criativo de um anúncio | `ads_get_creatives` (por `creative_id`) |
+| Conversões personalizadas | `ads_get_customconversions` |
+| Públicos | `ads_get_ad_account_custom_audiences` |
+| Criar campanha | `ads_create_campaign` |
+| Criar anúncio | `ads_create_ad` |
+| Editar (inclusive asset_feed) | `ads_update_entity` |
+| Ativar (só com OK do Rafael!) | `ads_activate_entity` |
+
+⛔ **Criar conjunto: não existe ferramenta.** É na tela. (ver SKILL.md, Passo 2)
+
+---
+
+## Histórico de decisões
+
+- **14/07/26** — Mapa das contas confirmado pelo Rafael. ANEX 01 e 09 fora de uso. ANEX 05 virou só distribuição (nome ainda diz "& LEADS", vai mudar). ANEX 08 é só leads. Página e IG são sempre Anatex/@anatex, inclusive internacional.
+- **18/07/26** — Rafael definiu as **3 estratégias de lance** (maior volume · cost cap R$ 110 · meta de ROAS 0,9), com atribuição `Padrão` ou `Incremental` e local de conversão sempre Site. **Corrigiu a regra anterior:** meta de ROAS é permitida; o que se evita é a meta de desempenho em VALOR. Skill renomeada `marketex-subir-campanhas` → `marketex-subir-campanhas-ls`.
+- **jun/26** — Diagnóstico ANEX07: campanhas de venda otimizadas por **valor** não saem do aprendizado. Regra: meta de desempenho em volume (Compra).
+
+
+================================================================================
+PARTE 3 — COPIES POR FUNIL: legendas, títulos e descrições (copies.md)
+================================================================================
+
+# Copies por funil — Marketex / Ana Tex
+
+> **Como usar:** cada funil tem 5 legendas, 5 títulos e 5 descrições (nos **carrosséis** é 5 legendas, **1 título**, **1 descrição**).
+>
+> **Status `⬜ VAZIO`** = não pode subir anúncio desse funil. Avise o Rafael:
+> *"Não tenho ainda a legenda, título e descrição do funil [X]. Me passa que eu guardo na skill e já subo."*
+>
+> Quando o Rafael mandar a copy, **preencha aqui** e troque o status pra `✅ PREENCHIDO`.
+
+---
+
+## 1. VENDAS — Lançamento pago (LS · Workshop Especialista com IA)
+
+**Status:** ✅ PREENCHIDO — **texto ÚNICO** (1 legenda, 1 título, 1 descrição)
+**Sigla UTM:** `LS-CAP`
+**Destino:** `https://lp.lucrocomia.com.br/ws-especialista-com-ia/v1-2`
+**CTA:** `LEARN_MORE` (Saiba Mais)
+
+> ⚠️ **NÃO é 5/5/5.** Rafael confirmou em 18/07/26: o LS-CAP usa **1 texto, 1 título e 1 descrição** pra todos os criativos da remessa. Não pedir variações 2–5 — elas não existem e não vão existir. (Se um briefing pedir "5 textos + 5 títulos + 5 descrições", é resquício de template antigo: confirmar antes.)
+
+### Legenda (única)
+
+**Legenda** ✅
+```
+Você ainda é o gargalo do próprio negócio, não porque falta capacidade, mas porque falta sistema. 🚨
+
+Se você usa o ChatGPT como se fosse um Google melhorado, nunca treinou a IA com o seu tom de voz e ainda faz manualmente tudo que poderia estar rodando sozinho, você não está aproveitando nem 10% do que a Inteligência Artificial pode fazer por você.
+
+No Workshop Especialista com IA, em 7 dias de aulas práticas online ao vivo, você sai com 6 ativos prontos rodando no seu negócio:
+
+⚙️ ChatGPT configurado como seu melhor funcionário
+🌐 Página profissional no ar sem programador
+📱 30 posts com a sua identidade em uma tarde
+🧠 Claude integrado à sua rotina de decisões
+🎥 Clone digital gravando vídeos no seu lugar
+💰 Plano de monetização desenhado
+
+IA bem usada não poupa só tempo, ela liberta você de estar presente o tempo inteiro.
+
+Mais de 40.000 especialistas já passaram pelo método da Ana Tex, duas vezes vencedora do Prêmio iBest. 🏆
+
+👉 Toque em "Saiba Mais" e garanta sua vaga antes que as vagas acabem. ⏳
+```
+
+### Título (único)
+
+✅ `Em 7 dias, 6 ativos de IA prontos no seu negócio 🚀`
+
+### Descrição (única)
+
+✅ `Sem conhecimento técnico. Sem enrolação. Só resultado. Toque em Saiba Mais. ✅`
+
+---
+
+## 2. CAPTAÇÃO DE LEADS
+
+**Status:** ⬜ **VAZIO — não subir anúncio deste funil**
+**Sigla UTM:** ⬜ definir (sugestão: `LEADS`)
+**Destino:** ⬜ definir
+**CTA:** ⬜ definir
+
+### Legendas (5)
+1. ⬜ VAZIO
+2. ⬜ VAZIO
+3. ⬜ VAZIO
+4. ⬜ VAZIO
+5. ⬜ VAZIO
+
+### Títulos (5)
+1. ⬜ VAZIO
+2. ⬜ VAZIO
+3. ⬜ VAZIO
+4. ⬜ VAZIO
+5. ⬜ VAZIO
+
+### Descrições (5)
+1. ⬜ VAZIO
+2. ⬜ VAZIO
+3. ⬜ VAZIO
+4. ⬜ VAZIO
+5. ⬜ VAZIO
+
+---
+
+## 3. CAPTAÇÃO DE LEADS — evento personalizado
+
+**Status:** ⬜ **VAZIO — não subir anúncio deste funil**
+**Sigla UTM:** ⬜ definir
+**Destino:** ⬜ definir
+**CTA:** ⬜ definir
+**Evento/conversão personalizada:** ⬜ definir (qual custom conversion?)
+
+### Legendas (5)
+1. ⬜ VAZIO
+2. ⬜ VAZIO
+3. ⬜ VAZIO
+4. ⬜ VAZIO
+5. ⬜ VAZIO
+
+### Títulos (5)
+1. ⬜ VAZIO
+2. ⬜ VAZIO
+3. ⬜ VAZIO
+4. ⬜ VAZIO
+5. ⬜ VAZIO
+
+### Descrições (5)
+1. ⬜ VAZIO
+2. ⬜ VAZIO
+3. ⬜ VAZIO
+4. ⬜ VAZIO
+5. ⬜ VAZIO
+
+---
+
+## 4. DISTRIBUIÇÃO DE CONTEÚDO
+
+**Status:** ⬜ **VAZIO — não subir anúncio deste funil**
+**Sigla UTM:** ⬜ definir
+**Destino:** ⬜ definir
+**CTA:** ⬜ definir
+
+### Legendas (5)
+1. ⬜ VAZIO
+2. ⬜ VAZIO
+3. ⬜ VAZIO
+4. ⬜ VAZIO
+5. ⬜ VAZIO
+
+### Títulos (5)
+1. ⬜ VAZIO
+2. ⬜ VAZIO
+3. ⬜ VAZIO
+4. ⬜ VAZIO
+5. ⬜ VAZIO
+
+### Descrições (5)
+1. ⬜ VAZIO
+2. ⬜ VAZIO
+3. ⬜ VAZIO
+4. ⬜ VAZIO
+5. ⬜ VAZIO
+
+---
+
+## 5. MENSAGENS
+
+**Status:** ⬜ **VAZIO — não subir anúncio deste funil**
+**Sigla UTM:** ⬜ definir
+**Destino da mensagem:** ⬜ definir (WhatsApp / Messenger / Instagram Direct?)
+**CTA:** ⬜ definir (ex.: `WHATSAPP_MESSAGE`, `MESSAGE_PAGE`)
+**Mensagem de saudação/primeira msg:** ⬜ definir
+
+### Legendas (5)
+1. ⬜ VAZIO
+2. ⬜ VAZIO
+3. ⬜ VAZIO
+4. ⬜ VAZIO
+5. ⬜ VAZIO
+
+### Títulos (5)
+1. ⬜ VAZIO
+2. ⬜ VAZIO
+3. ⬜ VAZIO
+4. ⬜ VAZIO
+5. ⬜ VAZIO
+
+### Descrições (5)
+1. ⬜ VAZIO
+2. ⬜ VAZIO
+3. ⬜ VAZIO
+4. ⬜ VAZIO
+5. ⬜ VAZIO
+
+---
+
+## 6. ENGAJAMENTO (alcance / cliques no link)
+
+**Status:** ⬜ **VAZIO — não subir anúncio deste funil**
+**Sigla UTM:** ⬜ definir
+**Destino:** ⬜ definir
+**CTA:** ⬜ definir
+
+### Legendas (5)
+1. ⬜ VAZIO
+2. ⬜ VAZIO
+3. ⬜ VAZIO
+4. ⬜ VAZIO
+5. ⬜ VAZIO
+
+### Títulos (5)
+1. ⬜ VAZIO
+2. ⬜ VAZIO
+3. ⬜ VAZIO
+4. ⬜ VAZIO
+5. ⬜ VAZIO
+
+### Descrições (5)
+1. ⬜ VAZIO
+2. ⬜ VAZIO
+3. ⬜ VAZIO
+4. ⬜ VAZIO
+5. ⬜ VAZIO
+
+---
+
+## 7. PERPÉTUO (low ticket e outros produtos · ANEX 02)
+
+**Status:** ⬜ **VAZIO — não subir anúncio deste funil**
+**Sigla UTM:** ⬜ definir
+**Destino:** ⬜ definir
+**CTA:** ⬜ definir
+**Produto:** ⬜ definir (qual low ticket?)
+
+### Legendas (5)
+1. ⬜ VAZIO
+2. ⬜ VAZIO
+3. ⬜ VAZIO
+4. ⬜ VAZIO
+5. ⬜ VAZIO
+
+### Títulos (5)
+1. ⬜ VAZIO
+2. ⬜ VAZIO
+3. ⬜ VAZIO
+4. ⬜ VAZIO
+5. ⬜ VAZIO
+
+### Descrições (5)
+1. ⬜ VAZIO
+2. ⬜ VAZIO
+3. ⬜ VAZIO
+4. ⬜ VAZIO
+5. ⬜ VAZIO
+
+---
+
+## 8. CAPTAÇÃO — Motor QUIZZ (tag CAPQUIZZ)
+
+**Status:** ✅ PREENCHIDO (texto único, vale pra toda a remessa de criativos)
+**Sigla UTM:** `LS-QUIZ-CAP`
+**Destino:** `https://lp.lucrocomia.com.br/ws-especialista-com-ia/quiz`
+**CTA:** `LEARN_MORE` (Saiba mais)
+**Conta:** ANEX 07 · Página Anatex / @anatex
+
+> Texto ÚNICO — 1 legenda, 1 título, 1 descrição — a mesma pra todos os criativos da remessa. Não é 5/5/5.
+
+**Legenda:**
+```
+🔍 Tem gente que sabe muito menos que você faturando muito mais, e isso não é sorte.
+
+Você passou anos construindo repertório, já atendeu centenas de pessoas e sabe exatamente do que está falando, mas aí abre o Instagram e vê alguém com metade da sua bagagem sendo tratado como autoridade e enchendo a agenda. 
+
+A sensação de injustiça é legítima, só que ela não muda o jogo, porque o digital nunca premiou quem sabe mais e sim quem consegue mostrar o que sabe de um jeito que as pessoas entendam, confiem e queiram comprar.
+
+E na maioria das vezes o que trava um especialista não é competência, é a falta de um sistema. Veja se você se reconhece em algum destes pontos:
+
+🔹 Você é uma referência fora da internet, mas continua praticamente invisível dentro dela
+🔹 A semana aperta e o conteúdo é sempre a primeira coisa que fica para depois
+🔹 Você até usa inteligência artificial, mas ela devolve textos genéricos que não parecem seus
+🔹 Você entrega muito, cobra pouco e o seu nome só circula entre quem já te conhece
+
+
+Se pelo menos um deles bateu, o problema não está na sua capacidade e sim na distância entre aquilo que você sabe e aquilo que o mercado consegue enxergar. 
+
+🎯Foi exatamente para resolver isso que a gente montou um quiz rápido e totalmente gratuito, que identifica em qual etapa a sua autoridade está travando e mostra o que a inteligência artificial já consegue assumir no seu lugar, para que você pare de depender de tempo livre e de inspiração para conseguir aparecer. 
+
+Em poucos minutos você sai com um diagnóstico direto, apontando o ponto exato que está te segurando e o caminho para destravar.
+
+👉 Clique em "Saiba mais" e faça o quiz gratuito agora para descobrir onde você está perdendo espaço.
+```
+
+**Título:** `Descubra onde você está perdendo espaço no digital`
+
+**Descrição:** `Quiz gratuito. Responda em poucos minutos e receba o seu diagnóstico.`
+
+**Obs.:** texto longo corta antes do "ver mais" em Stories/Reels. Se rodar nesses posicionamentos, pedir versão curta ao Rafael.
+
+---
+
+## 9. SALA SECRETA — Aulas gratuitas semanais (tag SST-CAP)
+
+**Status:** ✅ PREENCHIDO (texto único, validado pelo Rafael e já usado)
+**Sigla UTM:** `SST` (a string vai inteira, ver abaixo)
+**Destino:** `https://lp.marketex.com.br/sala-secreta-aulas-gratuitas-com-anatex-td`
+**Display link (opcional):** `https://lp.marketex.com.br/` — se o formato não aceitar, deixa sem
+**CTA:** `LEARN_MORE` (Saiba mais)
+**Conta:** ANEX 08 · `394899594978731` · Página Anatex / @anatex
+**Funil:** LEADS (ver `referencia.md` §8)
+
+> Texto ÚNICO — 1 legenda, 1 título, 1 descrição. Não é 5/5/5.
+
+**Legenda:**
+```
+🔑 IMAGINE ENTRAR EM UMA SALA SECRETA…
+Um espaço exclusivo onde poucos têm acesso, mas quem entra desbloqueia estratégias poderosas para escalar seu negócio com Inteligência Artificial. 🚀🤖
+
+Agora, imagine ter acesso a isso TODA SEMANA! 👀
+Toda quarta-feira, às 18h, uma aula gratuita e ao vivo, onde você aprende a usar IA para crescer, otimizar processos e gerar mais resultados.
+
+🔥 O QUE VOCÊ VAI DESCOBRIR?
+
+✅ Como escalar seus serviços com Inteligência Artificial
+✅ Estratégias para atrair e impactar clientes 5x mais rápido
+✅ Como criar conteúdos e ferramentas de forma ágil e eficiente
+✅ Métodos para aumentar sua produtividade em 10x
+
+💡 PARA QUEM É ESSA EXPERIÊNCIA?
+
+🚀 Para quem quer crescer com IA e dominar as novas ferramentas digitais
+🎯 Especialistas, consultores, coaches, terapeutas e empreendedores que querem se destacar
+
+⚠️ A Sala Secreta não estará aberta para sempre! O acesso pode ser fechado a qualquer momento.
+
+👉 QUER PARTICIPAR? Toque em "Saiba mais" e se inscreva gratuitamente! 🎟️
+```
+
+**Título:** `Aula gratuita toda quarta, 18h`
+(alternativas p/ teste: `Sala Secreta: aula ao vivo grátis` · `Acesso liberado toda semana`)
+
+**Descrição:** `Estratégias de IA pra escalar seu negócio`
+(alternativas: `Toda quarta às 18h. Inscreva-se agora` · `Aula grátis de IA, toda quarta às 18h`)
+
+**UTM (vai em `url_tags`, SEM o `?` inicial):**
+```
+src=MTADS-SST_{{adset.name}}_{{ad.name}}_MTADS-SST_{{campaign.name}}_{{adset.name}}_{{ad.name}}&utm_source=MTADS-SST&utm_medium={{adset.name}}&utm_content={{ad.name}}&utm_campaign=MTADS-SST_{{campaign.name}}_{{adset.name}}_{{ad.name}}
+```
+> Se montar na TELA, aí o `?` inicial fica. Por API o Meta adiciona sozinho.
+
+**Nomenclatura de criativo:** `ADV<nº>_SST_CAP_<nome>_<duração>` (ex.: `ADV42_SST_CAP_A INTELIGENCIA NOVA_0.39` = 0min39s)
+
+**Obs.:** vídeos sem miniatura → usar o frame nativo do próprio vídeo (`ads_get_ad_videos` campo `picture`) no `image_url`. Rafael disse que a Sala Secreta **pode ter uma 2ª conta** — ainda não cadastrada (pedir ID + campanha modelo quando for usar).
+
+---
+
+*Última atualização: 17/07/26 — Sala Secreta (SST) cadastrada e validada (3 anúncios subidos na ANEX 08). Antes: mapa de contas 14/07/26 + funil QUIZZ (CAPQUIZZ).*
+
