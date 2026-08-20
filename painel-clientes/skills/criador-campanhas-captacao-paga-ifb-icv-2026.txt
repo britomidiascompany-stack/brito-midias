@@ -1,0 +1,181 @@
+---
+name: criador-campanhas-captacao-paga-ifb-icv-2026
+description: >-
+  Cria e gerencia campanhas de tráfego pago (Meta Ads) do lançamento IFB-ICV-2026 (Imersão Clínica
+  de Valor — Instituto Fernanda Ben / Fernanda Ben), via MCP Meta Ads, seguindo o padrão de
+  nomenclatura, targeting, copy e UTM que o Rafael definiu ao longo do lançamento. Use SEMPRE que
+  o Rafael pedir para "subir/criar uma campanha do IFB", "criar campanha de captação paga da
+  Fernanda Ben", "duplicar a campanha modelo", "subir esses criativos na campanha", "criar campanha
+  de cost cap / ROAS cap / público quente do IFB-ICV", "religar campanhas de uma página", "quais
+  criativos converteram", "adicionar os criativos ADI/ADV/ADC numa campanha", ou mandar/citar a
+  planilha de criativos (RESULTADOS CRIATIVO - IFB-ICV-2026) junto com um ID de campanha/conjunto
+  ou o nome de uma página do funil. Vale mesmo quando ele não diz "skill" — se o assunto é
+  montar/preencher/analisar campanha ou conjunto de anúncios do IFB-ICV-2026, use esta skill. NÃO
+  use para RELATÓRIOS do IFB (essa é a `ifb-icv-relatorio-dashboard` / `ifb-relatorio-lancamento-pago`)
+  nem para renomear criativos novos (essa é a `renomeador-criativos-campanha-cap-ifb-ifb-icv-2026`)
+  nem para outros clientes.
+---
+
+# Criador de campanhas — Captação paga IFB-ICV-2026
+
+Cria, expande e analisa campanhas de **Vendas** do lançamento da Imersão Clínica de Valor no Meta
+Ads, usando o MCP de anúncios. Tudo nasce **PAUSED** — a skill nunca ativa nada sem o Rafael pedir
+explicitamente.
+
+O objetivo é reproduzir, sem retrabalho, o padrão que já está rodando: mesma conta/página/pixel,
+mesma nomenclatura, mesmo targeting (Público Advantage+), mesma copy padrão e o mesmo esquema de
+UTM. O conhecimento operacional (recipe da API, JSON dos criativos, armadilhas conhecidas — inclui
+uma pegadinha real de ROAS cap que já causou erro) está em `references/fluxo-mcp.md`; a copy oficial
+das páginas do modelo original está em `references/copy-paginas.md`. **Leia o
+`references/fluxo-mcp.md` antes de criar qualquer coisa** — ele evita os erros já mapeados nesta
+conta.
+
+## Ativos fixos (conta IFB)
+| Item | ID |
+|---|---|
+| Ad account | `463327393755502` |
+| Página FB | `2300931153272351` (Instituto Fernanda Ben) |
+| Instagram | `17841409919804434` (@institutofernandaben) |
+| Pixel | `905892400214790` (Pixel completo - IFB) |
+| conversion_domain | `institutofernandaben.com.br` |
+
+## Nomenclatura (padrão do Rafael — reproduza exatamente)
+- **Campanha:** `[NN][IFB-ICV-2026][CAPTACAO PAGA][VENDA][COMPRA][<PUBLICO>][AUTO][PAGINA <NOME>]<[COSTCAP][PADRAO][CPA NNN]><[ROASCAP][PADRAO][ROAS N.N]><[CARROSSEL][ADCxx-xx]><[REMARKETING]>`
+  - `<PUBLICO>` = `P-ADVANTAGE` (captação fria/quente com Advantage+) ou `QUENTE`/`FRIO` (público
+    customizado real, o Rafael troca depois). `NN` é sequencial na conta inteira — **sempre
+    consulte o maior `[NN]` já usado antes de numerar uma nova** (`ads_get_ad_entities`
+    level=campaign, filtrando por `campaign.name CONTAIN "IFB-ICV-2026"`, não confie em memória de
+    conversas antigas).
+  - Quando duas campanhas usariam o MESMO conjunto de tags (ex: duas de COSTCAP PADRAO com CPAs
+    diferentes), acrescente o valor como tag extra (`[CPA 160]`, `[CPA 115]`, `[ROAS 0.7]`) pra não
+    ficarem com nome idêntico. Isso não tinha precedente formal na conta — é uma convenção que o
+    Rafael aprovou quando surgiu a necessidade; sinalize a ele se estiver inventando uma tag nova.
+- **Conjunto:** `00 | P-ADVANTAGE | 30-55 | H-M | CBO | PAGINA <NOME> <| COSTCAP PADRAO | CPA NNN> <| ROASCAP PADRAO | ROAS N.N> <| CARROSSEL ADCxx-xx>`
+  - A faixa etária "30-55" no nome é só referência — Advantage+ trava 25-65 de verdade (ver abaixo).
+- **Anúncio:** o **nome completo do criativo** da planilha (ex `ADI11_IFB-ICV-2026_CAP_ENCONTRADA
+  ESCOLHIDA VALORIZADA`, `ADV08_IFB-ICV-2026_CAP_PROXIMO PASSO_1.10`). ADI = imagem, ADV = vídeo,
+  ADC = carrossel.
+
+### Mapeamento de página → nome no padrão (⚠️ confira sempre, não adivinhe pela URL)
+| URL | Nome no padrão | Observação |
+|---|---|---|
+| `.../ser-encontrada` | `PAGINA V1` | página "geral" do modelo original |
+| `.../valor-do-cuidado` | `PAGINA V2` | |
+| `.../proxima-etapa` | `PAGINA V3` | |
+| `.../ser-encontrada-v` | `PAGINA SER ENCONTRADA V` | página VSL, DIFERENTE da V1 |
+| `.../valor-do-cuidado-v` | `PAGINA VALOR DO CUIDADO V` | página VSL, DIFERENTE da V2 |
+| `.../proxima-etapa-v` | `PAGINA PROXIMA ETAPA V` | página VSL, DIFERENTE da V3 |
+| `.../crescimento-clinico` | `PAGINA CRESCIMENTO CLINICO` | |
+| `.../crescimento-clinico-vf` | `PAGINA CRESCIMENTO CLINICO VF` | **página diferente da anterior**, apesar do nome parecido — "-vf" não é sufixo cosmético |
+
+Novas páginas vão aparecer ao longo do lançamento. Regra geral: o nome no padrão usa as palavras do
+slug em maiúsculo; sufixos como `-v` ou `-vf` na URL indicam uma página realmente diferente (versão
+nova/VSL) e devem virar parte literal do nome (`... V` / `... VF`), não serem descartados. Na
+dúvida, pergunte ao Rafael antes de assumir que duas URLs parecidas são a mesma página.
+
+O Rafael normalmente já manda o(s) nome(s) exato(s) da campanha e do(s) conjunto(s) — **use o que
+ele mandar ao pé da letra** (inclusive espaços e `|`, que viram utm_medium). Se ele só descrever o
+que quer, monte a proposta de nomes com base nesta tabela e **mostre pra ele aprovar antes de
+criar** (ver "Sempre confirme").
+
+## Padrão fixo de toda campanha
+- Objetivo **Vendas** (`OUTCOME_SALES`), **CBO** (orçamento na campanha).
+- Otimização **Compra**: conjunto com `optimization_goal=OFFSITE_CONVERSIONS` +
+  `promoted_object={pixel_id, custom_event_type:PURCHASE}` — **isso vale para TODAS as estratégias
+  de lance**, incluindo ROAS cap (ver armadilha abaixo, não usar `optimization_goal:VALUE`).
+- Targeting: Brasil, **Advantage+** (`advantage_audience:1`), idade **25–65** (trava do Advantage+;
+  a faixa desejada, tipo "30-55", fica só no nome — ver `references/fluxo-mcp.md`).
+- Uma **página por conjunto**: a copy e a URL vêm de `references/copy-paginas.md` OU, se for página
+  nova sem copy própria definida, use a copy padrão "Ser Encontrada" (ver seção de copy abaixo) e
+  confirme com o Rafael se ele quer copy específica daquela página.
+- **UTM** nos parâmetros de URL do criativo (`url_tags`), macros `{{adset.name}}` etc — sempre no
+  nível do criativo, nunca dentro de `link_data`/`video_data`.
+- Sempre **PAUSED** ao criar. Só ativar se o Rafael pedir explicitamente (algumas campanhas desta
+  conta já foram ativadas por ele depois de criadas — não presuma o status atual, confira antes de
+  reusar um `adset_id`/`campaign_id` de uma conversa anterior).
+
+## Estratégias de lance (bid_strategy) — como configurar corretamente
+1. **Maior volume / padrão** (`P-ADVANTAGE` puro): `campaign_bid_strategy=LOWEST_COST_WITHOUT_CAP`.
+   Nada extra no conjunto.
+2. **Cost cap padrão** (CPA alvo): campanha com `campaign_bid_strategy=COST_CAP`; no `adset_spec`,
+   `"bid_amount": <CPA em centavos>` (ex R$160 → `16000`).
+3. **ROAS cap padrão** (ROAS alvo): campanha com `campaign_bid_strategy=LOWEST_COST_WITH_MIN_ROAS`;
+   no `adset_spec`, **NÃO use `bid_amount`** — use `"bid_constraints": {"roas_average_floor": <ROAS
+   × 10000>}` (ex ROAS 0.7 → `7000`). `optimization_goal` continua `OFFSITE_CONVERSIONS` (❌ NÃO
+   `VALUE` — dá erro `"Bid Strategy Doesn't Support Value Optimization"` tanto com `bid_amount`
+   quanto com `optimization_goal:VALUE`; o campo certo é mesmo `bid_constraints.roas_average_floor`
+   com `OFFSITE_CONVERSIONS`).
+
+## Como escolher "os criativos que converteram" (quando o Rafael pedir isso)
+Use a **tabela principal de registro de criativos** na planilha "RESULTADOS CRIATIVO - IFB-ICV-2026"
+(colunas `CRIATIVOS | LINK DRIVE | TIPO | INVESTIMENTO | VENDAS META ADS | CUSTO POR VENDA META ADS
+| CHECKOUTS | CUSTO POR CHECKOUT | VIDEO ID OU HASH CONTA IFB`), filtrando `VENDAS META ADS > 0`.
+
+**Não use a aba `MTADS | IFB-ICV-2026`** para essa decisão — ela é uma série diária que fica
+desatualizada com frequência (já ficou parada quase um mês sem novas linhas) e vai sub-representar
+vendas recentes. A tabela principal tem os totais acumulados mais confiáveis.
+
+Para carrossel (ADC), o hash de cada card fica numa célula só, separado por vírgula — extraia todos.
+
+## Passo a passo
+1. **Leia `references/fluxo-mcp.md`** (recipe da API + JSON dos criativos + armadilhas).
+2. Extraia da planilha os criativos pedidos (nome + tipo + hash/Video ID), ou rode o filtro de
+   "criativos com venda" acima se o pedido for esse.
+3. Confirme que existem na conta: `ads_get_ad_images` (hashes) / `ads_get_ad_videos` (video_ids,
+   pegando `picture` **fresco** — é uma URL assinada que expira, nunca reaproveite de uma resposta
+   antiga da mesma conversa).
+4. **Confirme com o Rafael o que não estiver explícito** antes de criar (ver "Sempre confirme") —
+   isso inclui sempre mostrar os nomes propostos de campanha/conjunto e a lista de criativos.
+5. Crie a campanha (CBO, orçamento em centavos, bid_strategy certa). Depois conjunto+1º anúncio via
+   `adset_spec` (inclui `bid_amount` ou `bid_constraints` se for cost/ROAS cap), pegue o `adset_id`,
+   e pendure os demais anúncios.
+   - Se os mesmos criativos (mesmo link de destino) já existem em outra campanha, **reuse
+     `creative_id`** (muito mais rápido — ver fluxo-mcp §7). Isso só funciona quando o **link de
+     destino é idêntico**: o link fica dentro do creative e é imutável, então uma campanha nova
+     apontando pra uma página diferente precisa reconstruir o `object_story_spec` do zero (pode
+     reaproveitar `image_hash`/`video_id`, que não expiram).
+   - `ads_create_ad` falha por erro transitório de conector com frequência nesta conta — trate
+     `"Tool execution failed"` como retry normal (1-2 tentativas resolvem quase sempre), não como
+     falha real.
+6. Confira a contagem final por conjunto (`ads_get_ad_entities`, level=ad, filtro por
+   `adset_id`/`campaign_id`) e **entregue um resumo** (IDs de campanha/conjunto, nº de anúncios,
+   orçamento, o que ficou pausado/ativo) + os pontos de atenção que se aplicarem.
+
+## Sempre confirme (antes de criar) o que o Rafael não deixou explícito
+- **Orçamento** e se é por campanha (CBO) — em centavos.
+- **Quais criativos** entram — se ele pedir "os que converteram", mostre a lista com o número de
+  vendas de cada um antes de criar, porque às vezes a lista que ele lembra de cabeça diverge da
+  planilha (criativos que ele acha que venderam podem estar zerados, e vice-versa).
+- **Quantos conjuntos / quais páginas** e o **nome exato** de campanha e conjunto — proponha usando
+  a tabela de mapeamento de página acima e peça aprovação antes de criar.
+- Nomenclatura nova (tags que não têm precedente, como `[CPA 160]`) — sinalize que está propondo
+  algo novo.
+- Se cair em decisão relevante (otimização Compra vs Iniciar checkout, CBO vs ABO, cost cap vs ROAS
+  cap vs maior volume), pergunte; o default é o padrão acima.
+
+## Copy padrão do anúncio
+Por padrão, **todos os criativos usam a mesma copy** (mesmo body/título/descrição), independente da
+página de destino — só o link+UTM muda. Isso já foi confirmado em campanhas reais desta conta (ex:
+os criativos apontando pra "Crescimento Clínico" usam a copy "Ser Encontrada", porque é a copy que
+combina com o ângulo dos criativos, não com o tema da página). Título padrão: "Você estudou para
+cuidar, mas ninguém te ensinou a ser encontrada". Descrição padrão: "Imersão Clínica de Valor, dia
+22 de agosto, ao vivo e online." Texto completo em `references/copy-paginas.md`.
+
+Exceção: o modelo original (campanhas [00]-[13]) usava copy **específica por página** (V1/V2/V3,
+ângulos diferentes) — também documentada em `references/copy-paginas.md`. Se o Rafael estiver
+criando conjuntos separados por página com esse padrão antigo, pergunte qual copy ele quer: a
+padrão única ou a específica por página.
+
+## Pontos de atenção para incluir no resumo final (quando se aplicarem)
+- **Advantage+ não trava 30-55** → fica 25–65+; a faixa desejada é só referência no nome.
+- **Vídeo:** thumbnail é a miniatura automática (~160px, baixa res) — dá pra refinar no Gerenciador.
+- **ROAS cap:** confirme que usou `bid_constraints.roas_average_floor`, não `bid_amount`.
+- **Compra na Hotmart:** confirmar que o evento *Compra* dispara e o domínio está verificado.
+- **Remarketing/quente:** trocar o público certo em cada conjunto; nos de remarketing, avaliar
+  desligar o Advantage+ (pra não expandir além do retargeting).
+- Tudo **pausado** ao criar — só ligar quando o Rafael pedir. Não presuma que campanhas antigas
+  continuam pausadas: ele às vezes ativa por conta própria em paralelo.
+
+Contexto extra (IDs de campanhas já montadas, aprendizados adicionais) está na memória
+`ifb-meta-setup-campanha-vendas` — mas essa memória é local da máquina do Rafael e não viaja com
+esta skill; tudo que é durável e reutilizável já foi trazido pra cá.

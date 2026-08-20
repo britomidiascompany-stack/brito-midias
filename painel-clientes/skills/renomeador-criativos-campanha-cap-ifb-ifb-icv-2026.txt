@@ -1,0 +1,64 @@
+---
+name: renomeador-criativos-campanha-cap-ifb-ifb-icv-2026
+description: Renomeia e registra criativos do lançamento IFB-ICV-2026 (Imersão Clínica de Valor — Instituto Fernanda Ben). Use SEMPRE que o Rafael pedir "renomeia esses criativos do IFB", "adiciona os criativos novos na planilha", "registra os ADV novos", "puxa o ID do vídeo do Meta", "novos criativos na pasta do ICV", ou mandar uma pasta/lista de vídeos ou imagens novos do lançamento IFB-ICV-2026 para padronizar o nome, subir na planilha de resultados e vincular ao Video ID da conta Meta. NÃO usar para o dashboard/relatório (essa é a ifb-icv-relatorio-dashboard).
+---
+
+# Renomeador e Registro de Criativos — IFB-ICV-2026
+
+Skill para padronizar nomes de criativos do lançamento **IFB-ICV-2026** (Imersão Clínica de Valor — Instituto Fernanda Ben), registrá-los na planilha de resultados e vincular o Video ID do Meta Ads.
+
+## Padrão de nomenclatura (obrigatório)
+
+```
+ADV{NN}_IFB-ICV-2026_{ETAPA}_{DESCRICAO EM CAIXA ALTA}_{M.SS}.{ext}   ← vídeos
+ADI{NN}_IFB-ICV-2026_{ETAPA}_{DESCRICAO EM CAIXA ALTA}.{ext}          ← imagens
+```
+
+| Parte | Regra | Exemplos reais |
+|---|---|---|
+| `ADV` / `ADI` | ADV = anúncio de vídeo · ADI = anúncio de imagem | ADV15, ADI04 |
+| `{NN}` | Sequencial de 2 dígitos, contínuo no lançamento, **nunca reutilizar número**. Confira o maior número já usado na planilha E na pasta do Drive antes de numerar | ADV01…ADV18, ADI01…ADI20 |
+| `IFB-ICV-2026` | Código fixo do lançamento | — |
+| `{ETAPA}` | Etapa do funil. Padrão do lançamento: `CAP` (captação). Remarketing entra como prefixo na descrição: `CAP_RMKT ...` | `CAP`, `CAP_RMKT NAO TENHO TEMPO` |
+| `{DESCRICAO}` | Caixa alta, sem pontuação, espaços permitidos, sem acentos (evitar `É`, `Ç` — já houve inconsistência: "NAO É MAIS" no ADV10) | `AGENDA VAZIA`, `ESTUDOU PARA CUIDAR` |
+| `{M.SS}` | Duração do vídeo em minuto.segundos | `0.09` = 9s · `1.01` = 1min01s |
+
+**Exemplo completo:** `ADV17_IFB-ICV-2026_CAP_DEPENDE DE INDICACAO_0.24.mov`
+
+## Locais fixos
+
+- **Pasta do Drive (criativos ativos):** `1KiBiY9QYSrQeD0VUp1-85izHWDjPtKKd` — subpasta `HISTORICO` guarda criativos antigos
+- **Planilha de registro:** "RESULTADOS CRIATIVO - IFB-ICV-2026" — ID `14j5Ckni2LM0kV_BSUF7LGWBVuUUbdVLD8DfvAOZ8zSU`, aba `CP | IFB-ICV-2026`
+- **Conta Meta Ads:** **Instituto Ben** — ad_account_id `463327393755502` (business "Bm1 - Instituto Fernanda Ben"). A conta "Fernanda Ben" (`817369278919318`) existe mas NÃO é usada para os vídeos deste lançamento.
+
+## Estrutura da planilha (aba `CP | IFB-ICV-2026`)
+
+| Col | Campo | Regra ao registrar criativo novo |
+|---|---|---|
+| A | CRIATIVOS | Nome do arquivo **sem extensão** |
+| B | LINK DRIVE | Link do arquivo no Drive (`https://drive.google.com/file/d/{ID}/view`) |
+| C | TIPO | `VIDEO` ou `IMAGEM` |
+| D–H | Investimento, Vendas, Custo/Venda, Checkouts, Custo/Checkout | **Deixar em branco** — preenchidos pelo processo de atualização do relatório |
+| I | VIDEO ID OU HASH CONTA IFB | Vídeo: Video ID numérico do Meta · Imagem: hash da imagem |
+
+## Fluxo de trabalho
+
+1. **Listar os arquivos novos** na pasta do Drive (`search_files` com `parentId = '1KiBiY9QYSrQeD0VUp1-85izHWDjPtKKd'`). Identificar quais ainda não estão na planilha.
+2. **Validar/renomear os nomes** contra o padrão acima. Se o arquivo chegou fora do padrão, propor o nome correto ao Rafael antes de renomear (a renomeação no Drive é manual dele ou via script — confirmar).
+3. **Puxar o Video ID no Meta:** `ads_get_ad_videos` na conta `463327393755502` com filtro `title` = prefixo do criativo (ex.: `ADV1`). O título do vídeo no Meta é idêntico ao nome do arquivo (com extensão). Ignorar variantes `Auto_Cropped_*` e vídeos de outros lançamentos (LPICT, OPS, MEIF) que existem na mesma conta.
+4. **Registrar na planilha** via Apps Script (o Rafael cola em Extensões → Apps Script e executa) ou edição direta se houver acesso de escrita. Adicionar após a última linha preenchida da aba, colunas A, B, C e I, com D–H em branco. Antes de inserir, checar duplicidade pelo código ADV/ADI na coluna A.
+5. **Confirmar com o Rafael** a lista final: nome → link → Video ID.
+
+## Armadilhas conhecidas
+
+- A conta Instituto Ben tem vídeos de **vários lançamentos** (LPICT001, OPS001, MEIF003, MEIF004) — filtrar sempre por `IFB-ICV-2026` no título antes de vincular o ID.
+- O Meta cria versões `Auto_Cropped_AR_...` e `trimmed_...` automaticamente — **nunca** usar esses IDs; usar só o vídeo com título exatamente igual ao nome do arquivo.
+- Vídeos novos podem estar em `.mov` (os primeiros eram `.mp4`) — o padrão aceita ambos.
+- Se o vídeo ainda não foi subido no Meta, o `ads_get_ad_videos` não retorna nada — avisar o Rafael que falta subir antes de registrar (não inventar ID).
+- Na planilha, linhas de vídeo antigas (ADV01–ADV14) têm o **nome do arquivo** na coluna LINK DRIVE em vez de URL — o padrão novo é registrar a URL do Drive.
+
+## O que esta skill NÃO faz
+
+- Não gera relatório/dashboard (usar `ifb-icv-relatorio-dashboard`)
+- Não sobe campanha/conjunto/anúncio no Meta
+- Não faz upload de vídeo pro Meta (upload é feito pelo Rafael/equipe; a skill só vincula o ID depois)
