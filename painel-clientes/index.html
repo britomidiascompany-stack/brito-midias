@@ -370,7 +370,21 @@ const CLIENTES = [
     ],
     driveUrl: "https://drive.google.com/drive/folders/1Hg7HEcKVrNyPRyJeMA1nLGyzu-xnx9FL",
     pastaCriativos: "",
-    projetos: []
+    projetos: [
+      {
+        id: "postagens-instagram",
+        nome: "Postagens Instagram (Trello)",
+        resumo: "Único cliente com gestão de <b>Instagram orgânico</b> do portfólio — a publicação é <b>automática</b> a partir do card no Trello (nome padronizado, etiqueta APROVADO, legenda, material do Drive). Card fora do padrão não vai ao ar.",
+        skills: ["cevepe-trello-postagens"],
+        links: [],
+        info: [
+          {k:"Cliente", v:"Clínica veterinária em Petrolina-PE"},
+          {k:"Formato do card", v:"POST000_TIPO00_MESANO — ADV=vídeo/Reels, ADI=imagem/Feed, ADC=carrossel, _ST=story"},
+          {k:"Regra crítica", v:"Só publica o card com a etiqueta APROVADO — sem ela, o sistema ignora o post"},
+          {k:"Automação", v:"Fluxo B (Publicador) + Auto-sync Trello→Planilha + Aviso Diário no grupo #BM|CEVEPE"}
+        ]
+      }
+    ]
   },
   {
     id: "voa-conhecimento",
@@ -435,6 +449,40 @@ const CLIENTES = [
           {k:"Lançamentos ativos", v:"LS001 (18–24/05/26) · LS002 (25–31/05/26) — novos IDs via VK Metrics"},
           {k:"Análise de criativos", v:"Relatório semanal (toda terça) com Top 10 candidatos a novas versões + Top 5 por LS em vendas/CPA/ROAS"},
           {k:"Fechamento de captação", v:"Fechamento 1 (D+1, parcial) e Fechamento 2 (D+7, número final com líquido real da Hotmart)"}
+        ]
+      },
+      {
+        id: "mpd-aplicacao",
+        nome: "MPD — Funil de Aplicação",
+        resumo: "Funil de <b>aplicação</b> para a <b>Mentoria Paraíso Digital (MPD)</b> — capta candidatos via formulário (YAY Forms), qualificados por faixa de renda e urgência, sem evento de lançamento pontual. Cadência contínua, relatório em página única atualizado sob demanda.",
+        skills: ["mpd-aplicacao-relatorio"],
+        links: [
+          {label:"Hub de relatórios (seção Aplicações)", url:"https://britomidiascompany-stack.github.io/marketex/#aplicacoes"},
+          {label:"Planilha Funil de Aplicação 2026 OFICIAL", url:"https://docs.google.com/spreadsheets/d/12M7kiVp_fWyvH__FGHwUXsQGTXIP3j5vcusoD4sgZcs/edit"},
+          {label:"Planilha de links dos criativos", url:"https://docs.google.com/spreadsheets/d/1ud70190mtTHlM0Zbg4spgIe0DJ9og_8L_KLcJBR2KIk/edit"}
+        ],
+        info: [
+          {k:"Fonte de captação", v:"YAY Forms (aplicações) — export CSV \"responses-mapeamento de oportunidade\""},
+          {k:"Regra de qualificação", v:"Renda acima de R$ 8.000 qualifica automático · R$ 5.000–R$ 8.000 só com urgência Alta/Pra ontem · abaixo de R$ 5.000 nunca qualifica"},
+          {k:"Cadência", v:"Contínua (não é lançamento por evento, diferente do LS)"},
+          {k:"Não confundir com", v:"LS (Lançamento Semanal) nem Sala Secreta — são 3 funis distintos do mesmo cliente"}
+        ]
+      },
+      {
+        id: "sala-secreta",
+        nome: "Sala Secreta",
+        resumo: "Workshop semanal recorrente (<b>Workshop Especialista com IA</b>) — captação contínua de leads via Meta Ads, diferente do LS (que é lançamento pontual). CPL histórico saudável entre R$ 1,70 e R$ 2,00.",
+        skills: ["relatorios-sala-secreta-marketex"],
+        links: [
+          {label:"Hub de relatórios (seção Sala Secreta)", url:"https://britomidiascompany-stack.github.io/marketex/#sala-secreta"},
+          {label:"Planilha Tráfego Pago Sala Secreta", url:"https://docs.google.com/spreadsheets/d/1QkGaFDVNAekgFXnmUTpVSaC0rv8DSSl4sVfSmmMjUmM/edit"},
+          {label:"Planilha de resultado de criativos (RESULTADOS GERAIS)", url:"https://docs.google.com/spreadsheets/d/1PrxhTlo8xAzU7fERtdaJezNX0tYdg7gRUGiEfMP-VOI/edit"}
+        ],
+        info: [
+          {k:"Formato", v:"Captação contínua via Meta Ads — não é lançamento pontual"},
+          {k:"CPL histórico saudável", v:"R$ 1,70 – R$ 2,00"},
+          {k:"Criativo campeão histórico", v:"ADV14_SST_CAP_CLONE EM VIDEO E EM FOTO_0.45 (gancho de clone de IA em vídeo, nunca em foto estática)"},
+          {k:"Não confundir com", v:"LS (Lançamento Semanal) nem MPD Aplicação — são 3 funis distintos do mesmo cliente"}
         ]
       }
     ]
@@ -502,7 +550,7 @@ const CLIENTES = [
     nome: "Tamara Damares",
     status: "ativo",
     skills: [],
-    funil: "",
+    funil: "Imersão Jornada da Autoridade (TPIJA, ticket baixo) · AIM Start (mentoria high-ticket)",
     pagina: "",
     contas: [
       {label:"C2", id:"702522368083728", tipo:"VEICULA"},
@@ -521,6 +569,19 @@ const CLIENTES = [
         ],
         info: [
           {k:"Outras páginas (não ativas em campanha)", v:`<a href="https://aimhouse.com.br/imersao-jornada-da-autoridade-2/" target="_blank" rel="noopener">imersao-jornada-da-autoridade-2</a><br><a href="https://aimhouse.com.br/imersao-jas-v2/" target="_blank" rel="noopener">imersao-jas-v2</a><br><a href="https://aimhouse.com.br/imersao-jas-v3/" target="_blank" rel="noopener">imersao-jas-v3</a><br><a href="https://aimhouse.com.br/imersao-jas/" target="_blank" rel="noopener">imersao-jas</a><br><a href="https://aimhouse.com.br/imersao-ja-v5-pitch/" target="_blank" rel="noopener">imersao-ja-v5-pitch</a><br><a href="https://aimhouse.com.br/imersao-ja-v4-internacional/" target="_blank" rel="noopener">imersao-ja-v4-internacional</a><br><a href="https://aimhouse.com.br/imersao-ja-v3-eventos/" target="_blank" rel="noopener">imersao-ja-v3-eventos</a><br><a href="https://aimhouse.com.br/imersao-ja-v2-mentores/" target="_blank" rel="noopener">imersao-ja-v2-mentores</a><br><a href="https://aimhouse.com.br/imersao-ja-antiga/" target="_blank" rel="noopener">imersao-ja-antiga</a><br><a href="https://aimhouse.com.br/imersao-ja-b/" target="_blank" rel="noopener">imersao-ja-b</a><br><a href="https://aimhouse.com.br/imersao-ja/" target="_blank" rel="noopener">imersao-ja</a>`}
+        ]
+      },
+      {
+        id: "aim-start",
+        nome: "AIM Start",
+        resumo: "Mentoria <b>high-ticket</b> (<b>R$ 12.000</b>) vendida em duas plataformas — Zouti (cartão/pix) e Lia (boleto, conta \"AIM House\"). Exige <b>contrato assinado via ClickSign</b> antes de liberar o onboarding. Completamente separada da Imersão Jornada da Autoridade (produto de ticket baixo).",
+        skills: [],
+        links: [],
+        info: [
+          {k:"Preço", v:"R$ 12.000 — entrada R$ 800 + saldo financiado (8-12x no cartão) · ou R$ 11.651,60 via boleto (\"Lançamento\" na Lia)"},
+          {k:"Plataformas", v:"Zouti (cartão/pix) + Lia (boleto, conta \"AIM House\")"},
+          {k:"Processo", v:"Pedir endereço → coletar endereço → gerar contrato (ClickSign) → lembretes → detectar assinatura → só então libera onboarding"},
+          {k:"Status", v:"⚠️ Teste real do fluxo completo com a cliente Karine ainda não confirmado (travou 2x por queda de instância WhatsApp)"}
         ]
       }
     ]
@@ -544,26 +605,59 @@ const CLIENTES = [
     nome: "Armigh Empreendimentos",
     status: "ativo",
     skills: [],
-    funil: "",
-    pagina: "",
+    funil: "Jardim Hípica — captação via YAY!Forms → WhatsApp, Google Ads em processo de configuração",
+    pagina: "https://armigh.com.br",
     contas: [],
     driveUrl: "https://drive.google.com/drive/folders/1oaYM-RxLWK8DZzYRTZMHmsARraLZnu9S",
     pastaCriativos: "",
-    projetos: []
+    projetos: [
+      {
+        id: "jardim-hipica",
+        nome: "Jardim Hípica — Google Ads",
+        resumo: "Campanha de <b>Google Ads (Rede de Pesquisa)</b> pro lançamento residencial Jardim Hípica (Indaiatuba/SP) — 2 campanhas especificadas (branding + produto). Captação via formulário externo YAY!Forms com encaminhamento automático pro WhatsApp (automação RESUMO DE LEADS ARMIGH).",
+        skills: [],
+        links: [
+          {label:"Página oficial do empreendimento", url:"https://moraremindaiatuba.com.br/"}
+        ],
+        info: [
+          {k:"Município", v:"Indaiatuba/SP"},
+          {k:"Produto", v:"Lote a partir de R$ 387.500 · entrada 20% em até 3x sem juros · saldo em 120 meses"},
+          {k:"Conta Google Ads", v:"478-060-2548"},
+          {k:"Orçamento diário aprovado", v:"R$ 66/dia"},
+          {k:"Status", v:"⚠️ Conta pausada aguardando verificação de anunciante no Google Ads — campanha já especificada (nomes, keywords, orçamento) mas ainda não criada de fato"},
+          {k:"Nomenclatura das campanhas", v:"[01][GOOGLE][ARMIGH][JD_HIPICA][SEARCH][BRANDING TERMS] · [02][GOOGLE][ARMIGH][JD_HIPICA][SEARCH][PRODUTO]"},
+          {k:"Automação de leads", v:"RESUMO DE LEADS ARMIGH (V3) — YAY!Forms → WhatsApp, com fechamento automático no ClickUp"}
+        ]
+      }
+    ]
   },
   {
     id: "real-plan",
     nome: "Real Plan — Iarla Pugliesi",
     status: "ativo",
     skills: [],
-    funil: "",
+    funil: "Consulta Rating Bancário — funil perpétuo, tráfego pago direto pra página de vendas (Kiwify)",
     pagina: "",
     contas: [
       {label:"Anunciante", id:"944689576621206", tipo:"VEICULA"}
     ],
     driveUrl: "https://drive.google.com/drive/folders/1xB_AjTsMBE8iaBh5DPRF59ShXnOEy50d",
     pastaCriativos: "",
-    projetos: []
+    projetos: [
+      {
+        id: "consulta-rating-bancario",
+        nome: "Consulta Rating Bancário",
+        resumo: "Produto de entrada (<b>R$ 79,90</b>) com upsells no mesmo tema (boas práticas pra manter o rating alto, como conquistar cartão Black, código pra liberar limite de crédito). Funil <b>perpétuo</b> — tráfego pago direto pra página de vendas, sem evento de lançamento.",
+        skills: [],
+        links: [],
+        info: [
+          {k:"Preço de entrada", v:"R$ 79,90"},
+          {k:"Plataforma de checkout", v:"Kiwify"},
+          {k:"Formato", v:"Perpétuo (evergreen) — tráfego pago direto pra página de vendas"},
+          {k:"Automação", v:"Vendas Kiwify V3 (n8n) — ingestão automática de vendas"}
+        ]
+      }
+    ]
   },
   {
     id: "tm-vendas",
@@ -577,7 +671,23 @@ const CLIENTES = [
     ],
     driveUrl: "https://drive.google.com/drive/folders/15lasA15a92Q1kJ97en4N4AjtDPBCSAmz",
     pastaCriativos: "",
-    projetos: []
+    projetos: [
+      {
+        id: "gerador-ozonio",
+        nome: "Gerador de Ozônio",
+        resumo: "Campanha de Meta Ads (WhatsApp / Click-to-WhatsApp) pro produto <b>Gerador de Ozônio</b> — evento de conversão é início de conversa no WhatsApp. Relatório em página única, atualizado sob demanda, com histórico de fases geográficas e de público.",
+        skills: ["tm-vendas-trafego-pago-relatorio"],
+        links: [
+          {label:"Relatório publicado (sempre atualizado)", url:"https://britomidiascompany-stack.github.io/tm-vendas/relatorio-atual.html"}
+        ],
+        info: [
+          {k:"Tipo de campanha", v:"WhatsApp / Click-to-WhatsApp (CTWA) — conversão = início de conversa no WhatsApp"},
+          {k:"Início da campanha", v:"22/05/2026"},
+          {k:"Histórico de fases", v:"Mudanças de região/público/horário — cada fase relevante vira seção própria no relatório, mais recente no topo"},
+          {k:"Repositório", v:"britomidiascompany-stack/tm-vendas"}
+        ]
+      }
+    ]
   },
   {
     id: "legado-familia",
