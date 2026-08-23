@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Processo · Direcionamento de Criativos de Imagem (Safe Zone) · Brito Mídias</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --roxo:#7C3AED; --roxo-dark:#5B21B6; --roxo-deep:#3B0F73;
+    --roxo-light:#A78BFA; --roxo-xlight:#EDE9FE;
+    --preto:#0A0A0A; --ink:#141018; --cinza:#5B5566;
+    --linha:#E7E3EE; --bg:#FFFFFF; --bg-soft:#FAF9FC;
+    --verde:#16A34A; --amarelo:#D97706; --vermelho:#DC2626;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Poppins',system-ui,-apple-system,sans-serif;font-weight:300;font-size:16px;
+    line-height:1.6;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 28px}
+
+  /* HERO */
+  .hero{position:relative;overflow:hidden;color:#fff;
+    background:
+      radial-gradient(1100px 500px at 78% -10%, rgba(124,58,237,.55), transparent 60%),
+      linear-gradient(150deg,#0A0A0A 0%,#17111F 45%,#3B0F73 100%);}
+  .hero::before{content:"";position:absolute;inset:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.14) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.14) 1px,transparent 1px);
+    background-size:44px 44px;
+    -webkit-mask-image:radial-gradient(circle at 50% 30%,#000 25%,transparent 72%);
+    mask-image:radial-gradient(circle at 50% 30%,#000 25%,transparent 72%);pointer-events:none}
+  .hero-in{position:relative;padding:40px 0 50px}
+  .brand{display:flex;align-items:center;gap:16px}
+  .brand svg{width:46px;height:46px;flex-shrink:0}
+  .brand .word{display:flex;align-items:center;gap:14px;font-weight:300}
+  .brand .word b{font-weight:800;font-size:20px}
+  .brand .word .bar{width:2px;height:30px;background:rgba(255,255,255,.55)}
+  .brand .word span{font-size:20px;letter-spacing:.22em}
+  .crumb{margin-top:32px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+    font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--roxo-light)}
+  .crumb b{color:#fff}
+  .crumb .sep{color:rgba(255,255,255,.35);font-weight:400;letter-spacing:0;text-transform:none}
+  .hero h1{font-weight:800;font-size:clamp(28px,4.4vw,44px);letter-spacing:-.02em;line-height:1.15;
+    margin-top:12px;text-wrap:balance}
+  .hero .sub{font-weight:300;font-size:16.5px;color:rgba(255,255,255,.74);margin-top:14px;max-width:62ch}
+  .pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+  .pill{border:1px solid var(--roxo-light);color:#fff;border-radius:100px;padding:8px 16px;
+    font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
+  .pill.solid{background:linear-gradient(90deg,#7C3AED,#5B21B6);border-color:transparent}
+
+  /* SEÇÕES */
+  .sec{padding:52px 0}
+  .sec.soft{background:var(--bg-soft);border-top:1px solid var(--linha);border-bottom:1px solid var(--linha)}
+  .section-label{display:flex;align-items:center;gap:12px;font-size:13px;font-weight:600;
+    letter-spacing:.16em;text-transform:uppercase;color:var(--roxo)}
+  .section-label::before{content:"";width:34px;height:2px;background:var(--roxo);border-radius:2px}
+  .sec h2{font-weight:700;font-size:clamp(22px,3vw,28px);letter-spacing:-.01em;margin-top:14px;text-wrap:balance}
+  .sec .intro{color:var(--cinza);margin-top:12px;max-width:70ch}
+
+  .callout{border:1px solid var(--linha);border-left:4px solid var(--roxo);border-radius:12px;
+    padding:20px 24px;margin-top:22px;background:#fff}
+  .callout.amber{border-left-color:var(--amarelo);background:#FFFBEB}
+  .callout.green{border-left-color:var(--verde);background:#F0FDF4}
+  .callout h3{font-size:15px;font-weight:700;margin-bottom:8px}
+  .callout p{color:var(--cinza);font-size:14.5px}
+  .callout p+p{margin-top:9px}
+  .callout strong{color:var(--ink);font-weight:600}
+  .callout ul{margin:10px 0 0 18px;color:var(--cinza);font-size:14.5px}
+  .callout li+li{margin-top:6px}
+  .callout li strong{color:var(--ink)}
+
+  /* EXEMPLO */
+  .example{margin-top:44px}
+  .example:first-of-type{margin-top:26px}
+  .ex-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .ex-tag{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--roxo-dark);background:var(--roxo-xlight);padding:5px 12px;border-radius:100px}
+  .ex-head h3{font-size:19px;font-weight:700;letter-spacing:-.01em}
+  .ex-desc{color:var(--cinza);font-size:14.5px;margin-top:9px;max-width:68ch}
+
+  .shots{display:flex;gap:20px;margin-top:18px;flex-wrap:wrap;align-items:flex-start}
+  .shot{flex:1;min-width:230px;max-width:340px;border:1px solid var(--linha);border-radius:14px;overflow:hidden;
+    background:#fff;box-shadow:0 14px 40px rgba(20,16,24,.10)}
+  .shot .bar{display:flex;align-items:center;gap:8px;padding:9px 13px;background:#F3F0F8;
+    border-bottom:1px solid var(--linha)}
+  .shot .bar i{width:9px;height:9px;border-radius:50%;background:#D9D2E6;display:inline-block}
+  .shot .bar .lbl{margin-left:6px;font-size:11px;color:var(--cinza);font-weight:600}
+  .shot img{display:block;width:100%;height:auto}
+  .imgcap{padding:11px 15px;font-size:12px;color:var(--cinza);background:#fff;border-top:1px solid var(--linha)}
+  .imgcap b{color:var(--roxo-dark);font-weight:600}
+
+  footer{background:var(--ink);color:rgba(255,255,255,.62);padding:40px 0}
+  footer .brand svg{width:34px;height:34px}
+  footer .brand .word b{font-size:15px}footer .brand .word span{font-size:15px}
+  footer .brand .word .bar{height:22px}
+  footer .fnote{margin-top:16px;font-size:12.5px;max-width:80ch;line-height:1.7}
+  footer a{color:var(--roxo-light);text-decoration:none;border-bottom:1px solid rgba(167,139,250,.4)}
+
+  @media (max-width:640px){
+    .shots{flex-direction:column;align-items:stretch}
+    .shot{max-width:100%}
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap hero-in">
+    <div class="brand">
+      <svg viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="2.4"
+           stroke-linejoin="round" stroke-linecap="round" aria-label="BM Mídias">
+        <polygon points="50,4 90,27 90,73 50,96 10,73 10,27"></polygon>
+        <polygon points="50,33 65,59 35,59"></polygon>
+        <line x1="50" y1="4" x2="50" y2="33"></line><line x1="90" y1="73" x2="65" y2="59"></line>
+        <line x1="10" y1="73" x2="35" y2="59"></line><line x1="90" y1="27" x2="50" y2="33"></line>
+        <line x1="90" y1="27" x2="65" y2="59"></line><line x1="50" y1="96" x2="65" y2="59"></line>
+        <line x1="50" y1="96" x2="35" y2="59"></line><line x1="10" y1="27" x2="35" y2="59"></line>
+        <line x1="10" y1="27" x2="50" y2="33"></line>
+      </svg>
+      <span class="word"><b>BM</b><i class="bar"></i><span>MÍDIAS</span></span>
+    </div>
+
+    <div class="crumb"><b>Brito Mídias</b><span class="sep">/</span><b>Processos</b><span class="sep">/</span>Direcionamento de Criativos de Imagem</div>
+
+    <h1>Safe Zone: onde colocar<br>o que importa no criativo</h1>
+    <p class="sub">Regra de direcionamento para quem produz criativos de imagem para Stories e Reels
+      (Meta, TikTok, etc.): tudo que carrega a mensagem do anúncio tem que caber numa área central
+      específica — o resto da arte é só acabamento visual.</p>
+
+    <div class="pills">
+      <span class="pill solid">Regra de ouro</span>
+      <span class="pill">Criativos de imagem</span>
+      <span class="pill">Stories &amp; Reels</span>
+    </div>
+  </div>
+</header>
+
+<!-- A REGRA -->
+<section class="sec">
+  <div class="wrap">
+    <div class="section-label">A regra</div>
+    <h2>O que é a Safe Zone e por que ela existe</h2>
+    <p class="intro">No formato Stories/Reels, o app cobre partes fixas da tela com a própria interface:
+      o topo (ícones, nome do perfil) e uma faixa grande na base (legenda, botão de CTA, ícones de
+      curtir/comentar, "Anúncio"). Essa é a indicação do próprio Meta pra gente: <strong>toda informação
+      importante do criativo precisa estar dentro do quadro central que não fica coberto por essa
+      interface</strong> — nos exemplos abaixo, é exatamente a área que <strong>não está pintada de
+      amarelo</strong>.</p>
+
+    <div class="callout amber">
+      <h3>⚠️ O que precisa estar dentro da área central (não-amarela)</h3>
+      <ul>
+        <li><strong>Todo texto</strong> — headline, sub-headline, prova social, preço, etc.</li>
+        <li><strong>Logo da marca</strong></li>
+        <li><strong>Botão / indicação de CTA</strong> (mesmo quando o CTA "de verdade" é o botão nativo do anúncio, o que estiver escrito na arte precisa estar visível)</li>
+        <li><strong>Se tiver pessoa na imagem, a cabeça dela</strong> — o rosto é sempre lido primeiro, não pode ficar embaixo da faixa coberta</li>
+      </ul>
+    </div>
+
+    <div class="callout green">
+      <h3>✅ O que pode ficar na área amarela (complemento)</h3>
+      <p>Tudo que é só <strong>acabamento visual</strong> — o resto do corpo da pessoa, a continuação do
+        fundo/design, elementos decorativos. Essa parte deixa a imagem mais bonita e "fecha" a composição,
+        mas <strong>não é necessária para passar a mensagem</strong>: se ela for cortada pela interface,
+        o anúncio continua funcionando normalmente.</p>
+    </div>
+  </div>
+</section>
+
+<!-- EXEMPLO 1 -->
+<section class="sec soft">
+  <div class="wrap">
+    <div class="section-label">Exemplo 1</div>
+    <h2>Criativo só com texto</h2>
+
+    <div class="example">
+      <div class="ex-head">
+        <span class="ex-tag">Sem pessoa na imagem</span>
+        <h3>Workshop "O Fim da Autossabotagem"</h3>
+      </div>
+      <p class="ex-desc">Aqui não tem foto de pessoa — só blocos de texto e o botão de CTA. Repare que
+        as duas caixas de texto ("Você sente que seu potencial é gigante..." e "Participe do Workshop")
+        e o botão vermelho "Toque em Saiba Mais" ficam <strong>inteiramente fora da faixa amarela</strong>,
+        tanto a de cima (que cobre o topo do Reels) quanto a de baixo (que cobre legenda, "Cadastre-se" e
+        os ícones de interação).</p>
+      <div class="shots">
+        <div class="shot">
+          <div class="bar"><i></i><i></i><i></i><span class="lbl">Preview com a Safe Zone marcada</span></div>
+          <img src="./img/exemplo-1-so-texto.png" alt="Criativo do Workshop O Fim da Autossabotagem com a interface do Reels sobreposta em amarelo, mostrando que os textos e o botão de CTA ficam fora da área coberta">
+          <div class="imgcap">👉 Nenhum texto ou o botão encosta na área amarela — tudo essencial está livre da interface.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXEMPLO 2 -->
+<section class="sec">
+  <div class="wrap">
+    <div class="section-label">Exemplo 2</div>
+    <h2>Criativo com pessoa</h2>
+
+    <div class="example">
+      <div class="ex-head">
+        <span class="ex-tag">Com pessoa na imagem</span>
+        <h3>"Você produz. Você responde. E sem você o negócio para?" — Anatex</h3>
+      </div>
+      <p class="ex-desc">Aqui entra a regra do rosto: a <strong>cabeça da Ana</strong> fica dentro da área
+        central, junto com o "eyebrow" ("Conteúdo de Especialista com Inteligência Artificial"), a
+        headline, o texto de apoio ("Em 7 dias...") e o botão "Toque em Saiba Mais". O que sai da área
+        central é só <strong>complemento</strong>: o restante do corpo, os ombros e o fundo laranja que
+        continuam por trás — essa parte pode ser coberta pela legenda/CTA nativo do anúncio sem
+        prejudicar a mensagem.</p>
+      <div class="shots">
+        <div class="shot">
+          <div class="bar"><i></i><i></i><i></i><span class="lbl">Preview com a Safe Zone marcada</span></div>
+          <img src="./img/exemplo-2-com-pessoa-safe-zone.png" alt="Anúncio da Anatex com a interface do feed sobreposta em amarelo, mostrando a cabeça, o texto e o botão dentro da área central livre">
+          <div class="imgcap">👉 Cabeça, texto e botão dentro da área central. O corpo/fundo que "sangra" pra baixo é só complemento.</div>
+        </div>
+        <div class="shot">
+          <div class="bar"><i></i><i></i><i></i><span class="lbl">Arte original (sem moldura de celular)</span></div>
+          <img src="./img/exemplo-2-com-pessoa-original.png" alt="Arte final do anúncio da Anatex sem a moldura de celular, mostrando o design completo como foi montado">
+          <div class="imgcap">👉 A arte completa, do jeito que foi desenhada — serve de referência de como montar a composição inteira em volta da área que importa.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESUMO -->
+<section class="sec soft">
+  <div class="wrap">
+    <div class="section-label">Resumo</div>
+    <h2>A regra em uma linha</h2>
+    <div class="callout">
+      <p><strong>Desenhe pensando num quadro central (aproximadamente quadrado) onde mora tudo que
+        importa — texto, logo, CTA e cabeça de pessoa. O resto da arte é só o "respiro" visual que
+        preenche o formato vertical do Stories/Reels.</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="brand">
+      <svg viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="2.4"
+           stroke-linejoin="round" stroke-linecap="round" aria-label="BM Mídias">
+        <polygon points="50,4 90,27 90,73 50,96 10,73 10,27"></polygon>
+        <polygon points="50,33 65,59 35,59"></polygon>
+        <line x1="50" y1="4" x2="50" y2="33"></line><line x1="90" y1="73" x2="65" y2="59"></line>
+        <line x1="10" y1="73" x2="35" y2="59"></line><line x1="90" y1="27" x2="50" y2="33"></line>
+        <line x1="90" y1="27" x2="65" y2="59"></line><line x1="50" y1="96" x2="65" y2="59"></line>
+        <line x1="50" y1="96" x2="35" y2="59"></line><line x1="10" y1="27" x2="35" y2="59"></line>
+        <line x1="10" y1="27" x2="50" y2="33"></line>
+      </svg>
+      <span class="word"><b>BM</b><i class="bar"></i><span>MÍDIAS</span></span>
+    </div>
+    <p class="fnote">Processo interno · Brito Mídias — Direcionamento de criativos de imagem (Safe Zone
+      para Stories/Reels). Elaborado para consulta do time e de designers/freelancers. Atualizado em 23/08/2026.</p>
+  </div>
+</footer>
+
+</body>
+</html>
