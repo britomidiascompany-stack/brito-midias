@@ -187,9 +187,15 @@
           <div id="filters"></div>
         </div>
 
-        <div class="count" id="count"></div>
-        <div class="grid" id="grid"></div>
-        <div class="empty" id="empty" style="display:none">Nenhum cliente encontrado.</div>
+        <div class="section-label" style="margin-top:8px">CLIENTES ATIVOS</div>
+        <div class="count" id="count-ativo"></div>
+        <div class="grid" id="grid-ativo"></div>
+        <div class="empty" id="empty-ativo" style="display:none">Nenhum cliente encontrado.</div>
+
+        <div class="section-label" style="margin-top:36px">CLIENTES INATIVOS</div>
+        <div class="count" id="count-inativo"></div>
+        <div class="grid" id="grid-inativo"></div>
+        <div class="empty" id="empty-inativo" style="display:none">Nenhum cliente encontrado.</div>
       </div>
     </main>
 
@@ -210,7 +216,10 @@
           <div class="avatar" id="cp-avatar"></div>
           <div>
             <h2 id="cp-nome"></h2>
-            <span class="status-pill solid" id="cp-status" style="margin-top:8px;display:inline-block"></span>
+            <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap">
+              <span class="status-pill solid" id="cp-status"></span>
+              <span id="cp-categorias" style="display:flex;gap:6px;flex-wrap:wrap"></span>
+            </div>
           </div>
         </div>
       </div>
@@ -359,6 +368,7 @@ const CLIENTES = [
     id: "cevepe",
     nome: "CEVEPE",
     status: "ativo",
+    categorias: ["Negócios Locais"],
     skills: ["cevepe-trello-postagens"],
     funil: "Postagens Instagram (publicação automática via Trello)",
     pagina: "",
@@ -390,6 +400,7 @@ const CLIENTES = [
     id: "voa-conhecimento",
     nome: "Voa Conhecimento",
     status: "ativo",
+    categorias: ["Infoprodutos"],
     skills: [],
     funil: "BNCC — lançamentos (ver detalhe no Drive)",
     pagina: "",
@@ -408,6 +419,7 @@ const CLIENTES = [
     id: "anatex",
     nome: "Ana Tex (Marketex)",
     status: "ativo",
+    categorias: ["Infoprodutos"],
     skills: ["ls-trafego-pago-relatorio", "marketex-subir-campanhas-ls", "skill-atualizacao-ls-marketex-v1", "marketex-subir-campanhas-aplicacao", "mpd-aplicacao-relatorio", "relatorios-sala-secreta-marketex"],
     funil: "LS (Workshop Especialista com IA) · MPD (Aplicação) · Sala Secreta",
     pagina: "",
@@ -491,6 +503,7 @@ const CLIENTES = [
     id: "ifb",
     nome: "IFB — Instituto Fernanda Ben",
     status: "ativo",
+    categorias: ["Infoprodutos"],
     skills: ["ifb-icv-relatorio-dashboard", "ifb-relatorio-lancamento-pago", "criador-campanhas-captacao-paga-ifb-icv-2026", "renomeador-criativos-campanha-cap-ifb-ifb-icv-2026"],
     funil: "ICV — Imersão Clínica de Valor",
     pagina: "https://imersao.institutofernandaben.com.br/ser-encontrada",
@@ -537,6 +550,7 @@ const CLIENTES = [
     id: "brain-coffee",
     nome: "Brain Coffee Gourmet",
     status: "ativo",
+    categorias: ["Negócios Locais"],
     skills: [],
     funil: "",
     pagina: "",
@@ -549,6 +563,7 @@ const CLIENTES = [
     id: "tamara-damares",
     nome: "Tamara Damares",
     status: "ativo",
+    categorias: ["Infoprodutos"],
     skills: [],
     funil: "Imersão Jornada da Autoridade (TPIJA, ticket baixo) · AIM Start (mentoria high-ticket)",
     pagina: "",
@@ -590,6 +605,7 @@ const CLIENTES = [
     id: "urus",
     nome: "Urus Restaurante",
     status: "ativo",
+    categorias: ["Negócios Locais"],
     skills: [],
     funil: "",
     pagina: "",
@@ -604,6 +620,7 @@ const CLIENTES = [
     id: "armigh",
     nome: "Armigh Empreendimentos",
     status: "ativo",
+    categorias: ["Negócios Locais"],
     skills: [],
     funil: "Jardim Hípica — captação via YAY!Forms → WhatsApp, Google Ads em processo de configuração",
     pagina: "https://armigh.com.br",
@@ -635,6 +652,7 @@ const CLIENTES = [
     id: "real-plan",
     nome: "Real Plan — Iarla Pugliesi",
     status: "ativo",
+    categorias: ["Infoprodutos", "B2B"],
     skills: [],
     funil: "Consulta Rating Bancário — funil perpétuo, tráfego pago direto pra página de vendas (Kiwify)",
     pagina: "",
@@ -662,7 +680,8 @@ const CLIENTES = [
   {
     id: "tm-vendas",
     nome: "Pri & Tássia (TM Vendas)",
-    status: "ativo",
+    status: "inativo",
+    categorias: ["Negócios Locais"],
     skills: ["tm-vendas-trafego-pago-relatorio"],
     funil: "Gerador de Ozônio — Meta Ads / WhatsApp CTWA",
     pagina: "",
@@ -693,6 +712,7 @@ const CLIENTES = [
     id: "legado-familia",
     nome: "Legado em Família",
     status: "ativo",
+    categorias: ["B2B"],
     skills: ["renomeador-legado-familia-psp"],
     funil: "Sucessão Empresarial e Patrimonial (PSP) · Mulheres em Conselho",
     pagina: "https://programas.legadoefamilia.com/",
@@ -748,6 +768,7 @@ const CLIENTES = [
     id: "jean-alessandro",
     nome: "Jean Alessandro",
     status: "ativo",
+    categorias: ["Infoprodutos"],
     skills: [],
     funil: "Captação de leads — Psicologia e Neurociência (avaliação/diagnóstico)",
     pagina: "",
@@ -807,24 +828,27 @@ function cardHtml(c){
   <button class="ccard" data-blob="${esc((c.nome+' '+c.skills.join(' ')+' '+c.contas.map(a=>a.label+a.id).join(' ')+' '+c.funil).toLowerCase())}" onclick="openClient('${c.id}')">
     <div class="avatar">${esc(initials(c.nome))}</div>
     <h2>${esc(c.nome)}</h2>
-    <span class="status-pill">${esc(c.status)}</span>
+    <div class="tags" style="margin-bottom:2px">${(c.categorias||[]).map(cat => `<span class="status-pill">${esc(cat)}</span>`).join('')}</div>
     <div class="entrar">Entrar no sistema →</div>
   </button>`;
 }
 
-const grid = document.getElementById('grid');
-const empty = document.getElementById('empty');
-const countEl = document.getElementById('count');
+const gridAtivo = document.getElementById('grid-ativo');
+const emptyAtivo = document.getElementById('empty-ativo');
+const countAtivoEl = document.getElementById('count-ativo');
+const gridInativo = document.getElementById('grid-inativo');
+const emptyInativo = document.getElementById('empty-inativo');
+const countInativoEl = document.getElementById('count-inativo');
 const filtersEl = document.getElementById('filters');
 
-const statuses = ["todos", ...new Set(CLIENTES.map(c => c.status))];
-let activeStatus = "todos";
+const CATEGORIAS = ["Todos", "Negócios Locais", "Infoprodutos", "B2B", "E-commerce"];
+let activeCategoria = "Todos";
 let query = "";
 
-filtersEl.innerHTML = statuses.map(s => `<button class="pill${s==='todos'?' solid':''}" data-status="${s}">${s}</button>`).join('');
+filtersEl.innerHTML = CATEGORIAS.map(cat => `<button class="pill${cat==='Todos'?' solid':''}" data-cat="${cat}">${cat}</button>`).join('');
 filtersEl.querySelectorAll('.pill').forEach(chip => {
   chip.addEventListener('click', () => {
-    activeStatus = chip.dataset.status;
+    activeCategoria = chip.dataset.cat;
     filtersEl.querySelectorAll('.pill').forEach(c => c.classList.toggle('solid', c === chip));
     renderGrid();
   });
@@ -835,16 +859,22 @@ document.getElementById('search').addEventListener('input', e => {
   renderGrid();
 });
 
-function renderGrid(){
-  const filtered = CLIENTES.filter(c => {
-    const matchStatus = activeStatus === "todos" || c.status === activeStatus;
+function renderGroup(status, grid, empty, countEl){
+  const pool = CLIENTES.filter(c => c.status === status);
+  const filtered = pool.filter(c => {
+    const matchCategoria = activeCategoria === "Todos" || (c.categorias||[]).includes(activeCategoria);
     const blob = (c.nome+' '+c.skills.join(' ')+' '+c.contas.map(a=>a.label+a.id).join(' ')+' '+c.funil).toLowerCase();
     const matchQuery = !query || blob.includes(query);
-    return matchStatus && matchQuery;
+    return matchCategoria && matchQuery;
   });
   grid.innerHTML = filtered.map(cardHtml).join('');
   empty.style.display = filtered.length ? 'none' : 'block';
-  countEl.textContent = `${filtered.length} de ${CLIENTES.length} cliente(s)`;
+  countEl.textContent = `${filtered.length} de ${pool.length} cliente(s)`;
+}
+
+function renderGrid(){
+  renderGroup('ativo', gridAtivo, emptyAtivo, countAtivoEl);
+  renderGroup('inativo', gridInativo, emptyInativo, countInativoEl);
 }
 
 function contasHtml(c){
@@ -982,6 +1012,7 @@ function openClient(id){
   document.getElementById('cp-avatar').textContent = initials(c.nome);
   document.getElementById('cp-nome').textContent = c.nome;
   document.getElementById('cp-status').textContent = c.status;
+  document.getElementById('cp-categorias').innerHTML = (c.categorias||[]).map(cat => `<span class="status-pill">${esc(cat)}</span>`).join('');
   document.getElementById('cp-projetos').innerHTML = projetosHtml(c);
   document.getElementById('cp-skills').innerHTML = skillPillsHtml(c.skills);
   document.getElementById('cp-funil').innerHTML = fieldValue(c.funil);
