@@ -152,60 +152,87 @@
   .modal-body pre{white-space:pre-wrap;word-break:break-word;font-family:'SFMono-Regular',Menlo,Consolas,monospace;
     font-size:12.5px;line-height:1.6;color:var(--ink)}
   .modal-note{font-size:11px;color:var(--cinza);padding:0 26px 18px}
+
+  /* APP SHELL */
+  .app{display:flex;align-items:stretch;min-height:100vh}
+  .sidebar{width:264px;flex-shrink:0;background:var(--ink);color:#fff;display:flex;flex-direction:column;
+    position:sticky;top:0;align-self:flex-start;height:100vh;overflow-y:auto;z-index:20}
+  .sidebar .sbrand{display:flex;align-items:center;gap:13px;padding:24px 22px 22px}
+  .sidebar .sbrand svg{width:32px;height:32px;flex-shrink:0}
+  .sidebar .sbrand .word{display:flex;align-items:center;gap:11px;font-weight:300}
+  .sidebar .sbrand .word b{font-weight:800;font-size:16px}
+  .sidebar .sbrand .word .bar{width:2px;height:20px;background:rgba(255,255,255,.35)}
+  .sidebar .sbrand .word span{font-size:15px;letter-spacing:.2em}
+  .sidebar nav{padding:4px 12px 20px}
+  .snav-label{font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+    color:rgba(255,255,255,.38);padding:18px 10px 8px}
+  .snav-item{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;text-align:left;
+    padding:10px 12px;border-radius:10px;background:none;border:none;color:rgba(255,255,255,.75);
+    font-family:inherit;font-size:13.5px;font-weight:500;cursor:pointer;margin-bottom:2px;transition:.12s}
+  .snav-item:hover{background:rgba(255,255,255,.07);color:#fff}
+  .snav-item.active{background:linear-gradient(90deg,var(--roxo),var(--roxo-dark));color:#fff;font-weight:600}
+  .snav-item .n{font-size:11px;font-weight:600;color:rgba(255,255,255,.45);background:rgba(255,255,255,.08);
+    padding:2px 8px;border-radius:100px;flex-shrink:0}
+  .snav-item.active .n{color:#fff;background:rgba(255,255,255,.22)}
+  .sidebar-foot{padding:16px 22px;font-size:11px;line-height:1.6;color:rgba(255,255,255,.35);
+    border-top:1px solid rgba(255,255,255,.08);margin-top:auto}
+
+  .content{flex:1;min-width:0}
+  .topbar{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;
+    padding:32px 28px 0;max-width:1100px;margin:0 auto}
+  .topbar h1{font-size:26px;font-weight:800;letter-spacing:-.01em;color:var(--ink)}
+  .topbar .search{max-width:320px}
+
+  @media (max-width: 860px){
+    .app{flex-direction:column}
+    .sidebar{position:relative;width:100%;height:auto;top:0}
+    .sidebar nav{display:flex;flex-wrap:wrap;gap:6px;padding:10px 16px 16px}
+    .snav-label{display:none}
+    .snav-item{width:auto}
+  }
 </style>
 </head>
 <body>
 
-  <!-- HOME -->
-  <div id="home">
-    <div class="hero">
-      <div class="wrap">
-        <div class="brand">
-          <svg viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="2.4"
-               stroke-linejoin="round" stroke-linecap="round" aria-label="BM Mídias">
-            <polygon points="50,4 90,27 90,73 50,96 10,73 10,27"></polygon>
-            <polygon points="50,33 65,59 35,59"></polygon>
-            <line x1="50" y1="4" x2="50" y2="33"></line><line x1="90" y1="73" x2="65" y2="59"></line>
-            <line x1="10" y1="73" x2="35" y2="59"></line><line x1="90" y1="27" x2="50" y2="33"></line>
-            <line x1="90" y1="27" x2="65" y2="59"></line><line x1="50" y1="96" x2="65" y2="59"></line>
-            <line x1="50" y1="96" x2="35" y2="59"></line><line x1="10" y1="27" x2="35" y2="59"></line>
-            <line x1="10" y1="27" x2="50" y2="33"></line>
-          </svg>
-          <span class="word"><b>BM</b><i class="bar"></i><span>MÍDIAS</span></span>
-        </div>
-        <h1>Painel Geral de Clientes</h1>
-        <div class="sub">Central de estratégia e resultados — skills, funis, contas de anúncio e pastas de cada cliente, num só lugar.</div>
-      </div>
+<div class="app">
+  <aside class="sidebar">
+    <div class="sbrand">
+      <svg viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="2.4"
+           stroke-linejoin="round" stroke-linecap="round" aria-label="BM Mídias">
+        <polygon points="50,4 90,27 90,73 50,96 10,73 10,27"></polygon>
+        <polygon points="50,33 65,59 35,59"></polygon>
+        <line x1="50" y1="4" x2="50" y2="33"></line><line x1="90" y1="73" x2="65" y2="59"></line>
+        <line x1="10" y1="73" x2="35" y2="59"></line><line x1="90" y1="27" x2="50" y2="33"></line>
+        <line x1="90" y1="27" x2="65" y2="59"></line><line x1="50" y1="96" x2="65" y2="59"></line>
+        <line x1="50" y1="96" x2="35" y2="59"></line><line x1="10" y1="27" x2="35" y2="59"></line>
+        <line x1="10" y1="27" x2="50" y2="33"></line>
+      </svg>
+      <span class="word"><b>BM</b><i class="bar"></i><span>MÍDIAS</span></span>
     </div>
+    <nav id="sidebar-nav"></nav>
+    <div class="sidebar-foot">Central de Estratégia e Resultados<br>Painel interno — Brito Mídias</div>
+  </aside>
 
-    <main>
-      <div class="wrap">
-        <div class="section-label">VISÃO GERAL</div>
+  <div class="content">
 
-        <div class="toolbar">
-          <div class="search"><input id="search" type="text" placeholder="Buscar cliente, skill, conta de anúncio..."></div>
-          <div id="filters"></div>
+    <!-- HOME -->
+    <div id="home">
+      <div class="topbar">
+        <div>
+          <div class="section-label" id="home-label">GERAL</div>
+          <h1 id="home-title">Todos os Clientes</h1>
         </div>
-
-        <div class="section-label" style="margin-top:8px">CLIENTES ATIVOS</div>
-        <div class="count" id="count-ativo"></div>
-        <div class="grid" id="grid-ativo"></div>
-        <div class="empty" id="empty-ativo" style="display:none">Nenhum cliente encontrado.</div>
-
-        <div class="section-label" style="margin-top:36px">CLIENTES INATIVOS</div>
-        <div class="count" id="count-inativo"></div>
-        <div class="grid" id="grid-inativo"></div>
-        <div class="empty" id="empty-inativo" style="display:none">Nenhum cliente encontrado.</div>
+        <div class="search"><input id="search" type="text" placeholder="Buscar cliente, skill, conta de anúncio..."></div>
       </div>
-    </main>
 
-    <footer>
-      <div class="wrap">
-        <span>Brito Mídias — Painel interno</span>
-        <span>edite o array <code>CLIENTES</code> em index.html para atualizar dados</span>
-      </div>
-    </footer>
-  </div>
+      <main>
+        <div class="wrap">
+          <div class="count" id="count"></div>
+          <div class="grid" id="grid"></div>
+          <div class="empty" id="empty" style="display:none">Nenhum cliente encontrado.</div>
+        </div>
+      </main>
+    </div>
 
   <!-- PER-CLIENT PAGE -->
   <div class="cpage" id="cpage">
@@ -338,6 +365,9 @@
       </div>
     </footer>
   </div>
+
+  </div><!-- /content -->
+</div><!-- /app -->
 
   <!-- SKILL MODAL -->
   <div class="modal-overlay" id="skill-modal" onclick="if(event.target===this) closeSkill()">
@@ -833,48 +863,65 @@ function cardHtml(c){
   </button>`;
 }
 
-const gridAtivo = document.getElementById('grid-ativo');
-const emptyAtivo = document.getElementById('empty-ativo');
-const countAtivoEl = document.getElementById('count-ativo');
-const gridInativo = document.getElementById('grid-inativo');
-const emptyInativo = document.getElementById('empty-inativo');
-const countInativoEl = document.getElementById('count-inativo');
-const filtersEl = document.getElementById('filters');
+const gridEl = document.getElementById('grid');
+const emptyEl = document.getElementById('empty');
+const countEl = document.getElementById('count');
+const sidebarNavEl = document.getElementById('sidebar-nav');
+const homeTitleEl = document.getElementById('home-title');
+const homeLabelEl = document.getElementById('home-label');
 
-const CATEGORIAS = ["Todos", "Negócios Locais", "Infoprodutos", "B2B", "E-commerce"];
-let activeCategoria = "Todos";
+const NAV_ITEMS = [
+  {section: "GERAL"},
+  {id: "todos", label: "Todos os Clientes", filter: () => true},
+  {section: "STATUS"},
+  {id: "ativos", label: "Ativos", filter: c => c.status === "ativo"},
+  {id: "inativos", label: "Inativos", filter: c => c.status === "inativo"},
+  {section: "POR NICHO"},
+  {id: "cat-negocios-locais", label: "Negócios Locais", filter: c => (c.categorias||[]).includes("Negócios Locais")},
+  {id: "cat-infoprodutos", label: "Infoprodutos", filter: c => (c.categorias||[]).includes("Infoprodutos")},
+  {id: "cat-b2b", label: "B2B", filter: c => (c.categorias||[]).includes("B2B")},
+  {id: "cat-ecommerce", label: "E-commerce", filter: c => (c.categorias||[]).includes("E-commerce")}
+];
+
+let activeNav = "todos";
 let query = "";
 
-filtersEl.innerHTML = CATEGORIAS.map(cat => `<button class="pill${cat==='Todos'?' solid':''}" data-cat="${cat}">${cat}</button>`).join('');
-filtersEl.querySelectorAll('.pill').forEach(chip => {
-  chip.addEventListener('click', () => {
-    activeCategoria = chip.dataset.cat;
-    filtersEl.querySelectorAll('.pill').forEach(c => c.classList.toggle('solid', c === chip));
-    renderGrid();
+function renderSidebar(){
+  sidebarNavEl.innerHTML = NAV_ITEMS.map(item => {
+    if(item.section) return `<div class="snav-label">${esc(item.section)}</div>`;
+    const n = CLIENTES.filter(item.filter).length;
+    return `<button class="snav-item${item.id===activeNav?' active':''}" data-nav="${item.id}">
+      <span>${esc(item.label)}</span><span class="n">${n}</span>
+    </button>`;
+  }).join('');
+  sidebarNavEl.querySelectorAll('.snav-item').forEach(btn => {
+    btn.addEventListener('click', () => {
+      activeNav = btn.dataset.nav;
+      goHome();
+    });
   });
-});
+}
 
 document.getElementById('search').addEventListener('input', e => {
   query = e.target.value.trim().toLowerCase();
   renderGrid();
 });
 
-function renderGroup(status, grid, empty, countEl){
-  const pool = CLIENTES.filter(c => c.status === status);
-  const filtered = pool.filter(c => {
-    const matchCategoria = activeCategoria === "Todos" || (c.categorias||[]).includes(activeCategoria);
+function renderGrid(){
+  renderSidebar();
+  const navItem = NAV_ITEMS.find(i => i.id === activeNav) || NAV_ITEMS[1];
+  homeTitleEl.textContent = navItem.label;
+  homeLabelEl.textContent = activeNav === "todos" ? "GERAL" : (activeNav.startsWith("cat-") ? "POR NICHO" : "STATUS");
+
+  const filtered = CLIENTES.filter(c => {
+    const matchNav = navItem.filter(c);
     const blob = (c.nome+' '+c.skills.join(' ')+' '+c.contas.map(a=>a.label+a.id).join(' ')+' '+c.funil).toLowerCase();
     const matchQuery = !query || blob.includes(query);
-    return matchCategoria && matchQuery;
+    return matchNav && matchQuery;
   });
-  grid.innerHTML = filtered.map(cardHtml).join('');
-  empty.style.display = filtered.length ? 'none' : 'block';
-  countEl.textContent = `${filtered.length} de ${pool.length} cliente(s)`;
-}
-
-function renderGrid(){
-  renderGroup('ativo', gridAtivo, emptyAtivo, countAtivoEl);
-  renderGroup('inativo', gridInativo, emptyInativo, countInativoEl);
+  gridEl.innerHTML = filtered.map(cardHtml).join('');
+  emptyEl.style.display = filtered.length ? 'none' : 'block';
+  countEl.textContent = `${filtered.length} cliente(s)`;
 }
 
 function contasHtml(c){
@@ -1062,6 +1109,8 @@ function goHome(){
   document.getElementById('ppage').style.display = 'none';
   document.getElementById('home').style.display = 'block';
   history.replaceState(null, '', '#');
+  renderGrid();
+  window.scrollTo(0,0);
 }
 
 function goClient(){
