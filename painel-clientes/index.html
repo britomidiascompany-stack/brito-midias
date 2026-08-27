@@ -124,6 +124,18 @@
 
   /* PROJECT PAGE */
   .ppage{display:none}
+  .epage{display:none}
+  .ep-block{margin-bottom:8px}
+  .ep-block h3{font-size:15px;font-weight:700;margin-bottom:4px}
+  .ep-block .ep-html{font-size:14px;line-height:1.75;color:var(--ink)}
+  .ep-block .ep-html code{background:var(--roxo-xlight);color:var(--roxo-dark);padding:2px 6px;border-radius:5px;font-size:12.5px}
+  .ep-block .ep-html ul,.ep-block .ep-html ol{padding-left:20px;margin-top:6px}
+  .ep-block .ep-html li{margin-bottom:4px}
+  .ep-block .ep-html p{margin-bottom:10px}
+  .ep-block .ep-html a{color:var(--roxo-dark);font-weight:600;text-decoration:none}
+  .ep-block .ep-html a:hover{text-decoration:underline}
+  .ep-note{border-left:3px solid var(--roxo-light);background:var(--roxo-xlight);border-radius:0 10px 10px 0;
+    padding:12px 16px;font-size:13px;color:var(--roxo-dark);margin-top:10px}
   .link-list{display:flex;flex-direction:column;gap:10px}
   .link-item{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 16px;
     border:1px solid var(--linha);border-radius:12px;background:var(--bg-soft);text-decoration:none;color:var(--ink)}
@@ -325,6 +337,20 @@
           <div id="pp-resumo" style="font-size:14px;line-height:1.7"></div>
         </div>
 
+        <div id="pp-perfil-wrap">
+          <div class="section-label">PERFIL ESTRATÉGICO</div>
+          <div class="section" style="border-color:var(--roxo-light)">
+            <div style="font-size:13px;color:var(--cinza);margin-bottom:14px;line-height:1.6">
+              Documento explicando como esse funil/negócio funciona de verdade — contas, estrutura de campanha,
+              nomenclatura, públicos e páginas. Pra quem tá chegando agora entender o contexto todo, não só executar.
+            </div>
+            <button class="link-item" style="width:100%;border:none;cursor:pointer;font-family:inherit" onclick="openPerfil(currentClientId, currentProjectId)">
+              <span class="lbl">Ver Perfil Estratégico completo</span>
+              <span class="go">Abrir →</span>
+            </button>
+          </div>
+        </div>
+
         <div id="pp-guia-wrap">
           <div class="section-label">LINK ÚNICO PARA EXECUTAR (COLE NO CLAUDE)</div>
           <div class="section" style="border-color:var(--roxo-light)">
@@ -355,6 +381,39 @@
           <div class="tags" id="pp-skills"></div>
         </div>
 
+      </div>
+    </main>
+
+    <footer>
+      <div class="wrap">
+        <span>Brito Mídias — Painel interno</span>
+        <span>Central de Estratégia e Resultados</span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- PERFIL ESTRATÉGICO PAGE -->
+  <div class="epage" id="epage">
+    <div class="hero cpage-hero">
+      <div class="wrap">
+        <button class="voltar" onclick="goProject()">← Voltar ao projeto</button>
+        <div class="cpage-head">
+          <div>
+            <h2 id="ep-nome">Perfil Estratégico</h2>
+            <div class="sub" id="ep-sub" style="margin-top:6px"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <main>
+      <div class="wrap">
+        <div class="section-label">VISÃO GERAL</div>
+        <div class="section soft">
+          <div id="ep-intro" style="font-size:14px;line-height:1.75"></div>
+        </div>
+
+        <div id="ep-secoes"></div>
       </div>
     </main>
 
@@ -525,7 +584,104 @@ const CLIENTES = [
           {k:"CPL histórico saudável", v:"R$ 1,70 – R$ 2,00"},
           {k:"Criativo campeão histórico", v:"ADV14_SST_CAP_CLONE EM VIDEO E EM FOTO_0.45 (gancho de clone de IA em vídeo, nunca em foto estática)"},
           {k:"Não confundir com", v:"LS (Lançamento Semanal) nem MPD Aplicação — são 3 funis distintos do mesmo cliente"}
-        ]
+        ],
+        perfilEstrategico: {
+          intro: "Este é o Perfil Estratégico da <b>Sala Secreta</b> — o workshop semanal e gratuito da Ana Tex (Marketex) sobre uso estratégico de IA, com encontros ao vivo toda quarta-feira às 10h30, direcionando pra um grupo de WhatsApp. Documento pensado pra quem está chegando agora entender como o funil funciona de verdade: contas, estrutura de campanha, nomenclatura, públicos e páginas — não só executar uma tarefa pontual, mas entender o raciocínio por trás.",
+          secoes: [
+            {
+              titulo: "Contas de anúncio e investimento",
+              html: `<p>O funil roda hoje em <b>duas contas de anúncio</b>:</p>
+                <ul>
+                  <li><b>ANEX 08</b> — conta oficial e principal. É onde giram todas as campanhas hoje, com bons resultados.</li>
+                  <li><b>ANEX 03</b> — mantida hoje só por causa de <b>uma campanha específica</b> com resultado muito bom: <code>[03] [SST] [CAPTACAO] [CADASTROS] [LEADS] [ADVANTAGE] [VIDEO] [AUTO] [PAGINA A] [CBO] [ADV13-ADV16]</code>, conjunto <code>00 | P-ADVANTAGE | HM | 30-50 | CBO</code>. É a única campanha da Sala Secreta que atrai <b>homens e mulheres</b> (público Advantage, a segmentação por IA do próprio Meta) — as demais campanhas normalmente miram só mulheres.</li>
+                </ul>
+                <p>Critério pra manter a ANEX 03 rodando: enquanto aquela campanha específica continuar performando tão bem quanto (ou melhor que) as campanhas da ANEX 08, ela fica ativa. No dia em que o resultado cair, desliga essa campanha e mantém só a ANEX 08.</p>
+                <p><b>Orçamento mensal do funil:</b> cerca de <b>R$ 6.000,00</b>. É pouca verba, então não sobra muita margem pra rodar testes em paralelo — por isso o uso quase exclusivo de CBO, sem ABO.</p>`
+            },
+            {
+              titulo: "Estrutura de campanha",
+              html: `<p>As campanhas da Sala Secreta são, no geral, campanhas de <b>Leads</b> — funcionam melhor que campanhas de conversão personalizada pra esse tipo de funil (a pessoa vai pra uma página, se cadastra, e o lead é disparado).</p>
+                <ul>
+                  <li><b>Objetivo:</b> Leads</li>
+                  <li><b>Orçamento:</b> CBO (no nível da campanha)</li>
+                  <li><b>Estratégia de lance:</b> Volume mais alto (sem meta de custo)</li>
+                </ul>
+                <p>ABO ainda não foi testado nesse funil — pode ser um teste futuro, mas a verba curta (R$ 6.000/mês) não deixa muita margem pra isso hoje.</p>`
+            },
+            {
+              titulo: "Nomenclatura",
+              html: `<p>Segue a mesma lógica visual do Gerenciador de Anúncios: campanha → conjunto → anúncio.</p>
+                <p><b>Campanha</b> — exemplo: <code>[09] [SST] [CAPTACAO] [CADASTROS] [LEADS] [QUENTE] [VIDEO] [AUTO] [PAGINA B] [CBO]</code></p>
+                <ol>
+                  <li><b>Número</b> — identificação sequencial/visual da campanha (não é uma contagem exata, é mais pra localizar rápido).</li>
+                  <li><b>Código do funil</b> — <code>SST</code> = Sala Secreta.</li>
+                  <li><b>Fase</b> — <code>CAPTACAO</code>.</li>
+                  <li><b>Tipo</b> — <code>CADASTROS</code>, nome herdado de quando o Meta ainda chamava assim (antes de existir a nomenclatura "Leads").</li>
+                  <li><b>Otimização</b> — <code>LEADS</code>. Se um dia for otimizado pra um evento personalizado, entra o nome do evento aqui.</li>
+                  <li><b>Público</b> — ex: <code>QUENTE</code>, <code>ADVANTAGE</code>.</li>
+                  <li><b>Formato do anúncio</b> — vídeo, imagem ou carrossel.</li>
+                  <li><b>Posicionamento</b> — <code>AUTO</code>. Entrou na nomenclatura só depois que o Meta adicionou essa opção (há uns 3 anos) — por isso ficou no final, fora da ordem "lógica".</li>
+                  <li><b>Página</b> — qual landing page está sendo usada (A, B ou C).</li>
+                  <li><b>Tipo de orçamento</b> — <code>CBO</code> ou <code>ABO</code>. Também entrou depois, por isso ficou no fim.</li>
+                </ol>
+                <p><b>Conjunto de anúncios</b> — exemplo: <code>00 | SEGUIDORES + IG ENVOLVIMENTO COMPLETO 30D | M | 30-50 | CBO | PAGINA B</code></p>
+                <ol>
+                  <li><b>Hierarquia</b> — <code>00</code> = não está excluindo ninguém (só quem já virou lead). Ver seção "Públicos" abaixo pra entender de onde vem essa hierarquia.</li>
+                  <li><b>Público</b> — nesse caso, seguidores + envolvimento completo do Instagram nos últimos 30 dias.</li>
+                  <li><b>Gênero</b> — M (mulheres) ou HM (homens e mulheres).</li>
+                  <li><b>Faixa etária</b>.</li>
+                  <li><b>Tipo de orçamento</b> — CBO/ABO.</li>
+                  <li><b>Página de destino</b>.</li>
+                </ol>
+                <p>No final, dá pra acrescentar observações livres (ex: qual teste de criativo está rodando ali).</p>
+                <p><b>Criativos</b> — exemplos: <code>ADC02_SST_CARROSSEL_CAP_RENDA DE CASA COM IA_19.02.26</code> e <code>ADV18_SST_CAP_CLAUDE SKILS 01_2.26</code></p>
+                <ul>
+                  <li><b>Prefixo por formato:</b> <code>ADV</code> = vídeo, <code>ADC</code> = carrossel, <code>ADI</code> = imagem.</li>
+                  <li><b>Número sequencial.</b></li>
+                  <li><b>Fase:</b> <code>CAP</code> (captação).</li>
+                  <li><b>Nome do criativo</b> + observações.</li>
+                  <li><b>Vídeo:</b> termina com a duração no formato M.SS — <code>2.26</code> = 2 min 26 s, <code>0.15</code> = 15 s.</li>
+                  <li><b>Carrossel:</b> geralmente sem nada no final. Exceção: quando é reaproveitamento de um post orgânico do Instagram — nesse caso, termina com a data de publicação (ex: <code>19.02.26</code>).</li>
+                </ul>`,
+              nota: `Observação de padrão: o exemplo <code>ADC02_SST_CARROSSEL_CAP_...</code> está com um erro — não deveria ter "CARROSSEL" escrito no nome, já que o prefixo <code>ADC</code> já indica isso. Ficou assim porque a Ana tinha vários carrosséis orgânicos com bom desempenho levando gente pra Sala Secreta, e reaproveitaram colocando um CTA — a data no final marca que era um post original do Instagram.`
+            },
+            {
+              titulo: "Públicos",
+              html: `<p>Hoje a maioria das campanhas usa hierarquia <code>00</code> (não exclui ninguém, exceto quem já é lead) — mas nem sempre foi assim.</p>
+                <p><b>Como funcionava antes (hierarquia por período, pra evitar sobreposição de público):</b></p>
+                <ul>
+                  <li><code>00</code> — envolvimento dos últimos 7 dias</li>
+                  <li><code>01</code> — quem passou na página e viu os anúncios (excluindo quem já estava no 00)</li>
+                  <li><code>02</code> — envolvimento 30 dias, excluindo quem virou lead e excluindo os níveis anteriores</li>
+                  <li><code>03</code> — remarketing mais amplo (ex: envolvimento 45 dias), excluindo todos os anteriores</li>
+                </ul>
+                <p>Com isso, cada conjunto capturava só uma "fatia" exata do público (ex: exatamente os 15 dias anteriores, porque os outros períodos já tinham sido excluídos). Essa técnica ainda funciona, mas é usada bem menos hoje — principalmente porque a Brito Mídias não tem mais nenhum cliente rodando captação de leads pura e forte o bastante pra justificar tantos conjuntos com hierarquia (o Voa Conhecimento é o mais próximo disso, mas foca em lead frio, o que no fim acaba funcionando parecido com uma campanha de vendas).</p>
+                <p><b>Principais públicos usados na Sala Secreta hoje:</b></p>
+                <ul>
+                  <li><b>P-Advantage</b> — público Advantage (a segmentação por IA do próprio Meta), homens e mulheres, 30–50 anos. Usado só na campanha específica da ANEX 03.</li>
+                  <li><b>Quente</b> — público de engajamento/relacionamento com a marca.</li>
+                  <li><b>Seguidores + Envolvimento Instagram completo (30D)</b> — todo mundo que visitou o perfil, salvou, mandou direct ou interagiu de qualquer forma no período.</li>
+                </ul>`
+            },
+            {
+              titulo: "Páginas do funil (A, B e C)",
+              html: `<p>A Sala Secreta usa <b>3 landing pages</b> diferentes, todas com a mesma lógica geral: a pessoa vê a oferta → clica em "Entrar no grupo" → abre um pop-up de cadastro (nome + WhatsApp) → cai numa página de obrigado → é direcionada pro grupo de WhatsApp.</p>
+                <p><b>Página A</b> — <a href="https://lp.marketex.com.br/sala-secreta-aulas-gratuitas-com-anatex-td/" target="_blank" rel="noopener">lp.marketex.com.br/sala-secreta-aulas-gratuitas-com-anatex-td</a><br>
+                Página mais institucional, menciona "aulas gratuitas com a Ana Tex". No Pixel, dispara 3 eventos: PageView, clique no botão "Quero ser lembrado das aulas", e o evento de Lead. Depois vai pra página de obrigado e de lá pro grupo.<br>
+                Página de obrigado A: <a href="https://lp.marketex.com.br/sala-secreta-obrigado-td/" target="_blank" rel="noopener">lp.marketex.com.br/sala-secreta-obrigado-td</a></p>
+                <p><b>Página B</b> — <a href="https://lp.lucrocomia.com.br/salasecreta/page" target="_blank" rel="noopener">lp.lucrocomia.com.br/salasecreta/page</a><br>
+                Página mais nova e mais direta, sem menção a "experts". Mesma lógica de pop-up de cadastro.<br>
+                Página de obrigado B: <a href="https://lp.lucrocomia.com.br/salasecreta/obrigado-ss" target="_blank" rel="noopener">lp.lucrocomia.com.br/salasecreta/obrigado-ss</a></p>
+                <p><b>Página C</b> — <a href="https://lp.lucrocomia.com.br/salasecreta/page-2" target="_blank" rel="noopener">lp.lucrocomia.com.br/salasecreta/page-2</a><br>
+                Estrutura idêntica à página B — muda só a promessa/headline no topo. Usa a mesma página de obrigado da B.</p>`,
+              nota: `<b>Pendência conhecida (Páginas B e C):</b> o ideal é que o lead só seja marcado (tag de Lead) quando a pessoa efetivamente entra no grupo do WhatsApp — clicando em "Entrar no grupo" dentro da conversa. Hoje, nas páginas B e C, o lead está sendo disparado já na própria página de obrigado, antes da pessoa realmente entrar no grupo. Isso deixa o CPL artificialmente mais barato, porque conta como lead antes da conversão real. Provavelmente mudou por causa de algum problema com os números de WhatsApp/API na época. Ainda não foi corrigido — registrado aqui só o estado atual, sem instrução de correção por enquanto.`
+            },
+            {
+              titulo: "Recursos",
+              html: `<p>Planilha de Resultados de Criativos — centraliza todos os dados de criativos de todas as contas, com as definições usadas em cada uma: <a href="https://docs.google.com/spreadsheets/d/1PrxhTlo8xAzU7fERtdaJezNX0tYdg7gRUGiEfMP-VOI/edit" target="_blank" rel="noopener">abrir planilha</a>.</p>`
+            }
+          ]
+        }
       }
     ]
   },
@@ -1051,6 +1207,7 @@ function downloadSkillZip(){
 document.addEventListener('keydown', e => { if(e.key === 'Escape') closeSkill(); });
 
 let currentClientId = null;
+let currentProjectId = null;
 
 function openClient(id){
   const c = CLIENTES.find(x => x.id === id);
@@ -1072,6 +1229,7 @@ function openClient(id){
 
   document.getElementById('home').style.display = 'none';
   document.getElementById('ppage').style.display = 'none';
+  document.getElementById('epage').style.display = 'none';
   document.getElementById('cpage').style.display = 'block';
   window.scrollTo(0,0);
   history.replaceState(null, '', '#' + id);
@@ -1083,10 +1241,12 @@ function openProject(clientId, projectId){
   const p = (c.projetos||[]).find(x => x.id === projectId);
   if(!p) return;
   currentClientId = clientId;
+  currentProjectId = projectId;
 
   document.getElementById('pp-nome').textContent = p.nome;
   document.getElementById('pp-cliente').textContent = c.nome;
   document.getElementById('pp-resumo').innerHTML = p.resumo || '<span class="placeholder">sem resumo cadastrado</span>';
+  document.getElementById('pp-perfil-wrap').style.display = p.perfilEstrategico ? 'block' : 'none';
   document.getElementById('pp-guia-wrap').style.display = p.guiaUrl ? 'block' : 'none';
   if(p.guiaUrl) document.getElementById('pp-guia-link').href = p.guiaUrl;
   document.getElementById('pp-links').innerHTML = (p.links && p.links.length)
@@ -1099,14 +1259,46 @@ function openProject(clientId, projectId){
 
   document.getElementById('home').style.display = 'none';
   document.getElementById('cpage').style.display = 'none';
+  document.getElementById('epage').style.display = 'none';
   document.getElementById('ppage').style.display = 'block';
   window.scrollTo(0,0);
   history.replaceState(null, '', '#' + clientId + '/' + projectId);
 }
 
+function epSectionHtml(sec){
+  const noteHtml = sec.nota ? `<div class="ep-note">${sec.nota}</div>` : '';
+  return `<div class="section-label">${esc(sec.titulo).toUpperCase()}</div>
+  <div class="section soft" style="margin-bottom:18px">
+    <div class="ep-block"><div class="ep-html">${sec.html}</div>${noteHtml}</div>
+  </div>`;
+}
+
+function openPerfil(clientId, projectId){
+  const c = CLIENTES.find(x => x.id === clientId);
+  if(!c) return;
+  const p = (c.projetos||[]).find(x => x.id === projectId);
+  if(!p || !p.perfilEstrategico) return;
+  currentClientId = clientId;
+  currentProjectId = projectId;
+  const pe = p.perfilEstrategico;
+
+  document.getElementById('ep-nome').textContent = 'Perfil Estratégico — ' + p.nome;
+  document.getElementById('ep-sub').textContent = c.nome;
+  document.getElementById('ep-intro').innerHTML = pe.intro || '';
+  document.getElementById('ep-secoes').innerHTML = (pe.secoes || []).map(epSectionHtml).join('');
+
+  document.getElementById('home').style.display = 'none';
+  document.getElementById('cpage').style.display = 'none';
+  document.getElementById('ppage').style.display = 'none';
+  document.getElementById('epage').style.display = 'block';
+  window.scrollTo(0,0);
+  history.replaceState(null, '', '#' + clientId + '/' + projectId + '/perfil');
+}
+
 function goHome(){
   document.getElementById('cpage').style.display = 'none';
   document.getElementById('ppage').style.display = 'none';
+  document.getElementById('epage').style.display = 'none';
   document.getElementById('home').style.display = 'block';
   history.replaceState(null, '', '#');
   renderGrid();
@@ -1119,9 +1311,16 @@ function goClient(){
   else goHome();
 }
 
+function goProject(){
+  document.getElementById('epage').style.display = 'none';
+  if(currentClientId && currentProjectId) openProject(currentClientId, currentProjectId);
+  else goHome();
+}
+
 renderGrid();
 const hash = location.hash.replace('#','').split('/');
-if(hash[0] && hash[1]) openProject(hash[0], hash[1]);
+if(hash[0] && hash[1] && hash[2] === 'perfil') openPerfil(hash[0], hash[1]);
+else if(hash[0] && hash[1]) openProject(hash[0], hash[1]);
 else if(hash[0]) openClient(hash[0]);
 </script>
 </body>
