@@ -1,0 +1,286 @@
+﻿GUIA COMPLETO — Subir campanhas de Meta Ads da Sala Secreta (SST)
+Cliente: Ana Tex / Marketex — Brito Mídias
+Este arquivo é auto-contido: cole o link dele em qualquer Claude (Claude.ai, Claude Code, etc) e peça
+"sobe uma campanha da Sala Secreta com esses criativos" — todas as instruções, contas, copy e regras estão aqui.
+
+================================================================================
+PARTE 1 — INSTRUÇÕES GERAIS DA SKILL (SKILL.md)
+================================================================================
+
+---
+name: marketex-subir-campanhas-sst
+description: Sobe campanhas de Meta Ads da Sala Secreta (SST — workshop semanal recorrente Ana Tex / Marketex), objetivo Cadastros/Leads, na conta ANEX 08. Use SEMPRE que o Rafael pedir "sobe uma campanha da Sala Secreta", "sobe esse criativo no SST", "cria campanha de leads da Sala Secreta", "sobe na campanha modelo da Sala Secreta", ou passar um criativo (nome/hashtag/video ID) + conta/campanha/conjunto da SST. Cobre as 2 campanhas-modelo (Página A e Página B), público padrão + exclusões, meta de desempenho volume/valor, copy fixa, UTM e o fluxo API vs tela. NÃO usar pra relatório (essa é a relatorios-sala-secreta-marketex) nem pro LS/Aplicação (essas são marketex-subir-campanhas-ls / marketex-subir-campanhas-aplicacao).
+---
+
+# Skill: Subir Campanhas SST — Sala Secreta / Marketex
+
+**Sala Secreta**: workshop gratuito semanal (toda quarta, 18h) sobre IA, da **Ana Tex**. Funil de **Cadastros/Leads**.
+Cliente **Marketex** · BM **ANEX BM** `182240426173935`.
+
+> Relatório desse funil = skill `relatorios-sala-secreta-marketex`. Esta aqui é **só pra subir campanha/anúncio**.
+
+---
+
+## 🚦 REGRA Nº 1 — Portão da copy
+
+Copy já está **fixa e validada** em `copies.md` (texto único). Se o Rafael pedir uma variação de título/descrição pra teste, use as alternativas já registradas ali ou pergunte antes de inventar. Nunca puxar copy de outro funil (LS, Aplicação).
+
+---
+
+## 📌 Constantes fixas — nunca mudam
+
+| Item | Valor |
+|---|---|
+| Business Manager | `182240426173935` · ANEX BM |
+| **Conta de anúncio oficial** | **`394899594978731`** · **ANEX 08** |
+| Página (FB) | `100849768829838` · **Anatex** |
+| Instagram | `17841400072450024` · **@anatex** |
+| Pixel | `1117829508632155` · **Pixel Oficial** |
+| Evento de conversão | **Lead** |
+| Landing page | `https://lp.marketex.com.br/sala-secreta-aulas-gratuitas-com-anatex-td` |
+
+⚠️ **A ANEX 08 é a conta oficial de subir campanha nova.** Confirmado pelo Rafael em 27/08/26: *"a gente só vai subir campanhas da 08. A 08 é a conta oficial de subir campanhas."*
+A **ANEX 03** tem dezenas de campanhas SST antigas (histórico de 2025/início 2026) — **todas pausadas** exceto a `[03] ... [ADV13-ADV16]` (`120241272474990109`, ainda ativa). **Não criar campanha nova na ANEX 03.** Se precisar mexer numa campanha antiga de lá, confirmar com o Rafael antes.
+
+---
+
+## 🧩 Campanhas e conjuntos MODELO (confirmados 27/08/26)
+
+Tem **duas** campanhas modelo — uma por página de destino. Sempre subir o criativo novo primeiro na modelo certa, antes de criar a campanha de teste.
+
+| Página | Campanha modelo | Conjunto modelo |
+|---|---|---|
+| **A** | `120255073018440196` · `[00] [SST] [CAPTACAO] [CADASTROS] [LEADS] [ADVANTAGE] [VIDEO] [AUTO] [PAGINA A] [CBO] [MODELO]` — PAUSADA | `120255073018480196` · `00 \| P-ADVANTAGE \| HM \| 30-50 \| CBO` — ATIVO |
+| **B** | `120255668870840196` · `[00] [SST] [CAPTACAO] [CADASTROS] [LEADS] [ADVANTAGE] [VIDEO] [AUTO] [PAGINA B] [CBO] [MODELO]` — PAUSADA | `120255668870820196` · `00 \| P-ADVANTAGE \| M \| 30-50 \| CBO \| PAGINA B` — ATIVO |
+
+Se o Rafael não disser qual página, **perguntar** — não assumir A.
+
+**Duas coisas diferentes que ele pede:**
+1. *"sobe esse criativo na modelo"* → subir o anúncio **direto no conjunto modelo** (A ou B) por API. Não cria nada novo.
+2. *"cria uma campanha nova de teste"* → **sempre primeiro** sobe o criativo na modelo (pega o `creative_id` de lá), **depois** cria a campanha de teste e adiciona o anúncio por `creative_id` (não remonta o criativo do zero — ver Passo 3).
+
+---
+
+## ⚙️ Configuração padrão
+
+### Campanha
+| Campo | Valor |
+|---|---|
+| Objetivo | **`OUTCOME_LEADS`** (Cadastros) |
+| buying_type | `AUCTION` |
+| Orçamento | **vem no prompt** — CBO, diário, em centavos |
+| Estratégia de lance | `LOWEST_COST_WITHOUT_CAP` ("Maior volume") — **padrão, sempre**, a não ser que o Rafael peça meta de custo por lead |
+| Status inicial | **PAUSED**, sempre |
+
+### Conjunto
+| Campo | Valor |
+|---|---|
+| Local da conversão | **Site** |
+| Meta de desempenho | **Maximizar o número de conversões** (`OFFSITE_CONVERSIONS`) — **padrão**. Só maximizar **valor** (`VALUE`) se o Rafael pedir explicitamente |
+| Pixel | `1117829508632155` |
+| Evento | **Lead** |
+| Meta de custo por lead | **nenhuma** por padrão — só setar se o Rafael pedir um CPL alvo (aí é `COST_CAP` + valor, configurado **na tela**, mesma limitação do LS: CBO + COST_CAP não fecha por API) |
+| Atribuição | **Padrão**, a não ser que o Rafael peça **Incremental** |
+| Criativo dinâmico | **NUNCA ligar** |
+| Advantage+ público | Ligado (`targeting_automation.advantage_audience: 1`) |
+
+### Público — o que o Rafael manda no prompt
+Idade, gênero, localização e segmentos **vêm sempre no prompt na hora de subir**. Não assumir um público fixo.
+
+**Referência do que está rodando hoje** (conjuntos modelo A e B, ambos iguais nisso) — usar só como fallback se o Rafael não especificar nada:
+- Localização: Brasil (`countries: ["BR"]`)
+- Idade: `age_min 25` / `age_max 65`, sugestão `30-50`
+- Gênero: sem filtro (HM — homens e mulheres)
+- Exclusões (sempre aplicadas nos dois conjuntos modelo):
+
+| Público | ID |
+|---|---|
+| `[SITE] PageView \| Caiu na captura SST - 180D` | `120218233976870401` |
+| `[SITE] Lead \| Obrigado SST - 180D` | `120218234397280401` |
+
+---
+
+## 🔗 Parâmetros de URL (UTM)
+
+Campo **"Parâmetros de URL"** do criativo (`url_tags`), **sem o `?` inicial**:
+
+```
+src=MTADS-SST_{{adset.name}}_{{ad.name}}_MTADS-SST_{{campaign.name}}_{{adset.name}}_{{ad.name}}&utm_source=MTADS-SST&utm_medium={{adset.name}}&utm_content={{ad.name}}&utm_campaign=MTADS-SST_{{campaign.name}}_{{adset.name}}_{{ad.name}}
+```
+
+Sigla do funil = **`SST`**. Os placeholders `{{...}}` são preenchidos pelo Meta na entrega — não editar manualmente.
+
+---
+
+## 🎨 Anúncio — o que sempre vai
+
+- **Página:** Anatex `100849768829838`
+- **Instagram:** `17841400072450024` (campo `instagram_user_id`)
+- **CTA:** `LEARN_MORE` (Saiba mais)
+- **Destino:** `https://lp.marketex.com.br/sala-secreta-aulas-gratuitas-com-anatex-td`
+- **Texto / Título / Descrição:** `copies.md` (texto único fixo)
+- **Parâmetros de URL:** o bloco acima
+- Status: **PAUSED**
+
+---
+
+## ⚙️ Fluxo — do zero ao anúncio
+
+### Passo 1 — Subir o criativo na campanha modelo · **API** ✅
+`ads_create_ad` no conjunto modelo (A ou B, conforme a página do teste). Sempre `page_id`, `instagram_user_id`, `url_tags`, link, CTA. Nasce PAUSADO.
+
+- **Vídeo** — `video_data` com `video_id` + miniatura obrigatória. Pegar o frame nativo: `ads_get_ad_videos` com `fields:["id","title","picture"]` → `picture` vai em `video_data.image_url`.
+- **Imagem** — `link_data` com `image_hash`.
+- **Carrossel** — `link_data` + `child_attachments`, com `"multi_share_optimized": false` e `"multi_share_end_card": false` pra manter a ordem dos cards.
+
+Depois de criado, **pegar o `creative_id`** desse anúncio (`ads_get_ad_entities` level `ad`, campo `creative`) — é o que vai ser reaproveitado no Passo 3.
+
+### Passo 2 — Campanha de teste (se for o caso) · **API + tela**
+- **Campanha:** `ads_create_campaign` — `OUTCOME_LEADS`, CBO, `LOWEST_COST_WITHOUT_CAP`, PAUSED. ✅ API
+- **Conjunto:** criar por API **não é confiável** nessa BM (mesma barreira documentada nas skills do LS/Aplicação — `ads_create_ad_set` pode falhar com "Advertiser is missing" fora do fluxo `source_adset_id`). Tentar **uma vez**; se falhar, ir pro Chrome:
+  1. Duplicar o conjunto **modelo certo** (A ou B) pra dentro da campanha nova pelo Ads Manager.
+  2. No modal "Aplicar recomendações" → **DESMARCAR tudo**.
+  3. "Campanha existente" → buscar a campanha-destino pelo nome exato.
+  4. Publicar → **renomear o conjunto** antes ou depois de publicar.
+  5. **Apagar o anúncio que veio junto** da duplicação (herdado do modelo) — ele não é o criativo do teste.
+  6. ⚠️ Antes de publicar, checar "Conferir e publicar": pode ter **rascunhos pendentes de outras campanhas** na fila — desmarcar tudo que não for seu antes de confirmar.
+
+### Passo 3 — Anúncio na campanha de teste · **API** ✅
+`ads_create_ad` no conjunto novo, usando **`creative: {"creative_id": "<id do Passo 1>"}`** — não remonta o criativo, reaproveita o que já foi validado na modelo (copy, UTM, link, ordem de carrossel vêm junto).
+
+---
+
+## 🏷️ Nomenclatura (padrão observado na conta)
+
+**Campanha:**
+`[NN] [SST] [CAPTACAO] [CADASTROS] [LEADS] [PUBLICO] [FORMATO] [AUTO] [PAGINA X] [CBO]`
+Ex.: `[08] [SST] [CAPTACAO] [CADASTROS] [LEADS] [ADVANTAGE] [VIDEO] [AUTO] [PAGINA B] [CBO]`
+
+**Conjunto:**
+`01 | P-ADVANTAGE | HM | 30-50 | CBO` (Página A) ou `01 | P-ADVANTAGE | M | 30-50 | CBO | PAGINA B` (Página B)
+
+**Criativo:** `ADV<nº>_SST_CAP_<nome>_<duração>` (ex.: `ADV18_SST_CAP_CLAUDE SKILS 01_2.26` = 2min26s)
+`ADV` = vídeo · `ADI` = imagem · `ADC` = carrossel (mesmo padrão do LS/Aplicação).
+
+> Nome exato **sempre vem no prompt do Rafael**. Pra saber o próximo número de ADV disponível, conferir a planilha de resultados (ver Referência) ou os criativos já na conta — não adivinhar.
+
+---
+
+## ⚠️ Armadilhas
+
+1. **Subir campanha na ANEX 03 por engano.** A conta oficial é a ANEX 08. ANEX 03 é histórico/pausado.
+2. **Esquecer qual página (A/B).** Cada uma tem campanha modelo e conjunto modelo próprios — não misturar.
+3. **Meta de desempenho em VALOR sem pedir.** Padrão é sempre volume (`OFFSITE_CONVERSIONS`).
+4. **Criativo dinâmico ligado.** Nunca — Rafael foi explícito nisso.
+5. **Esquecer as 2 exclusões** ao criar/duplicar conjunto do zero.
+6. **Miniatura de vídeo obrigatória** → usar o frame nativo (`picture`).
+7. **Conjunto por API falhando silenciosamente** → mesma barreira do LS/Aplicação; ir pro Chrome sem insistir.
+8. **Publicar rascunho de outra campanha por engano** ao confirmar no Ads Manager — sempre conferir a lista antes de clicar Publicar.
+
+---
+
+## ✅ Checklist antes de dizer "pronto"
+
+- [ ] Conta = **ANEX 08** `394899594978731`
+- [ ] Objetivo **Cadastros/Leads** · evento **Lead** · pixel `1117829508632155`
+- [ ] Local da conversão = **Site** · meta de desempenho = **volume** (a menos que peça valor)
+- [ ] Orçamento CBO e estratégia de lance como veio no prompt (default: maior volume, sem meta de custo)
+- [ ] Atribuição = **Padrão** (a menos que peça Incremental)
+- [ ] Público conforme o prompt (ou o padrão de referência, se ele não especificou)
+- [ ] Página A ou B confirmada, batendo com a tag no nome
+- [ ] Criativo subiu **primeiro na modelo**, `creative_id` reaproveitado na campanha de teste
+- [ ] Texto/título/descrição de `copies.md` · CTA Saiba mais · UTM `SST`
+- [ ] Criativo dinâmico **desligado**
+- [ ] Tudo **PAUSADO**
+- [ ] Reportar os ad_ids numa tabela + o que sobrou pra fazer na tela
+
+---
+
+## 🔗 Arquivos e fontes
+
+- **`copies.md`** — texto, título e descrição da Sala Secreta (fixos, validados)
+- **Documento-fonte (Rafael mantém atualizado):** [SETUP_CAMPANHAS_SALA_SECRETA_MARKETEX](https://docs.google.com/document/d/1_bxrr0YAcQhSJ4M9nM9K6kumeX_SsLTHnbZCMcpUJ5w/edit) — conferir aqui primeiro se algo mudou (campanha modelo nova, público, copy)
+- **Planilha de resultados de criativos:** `https://docs.google.com/spreadsheets/d/1PrxhTlo8xAzU7fERtdaJezNX0tYdg7gRUGiEfMP-VOI/edit` — todos os ADVs, link do Drive, investimento/vendas, UTM montada, e o próximo número de ADV disponível
+
+## 📅 Histórico
+
+- **27/08/26** — Skill criada a partir do documento do Rafael + confirmação ao vivo na conta. Confirmado por API: as 2 campanhas modelo (Página A e B, a B não estava no docx original — Rafael corrigiu na hora), público e exclusões dos conjuntos modelo, e que a ANEX 03 tem histórico extenso de SST mas está desativada pra novas campanhas (só ANEX 08 é oficial).
+
+
+================================================================================
+PARTE 2 — COPIES POR FUNIL: legendas, títulos e descrições (copies.md)
+================================================================================
+
+# Copies — Sala Secreta (SST)
+
+Legenda, título e descrição do funil da **Sala Secreta**. Texto único — validado pelo Rafael, usado em todos os criativos da conta (documento-fonte, 06/07/26).
+
+**CTA:** Saiba mais (`LEARN_MORE`)
+**Destino:** `https://lp.marketex.com.br/sala-secreta-aulas-gratuitas-com-anatex-td`
+
+---
+
+## Legenda / Texto principal (único)
+
+```
+🔑 IMAGINE ENTRAR EM UMA SALA SECRETA…
+
+Um espaço exclusivo onde poucos têm acesso, mas quem entra desbloqueia estratégias poderosas para escalar seu negócio com Inteligência Artificial. 🚀🤖
+
+Agora, imagine ter acesso a isso TODA SEMANA! 👀
+
+Toda quarta-feira, às 18h, uma aula gratuita e ao vivo, onde você aprende a usar IA para crescer, otimizar processos e gerar mais resultados.
+
+🔥 O QUE VOCÊ VAI DESCOBRIR?
+
+✅ Como escalar seus serviços com Inteligência Artificial
+✅ Estratégias para atrair e impactar clientes 5x mais rápido
+✅ Como criar conteúdos e ferramentas de forma ágil e eficiente
+✅ Métodos para aumentar sua produtividade em 10x
+
+💡 PARA QUEM É ESSA EXPERIÊNCIA?
+
+🚀 Para quem quer crescer com IA e dominar as novas ferramentas digitais
+🎯 Especialistas, consultores, coaches, terapeutas e empreendedores que querem se destacar
+
+⚠️ A Sala Secreta não estará aberta para sempre! O acesso pode ser fechado a qualquer momento.
+
+👉 QUER PARTICIPAR? Toque em "Saiba mais" e se inscreva gratuitamente! 🎟️
+```
+
+---
+
+## Título (padrão)
+
+```
+Aula gratuita toda quarta, 18h
+```
+
+**Alternativas para teste** (usar só se o Rafael pedir variação):
+- `Sala Secreta: aula ao vivo grátis`
+- `Acesso liberado toda semana`
+
+---
+
+## Descrição (padrão)
+
+```
+Toque em "Saiba mais" e entre no grupo VIP do WhatsApp
+```
+
+---
+
+## Parâmetros de URL
+
+Campo **"Parâmetros de URL"** do criativo (`url_tags`) — **sem o `?` inicial**:
+
+```
+src=MTADS-SST_{{adset.name}}_{{ad.name}}_MTADS-SST_{{campaign.name}}_{{adset.name}}_{{ad.name}}&utm_source=MTADS-SST&utm_medium={{adset.name}}&utm_content={{ad.name}}&utm_campaign=MTADS-SST_{{campaign.name}}_{{adset.name}}_{{ad.name}}
+```
+
+---
+
+## Histórico
+
+- **27/08/26** — Copy migrada do documento-fonte do Rafael (`SETUP_CAMPANHAS_SALA_SECRETA_MARKETEX`, gerado 06/07/26) pra dentro da skill.
+
