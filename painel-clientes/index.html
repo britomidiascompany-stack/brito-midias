@@ -893,21 +893,59 @@ const CLIENTES = [
     projetos: [
       {
         id: "jardim-hipica",
-        nome: "Jardim Hípica — Google Ads",
-        resumo: "Campanha de <b>Google Ads (Rede de Pesquisa)</b> pro lançamento residencial Jardim Hípica (Indaiatuba/SP) — 2 campanhas especificadas (branding + produto). Captação via formulário externo YAY!Forms com encaminhamento automático pro WhatsApp (automação RESUMO DE LEADS ARMIGH).",
+        nome: "Jardim Hípica",
+        resumo: "Captação de leads pro lançamento residencial <b>Jardim Hípica</b> (Indaiatuba/SP), rodando em duas fontes: <b>Meta Ads</b> (ativo desde janeiro/26) e <b>Google Ads</b> (recém-configurado, ainda sem histórico). Mesmo funil de destino: site → agendar visita → formulário de qualificação (YAY!Forms) → WhatsApp.",
         skills: [],
         links: [
-          {label:"Página oficial do empreendimento", url:"https://moraremindaiatuba.com.br/"}
+          {label:"Página oficial do empreendimento", url:"https://moraremindaiatuba.com.br/"},
+          {label:"Formulário de qualificação (YAY!Forms)", url:"https://lislie.yayforms.link/eVadZrv"}
         ],
         info: [
           {k:"Município", v:"Indaiatuba/SP"},
           {k:"Produto", v:"Lote a partir de R$ 387.500 · entrada 20% em até 3x sem juros · saldo em 120 meses"},
+          {k:"Pré-qualificação no criativo (Meta)", v:"Parcelas a partir de R$ 4.591,07 — filtro já no anúncio, antes de chegar no site"},
+          {k:"Campanhas Meta", v:"2 campanhas ativas por região: Indaiatuba/Campinas e áreas nobres de São Paulo"},
           {k:"Conta Google Ads", v:"478-060-2548"},
-          {k:"Orçamento diário aprovado", v:"R$ 66/dia"},
-          {k:"Status", v:"⚠️ Conta pausada aguardando verificação de anunciante no Google Ads — campanha já especificada (nomes, keywords, orçamento) mas ainda não criada de fato"},
-          {k:"Nomenclatura das campanhas", v:"[01][GOOGLE][ARMIGH][JD_HIPICA][SEARCH][BRANDING TERMS] · [02][GOOGLE][ARMIGH][JD_HIPICA][SEARCH][PRODUTO]"},
-          {k:"Automação de leads", v:"RESUMO DE LEADS ARMIGH (V3) — YAY!Forms → WhatsApp, com fechamento automático no ClickUp"}
-        ]
+          {k:"Orçamento diário aprovado (Google)", v:"R$ 66/dia"},
+          {k:"Status Google Ads", v:"⚠️ Conta pausada aguardando verificação de anunciante — campanha já especificada (nomes, keywords, orçamento) mas ainda não criada de fato"},
+          {k:"Nomenclatura das campanhas (Google)", v:"[01][GOOGLE][ARMIGH][JD_HIPICA][SEARCH][BRANDING TERMS] · [02][GOOGLE][ARMIGH][JD_HIPICA][SEARCH][PRODUTO]"},
+          {k:"Automação de leads", v:"RESUMO DE LEADS ARMIGH (V3) — YAY!Forms → WhatsApp, com fechamento automático no ClickUp"},
+          {k:"Reporte manual de leads", v:"Gabriel envia os leads que chegaram toda segunda, quarta e sexta no WhatsApp — automação de aviso em tempo real (lead novo → grupo) ainda planejada, não implementada"}
+        ],
+        perfilEstrategico: {
+          intro: "O objetivo é vender <b>lotes</b> no empreendimento Jardim Hípica (Indaiatuba/SP). Duas fontes de aquisição: <b>Meta Ads</b> (rodando desde janeiro/26, com histórico) e <b>Google Ads</b> (recém-configurado, sem histórico ainda). O desafio atual, em avaliação, é a qualidade do lead: mesmo depois de mudanças no site, nos criativos e no formulário, ainda chega pouca gente ultra qualificada.",
+          secoes: [
+            {
+              titulo: "Histórico — evolução do funil",
+              html: `<p>O funil já passou por algumas versões, todas tentando resolver o mesmo problema: lead desqualificado.</p>
+                <ol>
+                  <li><b>Versão 1 — direto pro WhatsApp:</b> o anúncio mandava a pessoa direto pra uma conversa de WhatsApp. Resultado: muito lead desqualificado, sem nenhum filtro no caminho.</li>
+                  <li><b>Versão 2 — página + formulário:</b> intercalou uma página e um formulário antes do WhatsApp. Melhorou, mas ainda vinha mais gente desqualificada do que qualificada.</li>
+                  <li><b>Versão 3 — atual (mês passado):</b> mudança no site, nos criativos e no formulário ao mesmo tempo. Resultado até agora: melhorou a atração de pessoas pras páginas, mas ainda não está aparecendo ninguém <i>ultra qualificado</i> dentro do formulário. É esse ponto que está em avaliação agora.</li>
+                </ol>`
+            },
+            {
+              titulo: "Funil atual (Meta Ads)",
+              html: `<p>Rodam <b>2 campanhas</b> por região: <b>Indaiatuba/Campinas</b> e <b>áreas nobres de São Paulo</b>.</p>
+                <p>Os criativos já fazem uma pré-qualificação na própria peça, informando que as parcelas começam em <b>R$ 4.591,07</b> — um filtro de poder aquisitivo antes mesmo do clique. O CTA do criativo é "agendar uma visita".</p>
+                <p><b>Fluxo:</b></p>
+                <ol>
+                  <li>Anúncio (Meta) → <a href="https://moraremindaiatuba.com.br/" target="_blank" rel="noopener">site do empreendimento</a></li>
+                  <li>Pessoa clica em "Agendar uma Visita" → vai pro <a href="https://lislie.yayforms.link/eVadZrv" target="_blank" rel="noopener">formulário de qualificação (YAY!Forms)</a></li>
+                  <li>Se a pessoa responder as perguntas e for qualificada, é direcionada pro <b>WhatsApp</b></li>
+                </ol>`
+            },
+            {
+              titulo: "Google Ads",
+              html: `<p>Fonte nova, configurada mas ainda sem rodar de fato — conta pausada aguardando verificação de anunciante no Google. As 2 campanhas (branding + produto) já estão especificadas (ver "Informações Principais" deste projeto), só faltando a conta ser liberada.</p>`
+            },
+            {
+              titulo: "Reporte de leads",
+              html: `<p>Hoje o reporte é manual: o <b>Gabriel</b> envia toda <b>segunda, quarta e sexta</b> no WhatsApp quais foram os leads que chegaram no período.</p>
+                <p>Já existe uma automação de fechamento (RESUMO DE LEADS ARMIGH V3, YAY!Forms → WhatsApp → ClickUp), e está planejada uma automação de <b>aviso em tempo real</b>: assim que um lead novo chegar, cair direto no grupo do WhatsApp — ainda não implementada.</p>`
+            }
+          ]
+        }
       }
     ]
   },
