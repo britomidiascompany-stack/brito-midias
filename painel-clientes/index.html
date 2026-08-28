@@ -550,7 +550,83 @@ const CLIENTES = [
           {k:"Lançamentos ativos", v:"LS001 (18–24/05/26) · LS002 (25–31/05/26) — novos IDs via VK Metrics"},
           {k:"Análise de criativos", v:"Relatório semanal (toda terça) com Top 10 candidatos a novas versões + Top 5 por LS em vendas/CPA/ROAS"},
           {k:"Fechamento de captação", v:"Fechamento 1 (D+1, parcial) e Fechamento 2 (D+7, número final com líquido real da Hotmart)"}
-        ]
+        ],
+        perfilEstrategico: {
+          intro: "O LS da Ana Tex é a aplicação do <b>Pacto Semanal</b> — uma estratégia de lançamento que a Brito Mídias usa em mais de um cliente: vende-se ingresso pra um evento de uma semana (gravado, mas apresentado como se fosse ao vivo — nunca se mente sobre isso se perguntado, só não se destaca), que ensina algo prático e aplicável, gerando pequenas vitórias rápidas pra depois oferecer um produto mais completo. Na Ana, o evento é o <b>Workshop Especialista com Inteligência Artificial</b>, e o produto de back-end é a <b>Mentoria Paraíso Digital</b>.",
+          secoes: [
+            {
+              titulo: "O que é o Pacto Semanal",
+              html: `<p>É um evento de uma semana, com aulas <b>gravadas</b> (a maioria do público não sabe disso — se alguém perguntar diretamente, a resposta é honesta, mas isso nunca é destacado espontaneamente). A semana segue essa estrutura:</p>
+                <ul>
+                  <li><b>Segunda a sexta</b> — 5 aulas de ~1h a 1h30, ensinando algo prático que a pessoa já consegue aplicar e ter vitórias rápidas.</li>
+                  <li><b>Sábado</b> — um desafio pra pessoa colocar em prática o que aprendeu.</li>
+                  <li><b>Domingo</b> — aula de fechamento com o pitch da oferta principal (o produto de back-end).</li>
+                </ul>`
+            },
+            {
+              titulo: "Aplicação na Ana Tex — produto e entregáveis",
+              html: `<p>O evento vendido é o <b>Workshop Especialista com Inteligência Artificial</b>. Entregáveis (podem mudar com o tempo): fazer um clone digital com IA, configurar o ChatGPT, criar identidade visual, criar página — tudo usando IA. No final, é oferecida a <b>Mentoria Paraíso Digital</b> como produto de back-end.</p>`
+            },
+            {
+              titulo: "Mentoria Paraíso Digital (upsell / back-end)",
+              html: `<p>Mentoria voltada, majoritariamente, pra especialistas/experts de alguma área — mentores, consultores, pessoas que já têm bagagem e experiência real num campo. Por isso o público-alvo é <b>35 anos ou mais</b>, com mulheres tendendo a se identificar mais com a oferta.</p>
+                <ul>
+                  <li><b>Valor:</b> R$ 12.500</li>
+                  <li><b>Duração:</b> 6 meses de acompanhamento</li>
+                  <li><b>Formato:</b> trilha completa gravada dentro de um sistema/plataforma própria da Ana, encontros ao vivo toda semana (a Ana traz um tema ou aprofunda um ponto específico), e suporte contínuo num grupo de WhatsApp onde a Ana tira dúvidas sobre IA, negócios e outros temas.</li>
+                </ul>`
+            },
+            {
+              titulo: "Estrutura de 3 semanas simultâneas (funil contínuo)",
+              html: `<p>O funil <b>não para</b> — roda de forma contínua, com 3 fases acontecendo em paralelo, defasadas uma semana entre si:</p>
+                <ul>
+                  <li><b>Semana 1 — Captação:</b> capta ~500 pessoas para o ingresso.</li>
+                  <li><b>Semana 2 — Aula:</b> quem foi captado na semana 1 assiste às aulas. Ao mesmo tempo, já está rodando a captação da leva seguinte (mais ~500 pessoas).</li>
+                  <li><b>Semana 3 — Oferta:</b> quem assistiu às aulas na semana 2 recebe a oferta da mentoria. A oferta abre no <b>domingo</b> do fim da semana de aula e fica aberta até o <b>sábado</b> seguinte.</li>
+                </ul>
+                <p>Como o funil é contínuo, a cada semana uma nova leva entra em captação, enquanto a leva anterior está em aula, e a leva anterior a essa está recebendo oferta — as 3 fases coexistem o tempo todo.</p>`
+            },
+            {
+              titulo: "Metas e KPIs",
+              html: `<ul>
+                  <li><b>Meta de vendas de ingresso:</b> 500 vendas por semana.</li>
+                  <li><b>Limite de exposição negativa:</b> no máximo R$ 12.500 de exposição (prejuízo) por semana, considerando o total do funil.</li>
+                </ul>`
+            },
+            {
+              titulo: "Funil de vendas e checkout",
+              html: `<p>É uma campanha de <b>vendas diretas</b> — sem captação de lead intermediária. O caminho é: anúncio → página de vendas → checkout (Hotmart) → compra.</p>
+                <p><b>Página de vendas:</b> <a href="https://lp.lucrocomia.com.br/ws-especialista-com-ia/v1-2" target="_blank" rel="noopener">lp.lucrocomia.com.br/ws-especialista-com-ia/v1-2</a></p>
+                <p><b>Checkout (Hotmart):</b> <a href="https://pay.hotmart.com/C105720390R?off=q6vkkxcf&checkoutMode=10" target="_blank" rel="noopener">pay.hotmart.com/C105720390R (oferta q6vkkxcf)</a></p>
+                <p>No checkout, hoje existem os seguintes order bumps (sujeitos a mudança):</p>
+                <ul>
+                  <li><b>Fotos com Inteligência Artificial</b> — R$ 62</li>
+                  <li><b>Palestras em Minutos</b> — R$ 50 (produto pra criar apresentações de palestra com IA)</li>
+                  <li><b>Acesso Premium</b> — R$ 127 (acesso de 12 meses)</li>
+                </ul>
+                <p>Depois da compra, a pessoa recebe onboarding na área de membros da Hotmart (uma ou duas aulas da Ana dando mais detalhes sobre o evento) e entra no grupo de WhatsApp do lançamento, de onde recebe o link das aulas. A oferta da mentoria é apresentada dentro das próprias aulas — depois disso, o time comercial entra em contato com quem demonstrou interesse.</p>`,
+              nota: `Esse fluxo pós-compra (onboarding na Hotmart → grupo de WhatsApp → oferta na aula → contato comercial) foi descrito de memória pelo Rafael e ainda precisa ser confirmado com precisão — tratar como referência, não como especificação exata até validar.`
+            },
+            {
+              titulo: "Acompanhamento e fontes de dados",
+              html: `<p>O acompanhamento de métricas em tempo real é feito pelo <b>VK Metrics</b> (painel geral). Além disso, duas planilhas complementam o controle:</p>
+                <ul>
+                  <li><b>Planilha unificada</b> (link na seção "Links Úteis" deste projeto) — replica basicamente os mesmos dados do VK Metrics, mas com muito mais detalhe e histórico. Importante como backup: se um dia o acesso ao VK Metrics for perdido, o histórico completo continua preservado aqui.</li>
+                  <li><b>Planilha de resultado de criativos</b> (link na seção "Links Úteis" deste projeto) — controle específico de criativos.</li>
+                </ul>`
+            },
+            {
+              titulo: "Fluxo semanal de trabalho e reporte",
+              html: `<ul>
+                  <li><b>Quinta-feira</b> — recebimento dos criativos novos da semana para teste.</li>
+                  <li><b>Todos os dias, ~10h e ~16h</b> — relatório "fotografia do momento" da semana, postado no canal de tráfego pago do Slack da Marketex, gerado via Claude Code (o Rafael só pede e o Claude já tem as skills prontas pra montar e postar). Em fins de semana o ritmo é mais leve. Automação pra gerar esse relatório sozinho ainda está em desenvolvimento.</li>
+                  <li><b>Segunda-feira</b> — Fechamento 1 da semana de captação encerrada 2 semanas antes (já é o fechamento "geral", já passou a janela de reembolso).</li>
+                  <li><b>+7 dias depois</b> — Fechamento 2, conferindo se houve algum reembolso após o Fechamento 1.</li>
+                  <li><b>Reuniões:</b> segunda (visão geral dos funis, incluindo este e outros), quarta (acompanhamento das ações definidas na segunda), sexta (fechamento geral da semana com o time — o que rodou, o que se espera até o fim de semana).</li>
+                </ul>`
+            }
+          ]
+        }
       },
       {
         id: "mpd-aplicacao",
