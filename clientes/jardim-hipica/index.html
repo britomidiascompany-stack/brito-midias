@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Auditoria de Rastreamento — Brito Mídias</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --roxo:#7C3AED; --roxo-dark:#5B21B6; --roxo-deep:#3B0F73;
+    --roxo-light:#A78BFA; --roxo-xlight:#EDE9FE;
+    --preto:#0A0A0A; --ink:#141018; --cinza:#5B5566;
+    --linha:#E7E3EE; --bg:#FFFFFF; --bg-soft:#FAF9FC;
+    --verde:#16A34A; --amarelo:#D97706; --vermelho:#DC2626;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Poppins',system-ui,-apple-system,sans-serif;font-weight:300;font-size:16px;
+    line-height:1.6;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 28px}
+
+  .hero{position:relative;overflow:hidden;color:#fff;
+    background:
+      radial-gradient(1100px 500px at 78% -10%, rgba(124,58,237,.55), transparent 60%),
+      linear-gradient(150deg,#0A0A0A 0%,#17111F 45%,#3B0F73 100%);}
+  .hero::before{content:"";position:absolute;inset:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.14) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.14) 1px,transparent 1px);
+    background-size:44px 44px;
+    -webkit-mask-image:radial-gradient(circle at 50% 30%,#000 25%,transparent 72%);
+    mask-image:radial-gradient(circle at 50% 30%,#000 25%,transparent 72%);pointer-events:none}
+  .hero-in{position:relative;padding:40px 0 50px}
+  .brand{display:flex;align-items:center;gap:16px}
+  .brand svg{width:46px;height:46px;flex-shrink:0}
+  .brand .word{display:flex;align-items:center;gap:14px;font-weight:300}
+  .brand .word b{font-weight:800;font-size:20px}
+  .brand .word .bar{width:2px;height:30px;background:rgba(255,255,255,.55);display:inline-block}
+  .brand .word span{font-size:20px;letter-spacing:.22em}
+  .crumb{margin-top:32px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+    font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--roxo-light)}
+  .crumb b{color:#fff}
+  .crumb .sep{color:rgba(255,255,255,.35);font-weight:400;letter-spacing:0;text-transform:none}
+  .hero h1{font-weight:800;font-size:clamp(28px,4.4vw,44px);letter-spacing:-.02em;line-height:1.15;
+    margin-top:12px;text-wrap:balance}
+  .hero .sub{font-weight:300;font-size:16.5px;color:rgba(255,255,255,.74);margin-top:14px;max-width:64ch}
+  .pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+  .pill{border:1px solid var(--roxo-light);color:#fff;border-radius:100px;padding:8px 16px;
+    font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
+  .pill.solid{background:linear-gradient(90deg,#7C3AED,#5B21B6);border-color:transparent}
+
+  .sec{padding:52px 0}
+  .sec.soft{background:var(--bg-soft);border-top:1px solid var(--linha);border-bottom:1px solid var(--linha)}
+  .section-label{display:flex;align-items:center;gap:12px;font-size:13px;font-weight:600;
+    letter-spacing:.16em;text-transform:uppercase;color:var(--roxo)}
+  .section-label::before{content:"";width:34px;height:2px;background:var(--roxo);border-radius:2px}
+  .sec h2{font-weight:700;font-size:clamp(22px,3vw,28px);letter-spacing:-.01em;margin-top:14px;text-wrap:balance}
+  .sec .intro{color:var(--cinza);margin-top:12px;max-width:72ch}
+
+  .callout{border:1px solid var(--linha);border-left:4px solid var(--roxo);border-radius:12px;
+    padding:20px 24px;margin-top:22px;background:#fff}
+  .callout h3{font-size:15px;font-weight:700;margin-bottom:8px}
+  .callout p{color:var(--cinza);font-size:14.5px}
+
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-top:26px}
+  .stat{border:1px solid var(--linha);border-radius:12px;padding:18px 18px;background:#fff}
+  .stat .v{font-weight:800;font-size:27px;letter-spacing:-.02em;line-height:1.1}
+  .stat .l{font-size:12.5px;color:var(--cinza);margin-top:7px;line-height:1.4}
+  .stat.critico .v{color:var(--vermelho)}
+  .stat.alerta .v{color:var(--amarelo)}
+  .stat.ok .v{color:var(--verde)}
+
+  .sys{border:1px solid var(--linha);border-radius:16px;margin-top:24px;overflow:hidden;background:#fff}
+  .sys-head{padding:22px 26px;border-bottom:1px solid var(--linha);background:var(--bg-soft);
+    display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+  .sys-head h3{font-weight:700;font-size:19px;flex:1;min-width:180px}
+  .tag{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+    padding:5px 11px;border-radius:100px}
+  .tag.critico{background:#FEE2E2;color:var(--vermelho)}
+  .tag.alto{background:#FEF3C7;color:var(--amarelo)}
+  .tag.medio{background:var(--roxo-xlight);color:var(--roxo-dark)}
+  .tag.baixo{background:#F1F5F9;color:var(--cinza)}
+  .tag.ok{background:#DCFCE7;color:var(--verde)}
+  .sys-body{padding:24px 26px}
+  .sys-body > p.res{color:var(--cinza);font-size:15px;margin-bottom:22px}
+
+  .bloco{margin-top:22px}
+  .bloco h4{font-size:12.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--roxo-dark);margin-bottom:12px}
+  table{width:100%;border-collapse:collapse;font-size:14.5px}
+  td{padding:10px 12px;border-bottom:1px solid var(--linha);vertical-align:top}
+  td:first-child{font-weight:600;width:38%;color:var(--ink)}
+  td:last-child{color:var(--cinza)}
+  tr.critico td:last-child{color:var(--vermelho);font-weight:600}
+  tr.alerta td:last-child{color:var(--amarelo);font-weight:600}
+  tr.ok td:last-child{color:var(--verde);font-weight:600}
+  .tablewrap{overflow-x:auto}
+
+  .achado{border:1px solid var(--linha);border-left:4px solid var(--linha);border-radius:12px;
+    padding:16px 20px;margin-top:12px;background:#fff}
+  .achado.critico{border-left-color:var(--vermelho);background:#FEF2F2}
+  .achado.alto{border-left-color:var(--amarelo);background:#FFFBEB}
+  .achado.medio{border-left-color:var(--roxo);background:#FBFAFF}
+  .achado h5{font-size:15px;font-weight:700;margin-bottom:6px}
+  .achado p{font-size:14px;color:var(--cinza)}
+
+  .melhoria{border:1px solid var(--linha);border-radius:14px;padding:20px 22px;margin-top:14px;background:#fff;
+    display:grid;grid-template-columns:38px 1fr;gap:16px;transition:opacity .2s,background .2s}
+  .melhoria.feito{background:#F0FDF4;border-color:#BBF7D0;opacity:.72}
+  .chk{width:26px;height:26px;border:2px solid var(--linha);border-radius:8px;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;margin-top:3px;background:#fff;
+    font-size:15px;color:#fff;transition:all .15s;flex-shrink:0}
+  .chk:hover{border-color:var(--roxo)}
+  .chk:focus-visible{outline:3px solid var(--roxo-light);outline-offset:2px}
+  .melhoria.feito .chk{background:var(--verde);border-color:var(--verde)}
+  .m-head{display:flex;flex-wrap:wrap;align-items:center;gap:9px;margin-bottom:10px}
+  .m-head .id{font-size:12px;font-weight:700;color:var(--roxo);letter-spacing:.08em}
+  .m-head h4{font-size:16.5px;font-weight:700;flex-basis:100%;line-height:1.35}
+  .m-linha{font-size:14.5px;color:var(--cinza);margin-top:7px}
+  .m-linha b{color:var(--ink);font-weight:600}
+  .m-status{margin-top:12px;font-size:13px;font-weight:600;color:var(--verde);display:none}
+  .melhoria.feito .m-status{display:block}
+
+  .progresso{margin-top:24px;border:1px solid var(--linha);border-radius:12px;padding:18px 22px;background:#fff}
+  .progresso .barra{height:9px;background:var(--linha);border-radius:6px;overflow:hidden;margin-top:12px}
+  .progresso .barra i{display:block;height:100%;background:linear-gradient(90deg,#16A34A,#4ADE80);width:0;transition:width .3s}
+  .progresso p{font-size:14px;color:var(--cinza)}
+  .progresso b{color:var(--ink)}
+
+  footer{background:var(--preto);color:rgba(255,255,255,.62);padding:40px 0;font-size:13.5px;margin-top:0}
+  footer b{color:#fff}
+  footer ul{margin-top:10px;padding-left:18px}
+  footer li{margin-bottom:5px}
+  .aviso{font-size:13px;color:var(--cinza);margin-top:14px;border:1px dashed var(--linha);
+    border-radius:10px;padding:14px 16px;background:var(--bg-soft)}
+  #erro{display:none;padding:60px 28px;text-align:center;color:var(--vermelho);font-weight:600}
+  @media(max-width:640px){ td:first-child{width:46%} .melhoria{grid-template-columns:28px 1fr;gap:12px} }
+</style>
+</head>
+<body>
+
+<div id="erro">Não foi possível carregar <code>auditoria.json</code>.</div>
+<div id="app" hidden>
+
+<header class="hero">
+  <div class="wrap hero-in">
+    <div class="brand">
+      <svg viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="2.4"
+           stroke-linejoin="round" stroke-linecap="round" aria-label="BM Mídias">
+        <polygon points="50,4 90,27 90,73 50,96 10,73 10,27"></polygon>
+        <polygon points="50,33 65,59 35,59"></polygon>
+        <line x1="50" y1="4" x2="50" y2="33"></line><line x1="90" y1="73" x2="65" y2="59"></line>
+        <line x1="10" y1="73" x2="35" y2="59"></line><line x1="90" y1="27" x2="50" y2="33"></line>
+        <line x1="90" y1="27" x2="65" y2="59"></line><line x1="50" y1="96" x2="65" y2="59"></line>
+        <line x1="50" y1="96" x2="35" y2="59"></line><line x1="10" y1="27" x2="35" y2="59"></line>
+        <line x1="10" y1="27" x2="50" y2="33"></line>
+      </svg>
+      <span class="word"><b>BM</b><i class="bar"></i><span>MÍDIAS</span></span>
+    </div>
+    <div class="crumb"><b>Brito Mídias</b><span class="sep">/</span><b>Clientes</b><span class="sep">/</span><span id="c-crumb"></span><span class="sep">/</span>Auditoria de rastreamento</div>
+    <h1 id="c-titulo"></h1>
+    <p class="sub" id="c-veredito"></p>
+    <div class="pills" id="c-pills"></div>
+  </div>
+</header>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="section-label">Panorama</div>
+    <h2 id="v-titulo"></h2>
+    <div class="stats" id="v-stats"></div>
+  </div>
+</section>
+
+<section class="sec soft">
+  <div class="wrap">
+    <div class="section-label">O que encontramos</div>
+    <h2>Diagnóstico por sistema</h2>
+    <p class="intro">Levantamento feito direto nas APIs da Meta e do Google e na interface do Tag Manager. Todos os números abaixo são leitura de dado real, não estimativa — e nada foi alterado nas contas.</p>
+    <div id="sistemas"></div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="section-label">O que dá pra melhorar</div>
+    <h2>Plano de correção</h2>
+    <p class="intro">Cada item abaixo pode ser marcado como concluído clicando no quadrado à esquerda. A marcação fica salva neste navegador e serve para acompanhar o andamento no dia a dia.</p>
+    <div class="progresso">
+      <p><b id="p-feitos">0</b> de <b id="p-total">0</b> pontos concluídos</p>
+      <div class="barra"><i id="p-barra"></i></div>
+    </div>
+    <div id="melhorias"></div>
+    <p class="aviso">O registro definitivo de cada correção fica no arquivo <b>auditoria.json</b> desta pasta, que é o que alimenta esta página. Quando a automação de atualização estiver no ar, ela passa a gravar ali o status e a data de conclusão de cada ponto.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p><b>Auditoria de rastreamento — <span id="f-cliente"></span></b></p>
+    <p style="margin-top:6px">Realizada em <span id="f-data"></span> · <span id="f-metodologia"></span></p>
+    <p style="margin-top:14px"><b>Fontes</b></p>
+    <ul id="f-fontes"></ul>
+  </div>
+</footer>
+
+</div>
+
+<script>
+(function(){
+  var app=document.getElementById('app'), erro=document.getElementById('erro');
+  var TOM={critico:'critico',alerta:'alerta',ok:'ok','':''};
+
+  function el(t,c,txt){var e=document.createElement(t); if(c)e.className=c; if(txt!=null)e.textContent=txt; return e;}
+  function dataBR(iso){ if(!iso) return ''; var p=String(iso).slice(0,10).split('-'); return p.length===3? p[2]+'/'+p[1]+'/'+p[0] : iso; }
+
+  fetch('./auditoria.json',{cache:'no-store'})
+    .then(function(r){ if(!r.ok) throw new Error('http'); return r.json(); })
+    .then(render)
+    .catch(function(){ erro.style.display='block'; });
+
+  function render(d){
+    document.title='Auditoria de Rastreamento — '+d.cliente+' | Brito Mídias';
+    document.getElementById('c-crumb').textContent=d.cliente;
+    document.getElementById('c-titulo').textContent='Auditoria de rastreamento: '+d.cliente;
+    document.getElementById('c-veredito').textContent=d.veredito;
+    document.getElementById('v-titulo').textContent=d.veredito_titulo||'';
+    document.getElementById('f-cliente').textContent=d.cliente;
+    document.getElementById('f-data').textContent=dataBR(d.auditoria_em);
+    document.getElementById('f-metodologia').textContent=d.metodologia||'';
+
+    var pills=document.getElementById('c-pills');
+    pills.appendChild(el('span','pill solid','Meta · Google · GTM'));
+    if(d.empresa) pills.appendChild(el('span','pill',d.empresa));
+    pills.appendChild(el('span','pill',dataBR(d.auditoria_em)));
+
+    var st=document.getElementById('v-stats');
+    (d.resumo||[]).forEach(function(s){
+      var b=el('div','stat '+(TOM[s.tom]||''));
+      b.appendChild(el('div','v',s.valor));
+      b.appendChild(el('div','l',s.label));
+      st.appendChild(b);
+    });
+
+    var cont=document.getElementById('sistemas');
+    (d.sistemas||[]).forEach(function(s){
+      var box=el('div','sys');
+      var head=el('div','sys-head');
+      head.appendChild(el('h3',null,s.nome));
+      head.appendChild(el('span','tag '+(s.status||'medio'),s.status_label||s.status||''));
+      box.appendChild(head);
+
+      var body=el('div','sys-body');
+      if(s.resumo){ var rp=el('p','res',s.resumo); body.appendChild(rp); }
+
+      (s.blocos||[]).forEach(function(b){
+        var wrapb=el('div','bloco');
+        wrapb.appendChild(el('h4',null,b.titulo));
+        var tw=el('div','tablewrap'), t=el('table'), tb=el('tbody');
+        (b.linhas||[]).forEach(function(l){
+          var tr=el('tr',TOM[l[2]]||'');
+          tr.appendChild(el('td',null,l[0]));
+          tr.appendChild(el('td',null,l[1]));
+          tb.appendChild(tr);
+        });
+        t.appendChild(tb); tw.appendChild(t); wrapb.appendChild(tw); body.appendChild(wrapb);
+      });
+
+      if((s.achados||[]).length){
+        var ab=el('div','bloco');
+        ab.appendChild(el('h4',null,'Achados'));
+        s.achados.forEach(function(a){
+          var c=el('div','achado '+(a.severidade||'medio'));
+          c.appendChild(el('h5',null,a.titulo));
+          c.appendChild(el('p',null,a.detalhe));
+          ab.appendChild(c);
+        });
+        body.appendChild(ab);
+      }
+      box.appendChild(body); cont.appendChild(box);
+    });
+
+    var mel=document.getElementById('melhorias');
+    var itens=d.melhorias||[];
+    var chave='bm-auditoria-'+(d.slug||'cliente');
+    var local={};
+    try{ local=JSON.parse(localStorage.getItem(chave)||'{}'); }catch(e){ local={}; }
+
+    document.getElementById('p-total').textContent=itens.length;
+
+    function atualizaProgresso(){
+      var n=0;
+      itens.forEach(function(m){ if(estaFeito(m)) n++; });
+      document.getElementById('p-feitos').textContent=n;
+      document.getElementById('p-barra').style.width=(itens.length? (n/itens.length*100):0)+'%';
+    }
+    function estaFeito(m){
+      if(local[m.id]) return true;
+      return m.status==='concluido';
+    }
+
+    itens.forEach(function(m){
+      var card=el('div','melhoria');
+      var chk=el('div','chk','✓');
+      chk.setAttribute('role','checkbox');
+      chk.setAttribute('tabindex','0');
+      chk.setAttribute('aria-label','Marcar '+m.id+' como concluído');
+      var corpo=el('div');
+
+      var head=el('div','m-head');
+      head.appendChild(el('span','id',m.id));
+      head.appendChild(el('span','tag '+(m.severidade==='critica'?'critico':m.severidade==='alta'?'alto':m.severidade==='baixa'?'baixo':'medio'), m.severidade));
+      head.appendChild(el('span','tag baixo',m.sistema));
+      if(m.esforco) head.appendChild(el('span','tag baixo',m.esforco));
+      head.appendChild(el('h4',null,m.titulo));
+      corpo.appendChild(head);
+
+      function linha(rot,txt){
+        if(!txt) return;
+        var p=el('p','m-linha');
+        var b=el('b',null,rot+' ');
+        p.appendChild(b); p.appendChild(document.createTextNode(txt));
+        corpo.appendChild(p);
+      }
+      linha('Problema:',m.problema);
+      linha('O que fazer:',m.acao);
+      linha('Impacto:',m.impacto);
+
+      var stt=el('div','m-status','');
+      corpo.appendChild(stt);
+
+      function pinta(){
+        var feito=estaFeito(m);
+        card.className='melhoria'+(feito?' feito':'');
+        chk.setAttribute('aria-checked',feito?'true':'false');
+        if(feito){
+          var quando=local[m.id]||m.concluido_em;
+          stt.textContent='✓ Concluído'+(quando?' em '+dataBR(quando):'')+(m.nota?' — '+m.nota:'');
+        }
+      }
+      function alterna(){
+        if(local[m.id]){ delete local[m.id]; }
+        else { local[m.id]=new Date().toISOString().slice(0,10); }
+        try{ localStorage.setItem(chave,JSON.stringify(local)); }catch(e){}
+        pinta(); atualizaProgresso();
+      }
+      chk.addEventListener('click',alterna);
+      chk.addEventListener('keydown',function(ev){ if(ev.key===' '||ev.key==='Enter'){ ev.preventDefault(); alterna(); } });
+
+      card.appendChild(chk); card.appendChild(corpo); mel.appendChild(card);
+      pinta();
+    });
+    atualizaProgresso();
+
+    var fl=document.getElementById('f-fontes');
+    (d.fontes||[]).forEach(function(f){ fl.appendChild(el('li',null,f)); });
+
+    app.hidden=false;
+  }
+})();
+</script>
+</body>
+</html>
