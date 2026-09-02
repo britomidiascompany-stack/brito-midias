@@ -1,0 +1,284 @@
+{
+  "cliente": "Voa Conhecimento",
+  "slug": "voa-conhecimento",
+  "empresa": "Voa Conhecimento",
+  "auditoria_em": "2026-09-02",
+  "atualizado_em": "2026-09-02",
+  "metodologia": "Metodologia Rastracking100 (Dericson Calari) — playbook interno da Brito Mídias",
+  "veredito_titulo": "A melhor base da carteira, faltando o dado da pessoa",
+  "veredito": "É o cliente mais bem rastreado dos quatro auditados. O contêiner é o único que o próprio Google classifica como Excelente, o ID de conversão bate com o da conta, o pixel recebe cerca de 740 leads por semana com proporção saudável de visitas, e 99,7% deles chegam com o identificador do clique que os gerou — de longe o melhor número da agência. Faltam duas coisas: nenhum evento carrega e-mail ou telefone, porque o contêiner não recebeu as tags de Advanced Matching; e cada tag de Lead tem dois gatilhos que podem contar o mesmo cadastro duas vezes.",
+  "resumo": [
+    { "valor": "99,7%", "label": "dos leads com identificador de clique — melhor da carteira", "tom": "ok" },
+    { "valor": "Excelente", "label": "qualidade do contêiner segundo o próprio GTM", "tom": "ok" },
+    { "valor": "0%", "label": "de cobertura de e-mail e telefone nos eventos", "tom": "critico" },
+    { "valor": "2", "label": "gatilhos na mesma tag de Lead, com risco de contagem dupla", "tom": "alerta" },
+    { "valor": "741", "label": "eventos de Lead em 7 dias", "tom": "" }
+  ],
+  "sistemas": [
+    {
+      "id": "meta",
+      "nome": "Meta Ads",
+      "status": "alto",
+      "status_label": "Atribuição excelente, identificação zero",
+      "resumo": "O pixel está saudável, com CAPI ativa e volume consistente vindo de um único domínio. A atribuição de clique é praticamente perfeita. O que falta é o dado pessoal: nenhum evento carrega e-mail ou telefone.",
+      "blocos": [
+        {
+          "titulo": "Configuração",
+          "linhas": [
+            ["Business", "Voa Conhecimento (233374448945303)", ""],
+            ["Contas de anúncio", "5 — BNCC 01, 02, 03, 04 e Criadora de Públicos", ""],
+            ["Pixel em uso", "642103307974769 — Pixel de Voa Conhecimento 2", ""],
+            ["Criado em", "20/06/2023", ""],
+            ["Cookie primário", "Habilitado", "ok"],
+            ["CAPI (servidor)", "Ativa — navegador 12:50 e servidor 12:47 do mesmo dia", "ok"],
+            ["Domínio de origem dos eventos", "voaconhecimento.com.br, único", "ok"]
+          ]
+        },
+        {
+          "titulo": "Qualidade dos eventos",
+          "linhas": [
+            ["Lead", "EMQ 6,1 — IP, user agent e fbp em 100%", "alerta"],
+            ["Lead · fbc (identificador de clique)", "99,7% — o melhor número da carteira", "ok"],
+            ["Lead · e-mail", "0% de cobertura", "critico"],
+            ["Lead · telefone", "0% de cobertura", "critico"],
+            ["PageView", "EMQ 6,1 — fbc em 97,8%", "ok"],
+            ["SubscribedButtonClick", "Sem nota — nenhum identificador aproveitável", "alerta"],
+            ["Leitura", "A Meta sabe exatamente qual anúncio gerou cada lead. O que ela não sabe é quem é a pessoa.", ""]
+          ]
+        },
+        {
+          "titulo": "Volume nos últimos 7 dias",
+          "linhas": [
+            ["PageView", "cerca de 3.243", ""],
+            ["Lead", "cerca de 741", ""],
+            ["Proporção", "1 lead a cada 4,4 visualizações de página — coerente com um funil de captação real", "ok"],
+            ["Distribuição", "Os eventos chegam divididos em quatro blocos por nome de evento, compatível com dois gatilhos disparando por dois caminhos (navegador e servidor)", "alerta"]
+          ]
+        },
+        {
+          "titulo": "Conversões personalizadas",
+          "linhas": [
+            ["[BNCC017] LEAD", "Ativa — mas a regra é PageView com URL contendo /obrigado-captura, não o evento Lead", "alerta"],
+            ["[BNCC017] LEAD · último disparo", "19/05/2026, há mais de três meses", "critico"],
+            ["[BNCC017] PG. Captura V1 / V2 / V1", "Três versões arquivadas, nenhuma chegou a disparar", ""]
+          ]
+        },
+        {
+          "titulo": "Conjuntos de dados órfãos no mesmo business",
+          "linhas": [
+            ["1167551698553028", "Voa Conhecimento Event Data — nunca disparou", "alerta"],
+            ["1831749017641165", "unknown Event Data — nunca disparou", "alerta"],
+            ["424904260005196", "Pixel de Voa Conhecimento 3 — nunca disparou", "alerta"],
+            ["362597219009917", "Pixel de Voa Conhecimento — parou em 16/11/2025", "alerta"]
+          ]
+        },
+        {
+          "titulo": "Campanhas (conta BNCC 04)",
+          "linhas": [
+            ["Estrutura", "Lançamento BNCP002, com blocos de lembrete e de aula", ""],
+            ["Metas de otimização", "THRUPLAY e LINK_CLICKS, em retargeting de quem já se cadastrou", "ok"],
+            ["Status", "Todas pausadas no momento da auditoria", ""],
+            ["Observação", "São campanhas de lembrete para base quente — não usar conversão aqui é escolha coerente", ""]
+          ]
+        }
+      ],
+      "achados": [
+        { "severidade": "critico", "titulo": "Nenhum evento carrega e-mail ou telefone", "detalhe": "O contêiner não tem as tags de Advanced Matching que o modelo da agência já traz desde agosto. Com o gatilho de envio de formulário já existindo, o dado está disponível no momento do submit e simplesmente não é enviado. É o único item que separa este cliente de uma nota 9." },
+        { "severidade": "alto", "titulo": "A conversão personalizada usada como Lead está parada há três meses", "detalhe": "A [BNCC017] LEAD é a única não arquivada, mas sua regra é um PageView na página de obrigado e o último disparo foi em 19/05/2026. Enquanto isso, o evento Lead padrão registra 741 disparos por semana. Se alguma campanha ou relatório ainda usa essa conversão personalizada, está lendo zero." },
+        { "severidade": "medio", "titulo": "Quatro pixels ociosos no business", "detalhe": "Três nunca dispararam e um parou em novembro de 2025, incluindo um chamado unknown Event Data. O pixel correto é o de número 2, o que torna a nomenclatura confusa para quem for instalar algo novo." }
+      ]
+    },
+    {
+      "id": "google",
+      "nome": "Google Ads",
+      "status": "medio",
+      "status_label": "Configurado, sem verba no período",
+      "resumo": "A conta não investiu nos últimos 30 dias, então não há desempenho a avaliar. A configuração está correta em quase tudo — o ID de conversão bate com o do contêiner e o auto-tagging está ativo —, faltando apenas o Enhanced Conversions.",
+      "blocos": [
+        {
+          "titulo": "Conta e desempenho (últimos 30 dias)",
+          "linhas": [
+            ["Conta", "7433585535 — Voa Conhecimento", ""],
+            ["Investimento", "Sem verba no período", ""],
+            ["Cliques", "0", ""],
+            ["Conversões", "0", ""],
+            ["Observação", "Não há sinal de problema aqui — a conta simplesmente não rodou", ""]
+          ]
+        },
+        {
+          "titulo": "Configuração de rastreamento",
+          "linhas": [
+            ["Acompanhamento de conversões", "CONVERSION_TRACKING_MANAGED_BY_SELF", "ok"],
+            ["ID de conversão da conta", "11000250132 — confere com o AW-11000250132 do contêiner", "ok"],
+            ["Auto-tagging (gclid)", "Ligado", "ok"],
+            ["Enhanced Conversions para leads", "Desligado", "alerta"],
+            ["Importação de conversão offline", "Não existe", "alerta"]
+          ]
+        }
+      ],
+      "achados": [
+        { "severidade": "medio", "titulo": "Enhanced Conversions desligado antes de a conta voltar a rodar", "detalhe": "Como não há verba no momento, este é o melhor momento para ligar: quando a conta voltar, já começa medindo com correspondência enriquecida em vez de precisar corrigir com campanha no ar." }
+      ]
+    },
+    {
+      "id": "gtm",
+      "nome": "Google Tag Manager",
+      "status": "medio",
+      "status_label": "O único classificado como Excelente",
+      "resumo": "Contêiner enxuto, com nove tags bem nomeadas, par Web e servidor, e IDs corretos. O próprio diagnóstico do Google classifica a qualidade como Excelente, sem nenhum problema detectado — o único caso assim entre os clientes auditados. Os pontos de atenção são o gatilho duplicado e a ausência de Advanced Matching.",
+      "blocos": [
+        {
+          "titulo": "Contêiner em uso",
+          "linhas": [
+            ["Conta GTM", "Voa Conhecimento (6291821217)", ""],
+            ["Contêiner Web", "GTM-TJCZ54MH", ""],
+            ["Contêiner Servidor", "GTM-NNZ8BLFV", "ok"],
+            ["IDs", "G-JEH79LZY8R (GA4), AW-11000250132 (Google Ads), GT-NCT2X9P, GT-5M3BSPM", "ok"],
+            ["Total de tags", "9", ""],
+            ["Última edição", "Há 3 dias, nas tags de Lead", "ok"],
+            ["Qualidade do contêiner", "Excelente — está enviando dados, nenhum problema detectado", "ok"],
+            ["Advanced Matching", "Ausente — o contêiner é da geração anterior ao modelo atual", "critico"]
+          ]
+        },
+        {
+          "titulo": "As nove tags",
+          "linhas": [
+            ["GA4 | generate_lead", "Gatilhos: From ID contém leadvoa E Page Path contém obrigado", "alerta"],
+            ["Google Ads | Lead | Web", "Mesmos dois gatilhos", "alerta"],
+            ["Meta Ads | Lead | Web", "Mesmos dois gatilhos", "alerta"],
+            ["Meta API | Lead", "Mesmos dois gatilhos, enviando pela CAPI", "alerta"],
+            ["GA4 | PageView", "All Pages", "ok"],
+            ["Google Ads | PageView | Web", "Remarketing, All Pages", "ok"],
+            ["Meta Ads | Page View | Web", "All Pages", "ok"],
+            ["Meta API | PageView", "All Pages, pela CAPI", "ok"],
+            ["Vinculador de conversões", "All Pages", "ok"]
+          ]
+        },
+        {
+          "titulo": "Conta GTM antiga, ainda existente",
+          "linhas": [
+            ["Conta", "Voa Conhecimento | SEM USO | COMROMPIDO (6197315408)", "alerta"],
+            ["Contêineres", "3 — um Web, um Server e um Server dedicado ao Stape.io", "alerta"],
+            ["Observação", "O próprio nome da conta registra que está fora de uso, mas ela continua de pé", ""]
+          ]
+        }
+      ],
+      "achados": [
+        { "severidade": "alto", "titulo": "Cada tag de Lead tem dois gatilhos que podem contar o mesmo cadastro duas vezes", "detalhe": "As quatro tags de Lead disparam tanto no envio do formulário quanto no carregamento da página de obrigado. Como no GTM basta um dos gatilhos casar, quem preenche o formulário e é levado à página de obrigado gera dois eventos. Isso é coerente com a distribuição em quatro blocos que a API mostra no volume de eventos, e infla o número de leads." },
+        { "severidade": "critico", "titulo": "Contêiner sem Advanced Matching", "detalhe": "É a única diferença estrutural em relação ao modelo atual da agência. Como o gatilho de formulário já existe, adicionar as duas tags do modelo e ler os campos no submit é trabalho de uma hora — e é o que levaria o Lead de 6,1 para a faixa de 9." },
+        { "severidade": "baixo", "titulo": "Gatilho nomeado From ID em vez de Form ID", "detalhe": "Provável erro de digitação no nome do gatilho. Não afeta o funcionamento, mas é o tipo de detalhe que atrapalha quem for dar manutenção depois — e a auditoria do CEVEPE mostrou que um caractere errado em nome ou ID pode custar toda a medição." }
+      ]
+    }
+  ],
+  "melhorias": [
+    {
+      "id": "VO-01",
+      "titulo": "Instalar as tags de Advanced Matching do modelo da agência",
+      "sistema": "GTM",
+      "severidade": "critica",
+      "esforco": "~1h",
+      "problema": "Nenhum evento carrega e-mail ou telefone. O contêiner é da geração anterior e não recebeu as tags Set Cookies e Visitor API que o modelo BRITO MIDIAS | MODELO | WEB já traz.",
+      "acao": "Copiar as duas tags do modelo e ler e-mail, telefone e nome no envio do formulário, que já é um gatilho existente aqui.",
+      "impacto": "É o único item que separa esta conta de uma nota 9. Com o identificador de clique já em 99,7%, adicionar o dado pessoal completa o quadro: a Meta passa a saber qual anúncio gerou o lead e quem é a pessoa.",
+      "status": "pendente",
+      "concluido_em": null,
+      "nota": ""
+    },
+    {
+      "id": "VO-02",
+      "titulo": "Resolver o gatilho duplicado nas tags de Lead",
+      "sistema": "GTM",
+      "severidade": "alta",
+      "esforco": "~1h",
+      "problema": "As quatro tags de Lead disparam tanto no envio do formulário quanto no carregamento da página de obrigado. Quem faz as duas coisas gera dois eventos.",
+      "acao": "Conferir no Gerenciador de Eventos se há contagem dupla e, confirmando, manter apenas o gatilho de envio de formulário — que é o correto pela metodologia e o que permite capturar o dado do usuário.",
+      "impacto": "Corrige a inflação do número de leads, que hoje distorce CPA e ROAS para melhor do que a realidade.",
+      "status": "pendente",
+      "concluido_em": null,
+      "nota": ""
+    },
+    {
+      "id": "VO-03",
+      "titulo": "Aposentar a conversão personalizada [BNCC017] LEAD",
+      "sistema": "Meta Ads",
+      "severidade": "alta",
+      "esforco": "~30min",
+      "problema": "É a única conversão personalizada ativa, mas sua regra é um PageView na página de obrigado e ela não dispara desde 19/05/2026 — enquanto o evento Lead padrão registra 741 disparos por semana.",
+      "acao": "Verificar se alguma campanha ou relatório ainda a utiliza. Substituir pelo evento Lead padrão e arquivar.",
+      "impacto": "Elimina o risco de uma campanha otimizar por uma conversão que está zerada há três meses.",
+      "status": "pendente",
+      "concluido_em": null,
+      "nota": ""
+    },
+    {
+      "id": "VO-04",
+      "titulo": "Ligar o Enhanced Conversions antes de a conta voltar a rodar",
+      "sistema": "Google Ads",
+      "severidade": "media",
+      "esforco": "~30min",
+      "problema": "Está desligado. A conta não tem verba no momento.",
+      "acao": "Objetivos → Conversões → Configurações, aceitar os termos de dados do cliente e garantir envio de e-mail e telefone.",
+      "impacto": "Fazer agora, com a conta parada, evita ter que corrigir depois com campanha no ar.",
+      "status": "pendente",
+      "concluido_em": null,
+      "nota": ""
+    },
+    {
+      "id": "VO-05",
+      "titulo": "Arquivar os quatro pixels ociosos",
+      "sistema": "Meta Ads",
+      "severidade": "media",
+      "esforco": "~20min",
+      "problema": "Três pixels nunca dispararam e um parou em novembro de 2025. Um deles se chama unknown Event Data e outro é Pixel de Voa Conhecimento 3, o que torna a escolha do correto confusa.",
+      "acao": "Renomear com prefixo ZZ_ ou arquivar, deixando visível apenas o 642103307974769.",
+      "impacto": "Evita instalar ou apontar público para o pixel errado — o risco é real quando existem três nomes parecidos.",
+      "status": "pendente",
+      "concluido_em": null,
+      "nota": ""
+    },
+    {
+      "id": "VO-06",
+      "titulo": "Encerrar a conta GTM marcada como sem uso",
+      "sistema": "GTM",
+      "severidade": "media",
+      "esforco": "~30min",
+      "problema": "A conta Voa Conhecimento | SEM USO | COMROMPIDO mantém três contêineres, incluindo um servidor dedicado ao Stape.io.",
+      "acao": "Confirmar que nenhum dos snippets está instalado, arquivar os contêineres e documentar que os oficiais são GTM-TJCZ54MH e GTM-NNZ8BLFV.",
+      "impacto": "Remove o risco de editar o contêiner errado e encerra uma integração de Stape que pode estar gerando custo sem uso.",
+      "status": "pendente",
+      "concluido_em": null,
+      "nota": ""
+    },
+    {
+      "id": "VO-07",
+      "titulo": "Corrigir o nome do gatilho From ID",
+      "sistema": "GTM",
+      "severidade": "baixa",
+      "esforco": "~10min",
+      "problema": "O gatilho de formulário está nomeado From ID contém leadvoa, provável erro de digitação de Form ID.",
+      "acao": "Renomear para Form ID contém leadvoa.",
+      "impacto": "Facilita manutenção. Detalhe pequeno, mas a auditoria do CEVEPE mostrou o custo de um caractere errado.",
+      "status": "pendente",
+      "concluido_em": null,
+      "nota": ""
+    },
+    {
+      "id": "VO-08",
+      "titulo": "Usar este cliente como piloto de conversão offline",
+      "sistema": "Medição",
+      "severidade": "media",
+      "esforco": "projeto",
+      "problema": "Nenhum sinal do que acontece depois do lead volta para as plataformas: quem assistiu às aulas, quem comprou, por quanto.",
+      "acao": "Depois de VO-01 e VO-02, importar do CRM ou da plataforma de vendas quem converteu, ligando pelo identificador de clique.",
+      "impacto": "Com fbc em 99,7% e cerca de 740 leads por semana, este é o melhor candidato da carteira para o piloto: praticamente todo lead pode ser reconectado ao anúncio de origem, e há volume suficiente para o resultado ser legível.",
+      "status": "pendente",
+      "concluido_em": null,
+      "nota": ""
+    }
+  ],
+  "fontes": [
+    "Meta Ads — API de conjuntos de dados, qualidade de sinal, estatísticas por evento e por domínio, conversões personalizadas e entidades de anúncio",
+    "Google Ads — extração ao vivo via Stract, últimos 30 dias, incluindo configuração de acompanhamento de conversões",
+    "Google Tag Manager — leitura tag a tag do contêiner VOA CONHECIMENTO | WEB e do diagnóstico de contêiner"
+  ]
+}
