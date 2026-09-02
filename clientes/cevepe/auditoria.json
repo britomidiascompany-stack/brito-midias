@@ -1,0 +1,306 @@
+{
+  "cliente": "CEVEPE",
+  "slug": "cevepe",
+  "empresa": "Cevepe — Centro Veterinário de Petrolina Ltda",
+  "auditoria_em": "2026-09-02",
+  "atualizado_em": "2026-09-02",
+  "metodologia": "Metodologia Rastracking100 (Dericson Calari) — playbook interno da Brito Mídias",
+  "veredito_titulo": "Um erro de digitação no ID está derrubando toda a conversão de site no Google",
+  "veredito": "O contêiner do CEVEPE é o mais bem mapeado dos três: 41 tags, geração nova com Advanced Matching, e cinco pontos de clique de WhatsApp rastreados separadamente em quatro destinos. Mesmo assim o Google não registra uma única conversão vinda do site. A causa apareceu na tela: o ID de conversão está escrito AW-AW-602183659, com o prefixo AW duplicado, e é esse ID malformado que seis tags usam. Em paralelo, os leads que chegam à Meta não vêm do site — vêm da plataforma de atendimento, com telefone e mais nada, o que produz a pior nota de correspondência da agência.",
+  "resumo": [
+    { "valor": "2,5", "label": "nota do Lead na Meta — a pior da agência", "tom": "critico" },
+    { "valor": "AW-AW-", "label": "prefixo duplicado no ID de conversão, em 6 tags", "tom": "critico" },
+    { "valor": "0", "label": "conversões de site registradas no Google", "tom": "critico" },
+    { "valor": "167 × 73", "label": "Leads contra PageViews em 7 dias no mesmo pixel", "tom": "critico" },
+    { "valor": "1", "label": "conjunto ativo, e sem pixel associado", "tom": "alerta" }
+  ],
+  "sistemas": [
+    {
+      "id": "meta",
+      "nome": "Meta Ads",
+      "status": "critico",
+      "status_label": "Lead sem identidade",
+      "resumo": "O pixel recebe mais Leads do que PageViews, o que só é possível se o Lead não vier do site. Ele vem da plataforma de atendimento, carregando apenas o telefone — daí a nota 2,5. E nenhuma campanha usa o pixel para otimizar.",
+      "blocos": [
+        {
+          "titulo": "Configuração",
+          "linhas": [
+            ["Business", "Cevepe — Centro Veterinário de Petrolina (2122237174678015)", ""],
+            ["Contas de anúncio", "5 no total — Anúncios CEVEPE, CA 03, CA 04, CA 05 e CA Reserva", "alerta"],
+            ["Contas sem forma de pagamento", "4 das 5", "alerta"],
+            ["Pixel em uso", "517348853911272 — LP CEVEPE www.cevepe.com.br", ""],
+            ["Criado em", "08/03/2023", ""],
+            ["Cookie primário", "Habilitado", "ok"],
+            ["CAPI (servidor)", "Ativa — navegador e servidor no mesmo minuto (02/09 12:24)", "ok"],
+            ["Conversões personalizadas", "Nenhuma", "alerta"],
+            ["Pixel morto no business", "295301758933003 — PIXEL ECOMMERCE CEVEPE, parado desde 19/04/2022", "alerta"]
+          ]
+        },
+        {
+          "titulo": "Volume de eventos nos últimos 7 dias",
+          "linhas": [
+            ["Lead", "167", "critico"],
+            ["PageView", "73 no total", ""],
+            ["whatsapp_topo", "12", ""],
+            ["ViewContent", "4", ""],
+            ["whatsapp_botao", "1", "alerta"],
+            ["Contact", "1", "alerta"],
+            ["Purchase / AddToCart / InitiateCheckout", "Zero, apesar de existirem tags para os três", "alerta"],
+            ["A anomalia", "2,3 Leads para cada PageView. Não existe funil de site em que isso aconteça — o Lead está entrando por fora.", "critico"]
+          ]
+        },
+        {
+          "titulo": "Qualidade dos eventos",
+          "linhas": [
+            ["Lead", "EMQ 2,5 — apenas telefone, em 100%", "critico"],
+            ["Lead · IP e user agent", "Ausentes", "critico"],
+            ["Lead · fbp e fbc", "Ausentes", "critico"],
+            ["PageView", "Sem nota — nenhum identificador aproveitável", "critico"],
+            ["Contact", "Sem nota", "critico"],
+            ["whatsapp_topo", "Sem nota", "critico"]
+          ]
+        },
+        {
+          "titulo": "Campanhas",
+          "linhas": [
+            ["Conjuntos ativos", "1 — [JV] [09/01] [WPP] [PETROLINA/JUAZEIRO] [LOOKALIKE] [18A55]", ""],
+            ["Meta de otimização", "CONVERSATIONS, com promoted_object vazio — sem pixel associado", "critico"],
+            ["Conjuntos otimizando por conversão do pixel", "Nenhum em toda a conta", "critico"],
+            ["Demais conjuntos", "Pausados, com metas de REACH, THRUPLAY, POST_ENGAGEMENT e visita ao perfil", ""],
+            ["Orçamentos", "R$ 6 a R$ 11 por dia", ""]
+          ]
+        }
+      ],
+      "achados": [
+        { "severidade": "critico", "titulo": "Os leads não vêm do site — vêm da plataforma de atendimento", "detalhe": "167 Leads contra 73 PageViews em sete dias no mesmo pixel. Como o contêiner do site não tem nenhuma tag de Lead, a origem é a integração de pixel do Atende Pro, cuja tela não tem campo para user_data, ctwa_clid nem event_id. Por isso o evento chega apenas com o telefone e a nota fica em 2,5." },
+        { "severidade": "critico", "titulo": "Nenhuma campanha usa o pixel para otimizar", "detalhe": "O único conjunto ativo otimiza por conversa iniciada, sem pixel associado. Ou seja: o pixel recebe 167 leads por semana e nenhuma campanha aprende com eles. O sinal existe e é descartado." },
+        { "severidade": "alto", "titulo": "As campanhas de WhatsApp não capturam o identificador de clique", "detalhe": "Sem ctwa_clid, não há como ligar a conversa ao anúncio que a gerou. Em um cliente cujo funil inteiro é Click-to-WhatsApp, esse é o dado que falta para saber o que funciona." },
+        { "severidade": "medio", "titulo": "Estrutura de e-commerce sem uso", "detalhe": "Existem tags de Compra, Adição ao Carrinho, Início de Checkout e Página de Produto, mas nenhum desses eventos foi registrado na semana. O pixel de e-commerce dedicado está parado desde abril de 2022." }
+      ]
+    },
+    {
+      "id": "google",
+      "nome": "Google Ads",
+      "status": "critico",
+      "status_label": "Mede só o que não depende do site",
+      "resumo": "As 22 conversões dos últimos 30 dias são ligações e ações automáticas do Perfil da Empresa. Nenhuma veio do site — e o contêiner tem sete tags de conversão de WhatsApp que deveriam estar produzindo exatamente isso.",
+      "blocos": [
+        {
+          "titulo": "Conta e desempenho (últimos 30 dias)",
+          "linhas": [
+            ["Conta", "1080494541 — CEVEPE - GOOGLE ADS", ""],
+            ["Investimento", "R$ 572,28", ""],
+            ["Cliques", "487", ""],
+            ["Conversões", "22", ""],
+            ["[LIGAÇÕES] — chamada telefônica", "10", "ok"],
+            ["Local actions · Website visits", "7 — contadas pelo Perfil da Empresa, não pelo site", "alerta"],
+            ["Store visits", "4 — automáticas", "alerta"],
+            ["Conversation started", "1", ""],
+            ["Conversões vindas do site", "0", "critico"]
+          ]
+        },
+        {
+          "titulo": "Configuração de rastreamento",
+          "linhas": [
+            ["Acompanhamento de conversões", "CONVERSION_TRACKING_MANAGED_BY_SELF", "ok"],
+            ["ID de conversão da conta", "602183659", ""],
+            ["ID configurado no contêiner", "AW-AW-602183659 — prefixo duplicado", "critico"],
+            ["Auto-tagging (gclid)", "Ligado", "ok"],
+            ["Enhanced Conversions para leads", "Desligado", "critico"],
+            ["Importação de conversão offline", "Não existe", "alerta"]
+          ]
+        }
+      ],
+      "achados": [
+        { "severidade": "critico", "titulo": "O ID de conversão no contêiner está malformado", "detalhe": "A tag do Google no contêiner está cadastrada como AW-AW-602183659, com o prefixo AW repetido. O painel do GTM mostra esse ID sendo usado por seis tags, contra apenas uma usando o AW-602183659 correto. Um identificador que não existe não entrega conversão para lugar nenhum — é a explicação mais direta para o zero de conversões de site." },
+        { "severidade": "alto", "titulo": "Metade das conversões é automática, não é resultado", "detalhe": "Das 22 conversões, 11 são ações do Perfil da Empresa (visitas ao site contadas pelo Google e visitas à loja). Se estiverem marcadas como primárias, o lance automático está sendo guiado por elas em vez das ligações e conversas." },
+        { "severidade": "alto", "titulo": "Enhanced Conversions desligado", "detalhe": "Mesmo com as ligações sendo o resultado principal, os dados de correspondência não estão sendo enviados." }
+      ]
+    },
+    {
+      "id": "gtm",
+      "nome": "Google Tag Manager",
+      "status": "alto",
+      "status_label": "O melhor mapeamento, com um erro de digitação caro",
+      "resumo": "41 tags, geração nova com Advanced Matching, contêiner de servidor ativo e cinco pontos de clique de WhatsApp rastreados separadamente. O trabalho de mapeamento é o melhor dos três clientes auditados. O que estraga é um ID digitado errado e a ausência de qualquer tag de Lead.",
+      "blocos": [
+        {
+          "titulo": "Contêineres",
+          "linhas": [
+            ["Conta GTM", "CEVEPE (6221062206)", ""],
+            ["Contêiner Web", "GTM-MCQ7N3L2", ""],
+            ["Contêiner Servidor", "GTM-PWXJZRVT", "ok"],
+            ["Total de tags", "41", ""],
+            ["Última edição", "Há 24 dias", ""],
+            ["Advanced Matching", "Presente — Set Cookies e Visitor API", "ok"],
+            ["ID do Google Ads", "AW-AW-602183659 em 6 tags · AW-602183659 em 1", "critico"],
+            ["Aviso do próprio GTM", "Uma tag do Google ausente foi encontrada", "alerta"],
+            ["Qualidade do contêiner", "Requer atenção", "alerta"]
+          ]
+        },
+        {
+          "titulo": "O que está bem mapeado",
+          "linhas": [
+            ["whatsapp_topo", "Clique em Falar no WhatsApp — GA4, Google Ads, Meta Pixel e Meta API", "ok"],
+            ["whatsapp_botao", "Botão flutuante — quatro destinos", "ok"],
+            ["whatsapp_duvidas", "Tirar minha dúvida no WhatsApp — quatro destinos", "ok"],
+            ["whatsapp_urgencia", "Chamar no WhatsApp agora — quatro destinos", "ok"],
+            ["whatsapp_agenda", "Agendar consulta — quatro destinos", "ok"],
+            ["Leitura", "Cinco intenções diferentes de contato, separadas. É o mapeamento mais fino da carteira.", "ok"]
+          ]
+        },
+        {
+          "titulo": "O que falta",
+          "linhas": [
+            ["Tag de Lead", "Não existe nenhuma no contêiner", "critico"],
+            ["Tags de e-commerce", "Compra, Carrinho, Checkout e Página de Produto existem, mas não geram evento", "alerta"],
+            ["Consequência", "Os 167 Leads semanais entram por fora do site, sem passar por este contêiner", "critico"]
+          ]
+        }
+      ],
+      "achados": [
+        { "severidade": "critico", "titulo": "Prefixo AW duplicado no ID de conversão", "detalhe": "AW-AW-602183659 é um identificador inexistente. Seis tags de conversão apontam para ele, incluindo as de clique no WhatsApp. É um erro de digitação com efeito total: todo o esforço de mapeamento dos cinco pontos de contato não chega ao Google Ads." },
+        { "severidade": "alto", "titulo": "O contêiner não tem tag de Lead", "detalhe": "Todo o rastreamento de contato é por clique em botão de WhatsApp. O evento Lead que aparece na Meta não passa por aqui — vem da plataforma de atendimento, sem os dados que o contêiner poderia fornecer." },
+        { "severidade": "medio", "titulo": "Bloco de e-commerce sem contrapartida no site", "detalhe": "Quatro tags de e-commerce não registram nenhum evento há pelo menos uma semana, e o pixel dedicado de e-commerce está morto desde 2022. Ou a loja saiu do ar, ou as tags nunca foram ligadas ao fluxo real." }
+      ]
+    }
+  ],
+  "melhorias": [
+    {
+      "id": "CV-01",
+      "titulo": "Corrigir o ID de conversão AW-AW-602183659",
+      "sistema": "GTM",
+      "severidade": "critica",
+      "esforco": "~30min",
+      "problema": "A tag do Google no contêiner está com o prefixo AW duplicado. Seis tags de conversão apontam para esse ID inexistente, incluindo todas as de clique no WhatsApp.",
+      "acao": "Corrigir para AW-602183659 na tag do Google e conferir cada uma das seis tags que herdam esse ID. Republicar o contêiner e validar com o Tag Assistant.",
+      "impacto": "É a correção de maior efeito da lista: religa de uma vez as sete conversões de WhatsApp que hoje não chegam ao Google Ads. Meia hora de trabalho para sair do zero de conversões de site.",
+      "status": "pendente",
+      "concluido_em": null,
+      "nota": ""
+    },
+    {
+      "id": "CV-02",
+      "titulo": "Enviar o Lead pela CAPI com identificação completa",
+      "sistema": "Meta Ads",
+      "severidade": "critica",
+      "esforco": "~2h",
+      "problema": "Os 167 leads semanais chegam apenas com telefone, porque vêm da integração de pixel do Atende Pro, cuja tela não tem campo para user_data, ctwa_clid nem event_id. Nota 2,5, a pior da agência.",
+      "acao": "Substituir esse envio por um ramo no n8n que dispare o Lead pela CAPI com telefone e e-mail hasheados, ctwa_clid e event_id. O webhook de tag do Atende Pro já existe e pode ser a fonte do gatilho.",
+      "impacto": "Tira o Lead do patamar 2,5 e liga a conversa ao anúncio de origem — que é o dado que falta em um funil 100% Click-to-WhatsApp.",
+      "status": "pendente",
+      "concluido_em": null,
+      "nota": ""
+    },
+    {
+      "id": "CV-03",
+      "titulo": "Fazer as campanhas otimizarem pelo sinal que já existe",
+      "sistema": "Meta Ads",
+      "severidade": "alta",
+      "esforco": "~1h",
+      "problema": "O pixel recebe 167 leads por semana e nenhuma campanha usa isso. O único conjunto ativo otimiza por conversa iniciada, sem pixel associado.",
+      "acao": "Depois de CV-02, associar o pixel ao conjunto e migrar a otimização de CONVERSATIONS para o evento de Lead ou Contact, validando se o volume sustenta a fase de aprendizado.",
+      "impacto": "Passa a otimizar por contato qualificado em vez de conversa aberta, que é o degrau mais raso do funil.",
+      "status": "pendente",
+      "concluido_em": null,
+      "nota": ""
+    },
+    {
+      "id": "CV-04",
+      "titulo": "Rever quais conversões do Google são primárias",
+      "sistema": "Google Ads",
+      "severidade": "alta",
+      "esforco": "~30min",
+      "problema": "Das 22 conversões do período, 11 são ações automáticas do Perfil da Empresa — visitas ao site contadas pelo Google e visitas à loja.",
+      "acao": "Manter como primárias apenas as ligações e, depois de CV-01, os cliques de WhatsApp. Mover Local actions e Store visits para secundária.",
+      "impacto": "O lance automático passa a perseguir contato real em vez de ação automática de perfil.",
+      "status": "pendente",
+      "concluido_em": null,
+      "nota": ""
+    },
+    {
+      "id": "CV-05",
+      "titulo": "Ligar o Enhanced Conversions para leads",
+      "sistema": "Google Ads",
+      "severidade": "alta",
+      "esforco": "~30min",
+      "problema": "Está desligado, mesmo com as ligações sendo o principal resultado da conta.",
+      "acao": "Objetivos → Conversões → Configurações, aceitar os termos de dados do cliente e garantir envio de telefone e e-mail.",
+      "impacto": "Melhora a correspondência das conversões de ligação e das de WhatsApp assim que elas voltarem a chegar.",
+      "status": "pendente",
+      "concluido_em": null,
+      "nota": ""
+    },
+    {
+      "id": "CV-06",
+      "titulo": "Resolver o aviso de tag do Google ausente",
+      "sistema": "GTM",
+      "severidade": "media",
+      "esforco": "~30min",
+      "problema": "O contêiner exibe o aviso de tag do Google ausente e classifica a qualidade como Requer atenção.",
+      "acao": "Abrir o diagnóstico, aplicar a correção sugerida e cadastrar os domínios monitorados.",
+      "impacto": "Fecha lacuna de medição e melhora a durabilidade do cookie primário.",
+      "status": "pendente",
+      "concluido_em": null,
+      "nota": ""
+    },
+    {
+      "id": "CV-07",
+      "titulo": "Decidir o destino do bloco de e-commerce",
+      "sistema": "GTM",
+      "severidade": "media",
+      "esforco": "~1h",
+      "problema": "Quatro tags de e-commerce não registram evento algum, e o pixel dedicado de e-commerce está parado desde abril de 2022.",
+      "acao": "Confirmar com o cliente se a loja ainda opera. Se operar, ligar as tags ao fluxo real; se não, removê-las do contêiner.",
+      "impacto": "Um contêiner que só contém o que de fato dispara é muito mais fácil de manter e auditar.",
+      "status": "pendente",
+      "concluido_em": null,
+      "nota": ""
+    },
+    {
+      "id": "CV-08",
+      "titulo": "Arquivar o pixel de e-commerce morto",
+      "sistema": "Meta Ads",
+      "severidade": "baixa",
+      "esforco": "~15min",
+      "problema": "O PIXEL ECOMMERCE CEVEPE não dispara desde abril de 2022 e continua ativo na conta.",
+      "acao": "Renomear com prefixo ZZ_ ou arquivar, deixando visível apenas o 517348853911272.",
+      "impacto": "Evita instalação ou apontamento de público no pixel errado.",
+      "status": "pendente",
+      "concluido_em": null,
+      "nota": ""
+    },
+    {
+      "id": "CV-09",
+      "titulo": "Consolidar as contas de anúncio",
+      "sistema": "Meta Ads",
+      "severidade": "baixa",
+      "esforco": "~30min",
+      "problema": "São cinco contas de anúncio no business e quatro delas estão sem forma de pagamento.",
+      "acao": "Definir a conta operacional e a de reserva, e documentar o papel de cada uma.",
+      "impacto": "Reduz o risco de subir campanha na conta errada e simplifica leitura de resultado.",
+      "status": "pendente",
+      "concluido_em": null,
+      "nota": ""
+    },
+    {
+      "id": "CV-10",
+      "titulo": "Devolver o desfecho do atendimento para as plataformas",
+      "sistema": "Medição",
+      "severidade": "media",
+      "esforco": "projeto",
+      "problema": "Nenhum sinal do que acontece depois da conversa volta para Meta ou Google: quem virou consulta, quem compareceu, quanto gerou.",
+      "acao": "Usar o funil de oportunidades do Atende Pro como fonte de conversão offline. Atenção à limitação já mapeada: a API dele tem POST, PUT e DELETE de oportunidade, mas não tem GET — a leitura do funil precisa vir de webhook de alteração de status ou de export.",
+      "impacto": "Fecha o ciclo do funil que hoje termina no clique. Com o volume de 167 leads por semana, é o cliente com massa suficiente para o piloto valer a pena.",
+      "status": "pendente",
+      "concluido_em": null,
+      "nota": ""
+    }
+  ],
+  "fontes": [
+    "Meta Ads — API de conjuntos de dados, estatísticas de evento, conversões personalizadas e entidades de anúncio",
+    "Google Ads — extração ao vivo via Stract, últimos 30 dias, incluindo configuração de acompanhamento e ações de conversão",
+    "Google Tag Manager — leitura tag a tag do contêiner CEVEPE | WEB e do painel de tags do Google",
+    "Levantamento do Atende Pro (ATV197) — limitações de user_data, ctwa_clid e event_id na integração de pixel"
+  ]
+}
