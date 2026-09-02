@@ -1,0 +1,303 @@
+{
+  "cliente": "Jardim Hípica",
+  "slug": "jardim-hipica",
+  "empresa": "ARMIGH Empreendimentos & Participações LTDA",
+  "auditoria_em": "2026-09-02",
+  "atualizado_em": "2026-09-02",
+  "metodologia": "Metodologia Rastracking100 (Dericson Calari) — playbook interno da Brito Mídias",
+  "veredito_titulo": "Estrutura completa, montada e desconectada do site",
+  "veredito": "O Jardim Hípica tem tudo que um rastreamento maduro pede: contêiner Web e contêiner de servidor no GTM, pixel com CAPI ativa, Enhanced Conversions e auto-tagging ligados no Google. E mesmo assim está cego nos dois canais. A causa é única e pequena: as tags de conversão dependem de um gatilho de formulário herdado de um clone (Form ID contém \"cst\") e a captação do site hoje é feita por YAY!Forms. O gatilho nunca dispara. Um ajuste religa Meta, GA4 e Google Ads ao mesmo tempo.",
+  "resumo": [
+    { "valor": "0", "label": "conversões no Google em 30 dias", "tom": "critico" },
+    { "valor": "R$ 568", "label": "investidos no mesmo período", "tom": "critico" },
+    { "valor": "0", "label": "eventos Lead no pixel da Meta", "tom": "critico" },
+    { "valor": "10", "label": "conjuntos otimizando por um evento que não existe", "tom": "critico" },
+    { "valor": "7 meses", "label": "desde a última edição no contêiner", "tom": "alerta" }
+  ],
+  "sistemas": [
+    {
+      "id": "meta",
+      "nome": "Meta Ads",
+      "status": "critico",
+      "status_label": "Cego",
+      "resumo": "O pixel está vivo e com CAPI ativa, mas só recebe PageView e os eventos que o próprio formulário YAY dispara. Não existe evento Lead — e é exatamente por Lead que 10 conjuntos de anúncio estão configurados para otimizar.",
+      "blocos": [
+        {
+          "titulo": "Configuração",
+          "linhas": [
+            ["Business", "Grupo Best Business (391975292340222)", ""],
+            ["Conta de anúncio", "674525543465006 — Best Business / Boleto e PIX (conta compartilhada com Actie, AGCITY e San Marino)", "alerta"],
+            ["Pixel em uso", "914761717879073 — Campanhas Jardim Hípica BM", ""],
+            ["Criado em", "08/01/2026", ""],
+            ["Cookie primário", "Habilitado", "ok"],
+            ["CAPI (servidor)", "Ativa — último disparo 02/09 às 05:48", "ok"],
+            ["Conversions API Gateway", "Não usado (NOT_ONBOARDED) — a casa usa GTM Server, então é esperado", ""],
+            ["Conversões personalizadas", "Nenhuma na conta", "alerta"]
+          ]
+        },
+        {
+          "titulo": "Eventos recebidos nos últimos 7 dias",
+          "linhas": [
+            ["YFView", "EMQ 6,1 — só IP, user agent e fbp", "alerta"],
+            ["YFStart", "EMQ 6,1 — só IP, user agent e fbp", "alerta"],
+            ["YFAnswer", "EMQ 6,1 — só IP, user agent e fbp", "alerta"],
+            ["PageView", "EMQ 6,1 — só IP, user agent e fbp", "alerta"],
+            ["Lead", "NÃO EXISTE", "critico"],
+            ["E-mail / telefone", "0% de cobertura em todos os eventos", "critico"],
+            ["fbc (identificador de clique)", "Ausente em todos os eventos", "critico"]
+          ]
+        },
+        {
+          "titulo": "Campanhas",
+          "linhas": [
+            ["Campanhas do cliente", "14 no padrão [ARMIGH][JD_HIPICA]", ""],
+            ["Bloco CADASTRO / LEAD", "10 conjuntos com meta OFFSITE_CONVERSIONS apontando para o pixel 914761717879073, evento LEAD", "critico"],
+            ["Bloco ENGAJAMENTO / WHATSAPP", "9 conjuntos com meta CONVERSATIONS e nenhum pixel associado", "alerta"],
+            ["Status atual", "Todas pausadas (CAMPAIGN_PAUSED)", ""],
+            ["Orçamentos quando ativas", "R$ 20 a R$ 80 por dia", ""]
+          ]
+        },
+        {
+          "titulo": "Conjuntos de dados órfãos no mesmo business",
+          "linhas": [
+            ["1636902417684883", "CAMPANHAS HÍPICA - AG MISTA — nunca disparou", "alerta"],
+            ["738372089034947", "Jardim Hípica — nunca disparou", "alerta"],
+            ["1517363292687479", "Campanhas Jardim Hípica BM — nome duplicado do pixel em uso, nunca disparou", "alerta"]
+          ]
+        }
+      ],
+      "achados": [
+        { "severidade": "critico", "titulo": "As campanhas otimizam por um evento que o pixel nunca recebeu", "detalhe": "Os 10 conjuntos do bloco de cadastro têm promoted_object apontando para o pixel correto com custom_event_type LEAD. Como o Lead nunca chega, o algoritmo não tem sinal de conversão para aprender — a entrega degrada e o custo por resultado real fica desconhecido." },
+        { "severidade": "critico", "titulo": "Nenhum evento carrega e-mail, telefone ou fbc", "detalhe": "Todos os eventos chegam apenas com IP, user agent e cookie de navegador. Mesmo o que chega não permite à Meta casar o evento com uma pessoa, o que impede público semelhante de qualidade e remarketing preciso." },
+        { "severidade": "alto", "titulo": "Campanhas de WhatsApp sem pixel e sem ctwa_clid", "detalhe": "Os 9 conjuntos de mensagem otimizam por CONVERSATIONS sem promoted_object. A conversa iniciada não volta para a Meta com identificador de clique, então não há como ligar conversa a anúncio nem alimentar otimização." },
+        { "severidade": "medio", "titulo": "Campanhas rodam em conta de anúncio compartilhada", "detalhe": "As campanhas do Jardim Hípica dividem a conta 674525543465006 com Actie, AGCITY e San Marino. Isso mistura histórico de aprendizado e dificulta leitura de conta." }
+      ]
+    },
+    {
+      "id": "google",
+      "nome": "Google Ads",
+      "status": "critico",
+      "status_label": "Investindo sem medir",
+      "resumo": "A configuração da conta está correta — auto-tagging ligado, Enhanced Conversions para leads ligado, acompanhamento próprio ativo. Só que nenhuma ação de conversão registrou uma única linha em 30 dias.",
+      "blocos": [
+        {
+          "titulo": "Conta e desempenho (últimos 30 dias)",
+          "linhas": [
+            ["Conta", "4780602548 — Jardim Hípica", ""],
+            ["Investimento", "R$ 568,05", ""],
+            ["Cliques", "206", ""],
+            ["Impressões", "medidas, sem anomalia", ""],
+            ["Conversões", "0", "critico"],
+            ["Ações de conversão com registro", "Nenhuma devolve linha", "critico"]
+          ]
+        },
+        {
+          "titulo": "Configuração de rastreamento",
+          "linhas": [
+            ["Acompanhamento de conversões", "CONVERSION_TRACKING_MANAGED_BY_SELF", "ok"],
+            ["ID de conversão da conta", "18360192097", ""],
+            ["Auto-tagging (gclid)", "Ligado", "ok"],
+            ["Enhanced Conversions para leads", "Ligado", "ok"],
+            ["Importação de conversão offline", "Não existe", "alerta"]
+          ]
+        }
+      ],
+      "achados": [
+        { "severidade": "critico", "titulo": "R$ 568 investidos com zero conversão registrada", "detalhe": "Não é falta de configuração na conta: o acompanhamento está ativo e o Enhanced Conversions ligado. O evento simplesmente não chega, porque a tag que deveria dispará-lo está presa a um gatilho que não existe mais no site." },
+        { "severidade": "alto", "titulo": "O contêiner manda sinal para um ID de conversão antigo", "detalhe": "Existe no GTM uma tag do Google apontando para AW-11226975236, diferente do AW-18360192097 que a conta usa hoje. Qualquer conversão que chegasse iria para a conta errada." },
+        { "severidade": "medio", "titulo": "Nenhuma ação de conversão cobre o WhatsApp", "detalhe": "O canal principal de contato do cliente não tem ação de conversão no Google Ads, mesmo com a tag de clique no WhatsApp existindo no contêiner." }
+      ]
+    },
+    {
+      "id": "gtm",
+      "nome": "Google Tag Manager",
+      "status": "critico",
+      "status_label": "Bem montado, apontando para o lugar errado",
+      "resumo": "Contêiner Web e contêiner de servidor, numeração organizada, tags separadas por destino. A arquitetura está acima da média — e é justamente aqui que está a causa-raiz de tudo.",
+      "blocos": [
+        {
+          "titulo": "Contêineres",
+          "linhas": [
+            ["Conta GTM", "ARMIGH Empreendimentos & Participações LTDA (6333533847)", ""],
+            ["Contêiner Web", "GTM-55X393B8", ""],
+            ["Contêiner Servidor", "GTM-K6VDCVKW", "ok"],
+            ["IDs no Web", "G-3622642YV3, GT-P84LL985, AW-18360192097, GT-5D93GLVD", ""],
+            ["IDs no Servidor", "G-CFHQ571PK9, GT-MR535GC6", ""],
+            ["Total de tags", "18", ""],
+            ["Última edição", "Há 7 meses", "alerta"],
+            ["Qualidade do contêiner", "Urgente — domínios detectados fora da configuração", "critico"],
+            ["Administradores da conta", "Apenas 1", "alerta"]
+          ]
+        },
+        {
+          "titulo": "Como as tags estão organizadas",
+          "linhas": [
+            ["Bloco 00 (base)", "6 tags em All Pages / Initialization — GA4, CAPI PageView, Meta Pixel, Remarketing, Vinculador de Conversões", "ok"],
+            ["Bloco 01 (formulário)", "4 tags — CAPI Lead, GA4, Google Ads e Meta Ads, todas no gatilho \"Envio de Formulário | Form ID | Contém > cst\"", "critico"],
+            ["Bloco 02 (WhatsApp)", "4 tags no gatilho \"Click Link | Contém > api.whatsapp.com\"", "ok"],
+            ["Bloco página de obrigado", "3 tags no gatilho \"Page Path CONTÉM obrigado\"", "alerta"],
+            ["Tag avulsa", "Tag do Google AW-11226975236 — ID de conversão que não é o da conta ativa", "critico"],
+            ["Advanced Matching", "Nenhuma tag — o modelo novo da agência já tem, este contêiner não recebeu", "critico"]
+          ]
+        }
+      ],
+      "achados": [
+        { "severidade": "critico", "titulo": "O gatilho de formulário nunca dispara", "detalhe": "As 4 tags de conversão do bloco 01 dependem de um envio de formulário cujo Form ID contenha \"cst\" — valor herdado do contêiner modelo, nunca adaptado. A captação do site hoje é feita por YAY!Forms, que não é um formulário nativo com esse ID. Nenhuma das 4 tags jamais foi disparada. Esta é a causa-raiz do zero no Google e da ausência de Lead na Meta." },
+        { "severidade": "alto", "titulo": "O gatilho da página de obrigado também não corresponde ao fluxo atual", "detalhe": "Três tags dependem de o caminho da página conter \"obrigado\". O fluxo atual do YAY não passa por essa página, então esse segundo caminho de conversão também está morto." },
+        { "severidade": "alto", "titulo": "Contêiner parado há 7 meses enquanto o site mudou", "detalhe": "A defasagem entre o que o contêiner espera e o que o site faz é o padrão de falha: ninguém revisita o rastreamento quando a página de captação é trocada." },
+        { "severidade": "medio", "titulo": "Domínios monitorados não configurados", "detalhe": "O próprio diagnóstico do GTM classifica a qualidade do contêiner como Urgente porque detectou a tag em domínios que não estão na configuração — o que afeta durabilidade de cookie e medição de conversão." },
+        { "severidade": "medio", "titulo": "Conta com um único administrador", "detalhe": "Se esse acesso for perdido, a conta fica bloqueada. O Google recomenda no mínimo dois administradores ativos." }
+      ]
+    }
+  ],
+  "melhorias": [
+    {
+      "id": "JH-01",
+      "titulo": "Trocar o gatilho de formulário para o evento real do YAY!Forms",
+      "sistema": "GTM",
+      "severidade": "critica",
+      "esforco": "~2h",
+      "problema": "As 4 tags de conversão do bloco 01 dependem de \"Form ID contém cst\", que nunca casa com o YAY!Forms usado hoje.",
+      "acao": "Criar um gatilho de evento personalizado a partir do dataLayer do YAY (ou usar o próprio YFAnswer como evento) e reapontar as 4 tags do bloco 01.",
+      "impacto": "Religa Lead na Meta, generate_lead no GA4 e a conversão no Google Ads de uma vez só. É o item que sozinho tira o cliente do zero.",
+      "status": "pendente",
+      "concluido_em": null,
+      "nota": ""
+    },
+    {
+      "id": "JH-02",
+      "titulo": "Remover a tag que aponta para o ID de conversão antigo",
+      "sistema": "Google Ads",
+      "severidade": "critica",
+      "esforco": "~30min",
+      "problema": "A tag \"Tag do Google AW-11226975236\" envia sinal para uma conta diferente da que está ativa (AW-18360192097).",
+      "acao": "Remover a tag ou corrigir o ID para o da conta em uso, e republicar o contêiner.",
+      "impacto": "Garante que a conversão, quando voltar a existir, chegue na conta certa.",
+      "status": "pendente",
+      "concluido_em": null,
+      "nota": ""
+    },
+    {
+      "id": "JH-03",
+      "titulo": "Enviar o Lead pela CAPI com os dados do formulário",
+      "sistema": "Meta Ads",
+      "severidade": "critica",
+      "esforco": "~1h",
+      "problema": "Nenhum evento carrega e-mail, telefone ou nome. A nota de correspondência trava em 6,1 e a Meta não consegue casar o evento com uma pessoa.",
+      "acao": "Ramo novo no fluxo do YAY no n8n disparando Lead pela CAPI com e-mail, telefone e nome hasheados, mais event_id para deduplicar com o evento do navegador.",
+      "impacto": "Leva o EMQ do Lead do patamar atual para a faixa de 8 a 9,3, que é o realista para pixel bem configurado. O webhook já existe — é reaproveitamento, não construção.",
+      "status": "pendente",
+      "concluido_em": null,
+      "nota": ""
+    },
+    {
+      "id": "JH-04",
+      "titulo": "Revalidar o evento de otimização dos conjuntos de cadastro",
+      "sistema": "Meta Ads",
+      "severidade": "alta",
+      "esforco": "~30min",
+      "problema": "10 conjuntos otimizam por LEAD, evento que nunca chegou ao pixel.",
+      "acao": "Depois de JH-01 e JH-03, conferir se o volume de Lead sustenta a fase de aprendizado. Se não sustentar, otimizar temporariamente por um evento intermediário e voltar para Lead quando houver volume.",
+      "impacto": "Evita reativar as campanhas com o mesmo problema silencioso de antes.",
+      "status": "pendente",
+      "concluido_em": null,
+      "nota": ""
+    },
+    {
+      "id": "JH-05",
+      "titulo": "Capturar o ctwa_clid das campanhas de WhatsApp",
+      "sistema": "Meta Ads",
+      "severidade": "alta",
+      "esforco": "~1h",
+      "problema": "Os 9 conjuntos de mensagem não têm pixel associado e a conversa iniciada não volta para a Meta com identificador de clique.",
+      "acao": "Capturar o ctwa_clid na entrada da conversa e enviar Contact ou Lead pela CAPI ligando a conversa ao anúncio de origem.",
+      "impacto": "Permite saber qual anúncio gerou qual conversa e otimizar por conversa qualificada em vez de conversa iniciada.",
+      "status": "pendente",
+      "concluido_em": null,
+      "nota": ""
+    },
+    {
+      "id": "JH-06",
+      "titulo": "Propagar as tags de Advanced Matching do modelo da agência",
+      "sistema": "GTM",
+      "severidade": "alta",
+      "esforco": "~1h",
+      "problema": "O contêiner não tem nenhuma tag de Advanced Matching. O modelo BRITO MIDIAS | MODELO | WEB já tem Set Cookies e Visitor API desde agosto.",
+      "acao": "Copiar as duas tags do modelo e ajustar as variáveis de leitura ao formulário do site.",
+      "impacto": "Faz os eventos de página e clique carregarem dado de usuário, não só o evento de conversão.",
+      "status": "pendente",
+      "concluido_em": null,
+      "nota": ""
+    },
+    {
+      "id": "JH-07",
+      "titulo": "Configurar os domínios monitorados no GTM",
+      "sistema": "GTM",
+      "severidade": "media",
+      "esforco": "~30min",
+      "problema": "O diagnóstico do contêiner está como Urgente por detectar a tag em domínios fora da configuração.",
+      "acao": "Adicionar os domínios reais em Diagnóstico de Contêiner > Domínios monitorados.",
+      "impacto": "Melhora durabilidade de cookie primário e a medição de conversão entre domínios.",
+      "status": "pendente",
+      "concluido_em": null,
+      "nota": ""
+    },
+    {
+      "id": "JH-08",
+      "titulo": "Adicionar um segundo administrador na conta GTM",
+      "sistema": "GTM",
+      "severidade": "media",
+      "esforco": "~15min",
+      "problema": "A conta tem apenas um administrador ativo.",
+      "acao": "Incluir um segundo administrador da Brito Mídias.",
+      "impacto": "Elimina o risco de perder acesso à conta de rastreamento do cliente.",
+      "status": "pendente",
+      "concluido_em": null,
+      "nota": ""
+    },
+    {
+      "id": "JH-09",
+      "titulo": "Criar ação de conversão de WhatsApp no Google Ads",
+      "sistema": "Google Ads",
+      "severidade": "media",
+      "esforco": "~30min",
+      "problema": "O canal principal de contato não tem ação de conversão no Google, embora a tag de clique já exista no contêiner.",
+      "acao": "Criar a ação de conversão e ligá-la à tag do bloco 02 que já dispara no clique para api.whatsapp.com.",
+      "impacto": "Passa a medir o canal que realmente traz contato, em vez de medir nada.",
+      "status": "pendente",
+      "concluido_em": null,
+      "nota": ""
+    },
+    {
+      "id": "JH-10",
+      "titulo": "Arquivar os conjuntos de dados órfãos da Meta",
+      "sistema": "Meta Ads",
+      "severidade": "baixa",
+      "esforco": "~15min",
+      "problema": "Três conjuntos no mesmo business nunca dispararam, e um deles tem exatamente o mesmo nome do pixel em uso.",
+      "acao": "Renomear com prefixo ZZ_ ou arquivar, deixando visível apenas o pixel 914761717879073.",
+      "impacto": "Evita que alguém instale ou aponte público para o pixel errado.",
+      "status": "pendente",
+      "concluido_em": null,
+      "nota": ""
+    },
+    {
+      "id": "JH-11",
+      "titulo": "Devolver conversão offline do CRM para Meta e Google",
+      "sistema": "Medição",
+      "severidade": "media",
+      "esforco": "projeto",
+      "problema": "Nenhum sinal do que acontece depois do lead volta para as plataformas: quem virou visita, proposta ou venda.",
+      "acao": "Ligar o CRM às duas plataformas por importação de conversão offline. O Jardim Hípica é o melhor candidato a piloto: funil curto e volume tratável.",
+      "impacto": "Passa a otimizar por lead que vira negócio, não por lead que preenche formulário. É o salto de patamar da conta.",
+      "status": "pendente",
+      "concluido_em": null,
+      "nota": ""
+    }
+  ],
+  "fontes": [
+    "Meta Ads — API de conjuntos de dados e de entidades de anúncio (datasets, qualidade, estatísticas, campanhas e conjuntos)",
+    "Google Ads — extração ao vivo via Stract, últimos 30 dias, incluindo configuração de acompanhamento de conversões",
+    "Google Tag Manager — leitura tag a tag do contêiner ARMIGH | Jardim Hípica - WEB e do diagnóstico de contêiner"
+  ]
+}
