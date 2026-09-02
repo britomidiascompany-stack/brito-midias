@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Padrão de Rastreamento — Brito Mídias</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --roxo:#7C3AED; --roxo-dark:#5B21B6; --roxo-deep:#3B0F73;
+    --roxo-light:#A78BFA; --roxo-xlight:#EDE9FE;
+    --preto:#0A0A0A; --ink:#141018; --cinza:#5B5566;
+    --linha:#E7E3EE; --bg:#FFFFFF; --bg-soft:#FAF9FC;
+    --verde:#16A34A; --amarelo:#D97706; --vermelho:#DC2626;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Poppins',system-ui,-apple-system,sans-serif;font-weight:300;font-size:16px;
+    line-height:1.65;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased}
+  a{color:var(--roxo-dark)}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 28px}
+  code{font-family:ui-monospace,'SF Mono',Consolas,monospace;font-size:.88em;
+    background:var(--roxo-xlight);color:var(--roxo-dark);padding:1px 6px;border-radius:4px}
+
+  .hero{position:relative;overflow:hidden;color:#fff;
+    background:
+      radial-gradient(1100px 500px at 78% -10%, rgba(124,58,237,.55), transparent 60%),
+      linear-gradient(150deg,#0A0A0A 0%,#17111F 45%,#3B0F73 100%);}
+  .hero::before{content:"";position:absolute;inset:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.14) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.14) 1px,transparent 1px);
+    background-size:44px 44px;
+    -webkit-mask-image:radial-gradient(circle at 50% 30%,#000 25%,transparent 72%);
+    mask-image:radial-gradient(circle at 50% 30%,#000 25%,transparent 72%);pointer-events:none}
+  .hero-in{position:relative;padding:40px 0 54px}
+  .brand{display:flex;align-items:center;gap:16px}
+  .brand svg{width:46px;height:46px;flex-shrink:0}
+  .brand .word{display:flex;align-items:center;gap:14px;font-weight:300}
+  .brand .word b{font-weight:800;font-size:20px}
+  .brand .word .bar{width:2px;height:30px;background:rgba(255,255,255,.55);display:inline-block}
+  .brand .word span{font-size:20px;letter-spacing:.22em}
+  .crumb{margin-top:32px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+    font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--roxo-light)}
+  .crumb b{color:#fff}
+  .crumb .sep{color:rgba(255,255,255,.35);font-weight:400;letter-spacing:0;text-transform:none}
+  .hero h1{font-weight:800;font-size:clamp(28px,4.4vw,44px);letter-spacing:-.02em;line-height:1.15;
+    margin-top:12px;text-wrap:balance}
+  .hero .sub{font-weight:300;font-size:16.5px;color:rgba(255,255,255,.76);margin-top:14px;max-width:66ch}
+  .pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+  .pill{border:1px solid var(--roxo-light);color:#fff;border-radius:100px;padding:8px 16px;
+    font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
+  .pill.solid{background:linear-gradient(90deg,#7C3AED,#5B21B6);border-color:transparent}
+
+  .sec{padding:54px 0}
+  .sec.soft{background:var(--bg-soft);border-top:1px solid var(--linha);border-bottom:1px solid var(--linha)}
+  .section-label{display:flex;align-items:center;gap:12px;font-size:13px;font-weight:600;
+    letter-spacing:.16em;text-transform:uppercase;color:var(--roxo)}
+  .section-label::before{content:"";width:34px;height:2px;background:var(--roxo);border-radius:2px}
+  .sec h2{font-weight:700;font-size:clamp(22px,3vw,29px);letter-spacing:-.015em;margin-top:14px;text-wrap:balance}
+  .sec .intro{color:var(--cinza);margin-top:12px;max-width:74ch}
+  .sec p + p{margin-top:14px}
+
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px}
+  @media(max-width:760px){.cols{grid-template-columns:1fr}}
+  .box{border:1px solid var(--linha);border-radius:14px;padding:22px 24px;background:#fff}
+  .box.good{border-left:4px solid var(--verde);background:#F6FEF9}
+  .box.gap{border-left:4px solid var(--amarelo);background:#FFFCF5}
+  .box h3{font-size:15px;font-weight:700;margin-bottom:12px;letter-spacing:.02em}
+  .box ul{margin:0;padding-left:18px}
+  .box li{font-size:14.5px;color:var(--cinza);margin-bottom:9px}
+  .box li:last-child{margin-bottom:0}
+  .box li b{color:var(--ink);font-weight:600}
+
+  .regra{border:1px solid var(--linha);border-radius:16px;margin-top:18px;background:#fff;overflow:hidden}
+  .regra-head{display:flex;gap:16px;align-items:flex-start;padding:22px 26px;
+    border-bottom:1px solid var(--linha);background:var(--bg-soft)}
+  .regra-num{width:36px;height:36px;border-radius:10px;flex-shrink:0;
+    background:linear-gradient(135deg,#7C3AED,#3B0F73);color:#fff;font-weight:800;font-size:15px;
+    display:flex;align-items:center;justify-content:center}
+  .regra-head h3{font-size:18.5px;font-weight:700;letter-spacing:-.01em;line-height:1.3}
+  .regra-body{padding:22px 26px}
+  .linha-rot{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--roxo);margin-bottom:6px}
+  .linha-txt{font-size:15px;color:var(--cinza);margin-bottom:18px}
+  .linha-txt:last-child{margin-bottom:0}
+  .linha-txt b{color:var(--ink);font-weight:600}
+  .evidencia{border-left:3px solid var(--vermelho);background:#FEF2F2;padding:12px 16px;
+    border-radius:0 8px 8px 0;font-size:14px;color:var(--ink);margin-bottom:18px}
+  .evidencia b{font-weight:700}
+
+  .check{border:1px solid var(--linha);border-radius:14px;padding:24px 26px;background:#fff;margin-top:18px}
+  .check h3{font-size:16px;font-weight:700;margin-bottom:14px}
+  .check ol{margin:0;padding-left:20px}
+  .check li{font-size:15px;color:var(--cinza);margin-bottom:10px}
+  .check li b{color:var(--ink);font-weight:600}
+
+  table{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:24px}
+  th{text-align:left;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;
+    color:var(--cinza);padding:12px 14px;border-bottom:2px solid var(--linha);white-space:nowrap}
+  td{padding:12px 14px;border-bottom:1px solid var(--linha);vertical-align:top;color:var(--cinza)}
+  td:first-child{color:var(--ink);font-weight:600}
+  .tablewrap{overflow-x:auto}
+  .ok{color:var(--verde);font-weight:600}
+  .no{color:var(--vermelho);font-weight:600}
+  .meio{color:var(--amarelo);font-weight:600}
+
+  footer{background:var(--preto);color:rgba(255,255,255,.62);padding:44px 0;font-size:13.5px}
+  footer b{color:#fff}
+  footer p{margin-bottom:9px;max-width:78ch}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap hero-in">
+    <div class="brand">
+      <svg viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="2.4"
+           stroke-linejoin="round" stroke-linecap="round" aria-label="BM Mídias">
+        <polygon points="50,4 90,27 90,73 50,96 10,73 10,27"></polygon>
+        <polygon points="50,33 65,59 35,59"></polygon>
+        <line x1="50" y1="4" x2="50" y2="33"></line><line x1="90" y1="73" x2="65" y2="59"></line>
+        <line x1="10" y1="73" x2="35" y2="59"></line><line x1="90" y1="27" x2="50" y2="33"></line>
+        <line x1="90" y1="27" x2="65" y2="59"></line><line x1="50" y1="96" x2="65" y2="59"></line>
+        <line x1="50" y1="96" x2="35" y2="59"></line><line x1="10" y1="27" x2="35" y2="59"></line>
+        <line x1="10" y1="27" x2="50" y2="33"></line>
+      </svg>
+      <span class="word"><b>BM</b><i class="bar"></i><span>MÍDIAS</span></span>
+    </div>
+    <div class="crumb"><b>Brito Mídias</b><span class="sep">/</span><b>Processos</b><span class="sep">/</span>Padrão de rastreamento</div>
+    <h1>Padrão de rastreamento<br>da Brito Mídias</h1>
+    <p class="sub">Dez regras não negociáveis para qualquer cliente da casa, derivadas da metodologia Rastracking100 e calibradas pelo que as auditorias de setembro encontraram nas contas reais. Cada regra existe porque a ausência dela já custou resultado em pelo menos um cliente.</p>
+    <div class="pills">
+      <span class="pill solid">10 regras</span>
+      <span class="pill">Meta · Google · GTM</span>
+      <span class="pill">Versão 1 — 02/09/2026</span>
+    </div>
+  </div>
+</header>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="section-label">Por que este documento existe</div>
+    <h2>Três clientes auditados, três causas-raiz diferentes — e nenhuma delas era um problema de mídia</h2>
+    <p class="intro">Jardim Hípica estava cego porque um gatilho de formulário foi clonado e nunca adaptado ao site. Legado e Família perde dois terços do identificador de clique porque o evento dispara na página errada. CEVEPE não registra conversão nenhuma de site no Google por causa de um prefixo digitado duas vezes. São erros distintos, mas todos da mesma família: <b>decisões de implementação que ninguém revisitou, porque não existia um padrão escrito para revisitar contra</b>.</p>
+    <p class="intro">Este documento é esse padrão. Ele não é uma tradução do curso — é o cruzamento entre o que o curso ensina e o que a nossa carteira mostrou na prática, com a evidência real de cada regra.</p>
+
+    <div class="cols">
+      <div class="box good">
+        <h3>O que já fazemos melhor que a média</h3>
+        <ul>
+          <li><b>Server-side de verdade.</b> São 37 contêineres de servidor em 28 contas. Quase todo cliente tem par Web + Server, o que a maioria das agências não tem.</li>
+          <li><b>Contêiner modelo próprio.</b> O <code>BRITO MIDIAS | MODELO</code> já traz Advanced Matching com Set Cookies e Visitor API.</li>
+          <li><b>Nomenclatura por destino e ordem.</b> Blocos <code>00</code>, <code>01</code>, <code>02</code> e tags separadas por plataforma — quem abre um contêiner nosso entende em um minuto.</li>
+          <li><b>Mapeamento fino de intenção.</b> No CEVEPE, cinco pontos distintos de clique de WhatsApp em quatro destinos cada.</li>
+        </ul>
+      </div>
+      <div class="box gap">
+        <h3>As lacunas que a auditoria expôs</h3>
+        <ul>
+          <li><b>O modelo não é propagado.</b> Contêineres de clientes ativos estão 7 a 8 meses atrás do nosso próprio modelo.</li>
+          <li><b>Não existe o pacote de UTM em cookie primário.</b> É a causa direta do fbc em 36% no Legado.</li>
+          <li><b>O modelo é de e-commerce.</b> Não tem evento de Lead, e a maior parte da carteira é captação.</li>
+          <li><b>Nada volta do CRM.</b> Zero contas com conversão offline, num portfólio que vende por conversa.</li>
+          <li><b>Não há conferência pós-publicação.</b> Erros como <code>AW-AW-</code> sobrevivem meses.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec soft">
+  <div class="wrap">
+    <div class="section-label">O padrão</div>
+    <h2>As dez regras</h2>
+    <p class="intro">Cada regra tem o que fazer, por que existe e a evidência que a originou. Regras 1 a 5 são o mínimo para qualquer cliente entrar no ar. Regras 6 a 8 são o acabamento. Regras 9 e 10 são o que separa um rastreamento correto de um rastreamento de alto rendimento.</p>
+
+    <div class="regra">
+      <div class="regra-head"><div class="regra-num">01</div>
+        <h3>O evento de Lead dispara no envio do formulário. Nunca na página de obrigado.</h3></div>
+      <div class="regra-body">
+        <div class="linha-rot">Regra</div>
+        <p class="linha-txt">O gatilho é o <b>submit do formulário na página de captura</b>, lendo e-mail, telefone, nome e sobrenome no momento em que a pessoa digita. A página de obrigado serve como confirmação secundária, nunca como fonte do evento.</p>
+        <div class="linha-rot">Por quê</div>
+        <p class="linha-txt">Na página de obrigado não existe formulário para ler, então o evento nasce sem dado pessoal. E como ela está um passo à frente na navegação, o identificador de clique do anúncio precisa sobreviver ao caminho inteiro — e frequentemente não sobrevive.</p>
+        <div class="evidencia"><b>Evidência:</b> Legado e Família. Lead com 0% de e-mail, 0% de telefone e fbc em apenas 36% (PageView em 26,4%). O contêiner é o mais bem mantido da casa — o erro é só de posicionamento.</div>
+      </div>
+    </div>
+
+    <div class="regra">
+      <div class="regra-head"><div class="regra-num">02</div>
+        <h3>Advanced Matching é obrigatório, e o dado vai para cookie primário.</h3></div>
+      <div class="regra-body">
+        <div class="linha-rot">Regra</div>
+        <p class="linha-txt">A tag de Lead envia <b>e-mail, telefone, nome e sobrenome</b> e grava esses mesmos valores em cookie primário. Todas as tags seguintes — PageView, cliques, checkout, compra — leem do cookie, para carimbar o usuário em páginas que não têm formulário.</p>
+        <div class="linha-rot">Por quê</div>
+        <p class="linha-txt">E-mail é o parâmetro mais importante da correspondência. Sem ele, a nota trava na faixa de 6, que é o teto de quem só manda IP, user agent e cookie de navegador. Com ele, o patamar realista é 8 a 9,3 — que é onde nossos eventos de compra já chegam quando o dado vem da plataforma de venda.</p>
+        <div class="evidencia"><b>Evidência:</b> no mesmo Pixel Oficial da ANEX, o Purchase (dado vindo da Hotmart) marca 9,3 e o Lead (dado que deveria vir da tag) marca 6,1 com e-mail em 2,7%. Mesma conta, mesma semana, mesmo pixel.</div>
+      </div>
+    </div>
+
+    <div class="regra">
+      <div class="regra-head"><div class="regra-num">03</div>
+        <h3>Captura e propagação de UTM em cookie primário entra em todo contêiner novo.</h3></div>
+      <div class="regra-body">
+        <div class="linha-rot">Regra</div>
+        <p class="linha-txt">Instalar o pacote de captura de UTM logo na configuração inicial: lê os parâmetros na entrada, grava em cookie de dois anos quando houver <code>fbclid</code> ou <code>gclid</code>, e propaga em todos os links e iframes da página. Distinguir <b>SCK</b> (UTM da sessão atual) de <b>SRC</b> (clique pago persistido).</p>
+        <div class="linha-rot">Por quê</div>
+        <p class="linha-txt">É o que impede a atribuição de morrer quando o visitante navega por links internos sem UTM. No Safari, o parâmetro de clique dura 24 horas e o navegador chega a removê-lo da URL — sem cookie primário, o rastro do anúncio some antes da conversão acontecer.</p>
+        <div class="evidencia"><b>Evidência:</b> Legado e Família perde o fbc em dois terços dos leads. O evento dispara longe da entrada e não há cookie carregando o clique até lá.</div>
+      </div>
+    </div>
+
+    <div class="regra">
+      <div class="regra-head"><div class="regra-num">04</div>
+        <h3>Deduplicação com nome de evento idêntico e o mesmo Event ID nos dois lados.</h3></div>
+      <div class="regra-body">
+        <div class="linha-rot">Regra</div>
+        <p class="linha-txt">Toda conversão enviada por navegador e por servidor carrega o <b>mesmo nome de evento</b> e o <b>mesmo Event ID</b>. As duas condições juntas — falhar em uma delas já quebra a deduplicação.</p>
+        <div class="linha-rot">Por quê</div>
+        <p class="linha-txt">Quebra silenciosa: não aparece erro em lugar nenhum, a conversão simplesmente infla e o CPA aparente melhora sem que nada tenha melhorado de verdade. Decisão de mídia tomada em cima de número inflado é prejuízo que não dá para reconstruir depois.</p>
+        <div class="evidencia"><b>Evidência:</b> ANEX Oficial e Tamara TP enviam cerca de dois eventos por servidor para cada um do navegador, de forma constante. Pode ser saudável, mas ainda não foi verificado — e é a primeira coisa a conferir nas duas contas.</div>
+      </div>
+    </div>
+
+    <div class="regra">
+      <div class="regra-head"><div class="regra-num">05</div>
+        <h3>Um domínio, uma conta, um contêiner Web e um contêiner Server.</h3></div>
+      <div class="regra-body">
+        <div class="linha-rot">Regra</div>
+        <p class="linha-txt">Nada de conta duplicada por cliente, contêiner órfão ou nome genérico. Padrão de nome: <code>CLIENTE | domínio | WEB</code> e <code>CLIENTE | domínio | SERVER</code>. Contêiner aposentado ganha prefixo <code>ZZ_</code> e é arquivado, não fica pausado por tempo indeterminado.</p>
+        <div class="linha-rot">Por quê</div>
+        <p class="linha-txt">Contêiner ambíguo faz alguém editar o lugar errado e achar que publicou. É o custo mais barato de evitar e o mais caro de descobrir — porque o sintoma é "não está medindo" sem nenhuma pista de causa.</p>
+        <div class="evidencia"><b>Evidência:</b> cinco clientes têm duas contas GTM cada. Legado mantém uma conta antiga com 8 tags pausadas e qualidade "Urgente". Marketex tem 10 contêineres, dois marcados "ANTIGA" e um com o nome escrito errado. Tamara tem um contêiner chamado <code>VAZIO</code>.</div>
+      </div>
+    </div>
+
+    <div class="regra">
+      <div class="regra-head"><div class="regra-num">06</div>
+        <h3>Todo gatilho clonado é reapontado ao site real antes de publicar.</h3></div>
+      <div class="regra-body">
+        <div class="linha-rot">Regra</div>
+        <p class="linha-txt">Ao criar contêiner a partir do modelo, <b>abrir cada gatilho e cada ID</b> e conferir contra o site do cliente: o formulário existe com esse ID? A página de obrigado tem esse caminho? O ID de conversão é o da conta ativa? Só então publicar.</p>
+        <div class="linha-rot">Por quê</div>
+        <p class="linha-txt">Clone é a forma mais rápida de montar e a forma mais rápida de errar. O contêiner fica bonito, organizado, com todas as tags no lugar — e sem disparar uma única vez.</p>
+        <div class="evidencia"><b>Evidência:</b> Jardim Hípica e ANEX/ILD têm o mesmo gatilho <code>Envio de Formulário | Form ID contém cst</code>, herdado do clone. No Jardim Hípica a captação é YAY!Forms, que não é formulário nativo — nunca disparou. Resultado: R$ 568 e 206 cliques com zero conversão.</div>
+      </div>
+    </div>
+
+    <div class="regra">
+      <div class="regra-head"><div class="regra-num">07</div>
+        <h3>No Google: prefixo <code>AW-</code> uma vez só, Enhanced Conversions ligado, ações locais como secundárias.</h3></div>
+      <div class="regra-body">
+        <div class="linha-rot">Regra</div>
+        <p class="linha-txt">Conferir que o ID está como <code>AW-000000000</code> — nunca duplicado, nunca sem prefixo. Ligar Enhanced Conversions para leads em toda conta com formulário. Deixar como conversão <b>primária</b> apenas ação de negócio real; ações automáticas do Perfil da Empresa vão para secundária.</p>
+        <div class="linha-rot">Por quê</div>
+        <p class="linha-txt">Um ID malformado não entrega conversão para lugar nenhum e não gera erro visível. E conversão automática marcada como primária faz o lance perseguir "alguém viu o cardápio" em vez de venda.</p>
+        <div class="evidencia"><b>Evidência:</b> CEVEPE tem <code>AW-AW-602183659</code> em seis tags — zero conversões de site no Google. Urus tem 97% das conversões vindas de ações locais automáticas: CPA aparente R$ 0,65 contra R$ 20,28 real. Enhanced Conversions está desligado em 6 das 9 contas.</div>
+      </div>
+    </div>
+
+    <div class="regra">
+      <div class="regra-head"><div class="regra-num">08</div>
+        <h3>Compra sempre com <code>currency</code> e <code>value</code>. Sem exceção.</h3></div>
+      <div class="regra-body">
+        <div class="linha-rot">Regra</div>
+        <p class="linha-txt">O evento de compra dispara com moeda e valor obrigatórios, no acionador <b>DOM pronto</b>, e nunca duplicado entre o pixel da plataforma de venda e o do nosso contêiner.</p>
+        <div class="linha-rot">Por quê</div>
+        <p class="linha-txt">Sem valor, a Meta não processa a compra corretamente e não há como calcular retorno. Com pixel duplicado na plataforma externa, a mesma venda entra duas vezes.</p>
+        <div class="evidencia"><b>Evidência:</b> Urus registra Purchase, InitiateCheckout e Lead sem nenhum identificador computável e nunca usou CAPI. Real Plan manda Purchase sem e-mail nem telefone.</div>
+      </div>
+    </div>
+
+    <div class="regra">
+      <div class="regra-head"><div class="regra-num">09</div>
+        <h3>Funil de WhatsApp tem protocolo, <code>ctwa_clid</code> e devolução de conversão.</h3></div>
+      <div class="regra-body">
+        <div class="linha-rot">Regra</div>
+        <p class="linha-txt">Para cliente que vende por conversa: capturar o <code>ctwa_clid</code> na entrada, injetar um <b>protocolo de atendimento</b> na mensagem que abre o chat, guardar o registro no n8n e <b>devolver a conversão</b> à Meta quando o vendedor fechar. O evento vai pela CAPI com telefone e e-mail hasheados, mais <code>event_id</code>.</p>
+        <div class="linha-rot">Por quê</div>
+        <p class="linha-txt">Sem isso, o melhor que a plataforma sabe é "alguém clicou no botão". Com isso, ela aprende quem vira cliente — que é o único sinal que faz a otimização trabalhar a favor.</p>
+        <div class="evidencia"><b>Evidência:</b> CEVEPE recebe 167 leads por semana no pixel e nenhuma campanha usa esse sinal para otimizar; o único conjunto ativo roda por conversa iniciada, sem pixel associado. Os leads chegam com telefone e mais nada, nota 2,5 — a pior da carteira.</div>
+      </div>
+    </div>
+
+    <div class="regra">
+      <div class="regra-head"><div class="regra-num">10</div>
+        <h3>Ad ID no <code>utm_term</code> e conversão offline do CRM. É aqui que a casa vira referência.</h3></div>
+      <div class="regra-body">
+        <div class="linha-rot">Regra</div>
+        <p class="linha-txt">Padronizar <code>utm_term={{ad.name}}|{{ad.id}}</code> em toda campanha da Meta e usar o Ad ID como chave de cruzamento entre investimento e venda. Fechar o ciclo devolvendo do CRM quem virou reunião, matrícula ou venda — por importação de conversão offline nas duas plataformas.</p>
+        <div class="linha-rot">Por quê</div>
+        <p class="linha-txt">O Ad ID é o RG do anúncio: não muda quando alguém renomeia a campanha, e permite recuperar via API o criativo, a copy e o CTA de cada vencedor. É o que transforma relatório de plataforma em inteligência própria — e conversão offline é o que faz a plataforma otimizar por lead que vira negócio, não por lead que preenche formulário.</p>
+        <div class="evidencia"><b>Evidência:</b> nenhuma das 100 contas de anúncio da casa envia conversão offline hoje. A API da Meta separa os sinais em web, offline, CRM e atribuição personalizada — só existe o canal web em todos os 130 pixels.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="section-label">Onde estamos</div>
+    <h2>O padrão aplicado à carteira hoje</h2>
+    <p class="intro">Situação das regras nos clientes já auditados. Serve como mapa de prioridade e como base de comparação quando cada correção for aplicada.</p>
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr><th>Regra</th><th>Jardim Hípica</th><th>Legado e Família</th><th>CEVEPE</th><th>ANEX / Marketex</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>01 · Lead no formulário</td><td class="no">Não dispara</td><td class="no">Na página de obrigado</td><td class="no">Não existe tag</td><td class="meio">Sem dado de usuário</td></tr>
+          <tr><td>02 · Advanced Matching</td><td class="no">Ausente</td><td class="meio">Tags existem, sem efeito</td><td class="meio">Tags existem, sem efeito</td><td class="no">Ausente</td></tr>
+          <tr><td>03 · UTM em cookie</td><td class="no">Não</td><td class="no">Não</td><td class="no">Não</td><td class="no">Não</td></tr>
+          <tr><td>04 · Deduplicação</td><td class="meio">A verificar</td><td class="meio">A verificar</td><td class="meio">A verificar</td><td class="no">A verificar — 2:1</td></tr>
+          <tr><td>05 · Um domínio, uma conta</td><td class="ok">OK</td><td class="no">Duas contas GTM</td><td class="ok">OK</td><td class="no">10 contêineres</td></tr>
+          <tr><td>06 · Gatilho reapontado</td><td class="no">Clone não adaptado</td><td class="ok">OK</td><td class="ok">OK</td><td class="no">Clone não adaptado</td></tr>
+          <tr><td>07 · Google correto</td><td class="no">AW antigo</td><td class="meio">EC desligado</td><td class="no">AW duplicado</td><td>Sem verba</td></tr>
+          <tr><td>08 · Compra com valor</td><td>Não se aplica</td><td class="meio">A verificar</td><td class="meio">Tags sem evento</td><td class="ok">OK — 9,3</td></tr>
+          <tr><td>09 · WhatsApp completo</td><td class="no">Sem ctwa_clid</td><td class="meio">Parcial</td><td class="no">Sem ctwa_clid</td><td>Não se aplica</td></tr>
+          <tr><td>10 · Ad ID e offline</td><td class="no">Não</td><td class="no">Não</td><td class="no">Não</td><td class="no">Não</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="sec soft">
+  <div class="wrap">
+    <div class="section-label">Como usar</div>
+    <h2>Dois checklists</h2>
+
+    <div class="check">
+      <h3>Cliente novo — antes de publicar o contêiner</h3>
+      <ol>
+        <li><b>Clonar o modelo</b> e renomear conta e contêineres no padrão <code>CLIENTE | domínio | WEB/SERVER</code>.</li>
+        <li><b>Abrir cada gatilho</b> e reapontar ao site real: ID do formulário, caminho da página de obrigado, seletor dos botões.</li>
+        <li><b>Conferir cada ID</b>: pixel da Meta, medição do GA4 e conversão do Google — este último com um único <code>AW-</code>.</li>
+        <li><b>Instalar o pacote de UTM</b> em cookie primário e a Visitor API.</li>
+        <li><b>Configurar o Lead</b> no envio do formulário, com Advanced Matching e Event ID compartilhado com a CAPI.</li>
+        <li><b>Cadastrar os domínios monitorados</b> e conferir que todas as páginas do funil têm tag.</li>
+        <li><b>Ligar Enhanced Conversions</b> na conta do Google e definir quais conversões são primárias.</li>
+        <li><b>Publicar e validar com o Tag Assistant</b>, fazendo um cadastro real de ponta a ponta.</li>
+        <li><b>Registrar um segundo administrador</b> na conta GTM.</li>
+      </ol>
+    </div>
+
+    <div class="check">
+      <h3>Cliente existente — revisão trimestral</h3>
+      <ol>
+        <li><b>Nota de correspondência por evento</b> na Meta: qualquer conversão abaixo de 8 tem causa a investigar.</li>
+        <li><b>Razão Lead ÷ PageView</b>: mais Leads do que PageViews significa que o evento entra por fora do site.</li>
+        <li><b>Cobertura de fbc</b>: abaixo de 80% indica perda de rastro na navegação.</li>
+        <li><b>Ações de conversão do Google</b>: conferir quais são primárias e se alguma é automática do Perfil.</li>
+        <li><b>Data da última edição do contêiner</b> contra a data da última mudança no site do cliente.</li>
+        <li><b>Diagnóstico do contêiner</b>: páginas sem tag, domínios não configurados, tag do Google ausente.</li>
+        <li><b>Conversões personalizadas</b>: procurar regras sobrepostas, duplicadas e as que nunca dispararam.</li>
+        <li><b>Pixels e contêineres órfãos</b>: arquivar o que não dispara.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p><b>Padrão de rastreamento da Brito Mídias — versão 1, 02/09/2026</b></p>
+    <p>Base metodológica: Rastracking100, de Dericson Calari e Samuel Choairy. Base empírica: varredura de 100 contas de anúncio da Meta, 9 contas de Google Ads e 79 contêineres de Tag Manager, mais as auditorias detalhadas de Jardim Hípica, Legado e Família e CEVEPE.</p>
+    <p>As auditorias por cliente ficam em <a href="../../clientes/">brito-midias/clientes</a>. Este padrão é revisado sempre que uma auditoria encontrar uma causa-raiz que ele ainda não previna.</p>
+  </div>
+</footer>
+
+</body>
+</html>
