@@ -5,11 +5,11 @@
   "auditoria_em": "2026-09-02",
   "atualizado_em": "2026-09-02",
   "metodologia": "Metodologia Rastracking100 (Dericson Calari) — playbook interno da Brito Mídias",
-  "veredito_titulo": "O rastreamento mais bem cuidado da carteira, com um erro de posicionamento no evento principal",
-  "veredito": "Aqui o contrário do Jardim Hípica: o contêiner é da geração nova, foi editado ontem, já tem as tags de Advanced Matching e o ID de conversão do Google bate com o da conta. O sinal chega — 99,6% dos leads vêm com identificador de clique, o melhor número da carteira. O problema é onde o evento de Lead dispara: na página de obrigado, não no envio do formulário. Como na página de obrigado não há formulário para ler, nenhum lead chega com e-mail ou telefone, e a nota trava em 6,1. Mudar o gatilho de lugar é o que separa esta conta de um rastreamento exemplar.",
+  "veredito_titulo": "O contêiner mais bem cuidado da carteira, medindo no lugar errado",
+  "veredito": "Aqui o contrário do Jardim Hípica: o contêiner é da geração nova, foi editado ontem, já tem as tags de Advanced Matching e o ID de conversão do Google bate com o da conta. Mesmo assim o Lead trava em nota 6,1, sem e-mail e sem telefone, e apenas 36% dos leads chegam com o identificador de clique. As duas coisas têm a mesma origem: o evento dispara no carregamento da página de obrigado, não no envio do formulário. Na página de obrigado não há formulário para ler, e quem chega ali já perdeu parte do rastro do clique pelo caminho. Mudar o gatilho de lugar resolve os dois problemas de uma vez.",
   "resumo": [
     { "valor": "6,1", "label": "nota do Lead na Meta, sem e-mail nem telefone", "tom": "alerta" },
-    { "valor": "99,6%", "label": "dos leads com identificador de clique (fbc)", "tom": "ok" },
+    { "valor": "36%", "label": "dos leads com identificador de clique (fbc)", "tom": "critico" },
     { "valor": "R$ 638", "label": "por conversão no Google em 30 dias", "tom": "critico" },
     { "valor": "12", "label": "conversões personalizadas na Meta, 5 delas mortas", "tom": "alerta" },
     { "valor": "2", "label": "contas GTM para o mesmo cliente", "tom": "alerta" }
@@ -20,7 +20,7 @@
       "nome": "Meta Ads",
       "status": "alto",
       "status_label": "Mede, mas sem identificar",
-      "resumo": "O pixel está saudável e com CAPI ativa disparando agora. O evento de Lead existe e chega com quase 100% de identificador de clique — mas sem nenhum dado pessoal, porque dispara na página de obrigado. Por cima disso há 12 conversões personalizadas sobrepostas que contam o mesmo lead mais de uma vez.",
+      "resumo": "O pixel está saudável e com CAPI ativa disparando agora, em tempo real. Mas o evento de Lead chega sem nenhum dado pessoal e com o identificador de clique presente em apenas 36% dos casos, porque dispara na página de obrigado. Por cima disso há 12 conversões personalizadas sobrepostas que contam o mesmo lead mais de uma vez.",
       "blocos": [
         {
           "titulo": "Configuração",
@@ -37,12 +37,14 @@
         {
           "titulo": "Qualidade dos eventos",
           "linhas": [
-            ["Lead", "EMQ 6,1 — IP, user agent e fbp em 100%, fbc em 99,6%", "alerta"],
+            ["Lead", "EMQ 6,1 — IP, user agent e fbp em 100%, fbc em apenas 36%", "critico"],
             ["Lead · e-mail", "0% de cobertura", "critico"],
             ["Lead · telefone", "0% de cobertura", "critico"],
-            ["PageView", "EMQ 6,1 — fbc em 98,7%", "alerta"],
-            ["SubscribedButtonClick", "Sem nota — nenhum identificador aproveitável", "alerta"],
-            ["Leitura", "O fbc quase perfeito mostra que a atribuição de clique está ótima. O que falta é o dado da pessoa.", ""]
+            ["Lead · frequência de envio", "Tempo real", "ok"],
+            ["PageView", "EMQ 6,0 — fbc em 26,4%", "critico"],
+            ["Click to Chat by HoliThemes", "Sem nota — nenhum identificador aproveitável", "alerta"],
+            ["ViewContent", "Sem nota", "alerta"],
+            ["Leitura", "Quase dois terços dos leads chegam sem o identificador do clique que os gerou. Somado à ausência de e-mail e telefone, sobra pouco para a Meta casar o evento com uma pessoa.", "critico"]
           ]
         },
         {
@@ -81,6 +83,7 @@
       ],
       "achados": [
         { "severidade": "critico", "titulo": "O Lead dispara na página de obrigado, não no envio do formulário", "detalhe": "As tags [Meta Pixel] - Lead e [Meta API] - Lead têm como gatilho o caminho da página de obrigado (programa-de-sucessao-typ). Nessa página não existe formulário para ler, então nenhum dado pessoal é capturado e a nota de correspondência trava em 6,1. O playbook é explícito neste ponto: o evento de Lead pertence à página de captura, no envio do formulário." },
+        { "severidade": "critico", "titulo": "Dois terços dos leads perdem o identificador do clique pelo caminho", "detalhe": "O fbc aparece em apenas 36% dos Leads e em 26,4% dos PageViews. Como o evento só é disparado lá na frente, na página de obrigado, o parâmetro de clique do anúncio precisa sobreviver a toda a navegação até chegar lá — e na maior parte das vezes não sobrevive. É o problema que a captura de UTM em cookie primário resolve, e que o playbook trata como pacote básico de qualquer contêiner." },
         { "severidade": "alto", "titulo": "O mesmo lead conta em duas conversões personalizadas ao mesmo tempo", "detalhe": "TD_TYP_SUCESSÃO - LEAD e TD_TYP_SUCESSÃO - LEAD V2 registraram disparo no mesmo segundo (02/09 11:01:42), porque as regras se sobrepõem. Se as duas forem usadas em relatório ou otimização, o volume de leads aparece inflado." },
         { "severidade": "medio", "titulo": "Três conversões personalizadas nunca dispararam por erro de URL", "detalhe": "LEAD V1 e PV V1 apontam para /typ com barra, enquanto a URL real usa -typ com hífen. A do Typebot aponta para um domínio que o funil não usa mais. São regras mortas ocupando espaço na conta." },
         { "severidade": "baixo", "titulo": "Post impulsionado sem rastreamento", "detalhe": "Um conjunto ativo otimiza por visita ao perfil do Instagram, sem pixel associado. Não é erro, mas fica fora de qualquer medição de resultado." }
@@ -186,6 +189,19 @@
       "nota": ""
     },
     {
+      "id": "LF-10",
+      "titulo": "Instalar a captura de UTM e clique em cookie primário",
+      "sistema": "GTM",
+      "severidade": "critica",
+      "esforco": "~1h",
+      "problema": "O identificador de clique chega em apenas 36% dos Leads e 26,4% dos PageViews. Como o evento só dispara na página de obrigado, o parâmetro do anúncio precisa sobreviver a toda a navegação até lá — e na maioria das vezes se perde.",
+      "acao": "Instalar o pacote de captura e propagação de UTM em cookie primário do playbook, que guarda o clique pago na entrada do funil e o recupera nas páginas seguintes, mesmo sem parâmetro na URL.",
+      "impacto": "Recupera a atribuição de quase dois terços dos leads que hoje chegam órfãos. Combinado com LF-01, é o que leva a conta ao patamar do Voa Conhecimento, que tem 99,7% de cobertura.",
+      "status": "pendente",
+      "concluido_em": null,
+      "nota": ""
+    },
+    {
       "id": "LF-02",
       "titulo": "Ligar o Enhanced Conversions para leads no Google Ads",
       "sistema": "Google Ads",
@@ -283,8 +299,8 @@
       "severidade": "media",
       "esforco": "projeto",
       "problema": "Nenhum sinal do que acontece depois do lead volta para as plataformas.",
-      "acao": "Importar do CRM quem virou matrícula ou proposta, ligando pelo identificador de clique — que aqui está em 99,6%, o melhor cenário da carteira para esse tipo de integração.",
-      "impacto": "Com o fbc quase perfeito, este é o cliente com maior chance de sucesso num piloto de conversão offline: quase todo lead pode ser reconectado ao anúncio que o gerou.",
+      "acao": "Importar do CRM quem virou matrícula ou proposta. Depende de LF-01 e LF-05 estarem prontos: sem e-mail e telefone no evento, e com o identificador de clique em apenas 36%, hoje não há chave confiável para reconectar a venda ao anúncio.",
+      "impacto": "É o passo que fecha o funil, mas não é o primeiro. Vale como consequência de LF-01, não como projeto paralelo.",
       "status": "pendente",
       "concluido_em": null,
       "nota": ""
