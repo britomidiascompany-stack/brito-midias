@@ -1,0 +1,298 @@
+{
+  "cliente": "Legado e Família",
+  "slug": "legado-familia",
+  "empresa": "Legado e Família Educação",
+  "auditoria_em": "2026-09-02",
+  "atualizado_em": "2026-09-02",
+  "metodologia": "Metodologia Rastracking100 (Dericson Calari) — playbook interno da Brito Mídias",
+  "veredito_titulo": "O rastreamento mais bem cuidado da carteira, com um erro de posicionamento no evento principal",
+  "veredito": "Aqui o contrário do Jardim Hípica: o contêiner é da geração nova, foi editado ontem, já tem as tags de Advanced Matching e o ID de conversão do Google bate com o da conta. O sinal chega — 99,6% dos leads vêm com identificador de clique, o melhor número da carteira. O problema é onde o evento de Lead dispara: na página de obrigado, não no envio do formulário. Como na página de obrigado não há formulário para ler, nenhum lead chega com e-mail ou telefone, e a nota trava em 6,1. Mudar o gatilho de lugar é o que separa esta conta de um rastreamento exemplar.",
+  "resumo": [
+    { "valor": "6,1", "label": "nota do Lead na Meta, sem e-mail nem telefone", "tom": "alerta" },
+    { "valor": "99,6%", "label": "dos leads com identificador de clique (fbc)", "tom": "ok" },
+    { "valor": "R$ 638", "label": "por conversão no Google em 30 dias", "tom": "critico" },
+    { "valor": "12", "label": "conversões personalizadas na Meta, 5 delas mortas", "tom": "alerta" },
+    { "valor": "2", "label": "contas GTM para o mesmo cliente", "tom": "alerta" }
+  ],
+  "sistemas": [
+    {
+      "id": "meta",
+      "nome": "Meta Ads",
+      "status": "alto",
+      "status_label": "Mede, mas sem identificar",
+      "resumo": "O pixel está saudável e com CAPI ativa disparando agora. O evento de Lead existe e chega com quase 100% de identificador de clique — mas sem nenhum dado pessoal, porque dispara na página de obrigado. Por cima disso há 12 conversões personalizadas sobrepostas que contam o mesmo lead mais de uma vez.",
+      "blocos": [
+        {
+          "titulo": "Configuração",
+          "linhas": [
+            ["Business", "Legado e Família (106752157280691)", ""],
+            ["Conta de anúncio", "3546375518788148 — Conta Legado Oficial", "ok"],
+            ["Pixel em uso", "343587846897001 — Pixel Legado e Família Oficial 2025", ""],
+            ["Criado em", "22/10/2020", ""],
+            ["Cookie primário", "Habilitado", "ok"],
+            ["CAPI (servidor)", "Ativa — navegador e servidor dispararam no mesmo minuto (02/09 11:24)", "ok"],
+            ["Conversions API Gateway", "Não usado — a casa usa GTM Server", ""]
+          ]
+        },
+        {
+          "titulo": "Qualidade dos eventos",
+          "linhas": [
+            ["Lead", "EMQ 6,1 — IP, user agent e fbp em 100%, fbc em 99,6%", "alerta"],
+            ["Lead · e-mail", "0% de cobertura", "critico"],
+            ["Lead · telefone", "0% de cobertura", "critico"],
+            ["PageView", "EMQ 6,1 — fbc em 98,7%", "alerta"],
+            ["SubscribedButtonClick", "Sem nota — nenhum identificador aproveitável", "alerta"],
+            ["Leitura", "O fbc quase perfeito mostra que a atribuição de clique está ótima. O que falta é o dado da pessoa.", ""]
+          ]
+        },
+        {
+          "titulo": "Conversões personalizadas (12 no total)",
+          "linhas": [
+            ["TD_TYP_SUCESSÃO - LEAD", "Regra: Lead + URL contém programa-de-sucessao · disparou 02/09 11:01:42", "alerta"],
+            ["TD_TYP_SUCESSÃO - LEAD V2", "Regra quase idêntica · disparou 02/09 11:01:42, no mesmo segundo", "critico"],
+            ["TD_TYP_SUCESSÃO - LEAD V1", "Nunca disparou — a regra usa /typ com barra, a URL real usa -typ", "alerta"],
+            ["TD_TYP_SUCESSÃO - PV / PV V1 / PV V2", "Mesma sobreposição do bloco de Lead", "alerta"],
+            ["TD_IC - TYPEBOT_SUCESSÃO", "Nunca disparou (regra aponta para typebot.co/legadoefamilia)", "alerta"],
+            ["[TYP] MCMC3", "Parado desde março de 2025", "alerta"],
+            ["Obrigado Sucessão Agro", "Parado desde dezembro de 2024", "alerta"],
+            ["[TYP] CADASTROS FMC4", "Ativa — último disparo 27/08", "ok"],
+            ["TD_IC - PV_MEMBRO / PV_PROFISSIONAL", "Ativas — apontam para legadoefamilia.com/curso/...", "ok"]
+          ]
+        },
+        {
+          "titulo": "Campanhas",
+          "linhas": [
+            ["Conjuntos ativos com conversão", "3, todos OFFSITE_CONVERSIONS no pixel 343587846897001, evento LEAD", "ok"],
+            ["Campanhas ativas", "[JA] [CADASTRO] [CBO] [QUENTE] Site e [JA] [CADASTRO] [CBO] [F] [TERNO] Site", ""],
+            ["Conjunto de post impulsionado", "1 ativo com meta VISIT_INSTAGRAM_PROFILE — sem rastreamento de site", "alerta"],
+            ["Bloco [PSP][APLICACAO]", "16 conjuntos pausados, todos com o mesmo desenho de LEAD", ""]
+          ]
+        },
+        {
+          "titulo": "Conjuntos de dados órfãos no mesmo business",
+          "linhas": [
+            ["1155700220007521", "Legado - Manychat Event Data — nunca disparou", "alerta"],
+            ["1286987472240935", "Pixel de Legado e Família — nunca disparou", "alerta"],
+            ["887229362351519", "Pixel site Legado e Família — nome duplicado, nunca disparou", "alerta"],
+            ["245872794138012", "Pixel de Anúncios Legado — nunca disparou", "alerta"],
+            ["5999396643511164", "Pixel site Legado e Família — parou em 14/06/2026, nunca usou CAPI", "alerta"]
+          ]
+        }
+      ],
+      "achados": [
+        { "severidade": "critico", "titulo": "O Lead dispara na página de obrigado, não no envio do formulário", "detalhe": "As tags [Meta Pixel] - Lead e [Meta API] - Lead têm como gatilho o caminho da página de obrigado (programa-de-sucessao-typ). Nessa página não existe formulário para ler, então nenhum dado pessoal é capturado e a nota de correspondência trava em 6,1. O playbook é explícito neste ponto: o evento de Lead pertence à página de captura, no envio do formulário." },
+        { "severidade": "alto", "titulo": "O mesmo lead conta em duas conversões personalizadas ao mesmo tempo", "detalhe": "TD_TYP_SUCESSÃO - LEAD e TD_TYP_SUCESSÃO - LEAD V2 registraram disparo no mesmo segundo (02/09 11:01:42), porque as regras se sobrepõem. Se as duas forem usadas em relatório ou otimização, o volume de leads aparece inflado." },
+        { "severidade": "medio", "titulo": "Três conversões personalizadas nunca dispararam por erro de URL", "detalhe": "LEAD V1 e PV V1 apontam para /typ com barra, enquanto a URL real usa -typ com hífen. A do Typebot aponta para um domínio que o funil não usa mais. São regras mortas ocupando espaço na conta." },
+        { "severidade": "baixo", "titulo": "Post impulsionado sem rastreamento", "detalhe": "Um conjunto ativo otimiza por visita ao perfil do Instagram, sem pixel associado. Não é erro, mas fica fora de qualquer medição de resultado." }
+      ]
+    },
+    {
+      "id": "google",
+      "nome": "Google Ads",
+      "status": "alto",
+      "status_label": "Mede pouco e sem enriquecer",
+      "resumo": "A conta mede — o ID de conversão bate com o que está no contêiner e o auto-tagging está ligado. Mas em 30 dias registrou apenas 2 conversões para R$ 1.277 investidos, e o Enhanced Conversions está desligado.",
+      "blocos": [
+        {
+          "titulo": "Conta e desempenho (últimos 30 dias)",
+          "linhas": [
+            ["Conta", "2620449076 — Legado e Família Educação", ""],
+            ["Investimento", "R$ 1.277,31", ""],
+            ["Cliques", "212", ""],
+            ["Conversões", "2", "critico"],
+            ["Custo por conversão", "R$ 638,66", "critico"],
+            ["[Google Ads] - Lead - PSP", "1 conversão", "alerta"],
+            ["[Google Ads] - Lead - FMC", "1 conversão", "alerta"]
+          ]
+        },
+        {
+          "titulo": "Configuração de rastreamento",
+          "linhas": [
+            ["Acompanhamento de conversões", "CONVERSION_TRACKING_MANAGED_BY_SELF", "ok"],
+            ["ID de conversão da conta", "16888219024 — confere com o AW-16888219024 do contêiner", "ok"],
+            ["Auto-tagging (gclid)", "Ligado", "ok"],
+            ["Enhanced Conversions para leads", "Desligado", "critico"],
+            ["Importação de conversão offline", "Não existe", "alerta"]
+          ]
+        }
+      ],
+      "achados": [
+        { "severidade": "alto", "titulo": "Enhanced Conversions desligado", "detalhe": "É o equivalente Google do Advanced Matching: manda e-mail e telefone hasheados junto da conversão para recuperar o que o cookie perde. Com o formulário já existindo no site, é ganho direto e de configuração simples." },
+        { "severidade": "alto", "titulo": "Duas conversões em 30 dias para R$ 1.277 investidos", "detalhe": "Um custo de R$ 638 por conversão em captação sugere subrastreamento, não desempenho ruim. As tags de Lead - PSP e Lead - FMC foram editadas ontem, o que indica mudança recente no funil — vale confirmar se todas as páginas de obrigado estão cobertas pelas regras de URL." }
+      ]
+    },
+    {
+      "id": "gtm",
+      "nome": "Google Tag Manager",
+      "status": "medio",
+      "status_label": "Bem mantido, com herança para limpar",
+      "resumo": "O melhor contêiner que auditamos até agora: geração nova, 39 tags, editado ontem, já com Advanced Matching e destino de servidor. Os problemas são de arrumação — uma conta antiga paralela e páginas do funil sem tag.",
+      "blocos": [
+        {
+          "titulo": "Contêiner em uso",
+          "linhas": [
+            ["Conta GTM", "Legado e Família Educação (6076886626)", ""],
+            ["Contêiner Web", "GTM-NDPCSCS — programas.legadoefamilia.com", ""],
+            ["Contêiner Servidor", "GTM-M6CGJ27D", "ok"],
+            ["IDs", "G-W0XECRF02G (GA4), AW-16888219024 (Google Ads), GT-K8HPB4S8", "ok"],
+            ["Total de tags", "39", ""],
+            ["Última edição", "Há 21 horas", "ok"],
+            ["Advanced Matching", "Presente — Set Cookies e Visitor API", "ok"],
+            ["Qualidade do contêiner", "Requer atenção — há páginas sem tag", "alerta"]
+          ]
+        },
+        {
+          "titulo": "Como o Lead é medido",
+          "linhas": [
+            ["[Meta Pixel] - Lead", "Gatilho: Page Path contém programa-de-sucessao-typ", "critico"],
+            ["[Meta API] - Lead", "Mesmo gatilho, enviando pela CAPI", "critico"],
+            ["[GA4] - Lead - PSP e - FMC", "Gatilho por Page URL de página de obrigado", "alerta"],
+            ["[Google Ads] - Lead - PSP e - FMC", "Mesmo padrão", "alerta"],
+            ["[GA4] - generate_lead", "Page Path programa-de-sucessao-typ", "alerta"],
+            ["Tags do LinkedIn", "3 tags (Insight + 2 eventos de lead) criadas nos últimos dias", ""],
+            ["Padrão", "Todo o rastreamento de lead depende da página de obrigado carregar", "critico"]
+          ]
+        },
+        {
+          "titulo": "Conta GTM antiga, ainda existente",
+          "linhas": [
+            ["Conta", "GTM - Legado&Família (6311130318)", "alerta"],
+            ["Contêiner", "GTM-TN98Z9JH — Web - Legado&Familia, sem contêiner de servidor", "alerta"],
+            ["Tags", "8 tags (FB Lead, FB PageView, GA4, Google Ads, Clarity, cookie de gênero) — TODAS PAUSADAS", "alerta"],
+            ["Última edição", "Há 15 dias (quando foram pausadas)", ""],
+            ["Qualidade do contêiner", "Urgente", "critico"]
+          ]
+        }
+      ],
+      "achados": [
+        { "severidade": "critico", "titulo": "Todo o rastreamento de lead depende da página de obrigado", "detalhe": "Meta Pixel, Meta API, GA4 e Google Ads disparam o Lead a partir do carregamento da página de obrigado. Além de impedir a captura de dado pessoal, isso significa que qualquer falha de redirecionamento — pessoa que fecha a aba, redirect que não completa, formulário que responde sem navegar — some com a conversão nas quatro plataformas ao mesmo tempo." },
+        { "severidade": "alto", "titulo": "Páginas do funil sem tag", "detalhe": "O diagnóstico do próprio GTM aponta páginas sem tag. O contêiner é nomeado por programas.legadoefamilia.com, mas as conversões personalizadas da Meta apontam para cursos.legadoefamilia.com e legadoefamilia.com/curso/... — indício de que o funil roda em subdomínios que não estão todos cobertos." },
+        { "severidade": "medio", "titulo": "Conta GTM antiga ainda de pé, com qualidade Urgente", "detalhe": "A conta GTM - Legado&Família tem um contêiner com 8 tags pausadas há 15 dias. Enquanto o snippet dele estiver instalado em alguma página, ele continua carregando e sendo diagnosticado — e cria risco de alguém editar o contêiner errado." }
+      ]
+    }
+  ],
+  "melhorias": [
+    {
+      "id": "LF-01",
+      "titulo": "Disparar o Lead no envio do formulário, não na página de obrigado",
+      "sistema": "GTM",
+      "severidade": "critica",
+      "esforco": "~2h",
+      "problema": "Meta Pixel, Meta API, GA4 e Google Ads disparam o Lead a partir do carregamento da página de obrigado. Sem formulário na página, nenhum dado pessoal é capturado e a nota fica em 6,1.",
+      "acao": "Criar o gatilho de envio de formulário na página de captação, ler e-mail, telefone e nome no submit e disparar o Lead ali, mantendo o mesmo event_id para deduplicar com a CAPI. A página de obrigado passa a ser confirmação, não a fonte do evento.",
+      "impacto": "Leva a nota do Lead de 6,1 para a faixa de 8 a 9,3 e blinda a medição contra falha de redirecionamento, que hoje derruba a conversão nas quatro plataformas de uma vez.",
+      "status": "pendente",
+      "concluido_em": null,
+      "nota": ""
+    },
+    {
+      "id": "LF-02",
+      "titulo": "Ligar o Enhanced Conversions para leads no Google Ads",
+      "sistema": "Google Ads",
+      "severidade": "critica",
+      "esforco": "~30min",
+      "problema": "Está desligado. É o equivalente Google do Advanced Matching e recupera parte do que o cookie perde.",
+      "acao": "Objetivos → Conversões → Configurações, aceitar os termos de dados do cliente e garantir que a tag envie e-mail e telefone.",
+      "impacto": "Melhora a correspondência das conversões existentes sem depender de mudança no site — e o site já tem formulário, então o dado está disponível.",
+      "status": "pendente",
+      "concluido_em": null,
+      "nota": ""
+    },
+    {
+      "id": "LF-03",
+      "titulo": "Limpar as conversões personalizadas sobrepostas da Meta",
+      "sistema": "Meta Ads",
+      "severidade": "alta",
+      "esforco": "~1h",
+      "problema": "São 12 conversões personalizadas. LEAD e LEAD V2 dispararam no mesmo segundo por regras sobrepostas; LEAD V1, PV V1 e a do Typebot nunca dispararam por erro de URL; duas estão paradas desde 2024 e 2025.",
+      "acao": "Manter uma conversão por evento e por funil, arquivar as mortas e as duplicadas, e conferir qual delas está sendo usada em otimização e em relatório.",
+      "impacto": "Elimina risco de contar o mesmo lead duas vezes e de otimizar por uma regra que nunca dispara.",
+      "status": "pendente",
+      "concluido_em": null,
+      "nota": ""
+    },
+    {
+      "id": "LF-04",
+      "titulo": "Cobrir com tag todas as páginas do funil",
+      "sistema": "GTM",
+      "severidade": "alta",
+      "esforco": "~1h",
+      "problema": "O diagnóstico do contêiner acusa páginas sem tag. O funil aparece em programas.legadoefamilia.com, cursos.legadoefamilia.com e legadoefamilia.com/curso/..., e o contêiner é nomeado por apenas um deles.",
+      "acao": "Levantar os subdomínios reais do funil, instalar o contêiner nos que faltam e cadastrar todos em Domínios monitorados.",
+      "impacto": "Fecha lacunas de medição e melhora a durabilidade do cookie primário entre as etapas do funil.",
+      "status": "pendente",
+      "concluido_em": null,
+      "nota": ""
+    },
+    {
+      "id": "LF-05",
+      "titulo": "Validar a cobertura das conversões de Lead do Google",
+      "sistema": "Google Ads",
+      "severidade": "alta",
+      "esforco": "~1h",
+      "problema": "Duas conversões em 30 dias para R$ 1.277 investidos dá R$ 638 por conversão, o que sugere subrastreamento e não desempenho ruim. As tags Lead - PSP e Lead - FMC foram editadas ontem.",
+      "acao": "Conferir se as regras de URL das duas ações cobrem todas as páginas de obrigado do funil ativo, e testar com o Tag Assistant um cadastro real ponta a ponta.",
+      "impacto": "Se houver cadastro não contado, o CPA real da conta é muito melhor do que o relatado — e as campanhas passam a otimizar com sinal completo.",
+      "status": "pendente",
+      "concluido_em": null,
+      "nota": ""
+    },
+    {
+      "id": "LF-06",
+      "titulo": "Encerrar a conta GTM antiga do cliente",
+      "sistema": "GTM",
+      "severidade": "media",
+      "esforco": "~30min",
+      "problema": "A conta GTM - Legado&Família mantém o contêiner GTM-TN98Z9JH com 8 tags pausadas há 15 dias e qualidade classificada como Urgente.",
+      "acao": "Confirmar que o snippet foi removido de todas as páginas, arquivar o contêiner e documentar que o contêiner oficial é o GTM-NDPCSCS.",
+      "impacto": "Elimina o risco de alguém editar o contêiner errado e de carregamento duplicado em páginas antigas.",
+      "status": "pendente",
+      "concluido_em": null,
+      "nota": ""
+    },
+    {
+      "id": "LF-07",
+      "titulo": "Arquivar os cinco conjuntos de dados órfãos da Meta",
+      "sistema": "Meta Ads",
+      "severidade": "media",
+      "esforco": "~20min",
+      "problema": "Cinco pixels no business não disparam — dois deles com o mesmo nome, Pixel site Legado e Família, e um que parou em junho de 2026.",
+      "acao": "Renomear com prefixo ZZ_ ou arquivar, deixando visível apenas o 343587846897001.",
+      "impacto": "Evita instalar ou apontar público para o pixel errado.",
+      "status": "pendente",
+      "concluido_em": null,
+      "nota": ""
+    },
+    {
+      "id": "LF-08",
+      "titulo": "Definir o padrão de medição do LinkedIn Ads",
+      "sistema": "GTM",
+      "severidade": "baixa",
+      "esforco": "~30min",
+      "problema": "Entraram no contêiner nos últimos dias uma tag de Insight e duas de evento de lead do LinkedIn, canal que não está no escopo de medição da casa.",
+      "acao": "Decidir se o LinkedIn entra no acompanhamento padrão e, se entrar, aplicar a mesma nomenclatura e o mesmo gatilho de formulário dos demais canais.",
+      "impacto": "Evita que um quarto canal cresça com padrão próprio e vire mais uma fonte divergente de número.",
+      "status": "pendente",
+      "concluido_em": null,
+      "nota": ""
+    },
+    {
+      "id": "LF-09",
+      "titulo": "Devolver conversão offline do CRM para Meta e Google",
+      "sistema": "Medição",
+      "severidade": "media",
+      "esforco": "projeto",
+      "problema": "Nenhum sinal do que acontece depois do lead volta para as plataformas.",
+      "acao": "Importar do CRM quem virou matrícula ou proposta, ligando pelo identificador de clique — que aqui está em 99,6%, o melhor cenário da carteira para esse tipo de integração.",
+      "impacto": "Com o fbc quase perfeito, este é o cliente com maior chance de sucesso num piloto de conversão offline: quase todo lead pode ser reconectado ao anúncio que o gerou.",
+      "status": "pendente",
+      "concluido_em": null,
+      "nota": ""
+    }
+  ],
+  "fontes": [
+    "Meta Ads — API de conjuntos de dados, conversões personalizadas e entidades de anúncio (campanhas e conjuntos)",
+    "Google Ads — extração ao vivo via Stract, últimos 30 dias, incluindo configuração de acompanhamento e ações de conversão",
+    "Google Tag Manager — leitura tag a tag dos contêineres GTM-NDPCSCS e GTM-TN98Z9JH e dos diagnósticos de contêiner"
+  ]
+}
