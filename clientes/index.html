@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Auditorias de Rastreamento — Brito Mídias</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --roxo:#7C3AED; --roxo-dark:#5B21B6; --roxo-deep:#3B0F73;
+    --roxo-light:#A78BFA; --roxo-xlight:#EDE9FE;
+    --preto:#0A0A0A; --ink:#141018; --cinza:#5B5566;
+    --linha:#E7E3EE; --bg:#FFFFFF; --bg-soft:#FAF9FC;
+    --verde:#16A34A; --amarelo:#D97706; --vermelho:#DC2626;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Poppins',system-ui,-apple-system,sans-serif;font-weight:300;font-size:16px;
+    line-height:1.6;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 28px}
+
+  .hero{position:relative;overflow:hidden;color:#fff;
+    background:
+      radial-gradient(1100px 500px at 78% -10%, rgba(124,58,237,.55), transparent 60%),
+      linear-gradient(150deg,#0A0A0A 0%,#17111F 45%,#3B0F73 100%);}
+  .hero::before{content:"";position:absolute;inset:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.14) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.14) 1px,transparent 1px);
+    background-size:44px 44px;
+    -webkit-mask-image:radial-gradient(circle at 50% 30%,#000 25%,transparent 72%);
+    mask-image:radial-gradient(circle at 50% 30%,#000 25%,transparent 72%);pointer-events:none}
+  .hero-in{position:relative;padding:40px 0 50px}
+  .brand{display:flex;align-items:center;gap:16px}
+  .brand svg{width:46px;height:46px;flex-shrink:0}
+  .brand .word{display:flex;align-items:center;gap:14px;font-weight:300}
+  .brand .word b{font-weight:800;font-size:20px}
+  .brand .word .bar{width:2px;height:30px;background:rgba(255,255,255,.55);display:inline-block}
+  .brand .word span{font-size:20px;letter-spacing:.22em}
+  .crumb{margin-top:32px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+    font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--roxo-light)}
+  .crumb b{color:#fff}
+  .crumb .sep{color:rgba(255,255,255,.35);font-weight:400;letter-spacing:0;text-transform:none}
+  .hero h1{font-weight:800;font-size:clamp(28px,4.4vw,44px);letter-spacing:-.02em;line-height:1.15;
+    margin-top:12px;text-wrap:balance}
+  .hero .sub{font-weight:300;font-size:16.5px;color:rgba(255,255,255,.74);margin-top:14px;max-width:64ch}
+
+  .sec{padding:52px 0}
+  .section-label{display:flex;align-items:center;gap:12px;font-size:13px;font-weight:600;
+    letter-spacing:.16em;text-transform:uppercase;color:var(--roxo)}
+  .section-label::before{content:"";width:34px;height:2px;background:var(--roxo);border-radius:2px}
+  .sec h2{font-weight:700;font-size:clamp(22px,3vw,28px);letter-spacing:-.01em;margin-top:14px}
+  .sec .intro{color:var(--cinza);margin-top:12px;max-width:72ch}
+
+  .grid{display:grid;gap:16px;margin-top:30px}
+  .card{border:1px solid var(--linha);border-radius:16px;padding:26px 28px;background:#fff;
+    display:block;transition:border-color .18s, transform .18s, box-shadow .18s}
+  .card:hover{border-color:var(--roxo-light);transform:translateY(-2px);
+    box-shadow:0 10px 30px -18px rgba(59,15,115,.5)}
+  .card:focus-visible{outline:3px solid var(--roxo-light);outline-offset:3px}
+  .card-top{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:10px}
+  .card h3{font-weight:700;font-size:21px;letter-spacing:-.01em;flex:1;min-width:160px}
+  .tag{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+    padding:5px 11px;border-radius:100px}
+  .tag.critico{background:#FEE2E2;color:var(--vermelho)}
+  .tag.alto{background:#FEF3C7;color:var(--amarelo)}
+  .tag.neutro{background:#F1F5F9;color:var(--cinza)}
+  .card p{color:var(--cinza);font-size:15px;margin-bottom:14px}
+  .card .destaque{font-size:14.5px;color:var(--ink);border-left:3px solid var(--roxo);
+    padding-left:14px;margin-bottom:14px}
+  .card .rodape{font-size:12.5px;color:var(--roxo-dark);font-weight:600;letter-spacing:.04em}
+
+  footer{background:var(--preto);color:rgba(255,255,255,.62);padding:40px 0;font-size:13.5px}
+  footer b{color:#fff}
+  footer p{margin-bottom:8px}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap hero-in">
+    <div class="brand">
+      <svg viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="2.4"
+           stroke-linejoin="round" stroke-linecap="round" aria-label="BM Mídias">
+        <polygon points="50,4 90,27 90,73 50,96 10,73 10,27"></polygon>
+        <polygon points="50,33 65,59 35,59"></polygon>
+        <line x1="50" y1="4" x2="50" y2="33"></line><line x1="90" y1="73" x2="65" y2="59"></line>
+        <line x1="10" y1="73" x2="35" y2="59"></line><line x1="90" y1="27" x2="50" y2="33"></line>
+        <line x1="90" y1="27" x2="65" y2="59"></line><line x1="50" y1="96" x2="65" y2="59"></line>
+        <line x1="50" y1="96" x2="35" y2="59"></line><line x1="10" y1="27" x2="35" y2="59"></line>
+        <line x1="10" y1="27" x2="50" y2="33"></line>
+      </svg>
+      <span class="word"><b>BM</b><i class="bar"></i><span>MÍDIAS</span></span>
+    </div>
+    <div class="crumb"><b>Brito Mídias</b><span class="sep">/</span><b>Clientes</b><span class="sep">/</span>Auditorias de rastreamento</div>
+    <h1>Auditorias de rastreamento</h1>
+    <p class="sub">Levantamento completo de Meta Ads, Google Ads e Google Tag Manager por cliente, com os defeitos encontrados e o plano de correção acompanhável ponto a ponto.</p>
+  </div>
+</header>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="section-label">Clientes auditados</div>
+    <h2>Três contas, três causas-raiz diferentes</h2>
+    <p class="intro">Todas as auditorias seguem a metodologia do Rastracking100 e são feitas com leitura direta das APIs e da interface do Tag Manager. Nada é alterado nas contas durante o levantamento.</p>
+
+    <div class="grid">
+      <a class="card" href="./jardim-hipica/">
+        <div class="card-top">
+          <h3>Jardim Hípica</h3>
+          <span class="tag critico">Crítico</span>
+          <span class="tag neutro">11 pontos</span>
+        </div>
+        <p class="destaque">Estrutura completa, montada e desconectada do site.</p>
+        <p>Tem contêiner Web e de servidor, CAPI ativa e Enhanced Conversions ligado — e mesmo assim está cego nos dois canais. As tags de conversão dependem de um gatilho de formulário herdado de um clone que nunca casa com o YAY!Forms usado hoje.</p>
+        <div class="rodape">Ver auditoria completa →</div>
+      </a>
+
+      <a class="card" href="./legado-familia/">
+        <div class="card-top">
+          <h3>Legado e Família</h3>
+          <span class="tag alto">Alto</span>
+          <span class="tag neutro">9 pontos</span>
+        </div>
+        <p class="destaque">O rastreamento mais bem cuidado da carteira, com um erro de posicionamento.</p>
+        <p>Contêiner da geração nova, editado ontem, com Advanced Matching e 99,6% dos leads trazendo identificador de clique. O problema é onde o Lead dispara: na página de obrigado, onde não existe formulário para ler.</p>
+        <div class="rodape">Ver auditoria completa →</div>
+      </a>
+
+      <a class="card" href="./cevepe/">
+        <div class="card-top">
+          <h3>CEVEPE</h3>
+          <span class="tag critico">Crítico</span>
+          <span class="tag neutro">10 pontos</span>
+        </div>
+        <p class="destaque">Um erro de digitação no ID derruba toda a conversão de site no Google.</p>
+        <p>O melhor mapeamento dos três — cinco pontos de clique de WhatsApp rastreados em quatro destinos. Só que o ID de conversão está escrito com o prefixo AW duplicado, e é ele que seis tags usam.</p>
+        <div class="rodape">Ver auditoria completa →</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p><b>Auditorias de rastreamento — Brito Mídias</b></p>
+    <p>Metodologia Rastracking100 (Dericson Calari), aplicada com leitura direta da API de conjuntos de dados da Meta, extração ao vivo do Google Ads e inspeção tag a tag no Google Tag Manager.</p>
+    <p>Cada página é alimentada pelo arquivo <b>auditoria.json</b> da pasta do cliente, o que permite atualizar métricas e status de correção sem mexer no layout.</p>
+  </div>
+</footer>
+
+</body>
+</html>
