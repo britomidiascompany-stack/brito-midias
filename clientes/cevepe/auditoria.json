@@ -11,7 +11,7 @@
   "resumo": [
     { "valor": "0", "label": "das 41 tags do nosso contêiner rodam no site", "tom": "critico" },
     { "valor": "2,5", "label": "nota do Lead na Meta — a pior da agência", "tom": "critico" },
-    { "valor": "0", "label": "conversões de site registradas no Google", "tom": "critico" },
+    { "valor": "2 de 5", "label": "conversões de WhatsApp com configuração incorreta no Google", "tom": "critico" },
     { "valor": "167 × 73", "label": "Leads contra PageViews em 7 dias no mesmo pixel", "tom": "critico" },
     { "valor": "1", "label": "conjunto ativo, e sem pixel associado", "tom": "alerta" }
   ],
@@ -97,7 +97,23 @@
             ["Local actions · Website visits", "7 — contadas pelo Perfil da Empresa, não pelo site", "alerta"],
             ["Store visits", "4 — automáticas", "alerta"],
             ["Conversation started", "1", ""],
-            ["Conversões vindas do site", "0", "critico"]
+            ["Ressalva", "Esta leitura veio da extração de 30 dias e NÃO trouxe as ações de WhatsApp do site. A leitura direta na conta, abaixo, mostra que elas existem e registram — não confiar só na extração para concluir ausência de conversão.", "alerta"]
+          ]
+        },
+        {
+          "titulo": "Ações de conversão de site — leitura direta na conta (27/08 a 02/09)",
+          "linhas": [
+            ["[LP CEVEPE] WHATSAPP TOPO", "Ativa · 1 conversão", "ok"],
+            ["[LP CEVEPE] WHATSAPP BOTAO", "Ativa · 1 conversão", "ok"],
+            ["[LP CEVEPE] WHATSAPP URGENCIA", "Ativa · 0 conversão", "alerta"],
+            ["[LP CEVEPE] WHATSAPP AGENDA", "Configuração incorreta · 0 conversão", "critico"],
+            ["[LP CEPEVE] WHATSAPP DUVIDAS", "Configuração incorreta · 0 conversão · o nome está com erro de digitação (CEPEVE)", "critico"],
+            ["Store visits", "Configuração incorreta", "critico"],
+            ["[LIGAÇÕES]", "Ativa · 4 conversões", "ok"],
+            ["Ações automáticas do Google", "8 em Conversões pendentes — criadas pelo Google, nunca dispararam", "alerta"],
+            ["Meta Enviar formulário de lead", "Aplicada a 0 de 6 campanhas", "alerta"],
+            ["Total no período", "8 conversões, valor R$ 2,00", ""],
+            ["Leitura", "O encanamento funciona: três das cinco ações de WhatsApp estão ativas e duas registraram conversão. O problema é volume e as duas ações quebradas.", ""]
           ]
         },
         {
@@ -113,7 +129,9 @@
         }
       ],
       "achados": [
-        { "severidade": "critico", "titulo": "As tags de conversão não existem na página", "detalhe": "O ID AW-602183659 carrega no site, mas pelo contêiner de terceiro, que aparentemente não tem tags de conversão configuradas. As sete tags de conversão de WhatsApp que criamos estão no nosso contêiner, que não está instalado. Por isso a conta registra ligações e ações automáticas do Perfil da Empresa, e zero conversões de site." },
+        { "severidade": "critico", "titulo": "Duas das cinco conversões de WhatsApp estão com configuração incorreta", "detalhe": "Leitura direta na conta: WHATSAPP TOPO, BOTAO e URGENCIA estão Ativas, e TOPO e BOTAO registraram conversão. Mas AGENDA e DUVIDAS aparecem como Configuração incorreta e nunca registraram nada — dois dos cinco pontos de contato do site estão fora da medição. A ação de Store visits também está com configuração incorreta." },
+        { "severidade": "alto", "titulo": "O volume de conversão de site é baixo demais para o tráfego", "detalhe": "Duas conversões de WhatsApp em sete dias, para uma conta que recebeu 487 cliques em 30 dias e cujo funil inteiro é conversa. O encanamento funciona, mas ou os gatilhos não cobrem todos os botões de WhatsApp do site, ou o site converte muito abaixo do esperado. Vale um teste de clique ponto a ponto." },
+        { "severidade": "medio", "titulo": "Oito ações automáticas do Google em Conversões pendentes", "detalhe": "Business profile, Smart campaign e afins foram criadas pelo Google e nunca dispararam. Poluem a tela de metas e algumas estão marcadas como principais." },
         { "severidade": "alto", "titulo": "Metade das conversões é automática, não é resultado", "detalhe": "Das 22 conversões, 11 são ações do Perfil da Empresa (visitas ao site contadas pelo Google e visitas à loja). Se estiverem marcadas como primárias, o lance automático está sendo guiado por elas em vez das ligações e conversas." },
         { "severidade": "alto", "titulo": "Enhanced Conversions desligado", "detalhe": "Mesmo com as ligações sendo o resultado principal, os dados de correspondência não estão sendo enviados." }
       ]
