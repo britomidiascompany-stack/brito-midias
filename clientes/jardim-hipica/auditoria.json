@@ -5,8 +5,8 @@
   "auditoria_em": "2026-09-02",
   "atualizado_em": "2026-09-02",
   "metodologia": "Metodologia Rastracking100 (Dericson Calari) — playbook interno da Brito Mídias",
-  "veredito_titulo": "Estrutura completa, montada e desconectada do site",
-  "veredito": "O Jardim Hípica tem tudo que um rastreamento maduro pede: contêiner Web e contêiner de servidor no GTM, pixel com CAPI ativa, Enhanced Conversions e auto-tagging ligados no Google. E mesmo assim está cego nos dois canais. A causa é única e pequena: as tags de conversão dependem de um gatilho de formulário herdado de um clone (Form ID contém \"cst\") e a captação do site hoje é feita por YAY!Forms. O gatilho nunca dispara. Um ajuste religa Meta, GA4 e Google Ads ao mesmo tempo.",
+  "veredito_titulo": "O formulário está fora do domínio rastreado — e a tag do Google aponta para a conta errada",
+  "veredito": "O Jardim Hípica tem tudo que um rastreamento maduro pede: contêiner Web e de servidor no GTM, pixel com CAPI ativa, Enhanced Conversions e auto-tagging ligados. E mesmo assim está cego nos dois canais, por dois motivos confirmados na inspeção ao vivo do site. Primeiro: a captação não acontece no site. O botão leva o visitante para lislie.yayforms.link, outro domínio, onde não existe GTM, GA4 nem Google Ads — só o pixel da Meta pela integração nativa do YAY. Nenhum gatilho de formulário poderia disparar, porque não há formulário no domínio rastreado. Segundo: a única tag de Google Ads que carrega no site aponta para AW-11226975236, que não é a conta ativa — então nem a conversão que chegasse seria contada no lugar certo.",
   "resumo": [
     { "valor": "0", "label": "conversões no Google em 30 dias", "tom": "critico" },
     { "valor": "R$ 568", "label": "investidos no mesmo período", "tom": "critico" },
@@ -142,7 +142,8 @@
         }
       ],
       "achados": [
-        { "severidade": "critico", "titulo": "O gatilho de formulário nunca dispara", "detalhe": "As 4 tags de conversão do bloco 01 dependem de um envio de formulário cujo Form ID contenha \"cst\" — valor herdado do contêiner modelo, nunca adaptado. A captação do site hoje é feita por YAY!Forms, que não é um formulário nativo com esse ID. Nenhuma das 4 tags jamais foi disparada. Esta é a causa-raiz do zero no Google e da ausência de Lead na Meta." },
+        { "severidade": "critico", "titulo": "O formulário está em outro domínio — nenhum gatilho de formulário pode funcionar", "detalhe": "Inspeção ao vivo em 03/09: a página de captação é moraremindaiatuba.com.br e carrega corretamente o contêiner GTM-55X393B8 e os dois GA4 (Web G-3622642YV3 e Server G-CFHQ571PK9). Só que ela não tem formulário nenhum: o botão \"Agende sua visita\" leva para lislie.yayforms.link, um domínio do próprio YAY!Forms, onde não há GTM, GA4 nem Google Ads — apenas o pixel da Meta, colocado pela integração nativa do YAY. Por isso as 4 tags do bloco 01 (gatilho \"Form ID contém cst\") nunca dispararam e nunca poderiam: não existe formulário no domínio rastreado. Também explica por que os únicos eventos que chegam são YFView, YFStart e YFAnswer, disparados pelo próprio YAY, sem e-mail, telefone ou fbc." },
+        { "severidade": "critico", "titulo": "A atribuição se perde na troca de domínio", "detalhe": "O fbclid e o gclid chegam em moraremindaiatuba.com.br, mas o visitante é enviado para outro domínio para preencher o formulário. O contêiner não tem o script de propagação de parâmetros (§5 do playbook), então nada disso atravessa. É a razão técnica de o fbc estar ausente em 100% dos eventos." },
         { "severidade": "alto", "titulo": "O gatilho da página de obrigado também não corresponde ao fluxo atual", "detalhe": "Três tags dependem de o caminho da página conter \"obrigado\". O fluxo atual do YAY não passa por essa página, então esse segundo caminho de conversão também está morto." },
         { "severidade": "alto", "titulo": "Contêiner parado há 7 meses enquanto o site mudou", "detalhe": "A defasagem entre o que o contêiner espera e o que o site faz é o padrão de falha: ninguém revisita o rastreamento quando a página de captação é trocada." },
         { "severidade": "medio", "titulo": "Domínios monitorados não configurados", "detalhe": "O próprio diagnóstico do GTM classifica a qualidade do contêiner como Urgente porque detectou a tag em domínios que não estão na configuração — o que afeta durabilidade de cookie e medição de conversão." },
@@ -153,26 +154,26 @@
   "melhorias": [
     {
       "id": "JH-01",
-      "titulo": "Trocar o gatilho de formulário para o evento real do YAY!Forms",
-      "sistema": "GTM",
+      "titulo": "Receber o lead pelo webhook do YAY e devolver a conversão pelo servidor",
+      "sistema": "GTM + n8n",
       "severidade": "critica",
-      "esforco": "~2h",
-      "problema": "As 4 tags de conversão do bloco 01 dependem de \"Form ID contém cst\", que nunca casa com o YAY!Forms usado hoje.",
-      "acao": "Criar um gatilho de evento personalizado a partir do dataLayer do YAY (ou usar o próprio YFAnswer como evento) e reapontar as 4 tags do bloco 01.",
-      "impacto": "Religa Lead na Meta, generate_lead no GA4 e a conversão no Google Ads de uma vez só. É o item que sozinho tira o cliente do zero.",
+      "esforco": "~4h",
+      "problema": "O formulário está em lislie.yayforms.link, fora do domínio rastreado. Não há GTM, GA4 nem Google Ads nesse domínio, então nenhum gatilho de formulário no contêiner do site pode funcionar — o problema não é o gatilho estar errado, é não existir formulário onde o contêiner roda.",
+      "acao": "Ligar o webhook do YAY (aba Integrar, formato V2) a um fluxo no n8n que dispare Lead pela CAPI da Meta com e-mail, telefone e nome hasheados, mais event_id, e registre a conversão no Google Ads. O payload do YAY já traz response.tracking.utm_*, então a origem vem junto. Como alternativa complementar, configurar o redirecionamento pós-envio do YAY para uma página de obrigado no próprio domínio — isso reaproveita o gatilho \"Page Path contém obrigado\" que já existe no contêiner.",
+      "impacto": "É o único caminho que mede o lead onde ele realmente acontece. Leva o EMQ do Lead da faixa atual para 8-9 e devolve conversão às duas plataformas.",
       "status": "pendente",
       "concluido_em": null,
       "nota": ""
     },
     {
       "id": "JH-02",
-      "titulo": "Remover a tag que aponta para o ID de conversão antigo",
+      "titulo": "Corrigir o ID do Google Ads que está ativo no site",
       "sistema": "Google Ads",
       "severidade": "critica",
       "esforco": "~30min",
-      "problema": "A tag \"Tag do Google AW-11226975236\" envia sinal para uma conta diferente da que está ativa (AW-18360192097).",
-      "acao": "Remover a tag ou corrigir o ID para o da conta em uso, e republicar o contêiner.",
-      "impacto": "Garante que a conversão, quando voltar a existir, chegue na conta certa.",
+      "problema": "Confirmado ao vivo em 03/09: a página carrega gtag para AW-11226975236, e o AW-18360192097 — que é o ID da conta que está investindo — não aparece em lugar nenhum. Qualquer conversão que chegasse seria creditada na conta errada.",
+      "acao": "Trocar o ID na \"Tag do Google\" do contêiner para AW-18360192097, conferir o rótulo de cada ação de conversão e republicar.",
+      "impacto": "Sem isso, todo o resto do trabalho no Google Ads é inútil: o sinal chega no lugar errado. É o ajuste de melhor relação esforço/retorno da lista.",
       "status": "pendente",
       "concluido_em": null,
       "nota": ""
