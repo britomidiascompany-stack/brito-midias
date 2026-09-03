@@ -5,11 +5,12 @@
   "auditoria_em": "2026-09-02",
   "atualizado_em": "2026-09-02",
   "metodologia": "Metodologia Rastracking100 (Dericson Calari) — playbook interno da Brito Mídias",
-  "veredito_titulo": "Um erro de digitação no ID está derrubando toda a conversão de site no Google",
-  "veredito": "O contêiner do CEVEPE é o mais bem mapeado dos três: 41 tags, geração nova com Advanced Matching, e cinco pontos de clique de WhatsApp rastreados separadamente em quatro destinos. Mesmo assim o Google não registra uma única conversão vinda do site. A causa apareceu na tela: o ID de conversão está escrito AW-AW-602183659, com o prefixo AW duplicado, e é esse ID malformado que seis tags usam. Em paralelo, os leads que chegam à Meta não vêm do site — vêm da plataforma de atendimento, com telefone e mais nada, o que produz a pior nota de correspondência da agência.",
+  "veredito_titulo": "O contêiner do CEVEPE nunca foi instalado no site",
+  "veredito": "As 41 tags do contêiner do CEVEPE — incluindo os cinco pontos de clique de WhatsApp mapeados separadamente e o Advanced Matching — nunca rodaram uma única vez. O contêiner GTM-MCQ7N3L2 não está na página. Quem carrega em cevepe.com.br é o GTM-584PFCH, um contêiner de terceiro que não pertence à conta do cliente nem aparece em nenhum lugar do nosso inventário. Isso explica de uma vez o zero de conversões de site no Google, o volume baixo de PageViews e o aviso de tag ausente que o próprio GTM exibia. Em paralelo, os leads que chegam à Meta não vêm do site: vêm da plataforma de atendimento, com telefone e mais nada, o que produz a pior nota de correspondência da agência.",
+  "correcao": "Esta auditoria foi corrigida em 02/09/2026, depois de o modo de visualização ser rodado no site real. A versão anterior apontava como causa principal um ID de conversão escrito com prefixo duplicado (AW-AW-602183659). Isso estava errado: a variável do contêiner está correta (AW-602183659) e o AW-AW- era apenas o painel de destinos do GTM prefixando de novo um valor que já tinha o prefixo, por o campo receber uma variável. A causa real é mais grave e está descrita acima.",
   "resumo": [
+    { "valor": "0", "label": "das 41 tags do nosso contêiner rodam no site", "tom": "critico" },
     { "valor": "2,5", "label": "nota do Lead na Meta — a pior da agência", "tom": "critico" },
-    { "valor": "AW-AW-", "label": "prefixo duplicado no ID de conversão, em 6 tags", "tom": "critico" },
     { "valor": "0", "label": "conversões de site registradas no Google", "tom": "critico" },
     { "valor": "167 × 73", "label": "Leads contra PageViews em 7 dias no mesmo pixel", "tom": "critico" },
     { "valor": "1", "label": "conjunto ativo, e sem pixel associado", "tom": "alerta" }
@@ -104,7 +105,7 @@
           "linhas": [
             ["Acompanhamento de conversões", "CONVERSION_TRACKING_MANAGED_BY_SELF", "ok"],
             ["ID de conversão da conta", "602183659", ""],
-            ["ID configurado no contêiner", "AW-AW-602183659 — prefixo duplicado", "critico"],
+            ["ID que carrega no site", "AW-602183659 — correto, mas vindo do contêiner de terceiro", "alerta"],
             ["Auto-tagging (gclid)", "Ligado", "ok"],
             ["Enhanced Conversions para leads", "Desligado", "critico"],
             ["Importação de conversão offline", "Não existe", "alerta"]
@@ -112,7 +113,7 @@
         }
       ],
       "achados": [
-        { "severidade": "critico", "titulo": "O ID de conversão no contêiner está malformado", "detalhe": "A tag do Google no contêiner está cadastrada como AW-AW-602183659, com o prefixo AW repetido. O painel do GTM mostra esse ID sendo usado por seis tags, contra apenas uma usando o AW-602183659 correto. Um identificador que não existe não entrega conversão para lugar nenhum — é a explicação mais direta para o zero de conversões de site." },
+        { "severidade": "critico", "titulo": "As tags de conversão não existem na página", "detalhe": "O ID AW-602183659 carrega no site, mas pelo contêiner de terceiro, que aparentemente não tem tags de conversão configuradas. As sete tags de conversão de WhatsApp que criamos estão no nosso contêiner, que não está instalado. Por isso a conta registra ligações e ações automáticas do Perfil da Empresa, e zero conversões de site." },
         { "severidade": "alto", "titulo": "Metade das conversões é automática, não é resultado", "detalhe": "Das 22 conversões, 11 são ações do Perfil da Empresa (visitas ao site contadas pelo Google e visitas à loja). Se estiverem marcadas como primárias, o lance automático está sendo guiado por elas em vez das ligações e conversas." },
         { "severidade": "alto", "titulo": "Enhanced Conversions desligado", "detalhe": "Mesmo com as ligações sendo o resultado principal, os dados de correspondência não estão sendo enviados." }
       ]
@@ -120,20 +121,48 @@
     {
       "id": "gtm",
       "nome": "Google Tag Manager",
-      "status": "alto",
-      "status_label": "O melhor mapeamento, com um erro de digitação caro",
-      "resumo": "41 tags, geração nova com Advanced Matching, contêiner de servidor ativo e cinco pontos de clique de WhatsApp rastreados separadamente. O trabalho de mapeamento é o melhor dos três clientes auditados. O que estraga é um ID digitado errado e a ausência de qualquer tag de Lead.",
+      "status": "critico",
+      "status_label": "Construído e nunca instalado",
+      "resumo": "41 tags, geração nova com Advanced Matching, contêiner de servidor ativo e cinco pontos de clique de WhatsApp rastreados separadamente. O melhor trabalho de mapeamento da carteira — e nenhuma dessas tags jamais rodou, porque o contêiner não está na página. Quem carrega no site é outro contêiner, de terceiro.",
       "blocos": [
         {
-          "titulo": "Contêineres",
+          "titulo": "O que roda de verdade em cevepe.com.br",
+          "linhas": [
+            ["Verificação", "Modo de visualização do GTM + leitura do que a página carrega, em 02/09/2026", ""],
+            ["Resposta do Tag Assistant", "\"Tag do Google: GTM-MCQ7N3L2 não encontrado\"", "critico"],
+            ["Contêiner que carrega no site", "GTM-584PFCH — não pertence à conta do cliente e não está em nenhum dos 79 contêineres do nosso inventário", "critico"],
+            ["Nosso contêiner na página", "Ausente", "critico"],
+            ["Google Ads na página", "AW-602183659 — carregado pelo contêiner de terceiro", "ok"],
+            ["GA4 na página", "G-2C8CNLLMJT — propriedade diferente do G-ZP8QCGNQ4E configurado no nosso contêiner", "alerta"],
+            ["Pixel Meta na página", "517348853911272 — é o pixel correto do cliente", "ok"],
+            ["Conclusão", "As 73 visualizações de página que o pixel recebe vêm do contêiner de terceiro, não do nosso", ""]
+          ]
+        },
+        {
+          "titulo": "O que existe dentro do contêiner de terceiro (GTM-584PFCH)",
+          "linhas": [
+            ["Como foi lido", "O conteúdo de um contêiner GTM é público. Leitura direta de googletagmanager.com/gtm.js?id=GTM-584PFCH", ""],
+            ["Tags de conversão do Google Ads", "6 ativas, com ID 602183659 — o ID correto da conta", "ok"],
+            ["Rótulos de conversão", "Os mesmos rótulos das nossas tags, incluindo HYrDCNzy1pAYEOuvkp8C do whatsapp_topo", "ok"],
+            ["Enhanced Conversions", "Habilitado nas 6 tags", "ok"],
+            ["Vinculador de conversões", "Presente", "ok"],
+            ["Tags pausadas", "6 tags de conversão pausadas, além das 6 ativas", "alerta"],
+            ["Gatilhos", "6 escutas de clique em link: api.whatsapp, telefones 5587988141272 e 5587988253766, tel:+, Google Maps", "ok"],
+            ["E-commerce", "Gatilhos de www.cevepe.com.br/checkout/cart e /checkout?session_id= — a loja existe e está mapeada", "alerta"],
+            ["Pixel Meta", "517348853911272, via tag HTML personalizada", "ok"],
+            ["Leitura", "Não é um contêiner abandonado: é um trabalho equivalente ao nosso, feito por outra pessoa, e é ele que está no ar", "critico"]
+          ]
+        },
+        {
+          "titulo": "Nosso contêiner (o que existe, mas não roda)",
           "linhas": [
             ["Conta GTM", "CEVEPE (6221062206)", ""],
-            ["Contêiner Web", "GTM-MCQ7N3L2", ""],
-            ["Contêiner Servidor", "GTM-PWXJZRVT", "ok"],
+            ["Contêiner Web", "GTM-MCQ7N3L2 — não instalado no site", "critico"],
+            ["Contêiner Servidor", "GTM-PWXJZRVT", ""],
             ["Total de tags", "41", ""],
             ["Última edição", "Há 24 dias", ""],
             ["Advanced Matching", "Presente — Set Cookies e Visitor API", "ok"],
-            ["ID do Google Ads", "AW-AW-602183659 em 6 tags · AW-602183659 em 1", "critico"],
+            ["Variável do Google Ads", "Google Ads ID | AW-602183659, tipo Permanente, valor AW-602183659 — está correta", "ok"],
             ["Aviso do próprio GTM", "Uma tag do Google ausente foi encontrada", "alerta"],
             ["Qualidade do contêiner", "Requer atenção", "alerta"]
           ]
@@ -159,7 +188,9 @@
         }
       ],
       "achados": [
-        { "severidade": "critico", "titulo": "Prefixo AW duplicado no ID de conversão", "detalhe": "AW-AW-602183659 é um identificador inexistente. Seis tags de conversão apontam para ele, incluindo as de clique no WhatsApp. É um erro de digitação com efeito total: todo o esforço de mapeamento dos cinco pontos de contato não chega ao Google Ads." },
+        { "severidade": "critico", "titulo": "O contêiner não está instalado no site", "detalhe": "Rodando o modo de visualização contra cevepe.com.br, o Tag Assistant responde que o GTM-MCQ7N3L2 não foi encontrado, e a leitura da página confirma: o contêiner carregado é o GTM-584PFCH. Nenhuma das 41 tags jamais rodou. É o mesmo padrão encontrado no TM Vendas — trabalho versionado e publicado no Tag Manager, sem nunca ter sido colocado na página." },
+        { "severidade": "critico", "titulo": "Existe um contêiner de terceiro no controle da medição", "detalhe": "O GTM-584PFCH não pertence à conta GTM do cliente e não aparece em nenhum dos 79 contêineres do inventário da agência. É ele que carrega hoje o Google Ads, o GA4 e o pixel do CEVEPE. Ou seja: quem controla a medição do cliente é quem tem acesso a esse contêiner, e não somos nós." },
+        { "severidade": "alto", "titulo": "Duas propriedades de GA4 diferentes", "detalhe": "O site carrega G-2C8CNLLMJT, enquanto o nosso contêiner está configurado para G-ZP8QCGNQ4E. São propriedades distintas, e não se sabe qual é a que o cliente de fato acompanha." },
         { "severidade": "alto", "titulo": "O contêiner não tem tag de Lead", "detalhe": "Todo o rastreamento de contato é por clique em botão de WhatsApp. O evento Lead que aparece na Meta não passa por aqui — vem da plataforma de atendimento, sem os dados que o contêiner poderia fornecer." },
         { "severidade": "medio", "titulo": "Bloco de e-commerce sem contrapartida no site", "detalhe": "Quatro tags de e-commerce não registram nenhum evento há pelo menos uma semana, e o pixel dedicado de e-commerce está morto desde 2022. Ou a loja saiu do ar, ou as tags nunca foram ligadas ao fluxo real." }
       ]
@@ -168,13 +199,13 @@
   "melhorias": [
     {
       "id": "CV-01",
-      "titulo": "Corrigir o ID de conversão AW-AW-602183659",
+      "titulo": "Resolver a posse do contêiner que roda no site",
       "sistema": "GTM",
       "severidade": "critica",
-      "esforco": "~30min",
-      "problema": "A tag do Google no contêiner está com o prefixo AW duplicado. Seis tags de conversão apontam para esse ID inexistente, incluindo todas as de clique no WhatsApp.",
-      "acao": "Corrigir para AW-602183659 na tag do Google e conferir cada uma das seis tags que herdam esse ID. Republicar o contêiner e validar com o Tag Assistant.",
-      "impacto": "É a correção de maior efeito da lista: religa de uma vez as sete conversões de WhatsApp que hoje não chegam ao Google Ads. Meia hora de trabalho para sair do zero de conversões de site.",
+      "esforco": "conversa + ~1h",
+      "problema": "O site carrega o GTM-584PFCH, um contêiner de terceiro fora da conta do cliente e fora do nosso inventário. O nosso contêiner, com as 41 tags, não está na página. Sem resolver isso, nenhuma outra correção de rastreamento tem efeito.",
+      "acao": "Descobrir de quem é o GTM-584PFCH e pedir acesso. A leitura do conteúdo dele mostra que NÃO é um contêiner abandonado: tem as 6 conversões do Google Ads ativas com o ID e os rótulos corretos, vinculador, Enhanced Conversions e o pixel do cliente. Assumir esse contêiner é melhor caminho do que instalar o nosso ao lado, que duplicaria PageView e pixel.",
+      "impacto": "É o pré-requisito de tudo. E muda o tamanho do trabalho: em vez de implantar do zero, provavelmente é assumir e completar um contêiner que já está 70% no lugar.",
       "status": "pendente",
       "concluido_em": null,
       "nota": ""
