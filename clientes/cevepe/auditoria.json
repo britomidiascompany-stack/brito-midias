@@ -5,15 +5,15 @@
   "auditoria_em": "2026-09-02",
   "atualizado_em": "2026-09-02",
   "metodologia": "Metodologia Rastracking100 (Dericson Calari) — playbook interno da Brito Mídias",
-  "veredito_titulo": "O contêiner do CEVEPE nunca foi instalado no site",
-  "veredito": "As 41 tags do contêiner do CEVEPE — incluindo os cinco pontos de clique de WhatsApp mapeados separadamente e o Advanced Matching — nunca rodaram uma única vez. O contêiner GTM-MCQ7N3L2 não está na página. Quem carrega em cevepe.com.br é o GTM-584PFCH, um contêiner de terceiro que não pertence à conta do cliente nem aparece em nenhum lugar do nosso inventário. Isso explica de uma vez o zero de conversões de site no Google, o volume baixo de PageViews e o aviso de tag ausente que o próprio GTM exibia. Em paralelo, os leads que chegam à Meta não vêm do site: vêm da plataforma de atendimento, com telefone e mais nada, o que produz a pior nota de correspondência da agência.",
-  "correcao": "Esta auditoria foi corrigida em 02/09/2026, depois de o modo de visualização ser rodado no site real. A versão anterior apontava como causa principal um ID de conversão escrito com prefixo duplicado (AW-AW-602183659). Isso estava errado: a variável do contêiner está correta (AW-602183659) e o AW-AW- era apenas o painel de destinos do GTM prefixando de novo um valor que já tinha o prefixo, por o campo receber uma variável. A causa real é mais grave e está descrita acima.",
+  "veredito_titulo": "Duas contas diferentes: no Google falta mídia, na Meta falta identidade",
+  "veredito": "O CEVEPE tem dois problemas independentes, e nenhum deles é o que a primeira leitura sugeria. No Google Ads, a medição funciona — as conversões de WhatsApp e de ligação registram normalmente e o total está em alta. O que quase não existe é mídia: sete das oito campanhas estão pausadas e a conta roda com R$ 33,00 por dia. Na Meta, o problema é de identidade: os leads não vêm do site, vêm da plataforma de atendimento carregando apenas o telefone, o que produz nota 2,5, a pior da agência. E atravessando os dois, uma questão estrutural: as 41 tags do nosso contêiner nunca rodaram, porque o GTM-MCQ7N3L2 não está instalado na página — quem carrega em cevepe.com.br é o GTM-584PFCH, um contêiner de terceiro fora da conta do cliente.",
+  "correcao": "Esta auditoria passou por duas rodadas de correção em 03/09/2026, ambas depois de ir verificar na fonte direta em vez de deduzir de painel ou de extração. Primeira: a versão original apontava um ID de conversão com prefixo duplicado (AW-AW-602183659). Errado — a variável do contêiner está correta, e o AW-AW- era o painel de destinos do GTM prefixando de novo um valor que já tinha o prefixo. Segunda: a versão seguinte afirmava zero conversões de site e duas ações de WhatsApp quebradas, com erro de digitação no nome. Também errado — a leitura direta na conta mostra conversões acontecendo, a ação suspeita apenas sem registro nos últimos 7 dias, e o nome escrito corretamente. O que sobrou de verdade, e está descrito abaixo, é o contêiner não instalado e uma conta praticamente sem mídia no ar.",
   "resumo": [
     { "valor": "0", "label": "das 41 tags do nosso contêiner rodam no site", "tom": "critico" },
+    { "valor": "7 de 8", "label": "campanhas pausadas no Google Ads", "tom": "critico" },
+    { "valor": "R$ 33", "label": "por dia é toda a mídia ativa da conta", "tom": "critico" },
     { "valor": "2,5", "label": "nota do Lead na Meta — a pior da agência", "tom": "critico" },
-    { "valor": "2 de 5", "label": "conversões de WhatsApp com configuração incorreta no Google", "tom": "critico" },
-    { "valor": "167 × 73", "label": "Leads contra PageViews em 7 dias no mesmo pixel", "tom": "critico" },
-    { "valor": "1", "label": "conjunto ativo, e sem pixel associado", "tom": "alerta" }
+    { "valor": "167 × 73", "label": "Leads contra PageViews em 7 dias no mesmo pixel", "tom": "alerta" }
   ],
   "sistemas": [
     {
@@ -83,8 +83,8 @@
       "id": "google",
       "nome": "Google Ads",
       "status": "critico",
-      "status_label": "Mede só o que não depende do site",
-      "resumo": "As 22 conversões dos últimos 30 dias são ligações e ações automáticas do Perfil da Empresa. Nenhuma veio do site — e o contêiner tem sete tags de conversão de WhatsApp que deveriam estar produzindo exatamente isso.",
+      "status_label": "Mede certo, quase sem mídia no ar",
+      "resumo": "A medição funciona: as conversões de WhatsApp e de ligação registram normalmente e o total do período está em alta. O problema é outro e maior — sete das oito campanhas estão pausadas, e a conta inteira roda com R$ 33,00 por dia numa única campanha de pesquisa.",
       "blocos": [
         {
           "titulo": "Conta e desempenho (últimos 30 dias)",
@@ -105,15 +105,29 @@
           "linhas": [
             ["[LP CEVEPE] WHATSAPP TOPO", "Ativa · 1 conversão", "ok"],
             ["[LP CEVEPE] WHATSAPP BOTAO", "Ativa · 1 conversão", "ok"],
-            ["[LP CEVEPE] WHATSAPP URGENCIA", "Ativa · 0 conversão", "alerta"],
-            ["[LP CEVEPE] WHATSAPP AGENDA", "Configuração incorreta · 0 conversão", "critico"],
-            ["[LP CEPEVE] WHATSAPP DUVIDAS", "Configuração incorreta · 0 conversão · o nome está com erro de digitação (CEPEVE)", "critico"],
-            ["Store visits", "Configuração incorreta", "critico"],
+            ["[LP CEVEPE] WHATSAPP URGENCIA", "Ativa · 0 conversão no período", "ok"],
+            ["[LP CEVEPE] WHATSAPP AGENDA", "Conversões pendentes · última conversão registrada em 16/07/2026 · aba Diagnóstico vazia, sem problema apontado", "alerta"],
+            ["[LP CEVEPE] WHATSAPP DUVIDAS", "Sem registro no período", "alerta"],
+            ["Store visits", "Configuração incorreta — depende do vínculo com o Perfil da Empresa, não se resolve dentro do Ads", "critico"],
             ["[LIGAÇÕES]", "Ativa · 4 conversões", "ok"],
-            ["Ações automáticas do Google", "8 em Conversões pendentes — criadas pelo Google, nunca dispararam", "alerta"],
+            ["Ações automáticas do Google", "8 em Conversões pendentes — criadas pelo Google, nunca dispararam, algumas marcadas como principais", "alerta"],
             ["Meta Enviar formulário de lead", "Aplicada a 0 de 6 campanhas", "alerta"],
-            ["Total no período", "8 conversões, valor R$ 2,00", ""],
-            ["Leitura", "O encanamento funciona: três das cinco ações de WhatsApp estão ativas e duas registraram conversão. O problema é volume e as duas ações quebradas.", ""]
+            ["Leitura", "O encanamento de conversão funciona. Nenhuma ação de WhatsApp está quebrada: a que não registra no período já registrou em julho, e o próprio diagnóstico do Google não aponta problema nela.", "ok"]
+          ]
+        },
+        {
+          "titulo": "O estado real da mídia (27/08 a 02/09)",
+          "linhas": [
+            ["Campanhas na conta", "8", ""],
+            ["Campanhas pausadas", "7", "critico"],
+            ["Única campanha ativa", "[CEVEPE] [SEARCH] [LEADS] [RAIO-20KM] #2 — Pesquisa, CPA desejado, qualificada", ""],
+            ["Orçamento da campanha ativa", "R$ 33,00 por dia", "critico"],
+            ["Orçamento total da conta", "R$ 33,00 por dia — é toda a mídia no ar", "critico"],
+            ["Pontuação de otimização", "95,3% na campanha ativa", "ok"],
+            ["Impressões no período", "1.434", ""],
+            ["Conversões no período", "6,00, com alta de 3,00 em relação ao período anterior", "ok"],
+            ["Campanhas pausadas com orçamento definido", "SMART Serviços-Ligação e SMART Pet Shop-Rota (R$10/dia cada), Search+ Tráfego (R$5), Display Alcance (R$5), Vídeo Alcance (R$15), Search Max Conv Cirurgias Pet (R$13)", "alerta"],
+            ["Leitura", "É isto que explica o volume baixo de conversão — não é falha de medição. Uma campanha de pesquisa a R$ 33 por dia, com 1.434 impressões na semana, produz exatamente essa ordem de grandeza de contato.", "critico"]
           ]
         },
         {
@@ -129,8 +143,9 @@
         }
       ],
       "achados": [
-        { "severidade": "critico", "titulo": "Duas das cinco conversões de WhatsApp estão com configuração incorreta", "detalhe": "Leitura direta na conta: WHATSAPP TOPO, BOTAO e URGENCIA estão Ativas, e TOPO e BOTAO registraram conversão. Mas AGENDA e DUVIDAS aparecem como Configuração incorreta e nunca registraram nada — dois dos cinco pontos de contato do site estão fora da medição. A ação de Store visits também está com configuração incorreta." },
-        { "severidade": "alto", "titulo": "O volume de conversão de site é baixo demais para o tráfego", "detalhe": "Duas conversões de WhatsApp em sete dias, para uma conta que recebeu 487 cliques em 30 dias e cujo funil inteiro é conversa. O encanamento funciona, mas ou os gatilhos não cobrem todos os botões de WhatsApp do site, ou o site converte muito abaixo do esperado. Vale um teste de clique ponto a ponto." },
+        { "severidade": "critico", "titulo": "Sete das oito campanhas estão pausadas — a conta tem R$ 33 por dia no ar", "detalhe": "A única campanha ativa é uma de Pesquisa com R$ 33,00 diários e pontuação de otimização de 95,3%. Todas as outras sete estão pausadas, várias com orçamento já definido. Este é o achado que reordena a prioridade do cliente: o problema principal do Google Ads no CEVEPE não é medição, é que quase não há mídia rodando." },
+        { "severidade": "alto", "titulo": "O volume de conversão é coerente com a mídia que existe", "detalhe": "Seis conversões no período, em alta, com 1.434 impressões. Antes de olhar a mídia, esse número parecia baixo demais e sugeria falha de rastreamento. Com uma campanha de pesquisa a R$ 33 por dia, é exatamente a ordem de grandeza esperada. Não há evidência de perda de conversão." },
+        { "severidade": "medio", "titulo": "Store visits com configuração incorreta", "detalhe": "É a única ação de conversão que o Google marca como mal configurada. Depende do vínculo com o Perfil da Empresa e não se resolve dentro do Ads." },
         { "severidade": "medio", "titulo": "Oito ações automáticas do Google em Conversões pendentes", "detalhe": "Business profile, Smart campaign e afins foram criadas pelo Google e nunca dispararam. Poluem a tela de metas e algumas estão marcadas como principais." },
         { "severidade": "alto", "titulo": "Metade das conversões é automática, não é resultado", "detalhe": "Das 22 conversões, 11 são ações do Perfil da Empresa (visitas ao site contadas pelo Google e visitas à loja). Se estiverem marcadas como primárias, o lance automático está sendo guiado por elas em vez das ligações e conversas." },
         { "severidade": "alto", "titulo": "Enhanced Conversions desligado", "detalhe": "Mesmo com as ligações sendo o resultado principal, os dados de correspondência não estão sendo enviados." }
@@ -216,6 +231,19 @@
   ],
   "melhorias": [
     {
+      "id": "CV-00",
+      "titulo": "Decidir o que fazer com as sete campanhas pausadas",
+      "sistema": "Mídia",
+      "severidade": "critica",
+      "esforco": "conversa",
+      "problema": "A conta tem oito campanhas e sete estão pausadas. A mídia ativa é uma única campanha de pesquisa com R$ 33,00 por dia. Nenhuma correção de rastreamento muda resultado enquanto esse for o cenário.",
+      "acao": "Levar o quadro ao gestor e ao cliente: a conta está sendo tratada como ativa, mas opera com um orçamento residual. Definir se reativa, se redimensiona ou se assume que é conta em manutenção — e ajustar a expectativa de resultado de acordo.",
+      "impacto": "É o item que muda de patamar. Os demais pontos desta lista melhoram a qualidade do sinal; este define se existe volume para o sinal medir.",
+      "status": "pendente",
+      "concluido_em": null,
+      "nota": ""
+    },
+    {
       "id": "CV-01",
       "titulo": "Resolver a posse do contêiner que roda no site",
       "sistema": "GTM",
@@ -299,8 +327,8 @@
       "sistema": "GTM",
       "severidade": "media",
       "esforco": "~1h",
-      "problema": "Quatro tags de e-commerce não registram evento algum, e o pixel dedicado de e-commerce está parado desde abril de 2022.",
-      "acao": "Confirmar com o cliente se a loja ainda opera. Se operar, ligar as tags ao fluxo real; se não, removê-las do contêiner.",
+      "problema": "As quatro tags de e-commerce do nosso contêiner não registram evento algum e o pixel dedicado de e-commerce está parado desde abril de 2022. Mas a loja existe: o contêiner de terceiro tem gatilhos ativos de cevepe.com.br/checkout/cart e /checkout?session_id=.",
+      "acao": "Confirmar com o cliente o volume real da loja e ligar a medição de e-commerce ao fluxo que já está mapeado no contêiner que roda no site.",
       "impacto": "Um contêiner que só contém o que de fato dispara é muito mais fácil de manter e auditar.",
       "status": "pendente",
       "concluido_em": null,
