@@ -1,0 +1,123 @@
+---
+name: criador-campanhas-cci-2026
+description: >-
+  Cria e gerencia campanhas de tráfego pago (Meta Ads) do CCI 2026 (Congresso de Clínicas
+  Integrativas — Instituto Fernanda Ben / Fernanda Ben), via MCP Meta Ads, seguindo o padrão de
+  nomenclatura, targeting, copy e UTM já usado na campanha modelo. Use SEMPRE que o Rafael pedir
+  para "subir criativos do CCI", "subir criativo na campanha modelo do CCI", "criar campanha do
+  CCI 2026", "criar campanha de venda de ingresso do congresso", ou mandar/citar a planilha de
+  criativos do CCI-2026 junto com um ID de campanha/conjunto. Vale mesmo quando ele não diz
+  "skill" — se o assunto é montar/preencher campanha ou conjunto de anúncios do CCI 2026, use esta
+  skill. NÃO use para o IFB-ICV-2026 (essa é a `criador-campanhas-captacao-paga-ifb-icv-2026`) nem
+  para outros clientes — são produtos/contas diferentes mesmo compartilhando a mesma conta Meta.
+---
+
+# Criador de campanhas — CCI 2026 (Congresso de Clínicas Integrativas)
+
+Cria e expande campanhas de **Vendas de ingresso** do CCI 2026 no Meta Ads, usando o MCP de
+anúncios. Tudo nasce **PAUSED** — a skill nunca ativa nada sem o Rafael pedir explicitamente.
+
+O CCI 2026 roda na **mesma conta Meta do IFB** (mesmo Business Manager, mesma página do Facebook e
+mesmo pixel), mas é um produto diferente (congresso presencial, não a Imersão Clínica de Valor) —
+não confundir com a skill `criador-campanhas-captacao-paga-ifb-icv-2026`.
+
+## Ativos fixos
+| Item | ID |
+|---|---|
+| Ad account | `463327393755502` |
+| Página FB | `2300931153272351` (Instituto Fernanda Ben) |
+| Instagram | `17841409919804434` (@institutofernandaben) |
+| Pixel | `905892400214790` (Pixel completo - IFB) |
+| conversion_domain | `institutofernandaben.com.br` |
+| **Página de destino (landing page)** | `https://cci2026.institutofernandaben.com.br/` |
+
+⚠️ A URL da página **não é recuperável via API** para criativos que não são carrossel (o campo
+`link`/`link_url` some do retorno de `ads_get_creatives` nesse caso, e `ads_get_ad_preview` também
+não mostra o rodapé com o domínio). Se um dia essa página mudar, peça a URL nova ao Rafael — não
+adivinhe a partir do nome da campanha.
+
+## Campanha modelo (referência viva — reconsulte o ID antes de assumir, pode ter mudado)
+- Campanha `52552123122994`: `[00][CCI-2026][INGRESSO][VENDA][COMPRA][P-ADVANTAGE][AUTO][PAGINA DOMINIO][CBO][MODELO]`
+- Conjunto único `52552602465794`: `00 | P-ADVANTAGE | 30-55 | H-M | CBO | PAGINA DOMINIO-V1`
+
+## Nomenclatura (padrão já em uso — reproduza exatamente)
+- **Campanha:** `[NN][CCI-2026][INGRESSO][VENDA][COMPRA][<PUBLICO>][AUTO][PAGINA DOMINIO][CBO]<[MODELO]>`
+  - `NN` sequencial — confira o maior número já usado antes de numerar uma nova
+    (`ads_get_ad_entities`, level=campaign, filtro `campaign.name CONTAIN "CCI-2026"`).
+  - `<PUBLICO>` = `P-ADVANTAGE` por padrão (Advantage+); troque conforme o Rafael pedir (quente,
+    remarketing etc, seguindo a mesma lógica da skill do IFB).
+- **Conjunto:** `00 | <PUBLICO> | 30-55 | H-M | CBO | PAGINA DOMINIO-V1`
+- **Anúncio:** o **nome completo do criativo** da planilha (ex `ADV08_CCI-2026_VENDA_APAIXONADO SE
+  SENTE PERDIDO_0.53`). ADV = vídeo, ADI = imagem. Etapa fixa no nome: `VENDA` (não `CAP` como no
+  IFB — aqui é campanha de venda direta de ingresso, não captação de lead/lançamento).
+
+## Padrão fixo de toda campanha
+- Objetivo **Vendas** (`OUTCOME_SALES`), **CBO**, bid **maior volume** (`LOWEST_COST_WITHOUT_CAP`)
+  por padrão — pergunte se o Rafael quiser cost cap/ROAS cap (mesma mecânica documentada na skill
+  do IFB: `bid_amount` em centavos pra cost cap, `bid_constraints.roas_average_floor` pra ROAS cap,
+  nunca `optimization_goal:VALUE`).
+- Otimização **Compra**: `optimization_goal=OFFSITE_CONVERSIONS` + `promoted_object={pixel_id,
+  custom_event_type:PURCHASE}`.
+- Targeting: Brasil, **Advantage+** (`advantage_audience:1`). Aqui a campanha modelo usa
+  **age_min 18, age_max 65** (mais aberto que o IFB, que usa 25-65) — a trava real do Advantage+
+  só exige mín≤25 e máx≥65; a campanha modelo do CCI escolheu 18 como mínimo. Replique 18-65 salvo
+  instrução em contrário. A faixa "30-55" no nome do conjunto é só referência, como no IFB.
+- **UTM** (`url_tags`, no nível do criativo, nunca dentro de `link_data`/`video_data`) — **atenção:
+  o código aqui é `CCI-26`, não `CCI-2026`**, e tem um `utm_term` extra que o IFB não tem:
+  ```
+  src=CCI-26_{{adset.name}}_{{ad.name}}_{{campaign.name}}&utm_source=CCI-26&utm_medium={{adset.name}}&utm_content={{ad.name}}&utm_campaign={{campaign.name}}&utm_term={{campaign.id}}_{{adset.id}}_{{ad.id}}
+  ```
+- Sempre **PAUSED** ao criar. Só ativar se o Rafael pedir explicitamente.
+
+## Copy padrão (única — não há variação por página como no modelo antigo do IFB)
+- Título: `Você não vai assistir ao futuro das clínicas integrativas. Vai entrar nele.`
+- Descrição: `CCI 2026 — 7 e 8 de novembro, São Paulo. Garanta sua vaga.`
+- Texto:
+```
+A saúde integrativa amadureceu, mas a maioria das clínicas ainda não.
+
+Enquanto você segue atualizando técnicas isoladas, sem conexão entre protocolo, tecnologia, experiência do paciente e posicionamento, o mercado já caminha pra outro patamar: clínicas estruturadas como sistema, não como uma coleção de ferramentas soltas. Ficar parado nesse momento significa assistir de fora enquanto outros profissionais ocupam o espaço que poderia ser seu.
+
+O CCI 2026 é o congresso presencial que reúne, em 2 dias em São Paulo, a Fernanda Ben e todo o ecossistema da nova clínica integrativa, formação, tecnologia, protocolos e comunidade no mesmo lugar, com continuidade internacional depois do evento.
+
+👉 Clique em Saiba mais e garanta sua vaga.
+```
+- CTA: `LEARN_MORE` (confirmado nos 3 vídeos existentes + nos 5 vídeos novos). Um dos criativos de
+  imagem do modelo (ADI04) usava `SEE_DETAILS` em vez de `LEARN_MORE` — não sei se é intencional;
+  pergunte ao Rafael antes de replicar `SEE_DETAILS` numa imagem nova, use `LEARN_MORE` por padrão.
+
+## Como escolher "os criativos que converteram" (se o Rafael pedir isso no CCI)
+Mesma lógica da skill do IFB: use a tabela principal de registro de criativos da planilha do
+CCI-2026 (colunas `CRIATIVOS | LINK DRIVE | TIPO | INVESTIMENTO | VENDAS META ADS | ...`), filtrando
+por `VENDAS META ADS > 0`. Não confie numa aba de série diária separada se ela existir (mesmo
+padrão de risco de desatualização visto no IFB).
+
+## Passo a passo pra subir criativos na campanha modelo
+1. Ache o Video ID (ou hash de imagem) na planilha do CCI-2026 (mesma estrutura de colunas do IFB:
+   `CRIATIVOS | LINK DRIVE | TIPO | ... | VIDEO ID OU HASH CONTA IFB`).
+2. Pegue a thumbnail fresca do vídeo (`ads_get_ad_videos`, campo `picture` — expira, busque na hora).
+3. Monte o `object_story_spec` com a copy e o link fixos acima (`video_data` pra vídeo, `link_data`
+   pra imagem — ver `references/fluxo-mcp.md` da skill do IFB pro JSON exato, a mecânica de API é
+   idêntica).
+4. `ads_create_ad` direto no conjunto já existente (`52552602465794` ou o que o Rafael indicar) —
+   não precisa `adset_spec`, o conjunto já existe.
+5. Confira e reporte os IDs criados, tudo PAUSED.
+
+## Passo a passo pra criar campanha nova
+Igual à skill do IFB: **sempre proponha primeiro** o nome da campanha, do conjunto e a lista de
+criativos (com nome completo de cada um) — só cria depois que o Rafael aprovar. Pergunte sempre:
+orçamento (em centavos), tipo de público (Advantage+ padrão, ou quente/remarketing — nesse caso o
+Rafael troca o público real depois na tela), e quais criativos entram.
+
+## Armadilhas conhecidas (as mesmas do IFB, valem aqui também)
+- Link/URL não aparece em `ads_get_creatives` pra criativo não-carrossel — não perca tempo tentando
+  de novo, peça direto ao Rafael se precisar confirmar.
+- `url_tags` sempre no nível do criativo, nunca dentro de `link_data`/`video_data`.
+- Vídeo sem `image_url` (thumbnail) dá erro 1443226.
+- `ads_create_ad` falha por erro transitório de conector com frequência nesta conta — trate como
+  retry normal (1-2 tentativas resolvem).
+- Tudo nasce PAUSED — nunca ative sem o Rafael pedir.
+
+Contexto operacional mais detalhado (JSON exato de creative, mecânica de bid cap, etc.) está na
+skill irmã `criador-campanhas-captacao-paga-ifb-icv-2026` (`references/fluxo-mcp.md`) — a API é a
+mesma conta/mesmo MCP, só muda copy/link/nomenclatura.
