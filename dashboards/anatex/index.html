@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ANATEX · Marketex — Relatório de Tráfego Pago (11 contas)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+:root{--roxo:#7C3AED;--roxo-soft:#A78BFA;--verde:#059669;--vermelho:#DC2626;--amarelo:#D97706;--cinza:#6B7280;--borda:#E7E3EE;--bg-soft:#FAF9FC;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Poppins',sans-serif;font-weight:300;background:#fff;color:#1F1135;}
+a{color:var(--roxo);text-decoration:none;}
+a:hover{text-decoration:underline;}
+
+.hero{background:linear-gradient(150deg,#0A0A0A 0%,#17111F 45%,#3B0F73 100%);position:relative;overflow:hidden;padding:56px 24px 40px;text-align:center;color:#fff;}
+.hero::before{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(transparent,transparent 43px,rgba(124,58,237,.18) 43px,rgba(124,58,237,.18) 44px),repeating-linear-gradient(90deg,transparent,transparent 43px,rgba(124,58,237,.18) 43px,rgba(124,58,237,.18) 44px);pointer-events:none;}
+.hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 55% at 50% 40%,rgba(124,58,237,.55) 0%,transparent 70%);pointer-events:none;}
+.hero-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto;}
+.logo-bm{width:52px;height:52px;margin-bottom:16px;}
+.hero h1{font-size:clamp(1.5rem,4vw,2.4rem);font-weight:800;letter-spacing:-.5px;margin-bottom:6px;}
+.hero .sub{font-size:.95rem;opacity:.75;margin-bottom:4px;}
+.hero .ts{font-size:.8rem;opacity:.55;margin-bottom:24px;}
+.hero-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;max-width:900px;margin:0 auto;}
+.hero-kpi{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:16px 14px;}
+.hero-kpi .label{font-size:.7rem;opacity:.6;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;}
+.hero-kpi .val{font-size:1.5rem;font-weight:800;line-height:1.1;}
+.hero-kpi .sub2{font-size:.72rem;opacity:.55;margin-top:4px;}
+
+/* Filtros (período em botões + campanha/série/conta em lista suspensa) */
+.periodo-filtro{position:sticky;top:0;z-index:10;background:#fff;border-bottom:1.5px solid var(--borda);padding:12px 20px 4px;display:flex;justify-content:center;gap:8px;flex-wrap:wrap;}
+.periodo-btn{font-family:'Poppins',sans-serif;font-size:.78rem;font-weight:600;color:var(--cinza);background:#fff;border:1.5px solid var(--borda);border-radius:20px;padding:7px 16px;cursor:pointer;transition:.15s;}
+.periodo-btn:hover{border-color:var(--roxo-soft);color:var(--roxo);}
+.periodo-btn.active{background:var(--roxo);border-color:var(--roxo);color:#fff;}
+.filtros-lista{position:sticky;top:51px;z-index:9;background:#fff;border-bottom:1.5px solid var(--borda);padding:10px 20px 14px;display:flex;justify-content:center;align-items:flex-end;gap:14px;flex-wrap:wrap;}
+.select-group{display:flex;flex-direction:column;gap:3px;}
+.select-group label{font-size:.66rem;color:var(--cinza);text-transform:uppercase;letter-spacing:.4px;font-weight:600;}
+.select-group select{font-family:'Poppins',sans-serif;font-size:.78rem;font-weight:600;color:#1F1135;background:#fff;border:1.5px solid var(--borda);border-radius:10px;padding:7px 10px;cursor:pointer;min-width:190px;max-width:260px;}
+.select-group select:hover{border-color:var(--roxo-soft);}
+.select-group select:focus{outline:none;border-color:var(--roxo);}
+.limpar-btn{font-family:'Poppins',sans-serif;font-size:.72rem;font-weight:600;color:var(--vermelho);background:#FEF2F2;border:1.5px solid #FECACA;border-radius:10px;padding:7px 14px;cursor:pointer;transition:.15s;height:34px;}
+.limpar-btn:hover{background:#FEE2E2;border-color:var(--vermelho);}
+.filtro-nota{font-size:.72rem;color:var(--cinza);text-align:center;margin-bottom:14px;font-style:italic;}
+
+.container{max-width:1100px;margin:0 auto;padding:0 20px;}
+section{padding:48px 20px;}
+section.bg{background:#fff;}
+section.bg-soft{background:var(--bg-soft);}
+.section-title{font-size:1.2rem;font-weight:700;color:var(--roxo);margin-bottom:22px;display:flex;align-items:center;gap:8px;}
+
+.aviso{background:#FFFBEB;border:1.5px solid #FDE68A;border-radius:14px;padding:16px 18px;font-size:.8rem;color:#92400E;line-height:1.5;margin-bottom:24px;}
+.aviso b{color:#78350F;}
+
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:14px;margin-bottom:16px;}
+.kpi-card{background:#fff;border:1.5px solid var(--borda);border-radius:14px;padding:18px 16px;}
+.kpi-card .label{font-size:.7rem;text-transform:uppercase;letter-spacing:.5px;color:var(--roxo);font-weight:600;margin-bottom:6px;}
+.kpi-card .val{font-size:1.4rem;font-weight:800;color:#1F1135;line-height:1.1;}
+.kpi-card .sub{font-size:.72rem;color:var(--cinza);margin-top:4px;}
+.kpi-card.neg .val{color:var(--vermelho);}
+.kpi-card.pos .val{color:var(--verde);}
+.kpi-card.warn .val{color:var(--amarelo);}
+
+.funnel-wrap{display:grid;grid-template-columns:1fr;gap:24px;}
+.funnel-box{background:#fff;border:1.5px solid var(--borda);border-radius:16px;padding:24px 20px;}
+.funnel-box h3{font-size:.95rem;font-weight:700;color:var(--roxo);margin-bottom:18px;text-align:center;}
+.funnel-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.funnel-bar{height:34px;border-radius:8px;background:linear-gradient(90deg,rgba(124,58,237,.15),rgba(124,58,237,.07));border:1px solid rgba(124,58,237,.2);display:flex;align-items:center;padding:0 12px;font-size:.76rem;font-weight:600;color:#1F1135;white-space:nowrap;overflow:hidden;}
+.funnel-meta{min-width:80px;text-align:right;font-size:.73rem;color:var(--cinza);}
+
+.table-wrap{overflow-x:auto;border-radius:16px;border:1.5px solid var(--borda);}
+table{width:100%;border-collapse:collapse;font-size:.82rem;}
+thead tr{background:var(--bg-soft);}
+th{padding:12px 14px;text-align:left;font-weight:700;color:var(--roxo);font-size:.74rem;text-transform:uppercase;letter-spacing:.4px;border-bottom:1.5px solid var(--borda);}
+td{padding:11px 14px;border-bottom:1px solid var(--borda);}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:rgba(124,58,237,.03);}
+.bold{font-weight:700;}
+.muted{color:var(--cinza);font-size:.75rem;}
+.neg-txt{color:var(--vermelho);}
+.pos-txt{color:var(--verde);}
+.warn-txt{color:var(--amarelo);}
+td.hl{background:rgba(124,58,237,.05);font-weight:700;}
+th.hl{background:rgba(124,58,237,.1);color:var(--roxo);}
+th.right,td.right{text-align:right;}
+
+footer{background:#141018;color:rgba(255,255,255,.5);padding:36px 20px;text-align:center;font-size:.78rem;}
+footer .logo-f{color:#A78BFA;font-weight:800;font-size:1rem;margin-bottom:8px;}
+footer p{margin-bottom:4px;}
+
+.state{text-align:center;padding:80px 20px;color:var(--cinza);font-size:.9rem;}
+.state.error{color:var(--vermelho);}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <svg class="logo-bm" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="26,2 48,14 48,38 26,50 4,38 4,14" fill="none" stroke="white" stroke-width="2"></polygon>
+      <polygon points="26,10 40,18 40,34 26,42 12,34 12,18" fill="rgba(255,255,255,0.15)" stroke="white" stroke-width="1.2"></polygon>
+      <text x="26" y="31" text-anchor="middle" font-family="Poppins,sans-serif" font-size="13" font-weight="800" fill="white">BM</text>
+    </svg>
+    <h1>ANATEX · Marketex</h1>
+    <div class="sub">Todas as 11 contas ANEX · Tráfego Pago</div>
+    <div class="ts" id="periodo">Período: 02/08 – 31/08 (30 dias)</div>
+    <div class="hero-kpis" id="hero-kpis"><div class="hero-kpi"><div class="label">Investimento (mídia)</div><div class="val">R$&nbsp;162.681,63</div></div><div class="hero-kpi"><div class="label">Receita (todos os produtos)</div><div class="val">R$&nbsp;387.451,48</div></div><div class="hero-kpi"><div class="label">Vendas</div><div class="val">1.752</div></div><div class="hero-kpi"><div class="label">Ticket médio</div><div class="val">R$&nbsp;221,15</div></div><div class="hero-kpi"><div class="label">ROAS bruto</div><div class="val"><span style="color:#A78BFA">2,38×</span></div><div class="sub2">ver aviso abaixo</div></div></div>
+  </div>
+</div>
+
+<div class="periodo-filtro" id="filtro"><button class="periodo-btn" data-key="total">Total</button><button class="periodo-btn" data-key="60">60 dias</button><button class="periodo-btn active" data-key="30">30 dias</button><button class="periodo-btn" data-key="15">15 dias</button><button class="periodo-btn" data-key="7">7 dias</button><button class="periodo-btn" data-key="3">3 dias</button></div>
+<div class="filtros-lista">
+  <div class="select-group">
+    <label for="select-campanha">Campanha / Intenção</label>
+    <select id="select-campanha"><option value="todas" selected="">Todas as campanhas</option><option value="Prospecção (Advantage+)">Prospecção (Advantage+)</option><option value="Público Quente">Público Quente</option><option value="Outro">Outro</option><option value="Público Frio">Público Frio</option></select>
+  </div>
+  <div class="select-group">
+    <label for="select-serie">Série</label>
+    <select id="select-serie"><option value="todas" selected="">Todas as séries</option><option value="SST">SST</option><option value="LS">LS</option><option value="DISTRIBUICAO">DISTRIBUICAO</option><option value="ANATEX">ANATEX</option><option value="ANEX">ANEX</option><option value="MPD">MPD</option><option value="Sem série identificada">Sem série identificada</option><option value="ANP">ANP</option></select>
+  </div>
+  <div class="select-group">
+    <label for="select-conta">Conta ANEX</label>
+    <select id="select-conta"><option value="todas" selected="">Todas as contas</option><option value="CA | ANEX 02 | PERPÉTUOS">CA | ANEX 02 | PERPÉTUOS</option><option value="CA | ANEX 03">CA | ANEX 03</option><option value="CA | ANEX 05 | DISTRIBUICAO &amp; LEADS">CA | ANEX 05 | DISTRIBUICAO &amp; LEADS</option><option value="CA | ANEX 08 | LEADS">CA | ANEX 08 | LEADS</option></select>
+  </div>
+  <button class="limpar-btn" id="btn-limpar-filtros">✕ Limpar filtros</button>
+</div>
+
+<main id="app">
+    <section class="bg"><div class="container">
+      <div class="section-title">📊 Visão Geral — 30 dias</div>
+      <div class="aviso">
+        ⚠️ <b>Receita ainda sem escopo de produto confirmado.</b> A Marketex vende vários produtos/lançamentos sob a mesma conta Hotmart — a Receita e o ROAS acima somam <b>toda</b> venda "Completo" da Hotmart no período, não só o que essas 11 contas ANEX efetivamente anunciam. Use a tabela "Vendas por Produto" abaixo pra ver a composição e confirmar com o Gabriel se algum produto deve ficar de fora antes de tratar o ROAS como número final (mesmo tipo de ajuste já feito no dashboard do IFB).
+      </div>
+      <div class="kpi-grid">
+        <div class="kpi-card"><div class="label">Investimento</div><div class="val">R$&nbsp;162.681,63</div></div>
+        <div class="kpi-card"><div class="label">Receita (todos os produtos)</div><div class="val">R$&nbsp;387.451,48</div></div>
+        <div class="kpi-card pos"><div class="label">ROAS bruto</div><div class="val">2,38×</div><div class="sub">não escopado por produto</div></div>
+        <div class="kpi-card"><div class="label">Vendas</div><div class="val">1.752</div></div>
+        <div class="kpi-card"><div class="label">Ticket médio</div><div class="val">R$&nbsp;221,15</div></div>
+        <div class="kpi-card"><div class="label">CPA (vendas totais)</div><div class="val">R$&nbsp;92,85</div></div>
+        <div class="kpi-card"><div class="label">CPA pixel Meta</div><div class="val">R$&nbsp;148,57</div></div>
+      </div>
+    </div></section>
+    <section class="bg-soft"><div class="container">
+      <div class="section-title">🔽 Funil &amp; Métricas de Mídia — 11 contas ANEX</div>
+      <div class="kpi-grid">
+        <div class="kpi-card"><div class="label">Investimento</div><div class="val">R$&nbsp;162.681,63</div></div>
+        <div class="kpi-card"><div class="label">Impressões</div><div class="val">2.944.681</div></div>
+        <div class="kpi-card"><div class="label">Cliques no link</div><div class="val">74.930</div></div>
+        <div class="kpi-card"><div class="label">CPA pixel Meta</div><div class="val">R$&nbsp;148,57</div></div>
+      </div>
+      <div class="funnel-wrap"><div class="funnel-box">
+        <h3>Da impressão à venda (pixel Meta) — 30 dias, todas as campanhas</h3>
+        <div class="funnel-row"><div class="funnel-bar" style="width:100%">👁 Impressões</div><div class="funnel-meta">CPM R$&nbsp;55,25</div></div>
+        <div class="funnel-row"><div class="funnel-bar" style="width:70%">🖱 CTR (link): 2,54%</div></div>
+        <div class="funnel-row"><div class="funnel-bar" style="width:55%">🔗 Connect Rate: 53,23%</div></div>
+        <div class="funnel-row"><div class="funnel-bar" style="width:35%">💳 Conv. Checkout → Venda (pixel): 18,42%</div></div>
+        <div class="funnel-row"><div class="funnel-bar" style="width:25%">✅ Conv. Página → Venda (pixel): 2,75%</div></div>
+      </div></div>
+      <p class="filtro-nota" style="margin-top:14px;">⚠️ O filtro de campanha/série/conta muda só Investimento e Funil (dado de mídia do Meta) — a Receita/ROAS da Visão Geral continua sempre do total, porque só ~7% das vendas Hotmart carregam o código do criativo que permite atribuição direta (ver tabela "Criativos com atribuição direta" abaixo).</p>
+    </div></section>
+    <section class="bg"><div class="container">
+      <div class="section-title">🛒 Vendas por Produto (Hotmart, todas as ofertas)</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Produto</th><th class="right">Vendas</th><th class="right">Receita</th></tr></thead>
+        <tbody><tr>
+      <td>Mentoria Paraíso Digital</td>
+      <td class="right">38</td>
+      <td class="right bold">R$&nbsp;184.860,46</td>
+    </tr><tr>
+      <td>Workshop Especialista com Inteligência Artificial - 6 Aulas Ao vivo</td>
+      <td class="right">1.142</td>
+      <td class="right bold">R$&nbsp;71.202,41</td>
+    </tr><tr>
+      <td>Mentoria Paraíso Digital - Renovação</td>
+      <td class="right">15</td>
+      <td class="right bold">R$&nbsp;65.864,59</td>
+    </tr><tr>
+      <td>Acesso Premium Especialista com IA</td>
+      <td class="right">207</td>
+      <td class="right bold">R$&nbsp;24.761,41</td>
+    </tr><tr>
+      <td>Mentoria Paraíso Digital - 3 meses</td>
+      <td class="right">5</td>
+      <td class="right bold">R$&nbsp;16.352,81</td>
+    </tr><tr>
+      <td>Fotos com Inteligência Artificial</td>
+      <td class="right">160</td>
+      <td class="right bold">R$&nbsp;9.627,54</td>
+    </tr><tr>
+      <td>Palestra em Minutos</td>
+      <td class="right">118</td>
+      <td class="right bold">R$&nbsp;5.505,92</td>
+    </tr><tr>
+      <td>Acesso Premium Especialista com IA - 12 meses</td>
+      <td class="right">16</td>
+      <td class="right bold">R$&nbsp;4.481,54</td>
+    </tr><tr>
+      <td>Academia de Novas Profissões com Inteligência Artificial</td>
+      <td class="right">19</td>
+      <td class="right bold">R$&nbsp;2.038,97</td>
+    </tr><tr>
+      <td>Combo Exclusivo: Fotos em Minutos + Palestra em Minutos + Acesso gravação do Workshop por 12 meses</td>
+      <td class="right">10</td>
+      <td class="right bold">R$&nbsp;1.577,42</td>
+    </tr><tr>
+      <td>Fotos com Inteligência Artificial - Acesso estendido</td>
+      <td class="right">19</td>
+      <td class="right bold">R$&nbsp;885,73</td>
+    </tr><tr>
+      <td>Formação Consultor de IA: domine seu nicho e venda consultorias com autoridade</td>
+      <td class="right">2</td>
+      <td class="right bold">R$&nbsp;292,68</td>
+    </tr><tr>
+      <td>Leadlovers | Mais Vendas, Menos Esforço</td>
+      <td class="right">1</td>
+      <td class="right bold">R$&nbsp;0,00</td>
+    </tr></tbody>
+      </table></div>
+      <p class="filtro-nota" style="margin-top:14px;">Use esta tabela pra decidir com o Gabriel se algum produto deve ser excluído do escopo do ROAS — ex.: lançamentos com tráfego próprio fora das 11 contas ANEX.</p>
+    </div></section>
+    <section class="bg-soft"><div class="container">
+      <div class="section-title">🎯 Criativos com Atribuição Direta (Hotmart × Meta)</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Criativo (código)</th><th class="right">Investimento</th><th class="right">Vendas</th><th class="right">Receita</th><th class="right">ROAS</th></tr></thead>
+        <tbody><tr>
+      <td class="bold">ADV320</td>
+      <td class="right">R$&nbsp;26.449,94</td>
+      <td class="right">4</td>
+      <td class="right">R$&nbsp;244,28</td>
+      <td class="right warn-txt bold">0,009×</td>
+    </tr><tr>
+      <td class="bold">ADV325</td>
+      <td class="right">R$&nbsp;30.695,67</td>
+      <td class="right">2</td>
+      <td class="right">R$&nbsp;108,45</td>
+      <td class="right warn-txt bold">0,004×</td>
+    </tr><tr>
+      <td class="bold">ADV321</td>
+      <td class="right">R$&nbsp;1.160,33</td>
+      <td class="right">0</td>
+      <td class="right">R$&nbsp;0,00</td>
+      <td class="right warn-txt bold">0×</td>
+    </tr><tr>
+      <td class="bold">ADV42</td>
+      <td class="right">R$&nbsp;0,40</td>
+      <td class="right">0</td>
+      <td class="right">R$&nbsp;0,00</td>
+      <td class="right warn-txt bold">0×</td>
+    </tr><tr>
+      <td class="bold">ADI203</td>
+      <td class="right">R$&nbsp;10,42</td>
+      <td class="right">0</td>
+      <td class="right">R$&nbsp;0,00</td>
+      <td class="right warn-txt bold">0×</td>
+    </tr><tr>
+      <td class="bold">ADC042</td>
+      <td class="right">R$&nbsp;1.129,60</td>
+      <td class="right">0</td>
+      <td class="right">R$&nbsp;0,00</td>
+      <td class="right warn-txt bold">0×</td>
+    </tr><tr>
+      <td class="bold">ADI199</td>
+      <td class="right">R$&nbsp;979,42</td>
+      <td class="right">0</td>
+      <td class="right">R$&nbsp;0,00</td>
+      <td class="right warn-txt bold">0×</td>
+    </tr><tr>
+      <td class="bold">ADV41</td>
+      <td class="right">R$&nbsp;1,90</td>
+      <td class="right">0</td>
+      <td class="right">R$&nbsp;0,00</td>
+      <td class="right warn-txt bold">0×</td>
+    </tr><tr>
+      <td class="bold">ADV341</td>
+      <td class="right">R$&nbsp;2.238,19</td>
+      <td class="right">0</td>
+      <td class="right">R$&nbsp;0,00</td>
+      <td class="right warn-txt bold">0×</td>
+    </tr><tr>
+      <td class="bold">ADV304</td>
+      <td class="right">R$&nbsp;11.683,07</td>
+      <td class="right">0</td>
+      <td class="right">R$&nbsp;0,00</td>
+      <td class="right warn-txt bold">0×</td>
+    </tr><tr>
+      <td class="bold">POST091</td>
+      <td class="right">R$&nbsp;208,18</td>
+      <td class="right">0</td>
+      <td class="right">R$&nbsp;0,00</td>
+      <td class="right warn-txt bold">0×</td>
+    </tr><tr>
+      <td class="bold">ADV253</td>
+      <td class="right">R$&nbsp;372,61</td>
+      <td class="right">0</td>
+      <td class="right">R$&nbsp;0,00</td>
+      <td class="right warn-txt bold">0×</td>
+    </tr><tr>
+      <td class="bold">ADI202</td>
+      <td class="right">R$&nbsp;473,76</td>
+      <td class="right">0</td>
+      <td class="right">R$&nbsp;0,00</td>
+      <td class="right warn-txt bold">0×</td>
+    </tr><tr>
+      <td class="bold">ADC020</td>
+      <td class="right">R$&nbsp;766,14</td>
+      <td class="right">0</td>
+      <td class="right">R$&nbsp;0,00</td>
+      <td class="right warn-txt bold">0×</td>
+    </tr><tr>
+      <td class="bold">ADC001</td>
+      <td class="right">R$&nbsp;2.602,06</td>
+      <td class="right">0</td>
+      <td class="right">R$&nbsp;0,00</td>
+      <td class="right warn-txt bold">0×</td>
+    </tr><tr>
+      <td class="bold">ADV004</td>
+      <td class="right">R$&nbsp;221,96</td>
+      <td class="right">0</td>
+      <td class="right">R$&nbsp;0,00</td>
+      <td class="right warn-txt bold">0×</td>
+    </tr><tr>
+      <td class="bold">POST088</td>
+      <td class="right">R$&nbsp;881,11</td>
+      <td class="right">0</td>
+      <td class="right">R$&nbsp;0,00</td>
+      <td class="right warn-txt bold">0×</td>
+    </tr><tr>
+      <td class="bold">POST092</td>
+      <td class="right">R$&nbsp;655,28</td>
+      <td class="right">0</td>
+      <td class="right">R$&nbsp;0,00</td>
+      <td class="right warn-txt bold">0×</td>
+    </tr><tr>
+      <td class="bold">ADV333</td>
+      <td class="right">R$&nbsp;586,87</td>
+      <td class="right">0</td>
+      <td class="right">R$&nbsp;0,00</td>
+      <td class="right warn-txt bold">0×</td>
+    </tr><tr>
+      <td class="bold">ADC018</td>
+      <td class="right">R$&nbsp;482,54</td>
+      <td class="right">0</td>
+      <td class="right">R$&nbsp;0,00</td>
+      <td class="right warn-txt bold">0×</td>
+    </tr></tbody>
+      </table></div>
+      <p class="filtro-nota" style="margin-top:14px;">Só aparece aqui quando o código do criativo (ADVxxx) foi identificado tanto no gasto do Meta quanto na venda Hotmart (via campo "Código Externo") no mesmo dia — é a única fatia com ROAS por criativo confiável, não é a Receita Total.</p>
+    </div></section>
+    <section class="bg"><div class="container">
+      <div class="section-title">📅 Desempenho Dia a Dia</div>
+      <div class="table-wrap"><table>
+        <thead><tr>
+          <th>Dia</th><th class="right">Investimento</th><th class="right">Vendas</th><th class="right">Receita</th>
+          <th class="right">Impressões</th><th class="right">Cliques</th><th class="right">Checkouts</th>
+        </tr></thead>
+        <tbody><tr>
+      <td>31/08</td>
+      <td class="right">R$&nbsp;4.029,38</td>
+      <td class="right">—</td>
+      <td class="right">—</td>
+      <td class="right">92.905</td>
+      <td class="right">2.538</td>
+      <td class="right">90</td>
+    </tr><tr>
+      <td>30/08</td>
+      <td class="right">R$&nbsp;3.571,51</td>
+      <td class="right">—</td>
+      <td class="right">—</td>
+      <td class="right">87.145</td>
+      <td class="right">2.582</td>
+      <td class="right">67</td>
+    </tr><tr>
+      <td>29/08</td>
+      <td class="right">R$&nbsp;2.731,72</td>
+      <td class="right">—</td>
+      <td class="right">—</td>
+      <td class="right">104.049</td>
+      <td class="right">3.839</td>
+      <td class="right">69</td>
+    </tr><tr>
+      <td>28/08</td>
+      <td class="right">R$&nbsp;4.163,34</td>
+      <td class="right">—</td>
+      <td class="right">—</td>
+      <td class="right">99.394</td>
+      <td class="right">3.241</td>
+      <td class="right">82</td>
+    </tr><tr>
+      <td>27/08</td>
+      <td class="right">R$&nbsp;4.289,18</td>
+      <td class="right">2</td>
+      <td class="right">R$&nbsp;1.032,29</td>
+      <td class="right">110.275</td>
+      <td class="right">3.136</td>
+      <td class="right">76</td>
+    </tr><tr>
+      <td>26/08</td>
+      <td class="right">R$&nbsp;1.771,32</td>
+      <td class="right">9</td>
+      <td class="right">R$&nbsp;21.989,64</td>
+      <td class="right">69.428</td>
+      <td class="right">2.220</td>
+      <td class="right">40</td>
+    </tr><tr>
+      <td>25/08</td>
+      <td class="right">R$&nbsp;2.297,01</td>
+      <td class="right">34</td>
+      <td class="right">R$&nbsp;12.378,92</td>
+      <td class="right">87.478</td>
+      <td class="right">2.921</td>
+      <td class="right">44</td>
+    </tr><tr>
+      <td>24/08</td>
+      <td class="right">R$&nbsp;3.895,56</td>
+      <td class="right">42</td>
+      <td class="right">R$&nbsp;18.360,71</td>
+      <td class="right">102.521</td>
+      <td class="right">3.260</td>
+      <td class="right">80</td>
+    </tr><tr>
+      <td>23/08</td>
+      <td class="right">R$&nbsp;4.435,95</td>
+      <td class="right">91</td>
+      <td class="right">R$&nbsp;21.625,90</td>
+      <td class="right">101.590</td>
+      <td class="right">3.043</td>
+      <td class="right">190</td>
+    </tr><tr>
+      <td>22/08</td>
+      <td class="right">R$&nbsp;6.393,20</td>
+      <td class="right">76</td>
+      <td class="right">R$&nbsp;10.385,21</td>
+      <td class="right">118.845</td>
+      <td class="right">3.231</td>
+      <td class="right">247</td>
+    </tr><tr>
+      <td>21/08</td>
+      <td class="right">R$&nbsp;5.832,51</td>
+      <td class="right">60</td>
+      <td class="right">R$&nbsp;10.528,08</td>
+      <td class="right">98.510</td>
+      <td class="right">2.346</td>
+      <td class="right">164</td>
+    </tr><tr>
+      <td>20/08</td>
+      <td class="right">R$&nbsp;4.712,36</td>
+      <td class="right">54</td>
+      <td class="right">R$&nbsp;21.584,82</td>
+      <td class="right">87.745</td>
+      <td class="right">1.988</td>
+      <td class="right">154</td>
+    </tr><tr>
+      <td>19/08</td>
+      <td class="right">R$&nbsp;7.914,81</td>
+      <td class="right">84</td>
+      <td class="right">R$&nbsp;14.515,15</td>
+      <td class="right">129.036</td>
+      <td class="right">3.062</td>
+      <td class="right">202</td>
+    </tr><tr>
+      <td>18/08</td>
+      <td class="right">R$&nbsp;7.919,55</td>
+      <td class="right">89</td>
+      <td class="right">R$&nbsp;36.058,97</td>
+      <td class="right">131.055</td>
+      <td class="right">3.008</td>
+      <td class="right">223</td>
+    </tr><tr>
+      <td>17/08</td>
+      <td class="right">R$&nbsp;7.935,87</td>
+      <td class="right">64</td>
+      <td class="right">R$&nbsp;22.651,58</td>
+      <td class="right">128.323</td>
+      <td class="right">3.189</td>
+      <td class="right">249</td>
+    </tr><tr>
+      <td>16/08</td>
+      <td class="right">R$&nbsp;6.848,01</td>
+      <td class="right">97</td>
+      <td class="right">R$&nbsp;51.420,70</td>
+      <td class="right">113.997</td>
+      <td class="right">2.634</td>
+      <td class="right">275</td>
+    </tr><tr>
+      <td>15/08</td>
+      <td class="right">R$&nbsp;7.508,12</td>
+      <td class="right">114</td>
+      <td class="right">R$&nbsp;8.962,60</td>
+      <td class="right">107.691</td>
+      <td class="right">2.616</td>
+      <td class="right">398</td>
+    </tr><tr>
+      <td>14/08</td>
+      <td class="right">R$&nbsp;7.428,29</td>
+      <td class="right">104</td>
+      <td class="right">R$&nbsp;14.471,34</td>
+      <td class="right">99.840</td>
+      <td class="right">2.381</td>
+      <td class="right">349</td>
+    </tr><tr>
+      <td>13/08</td>
+      <td class="right">R$&nbsp;6.994,10</td>
+      <td class="right">88</td>
+      <td class="right">R$&nbsp;8.822,33</td>
+      <td class="right">102.715</td>
+      <td class="right">2.283</td>
+      <td class="right">311</td>
+    </tr><tr>
+      <td>12/08</td>
+      <td class="right">R$&nbsp;6.730,31</td>
+      <td class="right">93</td>
+      <td class="right">R$&nbsp;6.398,38</td>
+      <td class="right">100.025</td>
+      <td class="right">2.180</td>
+      <td class="right">316</td>
+    </tr><tr>
+      <td>11/08</td>
+      <td class="right">R$&nbsp;5.664,85</td>
+      <td class="right">99</td>
+      <td class="right">R$&nbsp;18.441,77</td>
+      <td class="right">90.294</td>
+      <td class="right">2.007</td>
+      <td class="right">323</td>
+    </tr><tr>
+      <td>10/08</td>
+      <td class="right">R$&nbsp;8.345,72</td>
+      <td class="right">101</td>
+      <td class="right">R$&nbsp;8.962,74</td>
+      <td class="right">119.824</td>
+      <td class="right">2.876</td>
+      <td class="right">359</td>
+    </tr><tr>
+      <td>09/08</td>
+      <td class="right">R$&nbsp;8.159,20</td>
+      <td class="right">85</td>
+      <td class="right">R$&nbsp;5.714,32</td>
+      <td class="right">132.006</td>
+      <td class="right">2.916</td>
+      <td class="right">348</td>
+    </tr><tr>
+      <td>08/08</td>
+      <td class="right">R$&nbsp;4.619,40</td>
+      <td class="right">69</td>
+      <td class="right">R$&nbsp;5.592,03</td>
+      <td class="right">73.901</td>
+      <td class="right">1.793</td>
+      <td class="right">196</td>
+    </tr><tr>
+      <td>07/08</td>
+      <td class="right">R$&nbsp;3.835,14</td>
+      <td class="right">47</td>
+      <td class="right">R$&nbsp;3.190,65</td>
+      <td class="right">59.123</td>
+      <td class="right">1.352</td>
+      <td class="right">151</td>
+    </tr><tr>
+      <td>06/08</td>
+      <td class="right">R$&nbsp;5.295,93</td>
+      <td class="right">74</td>
+      <td class="right">R$&nbsp;8.951,47</td>
+      <td class="right">73.588</td>
+      <td class="right">1.677</td>
+      <td class="right">205</td>
+    </tr><tr>
+      <td>05/08</td>
+      <td class="right">R$&nbsp;4.684,10</td>
+      <td class="right">53</td>
+      <td class="right">R$&nbsp;3.572,76</td>
+      <td class="right">77.824</td>
+      <td class="right">1.664</td>
+      <td class="right">182</td>
+    </tr><tr>
+      <td>04/08</td>
+      <td class="right">R$&nbsp;4.955,51</td>
+      <td class="right">10</td>
+      <td class="right">R$&nbsp;657,26</td>
+      <td class="right">79.508</td>
+      <td class="right">1.614</td>
+      <td class="right">193</td>
+    </tr><tr>
+      <td>03/08</td>
+      <td class="right">R$&nbsp;4.632,15</td>
+      <td class="right">50</td>
+      <td class="right">R$&nbsp;3.988,67</td>
+      <td class="right">77.680</td>
+      <td class="right">1.558</td>
+      <td class="right">148</td>
+    </tr><tr>
+      <td>02/08</td>
+      <td class="right">R$&nbsp;5.087,53</td>
+      <td class="right">63</td>
+      <td class="right">R$&nbsp;47.193,19</td>
+      <td class="right">88.366</td>
+      <td class="right">1.775</td>
+      <td class="right">213</td>
+    </tr></tbody>
+      </table></div>
+    </div></section></main>
+
+<footer>
+  <div class="logo-f">Brito Mídias</div>
+  <p>ANATEX · Marketex — todas as contas ANEX</p>
+  <p>Dashboard vivo — lê direto do Supabase, atualiza sozinho (mídia a cada 30min via Stract, vendas a cada 6h)</p>
+</footer>
+
+<script>
+const SUPABASE_URL = 'https://bsexxjbiqedkdgtkeyys.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJzZXh4amJpcWVka2RndGtleXlzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODcxNzc0NzgsImV4cCI6MjEwMjc1MzQ3OH0.SAVK1fYrjPFWf8NfrqKLdBvDP732OrOwU5l9gQhu4b4';
+
+const PERIODOS = [
+  { key: 'total', label: 'Total', dias: null },
+  { key: '60', label: '60 dias', dias: 60 },
+  { key: '30', label: '30 dias', dias: 30 },
+  { key: '15', label: '15 dias', dias: 15 },
+  { key: '7', label: '7 dias', dias: 7 },
+  { key: '3', label: '3 dias', dias: 3 },
+];
+let periodoAtivo = '30';
+let campanhaAtiva = 'todas';
+let serieAtiva = 'todas';
+let contaAtiva = 'todas';
+let DADOS = null; // { dias: [...], produto: [...], campanhas: [...], criativos: [...] }
+
+// Classifica o nome da campanha (padrão Brito Mídias: [NN] [SÉRIE] [FASE]
+// [OBJETIVO] [CONVERSÃO] [PÚBLICO] [FORMATO] [AUTO] [PÁGINA] [...] [EDIÇÃO])
+// numa "intenção" pra filtro — mapeado direto do que existe no dado real.
+function classificarIntencao(campaignName) {
+  const n = (campaignName || '').toUpperCase();
+  if (n.includes('REMARKETING') || n.includes('RETARGETING')) return 'Remarketing';
+  if (n.includes('LOOKALIKE') || n.includes('LK1%') || n.includes('COMPRADORES')) return 'Lookalike';
+  if (n.includes('P-ADVANTAGE') || n.includes('ADVANTAGE')) return 'Prospecção (Advantage+)';
+  if (n.includes('QUENTE')) return 'Público Quente';
+  if (n.includes('FRIO')) return 'Público Frio';
+  return 'Outro';
+}
+
+// Extrai a SÉRIE da campanha — o 2º colchete do nome (ex.: "[60] [LS]
+// [CAPTACAO PAGA]..." → "LS"). É o código de produto/lançamento — a ANATEX
+// roda várias séries em paralelo (LS, SST, ANPIA, MPD/TPLIA etc.), então
+// esse filtro é o que mais importa aqui.
+function extrairSerie(campaignName) {
+  const m = (campaignName || '').match(/^\s*\[[^\]]*\]\s*\[([^\]]*)\]/);
+  return m ? m[1].trim() : 'Sem série identificada';
+}
+
+// PostgREST corta em 1000 linhas por request por padrão — a ANATEX tem
+// histórico de vendas desde 2020 (bem mais que 1000 dias), então sem
+// paginação os dados mais recentes ficam de fora silenciosamente (bug real,
+// pego testando este dashboard: "Investimento" da Visão Geral zerava porque
+// a janela de 30 dias caía fora das primeiras 1000 linhas devolvidas).
+// Pagina via header Range até vir menos que PAGE_SIZE linhas.
+const PAGE_SIZE = 1000;
+async function fetchView(name) {
+  let all = [];
+  let offset = 0;
+  while (true) {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/${name}?select=*`, {
+      headers: {
+        apikey: SUPABASE_ANON_KEY,
+        Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+        Range: `${offset}-${offset + PAGE_SIZE - 1}`,
+      }
+    });
+    if (!res.ok) throw new Error(`${name}: ${res.status} ${await res.text()}`);
+    const page = await res.json();
+    all = all.concat(page);
+    if (page.length < PAGE_SIZE) break;
+    offset += PAGE_SIZE;
+  }
+  return all;
+}
+
+const fmtMoney = (v) => v === null || v === undefined || !isFinite(v) ? '—' : Number(v).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+const fmtNum = (v) => v === null || v === undefined || !isFinite(v) ? '—' : Number(v).toLocaleString('pt-BR');
+const fmtPct = (v) => v === null || v === undefined || !isFinite(v) ? '—' : `${(Number(v) * 100).toLocaleString('pt-BR', { maximumFractionDigits: 2 })}%`;
+const fmtPctDirect = (v) => v === null || v === undefined || !isFinite(v) ? '—' : `${Number(v).toLocaleString('pt-BR', { maximumFractionDigits: 1 })}%`;
+const fmtDate = (v) => new Date(v).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
+const posNeg = (v) => Number(v) < 0 ? 'neg' : 'pos';
+const posNegTxt = (v) => Number(v) < 0 ? 'neg-txt' : 'pos-txt';
+const dayKey = (v) => new Date(v).toISOString().slice(0, 10);
+
+function heroKpi(label, val, sub) {
+  return `<div class="hero-kpi"><div class="label">${label}</div><div class="val">${val}</div>${sub ? `<div class="sub2">${sub}</div>` : ''}</div>`;
+}
+function kpiCard(label, val, variant, sub) {
+  return `<div class="kpi-card${variant ? ' ' + variant : ''}"><div class="label">${label}</div><div class="val">${val}</div>${sub ? `<div class="sub">${sub}</div>` : ''}</div>`;
+}
+function funnelRow(width, label, meta) {
+  return `<div class="funnel-row"><div class="funnel-bar" style="width:${width}%">${label}</div>${meta ? `<div class="funnel-meta">${meta}</div>` : ''}</div>`;
+}
+
+// Filtra os datasets granulares pro período escolhido (ancorado no dia mais
+// recente que existe no dado, não na data real de hoje).
+function filtrarPeriodo(diasCount) {
+  const todosDias = DADOS.dias.map((d) => d.dia).filter(Boolean).sort();
+  const ultimoDia = todosDias[todosDias.length - 1];
+  let corte = null;
+  if (diasCount !== null && ultimoDia) {
+    const d = new Date(ultimoDia + 'T00:00:00Z');
+    d.setUTCDate(d.getUTCDate() - (diasCount - 1));
+    corte = d.toISOString().slice(0, 10);
+  }
+  const dentro = (dia) => corte === null || dayKey(dia) >= corte;
+  return {
+    dias: DADOS.dias.filter((d) => d.dia && dentro(d.dia)),
+    produto: DADOS.produto.filter((d) => d.dia && dentro(d.dia)),
+    campanhas: DADOS.campanhas.filter((d) => d.dia && dentro(d.dia)),
+    criativos: DADOS.criativos.filter((d) => d.dia && dentro(d.dia)),
+    ultimoDia,
+  };
+}
+
+// Agrega só o lado de MÍDIA (Meta, 11 contas juntas) por tipo de campanha —
+// investimento, impressões, cliques, checkouts, compras do pixel. NUNCA
+// mistura com receita/vendas da Hotmart (que não tem atribuição garantida
+// por campanha — só ~7% das vendas carregam código de criativo) — por isso
+// isso alimenta só a seção Funil, não Visão Geral/Receita.
+function agregarMidia(campanhasFiltradas, intent, serie, conta) {
+  let linhas = campanhasFiltradas;
+  if (intent !== 'todas') linhas = linhas.filter((c) => classificarIntencao(c.campaign_name) === intent);
+  if (serie !== 'todas') linhas = linhas.filter((c) => extrairSerie(c.campaign_name) === serie);
+  if (conta !== 'todas') linhas = linhas.filter((c) => c.account_name === conta);
+
+  const s = (key) => linhas.reduce((acc, d) => acc + (Number(d[key]) || 0), 0);
+  const investimento = s('investimento');
+  const impressions = s('impressions');
+  const link_clicks = s('link_clicks');
+  const page_views = s('page_views');
+  const initiate_checkout = s('initiate_checkout');
+  const purchases_pixel = s('purchases_pixel');
+
+  return {
+    investimento, impressions, link_clicks, page_views, initiate_checkout, purchases_pixel,
+    cpm: 1000 * investimento / impressions,
+    ctr: link_clicks / impressions,
+    connect_rate: page_views / link_clicks,
+    conv_pagina_venda: purchases_pixel / page_views,
+    conv_checkout_venda: purchases_pixel / initiate_checkout,
+    cpa_pixel_meta: investimento / purchases_pixel,
+  };
+}
+
+// Agrega o conjunto de dias já filtrado — soma tudo primeiro, só então
+// calcula as razões (ROAS, CTR etc). Nunca fazer média de razão diária.
+function agregar(filtrado) {
+  const dias = filtrado.dias;
+  const s = (key) => dias.reduce((acc, d) => acc + (Number(d[key]) || 0), 0);
+
+  const investimento = s('investimento');
+  const receita = s('receita');
+  const vendas = s('vendas');
+  const impressions = s('impressions');
+  const link_clicks = s('link_clicks');
+  const page_views = s('page_views');
+  const initiate_checkout = s('initiate_checkout');
+  const purchases_pixel = s('purchases_pixel');
+
+  const produtoMap = {};
+  for (const row of filtrado.produto) {
+    const k = row.product_name || 'Sem nome';
+    if (!produtoMap[k]) produtoMap[k] = { product_name: k, qtd: 0, receita: 0 };
+    produtoMap[k].qtd += Number(row.qtd) || 0;
+    produtoMap[k].receita += Number(row.receita) || 0;
+  }
+  const produtoList = Object.values(produtoMap).sort((a, b) => b.receita - a.receita);
+
+  const criativoMap = {};
+  for (const row of filtrado.criativos) {
+    if (!row.adv_code) continue;
+    const k = row.adv_code;
+    if (!criativoMap[k]) criativoMap[k] = { adv_code: k, investimento: 0, vendas: 0, receita: 0 };
+    criativoMap[k].investimento += Number(row.investimento) || 0;
+    criativoMap[k].vendas += Number(row.vendas) || 0;
+    criativoMap[k].receita += Number(row.receita) || 0;
+  }
+  const criativoList = Object.values(criativoMap)
+    .filter((c) => c.investimento > 0 || c.receita > 0)
+    .map((c) => ({ ...c, roas: c.receita / c.investimento }))
+    .sort((a, b) => b.receita - a.receita);
+
+  return {
+    dias: [...dias].sort((a, b) => new Date(b.dia) - new Date(a.dia)),
+    resumo: {
+      investimento, receita, vendas,
+      roas: Math.round((receita / investimento) * 100) / 100,
+      ticket_medio: receita / vendas,
+      cpa: investimento / vendas,
+      cpa_pixel_meta: investimento / purchases_pixel,
+      cpm: 1000 * investimento / impressions,
+      ctr: link_clicks / impressions,
+      connect_rate: page_views / link_clicks,
+      conv_pagina_venda: purchases_pixel / page_views,
+      conv_checkout_venda: purchases_pixel / initiate_checkout,
+    },
+    produto: produtoList,
+    criativos: criativoList,
+  };
+}
+
+function renderFiltro() {
+  document.getElementById('filtro').innerHTML = PERIODOS.map((p) =>
+    `<button class="periodo-btn${p.key === periodoAtivo ? ' active' : ''}" data-key="${p.key}">${p.label}</button>`
+  ).join('');
+  document.querySelectorAll('.periodo-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      periodoAtivo = btn.dataset.key;
+      renderFiltro();
+      renderTudo();
+    });
+  });
+
+  // Campanha/Intenção, Série e Conta — listas suspensas (clica, seleciona,
+  // e o resto atualiza sozinho). Opções sempre derivadas do dado real, não
+  // é lista fixa: se aparecer uma série/conta nova, vira opção sozinha.
+  const intents = ['todas', ...new Set(DADOS.campanhas.map((c) => classificarIntencao(c.campaign_name)))];
+  const selectCampanha = document.getElementById('select-campanha');
+  selectCampanha.innerHTML = intents.map((i) =>
+    `<option value="${i}"${i === campanhaAtiva ? ' selected' : ''}>${i === 'todas' ? 'Todas as campanhas' : i}</option>`
+  ).join('');
+  selectCampanha.onchange = () => { campanhaAtiva = selectCampanha.value; renderTudo(); };
+
+  const series = ['todas', ...new Set(DADOS.campanhas.map((c) => extrairSerie(c.campaign_name)))];
+  const selectSerie = document.getElementById('select-serie');
+  selectSerie.innerHTML = series.map((sv) =>
+    `<option value="${sv}"${sv === serieAtiva ? ' selected' : ''}>${sv === 'todas' ? 'Todas as séries' : sv}</option>`
+  ).join('');
+  selectSerie.onchange = () => { serieAtiva = selectSerie.value; renderTudo(); };
+
+  const contas = ['todas', ...[...new Set(DADOS.campanhas.map((c) => c.account_name).filter(Boolean))].sort()];
+  const selectConta = document.getElementById('select-conta');
+  selectConta.innerHTML = contas.map((cn) =>
+    `<option value="${cn}"${cn === contaAtiva ? ' selected' : ''}>${cn === 'todas' ? 'Todas as contas' : cn}</option>`
+  ).join('');
+  selectConta.onchange = () => { contaAtiva = selectConta.value; renderTudo(); };
+
+  document.getElementById('btn-limpar-filtros').onclick = () => {
+    campanhaAtiva = 'todas'; serieAtiva = 'todas'; contaAtiva = 'todas';
+    renderFiltro();
+    renderTudo();
+  };
+}
+
+function renderTudo() {
+  const periodo = PERIODOS.find((p) => p.key === periodoAtivo);
+  const filtrado = filtrarPeriodo(periodo.dias);
+  const { dias, resumo: r, produto: p, criativos: c } = agregar(filtrado);
+  const m = agregarMidia(filtrado.campanhas, campanhaAtiva, serieAtiva, contaAtiva);
+
+  if (dias.length) {
+    const ini = fmtDate(dias[dias.length - 1].dia);
+    const fim = fmtDate(dias[0].dia);
+    document.getElementById('periodo').textContent = `Período: ${ini} – ${fim} (${periodo.label.toLowerCase()})`;
+  } else {
+    document.getElementById('periodo').textContent = 'Sem dados no período selecionado.';
+  }
+
+  document.getElementById('hero-kpis').innerHTML = [
+    heroKpi('Investimento (mídia)', fmtMoney(r.investimento)),
+    heroKpi('Receita (todos os produtos)', fmtMoney(r.receita)),
+    heroKpi('Vendas', fmtNum(r.vendas)),
+    heroKpi('Ticket médio', fmtMoney(r.ticket_medio)),
+    heroKpi('ROAS bruto', `<span style="color:#A78BFA">${fmtNum(r.roas)}×</span>`, 'ver aviso abaixo'),
+  ].join('');
+
+  const visaoGeral = `
+    <section class="bg"><div class="container">
+      <div class="section-title">📊 Visão Geral — ${periodo.label}</div>
+      <div class="aviso">
+        ⚠️ <b>Receita ainda sem escopo de produto confirmado.</b> A Marketex vende vários produtos/lançamentos sob a mesma conta Hotmart — a Receita e o ROAS acima somam <b>toda</b> venda "Completo" da Hotmart no período, não só o que essas 11 contas ANEX efetivamente anunciam. Use a tabela "Vendas por Produto" abaixo pra ver a composição e confirmar com o Gabriel se algum produto deve ficar de fora antes de tratar o ROAS como número final (mesmo tipo de ajuste já feito no dashboard do IFB).
+      </div>
+      <div class="kpi-grid">
+        ${kpiCard('Investimento', fmtMoney(r.investimento))}
+        ${kpiCard('Receita (todos os produtos)', fmtMoney(r.receita))}
+        ${kpiCard('ROAS bruto', `${fmtNum(r.roas)}×`, r.roas >= 1 ? 'pos' : 'warn', 'não escopado por produto')}
+        ${kpiCard('Vendas', fmtNum(r.vendas))}
+        ${kpiCard('Ticket médio', fmtMoney(r.ticket_medio))}
+        ${kpiCard('CPA (vendas totais)', fmtMoney(r.cpa))}
+        ${kpiCard('CPA pixel Meta', fmtMoney(r.cpa_pixel_meta))}
+      </div>
+    </div></section>`;
+
+  const filtroAtivo = campanhaAtiva !== 'todas' || serieAtiva !== 'todas' || contaAtiva !== 'todas';
+  const campanhaLabelPartes = [];
+  if (campanhaAtiva !== 'todas') campanhaLabelPartes.push(campanhaAtiva.toLowerCase());
+  if (serieAtiva !== 'todas') campanhaLabelPartes.push(`série ${serieAtiva}`);
+  if (contaAtiva !== 'todas') campanhaLabelPartes.push(contaAtiva);
+  const campanhaLabel = campanhaLabelPartes.length ? campanhaLabelPartes.join(' · ') : 'todas as campanhas';
+  const funil = `
+    <section class="bg-soft"><div class="container">
+      <div class="section-title">🔽 Funil &amp; Métricas de Mídia — 11 contas ANEX</div>
+      <div class="kpi-grid">
+        ${kpiCard('Investimento', fmtMoney(m.investimento), null, filtroAtivo ? campanhaLabel : null)}
+        ${kpiCard('Impressões', fmtNum(m.impressions))}
+        ${kpiCard('Cliques no link', fmtNum(m.link_clicks))}
+        ${kpiCard('CPA pixel Meta', fmtMoney(m.cpa_pixel_meta))}
+      </div>
+      <div class="funnel-wrap"><div class="funnel-box">
+        <h3>Da impressão à venda (pixel Meta) — ${periodo.label.toLowerCase()}, ${campanhaLabel}</h3>
+        ${funnelRow(100, `👁 Impressões`, `CPM ${fmtMoney(m.cpm)}`)}
+        ${funnelRow(70, `🖱 CTR (link): ${fmtPct(m.ctr)}`)}
+        ${funnelRow(55, `🔗 Connect Rate: ${fmtPct(m.connect_rate)}`)}
+        ${funnelRow(35, `💳 Conv. Checkout → Venda (pixel): ${fmtPct(m.conv_checkout_venda)}`)}
+        ${funnelRow(25, `✅ Conv. Página → Venda (pixel): ${fmtPct(m.conv_pagina_venda)}`)}
+      </div></div>
+      <p class="filtro-nota" style="margin-top:14px;">⚠️ O filtro de campanha/série/conta muda só Investimento e Funil (dado de mídia do Meta) — a Receita/ROAS da Visão Geral continua sempre do total, porque só ~7% das vendas Hotmart carregam o código do criativo que permite atribuição direta (ver tabela "Criativos com atribuição direta" abaixo).</p>
+    </div></section>`;
+
+  const produtoRows = p.slice(0, 20).map((x) => `<tr>
+      <td>${x.product_name}</td>
+      <td class="right">${fmtNum(x.qtd)}</td>
+      <td class="right bold">${fmtMoney(x.receita)}</td>
+    </tr>`).join('');
+
+  const vendasPorProduto = `
+    <section class="bg"><div class="container">
+      <div class="section-title">🛒 Vendas por Produto (Hotmart, todas as ofertas)</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Produto</th><th class="right">Vendas</th><th class="right">Receita</th></tr></thead>
+        <tbody>${produtoRows || '<tr><td colspan="3" class="muted">Sem dados no período.</td></tr>'}</tbody>
+      </table></div>
+      <p class="filtro-nota" style="margin-top:14px;">Use esta tabela pra decidir com o Gabriel se algum produto deve ser excluído do escopo do ROAS — ex.: lançamentos com tráfego próprio fora das 11 contas ANEX.</p>
+    </div></section>`;
+
+  const criativoRows = c.slice(0, 20).map((x) => `<tr>
+      <td class="bold">${x.adv_code}</td>
+      <td class="right">${fmtMoney(x.investimento)}</td>
+      <td class="right">${fmtNum(x.vendas)}</td>
+      <td class="right">${fmtMoney(x.receita)}</td>
+      <td class="right ${x.roas >= 1 ? 'pos-txt' : 'warn-txt'} bold">${fmtNum(x.roas)}×</td>
+    </tr>`).join('');
+
+  const criativosAtribuidos = `
+    <section class="bg-soft"><div class="container">
+      <div class="section-title">🎯 Criativos com Atribuição Direta (Hotmart × Meta)</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Criativo (código)</th><th class="right">Investimento</th><th class="right">Vendas</th><th class="right">Receita</th><th class="right">ROAS</th></tr></thead>
+        <tbody>${criativoRows || '<tr><td colspan="5" class="muted">Sem criativo com investimento e venda no mesmo período — normal em janelas curtas, já que a Hotmart guarda histórico de anos e o Meta só dos últimos ~30 dias.</td></tr>'}</tbody>
+      </table></div>
+      <p class="filtro-nota" style="margin-top:14px;">Só aparece aqui quando o código do criativo (ADVxxx) foi identificado tanto no gasto do Meta quanto na venda Hotmart (via campo "Código Externo") no mesmo dia — é a única fatia com ROAS por criativo confiável, não é a Receita Total.</p>
+    </div></section>`;
+
+  const diaRows = dias.map((d) => `<tr>
+      <td>${fmtDate(d.dia)}</td>
+      <td class="right">${fmtMoney(d.investimento)}</td>
+      <td class="right">${fmtNum(d.vendas)}</td>
+      <td class="right">${fmtMoney(d.receita)}</td>
+      <td class="right">${fmtNum(d.impressions)}</td>
+      <td class="right">${fmtNum(d.link_clicks)}</td>
+      <td class="right">${fmtNum(d.initiate_checkout)}</td>
+    </tr>`).join('');
+
+  const desempenhoDia = `
+    <section class="bg"><div class="container">
+      <div class="section-title">📅 Desempenho Dia a Dia</div>
+      <div class="table-wrap"><table>
+        <thead><tr>
+          <th>Dia</th><th class="right">Investimento</th><th class="right">Vendas</th><th class="right">Receita</th>
+          <th class="right">Impressões</th><th class="right">Cliques</th><th class="right">Checkouts</th>
+        </tr></thead>
+        <tbody>${diaRows || '<tr><td colspan="7" class="muted">Sem dados.</td></tr>'}</tbody>
+      </table></div>
+    </div></section>`;
+
+  document.getElementById('app').innerHTML = visaoGeral + funil + vendasPorProduto + criativosAtribuidos + desempenhoDia;
+}
+
+async function init() {
+  const [dias, produto, campanhas, criativos] = await Promise.all([
+    fetchView('anatex_v_daily_summary'),
+    fetchView('anatex_v_produto_diario'),
+    fetchView('anatex_v_trafego_diario_por_campanha'),
+    fetchView('anatex_v_criativo_diario'),
+  ]);
+  DADOS = { dias, produto, campanhas, criativos };
+  renderFiltro();
+  renderTudo();
+}
+
+init().catch((err) => {
+  document.getElementById('app').innerHTML = `<div class="state error">Erro ao carregar dados: ${err.message}</div>`;
+  console.error(err);
+});
+</script>
+
+
+
+</body></html>
