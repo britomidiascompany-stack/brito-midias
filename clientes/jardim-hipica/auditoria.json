@@ -153,14 +153,27 @@
   ],
   "melhorias": [
     {
+      "id": "JH-13",
+      "titulo": "Registrar a conversão do formulário no Google Ads",
+      "sistema": "Google Ads + YAY",
+      "severidade": "critica",
+      "esforco": "~1h",
+      "problema": "A conta tinha duas ações de conversão, ambas do tipo Site e ambas com status \"Configuração incorreta\" — dependiam de tag numa página que não tem formulário. Nunca receberam nada, e mesmo assim estavam marcadas como Principal, puxando o lance automático para eventos inexistentes.",
+      "acao": "Criada a ação \"Lead - Formulario YAY (Jardim Hipica)\" do tipo Conversões off-line (o tipo que aceita envio pela API), categoria Enviar formulário de lead, Principal, contagem Uma, janela de 90 dias. Ligada à integração nativa do YAY com o Google Ads, que envia a conversão direto para a conta sem depender de tag no site.",
+      "impacto": "A conta volta a registrar conversão. Combinado com o JH-12, que entrega o gclid no formulário, o Google passa a conseguir atribuir cada lead ao clique que o gerou.",
+      "status": "concluido",
+      "concluido_em": "2026-09-05",
+      "nota": "Integração do YAY confirmada como ATIVA. Pendência associada: despromover as duas ações antigas quebradas para secundárias assim que a nova começar a registrar."
+    },
+    {
       "id": "JH-01",
-      "titulo": "Receber o lead pelo webhook do YAY e devolver a conversão pelo servidor",
-      "sistema": "GTM + n8n",
+      "titulo": "Enviar o Lead para a Meta pela CAPI, a partir do webhook do YAY",
+      "sistema": "Meta Ads + n8n",
       "severidade": "critica",
       "esforco": "~4h",
       "problema": "O formulário está em lislie.yayforms.link, fora do domínio rastreado. Não há GTM, GA4 nem Google Ads nesse domínio, então nenhum gatilho de formulário no contêiner do site pode funcionar — o problema não é o gatilho estar errado, é não existir formulário onde o contêiner roda.",
-      "acao": "Ligar o webhook do YAY (aba Integrar, formato V2) a um fluxo no n8n que dispare Lead pela CAPI da Meta com e-mail, telefone e nome hasheados, mais event_id, e registre a conversão no Google Ads. O payload do YAY já traz response.tracking.utm_*, então a origem vem junto. Como alternativa complementar, configurar o redirecionamento pós-envio do YAY para uma página de obrigado no próprio domínio — isso reaproveita o gatilho \"Page Path contém obrigado\" que já existe no contêiner.",
-      "impacto": "É o único caminho que mede o lead onde ele realmente acontece. Leva o EMQ do Lead da faixa atual para 8-9 e devolve conversão às duas plataformas.",
+      "acao": "Workflow já construído e publicado no n8n ([JD HIPICA] Lead YAY para CAPI Meta), com webhook próprio, hash de telefone, nome, cidade e estado, e event_id igual ao id da resposta para não duplicar. Falta apenas o token de CAPI do pixel, gerado no Gerenciador de Eventos, e ligar o webhook no YAY.",
+      "impacto": "É o único caminho que mede o lead na Meta onde ele realmente acontece. Leva o EMQ do Lead da faixa atual para 8-9. Observação: o formulário não tem campo de e-mail, então o identificador forte disponível é telefone + nome + geo.",
       "status": "pendente",
       "concluido_em": null,
       "nota": ""
