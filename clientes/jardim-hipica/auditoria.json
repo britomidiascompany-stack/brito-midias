@@ -198,11 +198,11 @@
       "severidade": "critica",
       "esforco": "~30min",
       "problema": "Confirmado ao vivo em 03/09: a página carrega gtag para AW-11226975236, e o AW-18360192097 — que é o ID da conta que está investindo — não aparece em lugar nenhum. Qualquer conversão que chegasse seria creditada na conta errada.",
-      "acao": "Trocar o ID na \"Tag do Google\" do contêiner para AW-18360192097, conferir o rótulo de cada ação de conversão e republicar.",
-      "impacto": "Sem isso, todo o resto do trabalho no Google Ads é inútil: o sinal chega no lugar errado. É o ajuste de melhor relação esforço/retorno da lista.",
-      "status": "pendente",
-      "concluido_em": null,
-      "nota": ""
+      "acao": "Adicionada a tag \"00 - Google Ads | Tag do Google AW-18360192097\" no contêiner (Versão 10), com acionador Initialization - All Pages. A tag antiga foi mantida de propósito, porque ainda não se sabe se o AW-11226975236 é de terceiro — se for da incorporadora, removê-la tiraria a medição deles.",
+      "impacto": "A conta que investe passa a receber sinal do site: remarketing e captura de gclid. A conversão em si vem pela integração do YAY (JH-13), então este item não a bloqueia mais.",
+      "status": "concluido",
+      "concluido_em": "2026-09-05",
+      "nota": "Validado ao vivo: o script gtag/js?id=AW-18360192097 carrega na página e o cookie _gcl_aw é criado com o gclid. Pendência associada: descobrir de quem é o AW-11226975236 (e o AW-17583184640 que roda no outro site) para decidir se remove."
     },
     {
       "id": "JH-03",
