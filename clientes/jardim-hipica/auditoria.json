@@ -174,9 +174,9 @@
       "problema": "O visitante chega no site com fbclid e gclid na URL, mas preenche o formulário em outro domínio (lislie.yayforms.link). Nada atravessa, e por isso o fbc está ausente em 100% dos eventos. Sem esse elo, mesmo o envio pela CAPI chega sem identificador de clique e a atribuição continua fraca.",
       "acao": "Tag HTML personalizado no GTM (acionador Janela carregada) que reescreve o link do formulário acrescentando utm_*, fbclid, gclid, fbp e fbc, mais quatro campos ocultos no YAY (fbc, fbp, gclid, fbclid) para receber esses valores. As UTMs o YAY já captura sozinho.",
       "impacto": "É pré-requisito do JH-01: é o que permite ligar cada lead ao anúncio que o gerou. Sem ele, o lead é medido mas não atribuído.",
-      "status": "pendente",
-      "concluido_em": null,
-      "nota": ""
+      "status": "concluido",
+      "concluido_em": "2026-09-05",
+      "nota": "Tag \"00 - Propagacao de Parametros | Links YAY\" publicada no contêiner (Versão 9). Validado ao vivo: os 5 botões do formulário passaram a sair com utm_source, utm_medium, utm_campaign, gclid, fbclid e fbc, e no domínio do YAY o pixel reconheceu o fbclid e criou o cookie _fbc. Não foi preciso criar campo oculto no YAY."
     },
     {
       "id": "JH-02",
