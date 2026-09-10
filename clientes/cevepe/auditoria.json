@@ -3,7 +3,7 @@
   "slug": "cevepe",
   "empresa": "Cevepe — Centro Veterinário de Petrolina Ltda",
   "auditoria_em": "2026-09-02",
-  "atualizado_em": "2026-09-02",
+  "atualizado_em": "2026-09-10",
   "metodologia": "Metodologia Rastracking100 (Dericson Calari) — playbook interno da Brito Mídias",
   "veredito_titulo": "Duas contas diferentes: no Google falta mídia, na Meta falta identidade",
   "veredito": "O CEVEPE tem dois problemas independentes, e nenhum deles é o que a primeira leitura sugeria. No Google Ads, a medição funciona — as conversões de WhatsApp e de ligação registram normalmente e o total está em alta. O que quase não existe é mídia: sete das oito campanhas estão pausadas e a conta roda com R$ 33,00 por dia. Na Meta, o problema é de identidade: os leads não vêm do site, vêm da plataforma de atendimento carregando apenas o telefone, o que produz nota 2,5, a pior da agência. E atravessando os dois, uma questão estrutural: as 41 tags do nosso contêiner nunca rodaram, porque o GTM-MCQ7N3L2 não está instalado na página — quem carrega em cevepe.com.br é o GTM-584PFCH, um contêiner de terceiro fora da conta do cliente.",
@@ -13,7 +13,7 @@
     { "valor": "7 de 8", "label": "campanhas pausadas no Google Ads", "tom": "critico" },
     { "valor": "R$ 33", "label": "por dia é toda a mídia ativa da conta", "tom": "critico" },
     { "valor": "2,5", "label": "nota do Lead na Meta — a pior da agência", "tom": "critico" },
-    { "valor": "167 × 73", "label": "Leads contra PageViews em 7 dias no mesmo pixel", "tom": "alerta" }
+    { "valor": "1.146 × 119", "label": "Leads contra PageViews em 7 dias no mesmo pixel", "tom": "critico" }
   ],
   "sistemas": [
     {
@@ -38,7 +38,7 @@
           ]
         },
         {
-          "titulo": "Volume de eventos nos últimos 7 dias",
+          "titulo": "Volume de eventos — semana da auditoria (27/08 a 02/09)",
           "linhas": [
             ["Lead", "167", "critico"],
             ["PageView", "73 no total", ""],
@@ -48,6 +48,20 @@
             ["Contact", "1", "alerta"],
             ["Purchase / AddToCart / InitiateCheckout", "Zero, apesar de existirem tags para os três", "alerta"],
             ["A anomalia", "2,3 Leads para cada PageView. Não existe funil de site em que isso aconteça — o Lead está entrando por fora.", "critico"]
+          ]
+        },
+        {
+          "titulo": "⚠ Reconferido em 10/09 — o volume de Lead explodiu e voltou",
+          "linhas": [
+            ["Lead (03/09 a 10/09)", "1.146 — contra 167 na semana da auditoria, um salto de quase 7 vezes", "critico"],
+            ["PageView no mesmo período", "119", ""],
+            ["Nova proporção", "9,6 Leads para cada PageView, contra 2,3 antes", "critico"],
+            ["Formato do pico", "Não foi um lote único: foram 5 a 40 Leads por hora, em horário comercial, todos os dias de 03/09 a 08/09", "critico"],
+            ["Quando parou", "Cai bruscamente na tarde de 08/09 — em 09 e 10/09 o volume total do pixel voltou a cerca de 25 eventos por dia", "alerta"],
+            ["Qualidade no período", "Inalterada: EMQ 2,5, apenas telefone em 100%", "critico"],
+            ["Mídia da Meta no mesmo período", "1 campanha ativa, R$ 102,37 em 7 dias, 7.337 impressões, 10 conversas iniciadas", ""],
+            ["A conclusão", "1.146 Leads contra 10 conversas de anúncio e 119 visualizações de página. O volume não tem relação nem com a mídia nem com o site — entrou pela plataforma de atendimento.", "critico"],
+            ["Pergunta em aberto", "Alguém mexeu na integração de Pixel Meta do Atende Pro entre 03 e 08 de setembro? É a explicação mais provável, e precisa ser confirmada com quem tem acesso.", "critico"]
           ]
         },
         {
@@ -74,6 +88,7 @@
       ],
       "achados": [
         { "severidade": "critico", "titulo": "Os leads não vêm do site — vêm da plataforma de atendimento", "detalhe": "167 Leads contra 73 PageViews em sete dias no mesmo pixel. Como o contêiner do site não tem nenhuma tag de Lead, a origem é a integração de pixel do Atende Pro, cuja tela não tem campo para user_data, ctwa_clid nem event_id. Por isso o evento chega apenas com o telefone e a nota fica em 2,5." },
+        { "severidade": "critico", "titulo": "Entre 03 e 08 de setembro o pixel recebeu cerca de 1.100 Leads sem origem identificável", "detalhe": "Reconferência de 10/09: o volume saltou de 167 para 1.146 Leads em uma semana, mantendo a mesma qualidade de 2,5 e apenas telefone. No mesmo período a Meta entregou 10 conversas iniciadas e o site registrou 119 visualizações de página — ou seja, o volume não vem nem de anúncio nem do site. O padrão foi de 5 a 40 eventos por hora em horário comercial, de 03 a 08/09, com queda brusca na tarde do dia 08. Mil e cem eventos que a Meta não consegue casar com pessoa nenhuma entram no histórico do pixel e contaminam qualquer público semelhante ou otimização por Lead que venha a ser criada em cima dele." },
         { "severidade": "critico", "titulo": "Nenhuma campanha usa o pixel para otimizar", "detalhe": "O único conjunto ativo otimiza por conversa iniciada, sem pixel associado. Ou seja: o pixel recebe 167 leads por semana e nenhuma campanha aprende com eles. O sinal existe e é descartado." },
         { "severidade": "alto", "titulo": "As campanhas de WhatsApp não capturam o identificador de clique", "detalhe": "Sem ctwa_clid, não há como ligar a conversa ao anúncio que a gerou. Em um cliente cujo funil inteiro é Click-to-WhatsApp, esse é o dado que falta para saber o que funciona." },
         { "severidade": "medio", "titulo": "Estrutura de e-commerce sem uso", "detalhe": "Existem tags de Compra, Adição ao Carrinho, Início de Checkout e Página de Produto, mas nenhum desses eventos foi registrado na semana. O pixel de e-commerce dedicado está parado desde abril de 2022." }
