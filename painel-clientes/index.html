@@ -142,6 +142,9 @@
   .link-item:hover{border-color:var(--roxo-light)}
   .link-item .lbl{font-size:14px;font-weight:500}
   .link-item .go{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--roxo-dark);flex-shrink:0}
+  .link-group{margin-bottom:18px}
+  .link-group:last-child{margin-bottom:0}
+  .link-group-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--cinza);margin-bottom:8px}
 
   .skill-btn{cursor:pointer}
   .skill-btn:hover{filter:brightness(1.08)}
@@ -1165,13 +1168,14 @@ const CLIENTES = [
         resumo: "Lançamento <b>FDA</b> de Jean Alessandro, em duas fases: <b>Fase 1 — O Meteórico</b> (etapa anterior, sem dados de tráfego pago confirmados ainda) e <b>Fase 2 — Fim da Auto-sabotagem</b> (captação paga atual, com páginas A/B e criativos novos).",
         skills: [],
         links: [
-          {label:"Página A v1 (Fase 2 — Fim da Auto-sabotagem)", url:"https://www.manual-ahsd.com/fda-lotezero/fda-lote1/pagina-a/v1/"},
-          {label:"Página B v1 (Fase 2 — Fim da Auto-sabotagem)", url:"https://www.manual-ahsd.com/fda-lotezero/fda-lote1/pagina-b/v1/"},
-          {label:"Criativos estáticos (Drive)", url:"https://drive.google.com/drive/folders/1P_LOPsln3YCQs_sPEG4z_EWufw5TkwNp"},
-          {label:"Criativos em vídeo (Drive)", url:"https://drive.google.com/drive/folders/1mYsrI-sKfu20Hz0aH-ma6o2hYdTHqniG"},
-          {label:"Documento de legendas", url:"https://docs.google.com/document/d/1JLucZeXTRh95mOrzwnOg1kUC2T965Wh5zYJqKct1MlQ/edit"},
-          {label:"Planilha de resultado de criativos (Fase 2 — Captação Paga)", url:"https://docs.google.com/spreadsheets/d/1LCe2zMTH867qyQxoex6F6bbR2a2sLU1r618fUTvaX_E/edit"},
-          {label:"Páginas de teste iniciais v1-v4 (mockups Vercel, anteriores às páginas A/B)", url:"https://fda-lotezero.vercel.app/fda-lotezero/v1/"}
+          {grupo:"Páginas", label:"Página A v1 (Fase 2 — Fim da Auto-sabotagem)", url:"https://www.manual-ahsd.com/fda-lotezero/fda-lote1/pagina-a/v1/"},
+          {grupo:"Páginas", label:"Página B v1 (Fase 2 — Fim da Auto-sabotagem)", url:"https://www.manual-ahsd.com/fda-lotezero/fda-lote1/pagina-b/v1/"},
+          {grupo:"Páginas", label:"Páginas de teste iniciais v1-v4 (mockups Vercel, anteriores às páginas A/B)", url:"https://fda-lotezero.vercel.app/fda-lotezero/v1/"},
+          {grupo:"Criativos", label:"Criativos estáticos (Drive)", url:"https://drive.google.com/drive/folders/1P_LOPsln3YCQs_sPEG4z_EWufw5TkwNp"},
+          {grupo:"Criativos", label:"Criativos em vídeo (Drive)", url:"https://drive.google.com/drive/folders/1mYsrI-sKfu20Hz0aH-ma6o2hYdTHqniG"},
+          {grupo:"Criativos", label:"Documento de legendas", url:"https://docs.google.com/document/d/1JLucZeXTRh95mOrzwnOg1kUC2T965Wh5zYJqKct1MlQ/edit"},
+          {grupo:"Criativos", label:"Planilha de resultado de criativos (Fase 2 — Captação Paga)", url:"https://docs.google.com/spreadsheets/d/1LCe2zMTH867qyQxoex6F6bbR2a2sLU1r618fUTvaX_E/edit"},
+          {grupo:"Controle", label:"Planilha geral de controle de acompanhamento de campanhas", url:"https://docs.google.com/spreadsheets/d/1PQpXTSm4fDj-BYDawymsxZS0LgIrvuTef39zJTEB5qk/edit"}
         ],
         info: [
           {k:"Fase 1 — O Meteórico", v:"Etapa anterior do lançamento — ainda não temos dados de tráfego pago confirmados dessa fase"},
@@ -1418,6 +1422,29 @@ function openClient(id){
   history.replaceState(null, '', '#' + id);
 }
 
+function linkItemHtml(l){
+  return `<a class="link-item" href="${esc(l.url)}" target="_blank" rel="noopener"><span class="lbl">${esc(l.label)}</span><span class="go">Abrir →</span></a>`;
+}
+
+function linksHtml(links){
+  if(!links.length) return '<span class="placeholder">nenhum link cadastrado ainda</span>';
+  const hasGroups = links.some(l => l.grupo);
+  if(!hasGroups) return links.map(linkItemHtml).join('');
+
+  const groups = [];
+  const byName = {};
+  links.forEach(l => {
+    const nome = l.grupo || 'Outros';
+    if(!byName[nome]){ byName[nome] = []; groups.push(nome); }
+    byName[nome].push(l);
+  });
+  return groups.map(nome => `
+    <div class="link-group">
+      <div class="link-group-label">${esc(nome)}</div>
+      <div class="link-list">${byName[nome].map(linkItemHtml).join('')}</div>
+    </div>`).join('');
+}
+
 function openProject(clientId, projectId){
   const c = CLIENTES.find(x => x.id === clientId);
   if(!c) return;
@@ -1432,9 +1459,7 @@ function openProject(clientId, projectId){
   document.getElementById('pp-perfil-wrap').style.display = p.perfilEstrategico ? 'block' : 'none';
   document.getElementById('pp-guia-wrap').style.display = p.guiaUrl ? 'block' : 'none';
   if(p.guiaUrl) document.getElementById('pp-guia-link').href = p.guiaUrl;
-  document.getElementById('pp-links').innerHTML = (p.links && p.links.length)
-    ? p.links.map(l => `<a class="link-item" href="${esc(l.url)}" target="_blank" rel="noopener"><span class="lbl">${esc(l.label)}</span><span class="go">Abrir →</span></a>`).join('')
-    : '<span class="placeholder">nenhum link cadastrado ainda</span>';
+  document.getElementById('pp-links').innerHTML = linksHtml(p.links || []);
   document.getElementById('pp-info').innerHTML = (p.info && p.info.length)
     ? p.info.map(row => `<div class="row"><span class="k">${esc(row.k)}</span><span class="v">${row.v}</span></div>`).join('')
     : '<span class="placeholder">nenhuma informação cadastrada ainda</span>';
