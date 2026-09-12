@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RTKB · Consulta Rating Bancário — Relatório de Tráfego Pago</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--roxo:#7C3AED;--roxo-soft:#A78BFA;--verde:#059669;--vermelho:#DC2626;--amarelo:#D97706;--cinza:#6B7280;--borda:#E7E3EE;--bg-soft:#FAF9FC;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Poppins',sans-serif;font-weight:300;background:#fff;color:#1F1135;}
+a{color:var(--roxo);text-decoration:none;}
+a:hover{text-decoration:underline;}
+
+.hero{background:linear-gradient(150deg,#0A0A0A 0%,#17111F 45%,#3B0F73 100%);position:relative;overflow:hidden;padding:56px 24px 40px;text-align:center;color:#fff;}
+.hero::before{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(transparent,transparent 43px,rgba(124,58,237,.18) 43px,rgba(124,58,237,.18) 44px),repeating-linear-gradient(90deg,transparent,transparent 43px,rgba(124,58,237,.18) 43px,rgba(124,58,237,.18) 44px);pointer-events:none;}
+.hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 55% at 50% 40%,rgba(124,58,237,.55) 0%,transparent 70%);pointer-events:none;}
+.hero-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto;}
+.logo-bm{width:52px;height:52px;margin-bottom:16px;}
+.hero h1{font-size:clamp(1.5rem,4vw,2.4rem);font-weight:800;letter-spacing:-.5px;margin-bottom:6px;}
+.hero .sub{font-size:.95rem;opacity:.75;margin-bottom:4px;}
+.hero .ts{font-size:.8rem;opacity:.55;margin-bottom:24px;}
+.hero-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;max-width:900px;margin:0 auto;}
+.hero-kpi{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:16px 14px;}
+.hero-kpi .label{font-size:.7rem;opacity:.6;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;}
+.hero-kpi .val{font-size:1.5rem;font-weight:800;line-height:1.1;}
+.hero-kpi .sub2{font-size:.72rem;opacity:.55;margin-top:4px;}
+
+.periodo-filtro{position:sticky;top:0;z-index:10;background:#fff;border-bottom:1.5px solid var(--borda);padding:12px 20px 4px;display:flex;justify-content:center;gap:8px;flex-wrap:wrap;}
+.campanha-filtro{position:sticky;top:51px;z-index:9;background:#fff;border-bottom:1.5px solid var(--borda);padding:4px 20px 12px;display:flex;justify-content:center;gap:8px;flex-wrap:wrap;}
+.periodo-btn{font-family:'Poppins',sans-serif;font-size:.78rem;font-weight:600;color:var(--cinza);background:#fff;border:1.5px solid var(--borda);border-radius:20px;padding:7px 16px;cursor:pointer;transition:.15s;}
+.periodo-btn:hover{border-color:var(--roxo-soft);color:var(--roxo);}
+.periodo-btn.active{background:var(--roxo);border-color:var(--roxo);color:#fff;}
+.campanha-btn{font-family:'Poppins',sans-serif;font-size:.72rem;font-weight:600;color:var(--roxo-soft);background:#F5F3FF;border:1.5px solid transparent;border-radius:20px;padding:5px 14px;cursor:pointer;transition:.15s;}
+.campanha-btn:hover{border-color:var(--roxo-soft);}
+.campanha-btn.active{background:var(--roxo-soft);border-color:var(--roxo-soft);color:#fff;}
+.filtro-nota{font-size:.72rem;color:var(--cinza);text-align:center;margin-bottom:14px;font-style:italic;}
+
+.container{max-width:1100px;margin:0 auto;padding:0 20px;}
+section{padding:48px 20px;}
+section.bg{background:#fff;}
+section.bg-soft{background:var(--bg-soft);}
+.section-title{font-size:1.2rem;font-weight:700;color:var(--roxo);margin-bottom:22px;display:flex;align-items:center;gap:8px;}
+
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:14px;margin-bottom:16px;}
+.kpi-card{background:#fff;border:1.5px solid var(--borda);border-radius:14px;padding:18px 16px;}
+.kpi-card .label{font-size:.7rem;text-transform:uppercase;letter-spacing:.5px;color:var(--roxo);font-weight:600;margin-bottom:6px;}
+.kpi-card .val{font-size:1.4rem;font-weight:800;color:#1F1135;line-height:1.1;}
+.kpi-card .sub{font-size:.72rem;color:var(--cinza);margin-top:4px;}
+.kpi-card.neg .val{color:var(--vermelho);}
+.kpi-card.pos .val{color:var(--verde);}
+.kpi-card.warn .val{color:var(--amarelo);}
+
+.funnel-wrap{display:grid;grid-template-columns:1fr;gap:24px;}
+.funnel-box{background:#fff;border:1.5px solid var(--borda);border-radius:16px;padding:24px 20px;}
+.funnel-box h3{font-size:.95rem;font-weight:700;color:var(--roxo);margin-bottom:18px;text-align:center;}
+.funnel-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.funnel-bar{height:34px;border-radius:8px;background:linear-gradient(90deg,rgba(124,58,237,.15),rgba(124,58,237,.07));border:1px solid rgba(124,58,237,.2);display:flex;align-items:center;padding:0 12px;font-size:.76rem;font-weight:600;color:#1F1135;white-space:nowrap;overflow:hidden;}
+.funnel-meta{min-width:80px;text-align:right;font-size:.73rem;color:var(--cinza);}
+
+.table-wrap{overflow-x:auto;border-radius:16px;border:1.5px solid var(--borda);}
+table{width:100%;border-collapse:collapse;font-size:.82rem;}
+thead tr{background:var(--bg-soft);}
+th{padding:12px 14px;text-align:left;font-weight:700;color:var(--roxo);font-size:.74rem;text-transform:uppercase;letter-spacing:.4px;border-bottom:1.5px solid var(--borda);}
+td{padding:11px 14px;border-bottom:1px solid var(--borda);}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:rgba(124,58,237,.03);}
+.bold{font-weight:700;}
+.muted{color:var(--cinza);font-size:.75rem;}
+.neg-txt{color:var(--vermelho);}
+.pos-txt{color:var(--verde);}
+.warn-txt{color:var(--amarelo);}
+td.hl{background:rgba(124,58,237,.05);font-weight:700;}
+th.hl{background:rgba(124,58,237,.1);color:var(--roxo);}
+th.right,td.right{text-align:right;}
+
+footer{background:#141018;color:rgba(255,255,255,.5);padding:36px 20px;text-align:center;font-size:.78rem;}
+footer .logo-f{color:#A78BFA;font-weight:800;font-size:1rem;margin-bottom:8px;}
+footer p{margin-bottom:4px;}
+
+.state{text-align:center;padding:80px 20px;color:var(--cinza);font-size:.9rem;}
+.state.error{color:var(--vermelho);}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-inner">
+    <svg class="logo-bm" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="26,2 48,14 48,38 26,50 4,38 4,14" fill="none" stroke="white" stroke-width="2"/>
+      <polygon points="26,10 40,18 40,34 26,42 12,34 12,18" fill="rgba(255,255,255,0.15)" stroke="white" stroke-width="1.2"/>
+      <text x="26" y="31" text-anchor="middle" font-family="Poppins,sans-serif" font-size="13" font-weight="800" fill="white">BM</text>
+    </svg>
+    <h1>Consulta Rating Bancário</h1>
+    <div class="sub">Iarla Pugliesi · Tráfego Pago</div>
+    <div class="ts" id="periodo">Carregando período…</div>
+    <div class="hero-kpis" id="hero-kpis"></div>
+  </div>
+</div>
+
+<div class="periodo-filtro" id="filtro"></div>
+<div class="campanha-filtro" id="filtro-campanha"></div>
+
+<main id="app">
+  <div class="state" id="loading">Carregando dados do Supabase…</div>
+</main>
+
+<footer>
+  <div class="logo-f">Brito Mídias</div>
+  <p>Consulta Rating Bancário · Iarla Pugliesi</p>
+  <p>Dashboard vivo — lê direto do Supabase, atualiza sozinho a cada 3h</p>
+</footer>
+
+<script>
+const SUPABASE_URL = 'https://bsexxjbiqedkdgtkeyys.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJzZXh4amJpcWVka2RndGtleXlzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODcxNzc0NzgsImV4cCI6MjEwMjc1MzQ3OH0.SAVK1fYrjPFWf8NfrqKLdBvDP732OrOwU5l9gQhu4b4';
+
+const PERIODOS = [
+  { key: 'total', label: 'Total', dias: null },
+  { key: '60', label: '60 dias', dias: 60 },
+  { key: '30', label: '30 dias', dias: 30 },
+  { key: '15', label: '15 dias', dias: 15 },
+  { key: '7', label: '7 dias', dias: 7 },
+  { key: '3', label: '3 dias', dias: 3 },
+];
+let periodoAtivo = '30';
+let criativoAtivo = 'todos';
+let DADOS = null; // { meta: [...], vendas: [...], pagamento: [...], criativo: [...] }
+
+async function fetchView(name) {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${name}?select=*`, {
+    headers: { apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${SUPABASE_ANON_KEY}` }
+  });
+  if (!res.ok) throw new Error(`${name}: ${res.status} ${await res.text()}`);
+  return res.json();
+}
+
+const fmtMoney = (v) => v === null || v === undefined || !isFinite(v) ? '—' : Number(v).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+const fmtNum = (v) => v === null || v === undefined || !isFinite(v) ? '—' : Number(v).toLocaleString('pt-BR');
+const fmtPct = (v) => v === null || v === undefined || !isFinite(v) ? '—' : `${(Number(v) * 100).toLocaleString('pt-BR', { maximumFractionDigits: 2 })}%`;
+const fmtDate = (v) => new Date(v).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
+const posNeg = (v) => Number(v) < 0 ? 'neg' : 'pos';
+const posNegTxt = (v) => Number(v) < 0 ? 'neg-txt' : 'pos-txt';
+const dayKey = (v) => new Date(v).toISOString().slice(0, 10);
+
+function heroKpi(label, val, sub) {
+  return `<div class="hero-kpi"><div class="label">${label}</div><div class="val">${val}</div>${sub ? `<div class="sub2">${sub}</div>` : ''}</div>`;
+}
+function kpiCard(label, val, variant, sub) {
+  return `<div class="kpi-card${variant ? ' ' + variant : ''}"><div class="label">${label}</div><div class="val">${val}</div>${sub ? `<div class="sub">${sub}</div>` : ''}</div>`;
+}
+function funnelRow(width, label, meta) {
+  return `<div class="funnel-row"><div class="funnel-bar" style="width:${width}%">${label}</div>${meta ? `<div class="funnel-meta">${meta}</div>` : ''}</div>`;
+}
+
+function filtrarPeriodo(diasCount) {
+  const todosDias = DADOS.meta.map((d) => d.dia).filter(Boolean).sort();
+  const ultimoDia = todosDias[todosDias.length - 1];
+  let corte = null;
+  if (diasCount !== null && ultimoDia) {
+    const d = new Date(ultimoDia + 'T00:00:00Z');
+    d.setUTCDate(d.getUTCDate() - (diasCount - 1));
+    corte = d.toISOString().slice(0, 10);
+  }
+  const dentro = (dia) => corte === null || dayKey(dia) >= corte;
+  return {
+    meta: DADOS.meta.filter((d) => d.dia && dentro(d.dia)),
+    vendas: DADOS.vendas.filter((d) => d.dia && dentro(d.dia)),
+    pagamento: DADOS.pagamento.filter((d) => d.dia && dentro(d.dia)),
+    criativo: DADOS.criativo.filter((d) => d.dia && dentro(d.dia)),
+    ultimoDia,
+  };
+}
+
+// Agrega tudo — quando um criativo específico está selecionado, TUDO (mídia
+// E venda) vem só de rtkb.v_criativo_diario, porque aqui a Kiwify manda o
+// ADVxx (atribuição real, diferente do TPIJA). "Todos" usa as views de dia
+// inteiro (não passa pelo join por criativo, mais direto/confiável).
+function agregar(filtrado) {
+  const s = (arr, key) => arr.reduce((acc, d) => acc + (Number(d[key]) || 0), 0);
+
+  let investimento, impressions, clicks, lpv, checkouts, vendas_principal, retorno_principal, retorno_bumps, vendas_bumps;
+
+  if (criativoAtivo === 'todos') {
+    investimento = s(filtrado.meta, 'gasto');
+    impressions = s(filtrado.meta, 'impressions');
+    clicks = s(filtrado.meta, 'clicks');
+    lpv = s(filtrado.meta, 'lpv');
+    checkouts = s(filtrado.meta, 'checkouts');
+    vendas_principal = s(filtrado.vendas, 'vendas_principal');
+    retorno_principal = s(filtrado.vendas, 'retorno_principal');
+    vendas_bumps = s(filtrado.vendas, 'vendas_bumps');
+    retorno_bumps = s(filtrado.vendas, 'retorno_bumps');
+  } else {
+    const linhas = filtrado.criativo.filter((c) => c.adv_code === criativoAtivo);
+    investimento = s(linhas, 'gasto');
+    impressions = s(linhas, 'impressions');
+    clicks = s(linhas, 'clicks');
+    lpv = s(linhas, 'lpv');
+    checkouts = s(linhas, 'checkouts');
+    vendas_principal = s(linhas, 'vendas_principal');
+    retorno_principal = s(linhas, 'retorno_principal');
+    vendas_bumps = 0; retorno_bumps = 0; // bumps não têm ADVxx próprio nas vendas de origem
+  }
+
+  const retorno_bruto = retorno_principal + retorno_bumps;
+  const resultado = retorno_bruto - investimento;
+
+  const pagamento = {};
+  for (const row of filtrado.pagamento) {
+    const k = row.forma_pagamento || 'Outro';
+    if (!pagamento[k]) pagamento[k] = { forma_pagamento: k, qtd: 0, receita: 0 };
+    pagamento[k].qtd += Number(row.qtd) || 0;
+    pagamento[k].receita += Number(row.receita) || 0;
+  }
+  const pagTotalQtd = Object.values(pagamento).reduce((a, x) => a + x.qtd, 0);
+  const pagTotalReceita = Object.values(pagamento).reduce((a, x) => a + x.receita, 0);
+  const pagamentoList = Object.values(pagamento).map((x) => ({
+    ...x, pct_pedidos: 100 * x.qtd / pagTotalQtd, pct_receita: 100 * x.receita / pagTotalReceita,
+  })).sort((a, b) => b.receita - a.receita);
+
+  // Ranking por criativo (sempre "todos os dias do período", independente
+  // do filtro de criativo ativo — é a tabela que ALIMENTA o filtro).
+  const porCriativo = {};
+  for (const row of filtrado.criativo) {
+    const k = row.adv_code;
+    if (!k) continue;
+    if (!porCriativo[k]) porCriativo[k] = { adv_code: k, gasto: 0, clicks: 0, lpv: 0, checkouts: 0, vendas: 0, retorno: 0 };
+    porCriativo[k].gasto += Number(row.gasto) || 0;
+    porCriativo[k].clicks += Number(row.clicks) || 0;
+    porCriativo[k].lpv += Number(row.lpv) || 0;
+    porCriativo[k].checkouts += Number(row.checkouts) || 0;
+    porCriativo[k].vendas += Number(row.vendas_principal) || 0;
+    porCriativo[k].retorno += Number(row.retorno_principal) || 0;
+  }
+  const rankingCriativo = Object.values(porCriativo)
+    .map((x) => ({ ...x, roas: x.retorno / x.gasto }))
+    .sort((a, b) => b.gasto - a.gasto);
+
+  return {
+    dias: [...filtrado.meta].sort((a, b) => new Date(b.dia) - new Date(a.dia)),
+    resumo: {
+      investimento, impressions, clicks, lpv, checkouts,
+      vendas_principal, retorno_principal, vendas_bumps, retorno_bumps, retorno_bruto, resultado,
+      roas: investimento ? Math.round((retorno_bruto / investimento) * 100) / 100 : null,
+      cpa: investimento && vendas_principal ? investimento / vendas_principal : null,
+      cpm: 1000 * investimento / impressions,
+      ctr: clicks / impressions,
+      connect_rate: lpv / clicks,
+      conv_checkout_venda: vendas_principal / checkouts,
+    },
+    pagamento: pagamentoList,
+    rankingCriativo,
+  };
+}
+
+function renderFiltro() {
+  document.getElementById('filtro').innerHTML = PERIODOS.map((p) =>
+    `<button class="periodo-btn${p.key === periodoAtivo ? ' active' : ''}" data-key="${p.key}">${p.label}</button>`
+  ).join('');
+  document.querySelectorAll('.periodo-btn').forEach((btn) => {
+    btn.addEventListener('click', () => { periodoAtivo = btn.dataset.key; renderFiltro(); renderTudo(); });
+  });
+
+  const advCodes = ['todos', ...new Set(DADOS.criativo.map((c) => c.adv_code).filter(Boolean))].sort();
+  document.getElementById('filtro-campanha').innerHTML = advCodes.map((k) =>
+    `<button class="campanha-btn${k === criativoAtivo ? ' active' : ''}" data-key="${k}">${k === 'todos' ? '🎯 Todos os criativos' : k}</button>`
+  ).join('');
+  document.querySelectorAll('.campanha-btn').forEach((btn) => {
+    btn.addEventListener('click', () => { criativoAtivo = btn.dataset.key; renderFiltro(); renderTudo(); });
+  });
+}
+
+function renderTudo() {
+  const periodo = PERIODOS.find((p) => p.key === periodoAtivo);
+  const filtrado = filtrarPeriodo(periodo.dias);
+  const { dias, resumo: r, pagamento, rankingCriativo } = agregar(filtrado);
+
+  if (dias.length) {
+    document.getElementById('periodo').textContent =
+      `Período: ${fmtDate(dias[dias.length - 1].dia)} – ${fmtDate(dias[0].dia)} (${periodo.label.toLowerCase()}) · Atualiza sozinho a cada 3h`;
+  } else {
+    document.getElementById('periodo').textContent = 'Sem dados no período selecionado.';
+  }
+
+  document.getElementById('hero-kpis').innerHTML = [
+    heroKpi('Investimento', fmtMoney(r.investimento)),
+    heroKpi('Retorno bruto', fmtMoney(r.retorno_bruto)),
+    heroKpi('Resultado', `<span style="color:${r.resultado < 0 ? '#F87171' : '#4ADE80'}">${fmtMoney(r.resultado)}</span>`),
+    heroKpi('Vendas (principal)', fmtNum(r.vendas_principal)),
+    heroKpi('ROAS', `<span style="color:#A78BFA">${r.roas === null ? '—' : fmtNum(r.roas) + '×'}</span>`),
+  ].join('');
+
+  const criativoLabel = criativoAtivo === 'todos' ? 'todos os criativos' : criativoAtivo;
+  const visaoGeral = `
+    <section class="bg"><div class="container">
+      <div class="section-title">📊 Visão Geral — ${periodo.label}${criativoAtivo !== 'todos' ? ` · ${criativoAtivo}` : ''}</div>
+      <div class="kpi-grid">
+        ${kpiCard('Investimento', fmtMoney(r.investimento))}
+        ${kpiCard('Vendas (principal)', fmtNum(r.vendas_principal))}
+        ${kpiCard('Retorno bruto', fmtMoney(r.retorno_bruto), null, criativoAtivo === 'todos' ? 'principal + bumps' : 'só principal (bump sem ADVxx próprio)')}
+        ${kpiCard('Resultado', fmtMoney(r.resultado), posNeg(r.resultado))}
+        ${kpiCard('ROAS', r.roas === null ? '—' : `${fmtNum(r.roas)}×`, r.roas >= 1 ? 'pos' : 'warn')}
+        ${kpiCard('CPA', fmtMoney(r.cpa))}
+      </div>
+    </div></section>`;
+
+  const funil = `
+    <section class="bg-soft"><div class="container">
+      <div class="section-title">🔽 Funil &amp; Métricas de Mídia</div>
+      <div class="funnel-wrap"><div class="funnel-box">
+        <h3>Da impressão à venda — ${periodo.label.toLowerCase()}, ${criativoLabel}</h3>
+        ${funnelRow(100, `👁 Impressões`, `CPM ${fmtMoney(r.cpm)}`)}
+        ${funnelRow(70, `🖱 CTR (link): ${fmtPct(r.ctr)}`)}
+        ${funnelRow(50, `📄 Landing Page View: ${fmtNum(r.lpv)}`, `Connect ${fmtPct(r.connect_rate)}`)}
+        ${funnelRow(30, `💳 Checkout Iniciado: ${fmtNum(r.checkouts)}`)}
+        ${funnelRow(20, `✅ Conv. Checkout → Venda: ${fmtPct(r.conv_checkout_venda)}`, `${fmtNum(r.vendas_principal)} vendas`)}
+      </div></div>
+    </div></section>`;
+
+  const pagamentoRows = pagamento.map((x) => `<tr>
+      <td>${x.forma_pagamento === 'pix' ? '💠 PIX' : x.forma_pagamento === 'credit_card' ? '💳 Cartão de Crédito' : x.forma_pagamento}</td>
+      <td class="right">${fmtNum(x.qtd)}</td>
+      <td class="right">${x.pct_pedidos.toLocaleString('pt-BR', { maximumFractionDigits: 1 })}%</td>
+      <td class="right bold">${fmtMoney(x.receita)}</td>
+      <td class="right">${x.pct_receita.toLocaleString('pt-BR', { maximumFractionDigits: 1 })}%</td>
+    </tr>`).join('');
+
+  const formasPagamento = `
+    <section class="bg"><div class="container">
+      <div class="section-title">💳 Formas de Pagamento</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Forma</th><th class="right">Pedidos</th><th class="right">% Pedidos</th><th class="right">Receita</th><th class="right">% Receita</th></tr></thead>
+        <tbody>${pagamentoRows || '<tr><td colspan="5" class="muted">Sem dados no período.</td></tr>'}</tbody>
+      </table></div>
+    </div></section>`;
+
+  const rankingRows = rankingCriativo.map((c) => `<tr>
+      <td class="bold">${c.adv_code}</td>
+      <td class="right">${fmtMoney(c.gasto)}</td>
+      <td class="right">${fmtNum(c.clicks)}</td>
+      <td class="right">${fmtNum(c.checkouts)}</td>
+      <td class="right">${fmtNum(c.vendas)}</td>
+      <td class="right">${fmtMoney(c.retorno)}</td>
+      <td class="right ${c.roas >= 1 ? 'pos-txt bold' : 'warn-txt'}">${isFinite(c.roas) ? fmtNum(Math.round(c.roas * 100) / 100) + '×' : '—'}</td>
+    </tr>`).join('');
+
+  const performanceCriativo = `
+    <section class="bg-soft"><div class="container">
+      <div class="section-title">🎬 Performance por Criativo — ${periodo.label.toLowerCase()}</div>
+      <p class="filtro-nota" style="margin-bottom:14px;">Clica num criativo nos filtros do topo pra ver Visão Geral e Funil só dele.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Criativo</th><th class="right">Gasto</th><th class="right">Cliques</th><th class="right">Checkouts</th><th class="right">Vendas</th><th class="right">Retorno</th><th class="right">ROAS</th></tr></thead>
+        <tbody>${rankingRows || '<tr><td colspan="7" class="muted">Sem dados.</td></tr>'}</tbody>
+      </table></div>
+    </div></section>`;
+
+  const diaRows = dias.map((d) => {
+    const vDia = filtrado.vendas.find((v) => v.dia === d.dia) || {};
+    const vendasDia = (Number(vDia.vendas_principal) || 0) + (Number(vDia.vendas_bumps) || 0);
+    const receitaDia = (Number(vDia.retorno_principal) || 0) + (Number(vDia.retorno_bumps) || 0);
+    const resultadoDia = receitaDia - (Number(d.gasto) || 0);
+    return `<tr>
+      <td>${fmtDate(d.dia)}</td>
+      <td class="right">${fmtMoney(d.gasto)}</td>
+      <td class="right">${fmtNum(vendasDia)}</td>
+      <td class="right">${fmtMoney(receitaDia)}</td>
+      <td class="right ${posNegTxt(resultadoDia)}">${fmtMoney(resultadoDia)}</td>
+      <td class="right">${fmtNum(d.clicks)}</td>
+      <td class="right">${fmtNum(d.checkouts)}</td>
+    </tr>`;
+  }).join('');
+
+  const desempenhoDia = `
+    <section class="bg"><div class="container">
+      <div class="section-title">📅 Desempenho Dia a Dia</div>
+      <div class="table-wrap"><table>
+        <thead><tr>
+          <th>Dia</th><th class="right">Investimento</th><th class="right">Vendas</th><th class="right">Receita</th>
+          <th class="right">Resultado</th><th class="right">Cliques</th><th class="right">Checkouts</th>
+        </tr></thead>
+        <tbody>${diaRows || '<tr><td colspan="7" class="muted">Sem dados.</td></tr>'}</tbody>
+      </table></div>
+    </div></section>`;
+
+  document.getElementById('app').innerHTML = visaoGeral + funil + formasPagamento + performanceCriativo + desempenhoDia;
+}
+
+async function init() {
+  const [meta, vendas, pagamento, criativo] = await Promise.all([
+    fetchView('rtkb_v_meta_diario'),
+    fetchView('rtkb_v_vendas_diario'),
+    fetchView('rtkb_v_pagamento_diario'),
+    fetchView('rtkb_v_criativo_diario'),
+  ]);
+  DADOS = { meta, vendas, pagamento, criativo };
+  renderFiltro();
+  renderTudo();
+}
+
+init().catch((err) => {
+  document.getElementById('app').innerHTML = `<div class="state error">Erro ao carregar dados: ${err.message}</div>`;
+  console.error(err);
+});
+</script>
+
+</body>
+</html>
