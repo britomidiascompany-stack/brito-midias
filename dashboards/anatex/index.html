@@ -132,7 +132,7 @@ footer p{margin-bottom:4px;}
 <footer>
   <div class="logo-f">Brito Mídias</div>
   <p>ANATEX · Marketex — todas as contas ANEX</p>
-  <p>Dashboard vivo — lê direto do Supabase. Vendas (Hotmart) atualizam sozinhas a cada 6h; Google/TikTok Ads 1x/dia; Meta Ads (11 contas ANEX) por enquanto é atualização manual, aguardando ajuste de agendamento no Stract.</p>
+  <p>Dashboard vivo — lê direto do Supabase. Vendas (Hotmart, via API) atualizam sozinhas a cada 6h com o dia atual incluído; Meta Ads (11 contas ANEX) e Google Ads 1x/dia às 06:00 com o dado até o dia anterior.</p>
 </footer>
 
 <script>
@@ -181,18 +181,19 @@ function extrairSerie(campaignName) {
 // pego testando este dashboard: "Investimento" da Visão Geral zerava porque
 // a janela de 30 dias caía fora das primeiras 1000 linhas devolvidas).
 // Pagina via header Range até vir menos que PAGE_SIZE linhas.
+// `order` é obrigatório pra paginar: sem ordenação total o Postgres pode devolver a mesma linha em duas
+// páginas (ou pular uma) — v_produto_diario e v_criativo_diario não têm ORDER BY interno (12/09/2026).
 const PAGE_SIZE = 1000;
-async function fetchView(name) {
+async function fetchView(name, order) {
   let all = [];
   let offset = 0;
   while (true) {
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/${name}?select=*`, {
-      headers: {
-        apikey: SUPABASE_ANON_KEY,
-        Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
-        Range: `${offset}-${offset + PAGE_SIZE - 1}`,
-      }
-    });
+    const url = `${SUPABASE_URL}/rest/v1/${name}?select=*&order=${encodeURIComponent(order || 'dia.asc')}`;
+    const opts = { headers: { apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${SUPABASE_ANON_KEY}`, Range: `${offset}-${offset + PAGE_SIZE - 1}` } };
+    // 5xx (na prática o statement_timeout do Supabase na 1ª carga do dia, cache frio) → tenta de novo:
+    // a 1ª tentativa aquece o cache, a 2ª passa. 4xx sobe na hora.
+    let res = await fetch(url, opts);
+    for (let t = 1; t < 3 && res.status >= 500; t++) { await new Promise((r) => setTimeout(r, 700 * t)); res = await fetch(url, opts); }
     if (!res.ok) throw new Error(`${name}: ${res.status} ${await res.text()}`);
     const page = await res.json();
     all = all.concat(page);
@@ -206,7 +207,9 @@ const fmtMoney = (v) => v === null || v === undefined || !isFinite(v) ? '—' : 
 const fmtNum = (v) => v === null || v === undefined || !isFinite(v) ? '—' : Number(v).toLocaleString('pt-BR');
 const fmtPct = (v) => v === null || v === undefined || !isFinite(v) ? '—' : `${(Number(v) * 100).toLocaleString('pt-BR', { maximumFractionDigits: 2 })}%`;
 const fmtPctDirect = (v) => v === null || v === undefined || !isFinite(v) ? '—' : `${Number(v).toLocaleString('pt-BR', { maximumFractionDigits: 1 })}%`;
-const fmtDate = (v) => new Date(v).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
+// `dia` vem como 'YYYY-MM-DD' (dia em Brasília). Sem timeZone:'UTC', new Date('2026-09-12') é meia-noite UTC
+// e no navegador em Brasília (UTC-3) renderizava o dia ANTERIOR ("11/09") — corrigido em 12/09/2026.
+const fmtDate = (v) => new Date(v).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', timeZone: 'UTC' });
 const posNeg = (v) => Number(v) < 0 ? 'neg' : 'pos';
 const posNegTxt = (v) => Number(v) < 0 ? 'neg-txt' : 'pos-txt';
 const dayKey = (v) => new Date(v).toISOString().slice(0, 10);
@@ -398,7 +401,7 @@ function renderTudo() {
     <section class="bg"><div class="container">
       <div class="section-title">📊 Visão Geral — ${periodo.label}</div>
       <div class="aviso">
-        ⚠️ <b>Receita ainda sem escopo de produto confirmado.</b> A Marketex vende vários produtos/lançamentos sob a mesma conta Hotmart — a Receita e o ROAS acima somam <b>toda</b> venda "Completo" da Hotmart no período, não só o que essas 11 contas ANEX efetivamente anunciam. Use a tabela "Vendas por Produto" abaixo pra ver a composição e confirmar com o Gabriel se algum produto deve ficar de fora antes de tratar o ROAS como número final (mesmo tipo de ajuste já feito no dashboard do IFB).
+        ⚠️ <b>Receita ainda sem escopo de produto confirmado.</b> A Marketex vende vários produtos/lançamentos sob a mesma conta Hotmart — a Receita e o ROAS acima somam <b>toda</b> venda paga da Hotmart no período ("Aprovado" + "Completo", lida da API via Stract, dia em Brasília — desde 12/09/2026), não só o que essas 11 contas ANEX efetivamente anunciam. Use a tabela "Vendas por Produto" abaixo pra ver a composição e confirmar com o Gabriel se algum produto deve ficar de fora antes de tratar o ROAS como número final (mesmo tipo de ajuste já feito no dashboard do IFB).
       </div>
       <div class="kpi-grid">
         ${kpiCard('Investimento', fmtMoney(r.investimento))}
@@ -434,7 +437,7 @@ function renderTudo() {
         ${funnelRow(35, `💳 Conv. Checkout → Venda (pixel): ${fmtPct(m.conv_checkout_venda)}`)}
         ${funnelRow(25, `✅ Conv. Página → Venda (pixel): ${fmtPct(m.conv_pagina_venda)}`)}
       </div></div>
-      <p class="filtro-nota" style="margin-top:14px;">⚠️ O filtro de campanha/série/conta muda só Investimento e Funil (dado de mídia do Meta) — a Receita/ROAS da Visão Geral continua sempre do total, porque só ~7% das vendas Hotmart carregam o código do criativo que permite atribuição direta (ver tabela "Criativos com atribuição direta" abaixo).</p>
+      <p class="filtro-nota" style="margin-top:14px;">⚠️ O filtro de campanha/série/conta muda só Investimento e Funil (dado de mídia do Meta) — a Receita/ROAS da Visão Geral continua sempre do total, porque só parte das vendas Hotmart (~60% desde a leitura pela API; a venda fechada no WhatsApp não traz código) carrega o código do criativo que permite atribuição direta (ver tabela "Criativos com atribuição direta" abaixo).</p>
     </div></section>`;
 
   const produtoRows = p.slice(0, 20).map((x) => `<tr>
@@ -498,10 +501,10 @@ function renderTudo() {
 
 async function init() {
   const [dias, produto, campanhas, criativos] = await Promise.all([
-    fetchView('anatex_v_daily_summary'),
-    fetchView('anatex_v_produto_diario'),
-    fetchView('anatex_v_trafego_diario_por_campanha'),
-    fetchView('anatex_v_criativo_diario'),
+    fetchView('anatex_v_daily_summary', 'dia.asc'),
+    fetchView('anatex_v_produto_diario', 'dia.asc,product_name.asc'),
+    fetchView('anatex_v_trafego_diario_por_campanha', 'dia.asc,account_name.asc,campaign_name.asc'),
+    fetchView('anatex_v_criativo_diario', 'dia.asc,adv_code.asc'),
   ]);
   DADOS = { dias, produto, campanhas, criativos };
   renderFiltro();
