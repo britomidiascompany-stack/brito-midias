@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Política de Privacidade · Brito Mídias</title>
+<meta name="description" content="Política de Privacidade da Brito Mídias Company para os aplicativos e integrações que utilizam as plataformas da Meta (Facebook, Instagram e Meta Ads).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --roxo:#7C3AED; --roxo-dark:#5B21B6; --roxo-deep:#3B0F73;
+    --roxo-light:#A78BFA; --roxo-xlight:#EDE9FE;
+    --preto:#0A0A0A; --ink:#141018; --cinza:#5B5566;
+    --linha:#E7E3EE; --bg:#FFFFFF; --bg-soft:#FAF9FC;
+    --verde:#16A34A; --amarelo:#D97706; --vermelho:#DC2626;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Poppins',system-ui,-apple-system,sans-serif;font-weight:300;font-size:16px;
+    line-height:1.65;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .wrap{max-width:900px;margin:0 auto;padding:0 28px}
+
+  /* HERO */
+  .hero{position:relative;overflow:hidden;color:#fff;
+    background:
+      radial-gradient(1100px 500px at 78% -10%, rgba(124,58,237,.55), transparent 60%),
+      linear-gradient(150deg,#0A0A0A 0%,#17111F 45%,#3B0F73 100%);}
+  .hero::before{content:"";position:absolute;inset:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.14) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.14) 1px,transparent 1px);
+    background-size:44px 44px;
+    -webkit-mask-image:radial-gradient(circle at 50% 30%,#000 25%,transparent 72%);
+    mask-image:radial-gradient(circle at 50% 30%,#000 25%,transparent 72%);pointer-events:none}
+  .hero-in{position:relative;padding:40px 0 50px}
+  .brand{display:flex;align-items:center;gap:16px}
+  .brand svg{width:46px;height:46px;flex-shrink:0}
+  .brand .word{display:flex;align-items:center;gap:14px;font-weight:300}
+  .brand .word b{font-weight:800;font-size:20px}
+  .brand .word .bar{width:2px;height:30px;background:rgba(255,255,255,.55)}
+  .brand .word span{font-size:20px;letter-spacing:.22em}
+  .crumb{margin-top:32px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+    font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--roxo-light)}
+  .crumb b{color:#fff}
+  .crumb .sep{color:rgba(255,255,255,.35);font-weight:400;letter-spacing:0;text-transform:none}
+  .hero h1{font-weight:800;font-size:clamp(28px,4.4vw,44px);letter-spacing:-.02em;line-height:1.15;
+    margin-top:12px;text-wrap:balance}
+  .hero .sub{font-weight:300;font-size:16.5px;color:rgba(255,255,255,.74);margin-top:14px;max-width:62ch}
+  .pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+  .pill{border:1px solid var(--roxo-light);color:#fff;border-radius:100px;padding:8px 16px;
+    font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
+  .pill.solid{background:linear-gradient(90deg,#7C3AED,#5B21B6);border-color:transparent}
+
+  /* SUMÁRIO */
+  .toc{background:var(--bg-soft);border:1px solid var(--linha);border-radius:14px;padding:22px 26px;margin-top:-26px;position:relative}
+  .toc h2{font-size:13px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--roxo);margin-bottom:12px}
+  .toc ol{padding-left:22px;columns:2;column-gap:32px;font-size:14px}
+  .toc li{margin:5px 0;break-inside:avoid}
+  .toc a{text-decoration:none;border-bottom:1px solid rgba(124,58,237,.25)}
+  .toc a:hover{color:var(--roxo-dark)}
+
+  /* SEÇÕES */
+  .sec{padding:44px 0 8px}
+  .sec.soft{background:var(--bg-soft);border-top:1px solid var(--linha);border-bottom:1px solid var(--linha);padding-bottom:44px}
+  .sec:last-of-type{padding-bottom:52px}
+  .section-label{display:flex;align-items:center;gap:12px;font-size:13px;font-weight:600;
+    letter-spacing:.16em;text-transform:uppercase;color:var(--roxo)}
+  .section-label::before{content:"";width:34px;height:2px;background:var(--roxo);border-radius:2px}
+  .sec h2{font-weight:700;font-size:clamp(20px,2.8vw,26px);letter-spacing:-.01em;margin-top:12px;text-wrap:balance}
+  .sec h3{font-size:16.5px;font-weight:700;margin-top:26px}
+  .sec p{color:var(--cinza);margin-top:12px;max-width:76ch}
+  .sec p strong,.sec li strong{color:var(--ink);font-weight:600}
+  .sec ul{margin-top:10px;padding-left:22px;color:var(--cinza);max-width:76ch}
+  .sec li{margin-top:7px}
+  .sec code{background:var(--roxo-xlight);color:var(--roxo-dark);padding:2px 7px;border-radius:6px;font-size:13px}
+
+  .callout{border:1px solid var(--linha);border-left:4px solid var(--roxo);border-radius:12px;
+    padding:20px 24px;margin-top:22px;background:#fff}
+  .callout.amber{border-left-color:var(--amarelo);background:#FFFBEB}
+  .callout.green{border-left-color:var(--verde);background:#F0FDF4}
+  .callout h3{font-size:15px;font-weight:700;margin:0 0 8px}
+  .callout p{color:var(--cinza);font-size:14.5px;margin-top:0}
+  .callout p+p{margin-top:9px}
+
+  .fields{margin-top:16px;border:1px solid var(--linha);border-radius:12px;overflow:hidden;background:#fff}
+  .frow{display:grid;grid-template-columns:220px 1fr;gap:14px;padding:13px 18px;font-size:13.5px}
+  .frow:nth-child(odd){background:var(--bg-soft)}
+  .frow b{color:var(--roxo-dark);font-weight:600}
+  .frow span{color:var(--cinza)}
+
+  footer{background:var(--ink);color:rgba(255,255,255,.62);padding:40px 0}
+  footer .brand svg{width:34px;height:34px}
+  footer .brand .word b{font-size:15px}footer .brand .word span{font-size:15px}
+  footer .brand .word .bar{height:22px}
+  footer .fnote{margin-top:16px;font-size:12.5px;max-width:80ch;line-height:1.7}
+  footer a{color:var(--roxo-light);text-decoration:none;border-bottom:1px solid rgba(167,139,250,.4)}
+
+  @media (max-width:640px){
+    .toc ol{columns:1}
+    .frow{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap hero-in">
+    <div class="brand">
+      <svg viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="2.4"
+           stroke-linejoin="round" stroke-linecap="round" aria-label="BM Mídias">
+        <polygon points="50,4 90,27 90,73 50,96 10,73 10,27"></polygon>
+        <polygon points="50,33 65,59 35,59"></polygon>
+        <line x1="50" y1="4" x2="50" y2="33"></line><line x1="90" y1="73" x2="65" y2="59"></line>
+        <line x1="10" y1="73" x2="35" y2="59"></line><line x1="90" y1="27" x2="50" y2="33"></line>
+        <line x1="90" y1="27" x2="65" y2="59"></line><line x1="50" y1="96" x2="65" y2="59"></line>
+        <line x1="50" y1="96" x2="35" y2="59"></line><line x1="10" y1="27" x2="35" y2="59"></line>
+        <line x1="10" y1="27" x2="50" y2="33"></line>
+      </svg>
+      <span class="word"><b>BM</b><i class="bar"></i><span>MÍDIAS</span></span>
+    </div>
+
+    <div class="crumb"><b>Brito Mídias</b><span class="sep">/</span>Política de Privacidade</div>
+
+    <h1>Política de Privacidade</h1>
+    <p class="sub">Como a Brito Mídias Company coleta, usa, armazena e protege os dados acessados por meio
+      dos seus aplicativos e integrações com as plataformas da Meta (Facebook, Instagram e Meta Ads).</p>
+
+    <div class="pills">
+      <span class="pill solid">Versão 1.0 · 13/09/2026</span>
+      <span class="pill">LGPD · Lei 13.709/2018</span>
+      <span class="pill">Termos da Plataforma Meta</span>
+    </div>
+  </div>
+</header>
+
+<!-- SUMÁRIO -->
+<section class="sec" style="padding-top:0">
+  <div class="wrap">
+    <nav class="toc" aria-label="Sumário">
+      <h2>Sumário</h2>
+      <ol>
+        <li><a href="#quem-somos">Quem somos e a quem se aplica</a></li>
+        <li><a href="#o-que-fazemos">O que os nossos aplicativos fazem</a></li>
+        <li><a href="#dados-coletados">Quais dados acessamos</a></li>
+        <li><a href="#finalidade">Para que usamos os dados</a></li>
+        <li><a href="#base-legal">Base legal</a></li>
+        <li><a href="#armazenamento">Onde e por quanto tempo armazenamos</a></li>
+        <li><a href="#compartilhamento">Com quem compartilhamos</a></li>
+        <li><a href="#inteligencia-artificial">Uso de inteligência artificial</a></li>
+        <li><a href="#seguranca">Segurança</a></li>
+        <li><a href="#direitos">Seus direitos</a></li>
+        <li><a href="#exclusao-de-dados">Como solicitar a exclusão de dados</a></li>
+        <li><a href="#cookies">Cookies</a></li>
+        <li><a href="#alteracoes">Alterações desta política</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ol>
+    </nav>
+  </div>
+</section>
+
+<!-- 1 -->
+<section class="sec" id="quem-somos">
+  <div class="wrap">
+    <div class="section-label">1</div>
+    <h2>Quem somos e a quem esta política se aplica</h2>
+    <p>A <strong>Brito Mídias Company</strong> ("Brito Mídias", "nós") é uma agência de marketing digital
+      que gerencia campanhas de tráfego pago, páginas e perfis sociais de empresas clientes. Para isso,
+      mantemos aplicativos registrados na plataforma de desenvolvedores da Meta — como
+      <code>#BM | N8N - MONITOR TRÁFEGO</code> e <code>#BM | N8N - PUBLICOS</code> — que se conectam às
+      APIs do Facebook, do Instagram e do Meta Ads.</p>
+    <p>Esta política se aplica a <strong>todos os aplicativos e integrações operados pela Brito Mídias</strong>
+      que acessam dados por meio das plataformas da Meta, bem como às automações internas que esses
+      aplicativos alimentam.</p>
+    <div class="callout">
+      <h3>Uso interno, sem login público</h3>
+      <p>Nossos aplicativos <strong>não são oferecidos ao público</strong>. Eles não possuem tela de
+        login para usuários finais e não coletam dados de pessoas que naveguem em sites ou instalem
+        algum produto nosso. São ferramentas internas usadas pela equipe da Brito Mídias para operar
+        os ativos (contas de anúncio, Páginas e perfis) dos clientes que nos contrataram, sempre dentro
+        das permissões concedidas por esses clientes no Gerenciador de Negócios da Meta.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="sec" id="o-que-fazemos">
+  <div class="wrap">
+    <div class="section-label">2</div>
+    <h2>O que os nossos aplicativos fazem</h2>
+    <ul>
+      <li><strong>Monitoramento de tráfego pago:</strong> leitura de métricas de campanhas, conjuntos e
+        anúncios (investimento, impressões, cliques, conversões) para relatórios e acompanhamento de
+        desempenho.</li>
+      <li><strong>Gestão de campanhas e públicos:</strong> criação e ajuste de campanhas, anúncios e públicos
+        personalizados/semelhantes nas contas de anúncio dos clientes, conforme instrução deles.</li>
+      <li><strong>Atendimento de comentários em anúncios e publicações:</strong> leitura dos comentários
+        feitos por pessoas nas publicações e anúncios das Páginas e perfis dos clientes, para identificar
+        comentários ainda sem resposta, classificá-los por tipo (dúvida, suporte, interesse comercial,
+        reclamação ou spam) e encaminhá-los à equipe responsável do cliente — e, quando o cliente
+        autorizar, responder a esses comentários em nome da Página.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 3 -->
+<section class="sec soft" id="dados-coletados">
+  <div class="wrap">
+    <div class="section-label">3</div>
+    <h2>Quais dados acessamos por meio da Meta</h2>
+    <p>Acessamos apenas os dados necessários para as finalidades acima, limitados aos ativos de cada
+      cliente e às permissões que ele nos concedeu. Em resumo:</p>
+    <div class="fields">
+      <div class="frow"><b>Dados de contas de anúncio</b><span>Identificação das contas, campanhas, conjuntos e anúncios; métricas de desempenho e investimento; criativos (textos, imagens e vídeos dos anúncios).</span></div>
+      <div class="frow"><b>Dados de Páginas e perfis</b><span>Identificação das Páginas do Facebook e contas profissionais do Instagram dos clientes, publicações e métricas de engajamento.</span></div>
+      <div class="frow"><b>Comentários em publicações e anúncios</b><span>Texto do comentário, data e hora, e a identificação pública de quem comentou (nome e identificador fornecidos pela Meta), conforme visível para a própria Página.</span></div>
+      <div class="frow"><b>Públicos personalizados</b><span>Definições de públicos (regras de engajamento, visualização de vídeo e semelhantes). Não acessamos a lista de pessoas que compõem um público.</span></div>
+      <div class="frow"><b>Dados de negócio</b><span>Estrutura do Gerenciador de Negócios do cliente (contas e ativos vinculados) para identificar corretamente o que gerenciamos.</span></div>
+    </div>
+    <p>Não acessamos mensagens privadas, dados de perfil de usuários além do que a própria Meta exibe
+      publicamente para a Página, nem informações sensíveis (saúde, origem racial, convicções religiosas
+      ou políticas, dados biométricos e similares).</p>
+  </div>
+</section>
+
+<!-- 4 -->
+<section class="sec" id="finalidade">
+  <div class="wrap">
+    <div class="section-label">4</div>
+    <h2>Para que usamos os dados</h2>
+    <ul>
+      <li>Operar, monitorar e otimizar as campanhas de anúncios contratadas pelos clientes.</li>
+      <li>Produzir relatórios e painéis de desempenho para os clientes.</li>
+      <li>Identificar comentários sem resposta em anúncios e publicações, classificá-los por tipo e
+        encaminhá-los à equipe do cliente, para que ninguém que entrou em contato fique sem retorno.</li>
+      <li>Criar e manter públicos de anúncio conforme instrução do cliente.</li>
+    </ul>
+    <div class="callout green">
+      <h3>O que nunca fazemos</h3>
+      <p>Não vendemos dados. Não usamos os dados para publicidade própria, para criar perfis de pessoas
+        fora do contexto do cliente dono do ativo, nem para treinar modelos de inteligência artificial.
+        Não combinamos dados de clientes diferentes.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 5 -->
+<section class="sec" id="base-legal">
+  <div class="wrap">
+    <div class="section-label">5</div>
+    <h2>Base legal</h2>
+    <p>Tratamos dados pessoais em conformidade com a <strong>Lei Geral de Proteção de Dados Pessoais
+      (Lei nº 13.709/2018 — LGPD)</strong> e com os <strong>Termos da Plataforma Meta</strong> e as
+      Políticas para Desenvolvedores da Meta. As bases legais aplicáveis são, principalmente:</p>
+    <ul>
+      <li><strong>Execução de contrato</strong> com o cliente que nos contratou para gerenciar seus ativos
+        (art. 7º, V, da LGPD);</li>
+      <li><strong>Legítimo interesse</strong> do cliente em responder às pessoas que interagem com seus
+        anúncios e publicações (art. 7º, IX, da LGPD), sempre com o mínimo de dados necessário.</li>
+    </ul>
+    <p>Em relação aos dados dos usuários do Facebook e do Instagram, atuamos como <strong>operador</strong>
+      (prestador de serviço) do cliente dono da Página, da conta de anúncio ou do perfil, que é o
+      controlador desses dados.</p>
+  </div>
+</section>
+
+<!-- 6 -->
+<section class="sec soft" id="armazenamento">
+  <div class="wrap">
+    <div class="section-label">6</div>
+    <h2>Onde e por quanto tempo armazenamos</h2>
+    <p>Os dados são processados em infraestrutura controlada pela Brito Mídias — um servidor de automação
+      próprio (n8n) — e armazenados em planilhas e bancos de dados de uso interno (Google Workspace e
+      Supabase/PostgreSQL), com acesso restrito à equipe da Brito Mídias e ao cliente dono do ativo.</p>
+    <ul>
+      <li><strong>Métricas de campanhas e relatórios:</strong> mantidos enquanto durar a relação com o cliente,
+        para fins de histórico e comparação de desempenho.</li>
+      <li><strong>Comentários e identificação de quem comentou:</strong> mantidos apenas pelo tempo necessário
+        para classificação, encaminhamento e resposta — no máximo <strong>90 dias</strong> após a
+        coleta — e depois excluídos ou anonimizados.</li>
+      <li><strong>Tokens de acesso à Meta:</strong> armazenados de forma criptografada no servidor de
+        automação e revogados quando deixam de ser necessários.</li>
+    </ul>
+    <p>Ao término do contrato com um cliente, os dados relacionados aos ativos dele são excluídos em até
+      30 dias, salvo obrigação legal de guarda.</p>
+  </div>
+</section>
+
+<!-- 7 -->
+<section class="sec" id="compartilhamento">
+  <div class="wrap">
+    <div class="section-label">7</div>
+    <h2>Com quem compartilhamos</h2>
+    <ul>
+      <li><strong>Com o cliente dono do ativo</strong> (conta de anúncio, Página ou perfil) — é ele quem recebe
+        os relatórios e a lista de comentários a responder.</li>
+      <li><strong>Com fornecedores de infraestrutura</strong> estritamente necessários para operar o serviço
+        (hospedagem do servidor de automação, Google Workspace e Supabase), que tratam os dados apenas
+        em nosso nome e sob obrigações de confidencialidade.</li>
+      <li><strong>Com provedores de inteligência artificial</strong>, de forma transitória, apenas para a
+        classificação automática de comentários (ver seção 8).</li>
+    </ul>
+    <p>Não transferimos dados a terceiros para fins próprios deles e não os disponibilizamos a redes de
+      anúncios, corretores de dados ou qualquer outra organização.</p>
+  </div>
+</section>
+
+<!-- 8 -->
+<section class="sec" id="inteligencia-artificial">
+  <div class="wrap">
+    <div class="section-label">8</div>
+    <h2>Uso de inteligência artificial</h2>
+    <p>Para classificar automaticamente o tipo de cada comentário (dúvida, suporte, interesse comercial,
+      reclamação ou spam), podemos enviar o <strong>texto do comentário</strong> — sem dados de contato
+      adicionais — a um serviço de inteligência artificial via API. O processamento é pontual, o
+      resultado é apenas a categoria atribuída, e utilizamos exclusivamente provedores cujos termos
+      vedam o uso do conteúdo enviado para treinamento de modelos. Nenhum comentário é publicado ou
+      reproduzido fora do contexto do cliente dono da Página.</p>
+  </div>
+</section>
+
+<!-- 9 -->
+<section class="sec soft" id="seguranca">
+  <div class="wrap">
+    <div class="section-label">9</div>
+    <h2>Segurança</h2>
+    <ul>
+      <li>Toda a comunicação com as APIs da Meta e com nossos sistemas ocorre por conexões criptografadas (HTTPS/TLS).</li>
+      <li>Tokens de acesso e credenciais ficam em cofre criptografado do servidor de automação, nunca em documentos ou planilhas.</li>
+      <li>Aplicativos e tokens são segregados por finalidade (leitura, escrita, cliente), para limitar o alcance de um eventual incidente.</li>
+      <li>O acesso aos sistemas é restrito a membros autorizados da equipe, com autenticação individual.</li>
+      <li>Em caso de incidente de segurança que possa acarretar risco relevante aos titulares, comunicaremos os clientes afetados e a Autoridade Nacional de Proteção de Dados (ANPD), na forma da LGPD.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 10 -->
+<section class="sec" id="direitos">
+  <div class="wrap">
+    <div class="section-label">10</div>
+    <h2>Seus direitos</h2>
+    <p>Nos termos do art. 18 da LGPD, qualquer pessoa cujos dados tenham sido tratados por nós pode, a
+      qualquer momento, solicitar:</p>
+    <ul>
+      <li>confirmação de que tratamos seus dados e acesso a eles;</li>
+      <li>correção de dados incompletos, inexatos ou desatualizados;</li>
+      <li>anonimização, bloqueio ou eliminação de dados desnecessários ou tratados em desconformidade;</li>
+      <li>informação sobre com quem compartilhamos seus dados;</li>
+      <li>eliminação dos dados e oposição ao tratamento, quando cabível.</li>
+    </ul>
+    <p>As solicitações podem ser feitas pelo e-mail indicado na seção <a href="#contato">Contato</a>.
+      Respondemos em até <strong>15 dias</strong>. Como atuamos em nome dos clientes donos dos ativos,
+      poderemos encaminhar a solicitação ao cliente responsável quando ele for o controlador dos dados.</p>
+  </div>
+</section>
+
+<!-- 11 -->
+<section class="sec soft" id="exclusao-de-dados">
+  <div class="wrap">
+    <div class="section-label">11</div>
+    <h2>Como solicitar a exclusão de dados</h2>
+    <p>Se você interagiu com um anúncio ou publicação gerenciada por nós e deseja que qualquer dado seu
+      (por exemplo, o conteúdo de um comentário e a identificação associada) seja excluído dos nossos
+      sistemas, siga estes passos:</p>
+    <ul>
+      <li>Envie um e-mail para <strong>britomidiascompany@gmail.com</strong> com o assunto
+        <strong>"Exclusão de dados"</strong>.</li>
+      <li>Informe o nome de usuário ou o nome exibido no Facebook/Instagram que você usou ao comentar,
+        e, se possível, a Página ou anúncio em que a interação ocorreu.</li>
+      <li>Confirmaremos o recebimento e concluiremos a exclusão em até <strong>15 dias</strong>, informando
+        você por e-mail quando estiver concluída.</li>
+    </ul>
+    <div class="callout amber">
+      <h3>Importante</h3>
+      <p>A exclusão nos nossos sistemas <strong>não remove o comentário da plataforma da Meta</strong>
+        (Facebook ou Instagram). Para excluir o comentário em si, apague-o diretamente no Facebook ou
+        no Instagram, na publicação em que foi feito.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 12 -->
+<section class="sec" id="cookies">
+  <div class="wrap">
+    <div class="section-label">12</div>
+    <h2>Cookies</h2>
+    <p>Esta página é estática e <strong>não utiliza cookies</strong>, rastreadores ou ferramentas de
+      análise. Nossos aplicativos da Meta também não instalam cookies em dispositivos de usuários.</p>
+  </div>
+</section>
+
+<!-- 13 -->
+<section class="sec" id="alteracoes">
+  <div class="wrap">
+    <div class="section-label">13</div>
+    <h2>Alterações desta política</h2>
+    <p>Podemos atualizar esta política para refletir mudanças nos nossos serviços, nas plataformas da
+      Meta ou na legislação. A versão vigente, com data e número de versão, estará sempre publicada
+      neste endereço. Alterações relevantes serão comunicadas aos clientes.</p>
+  </div>
+</section>
+
+<!-- 14 -->
+<section class="sec" id="contato">
+  <div class="wrap">
+    <div class="section-label">14</div>
+    <h2>Contato</h2>
+    <p><strong>Brito Mídias Company</strong><br>
+      Encarregado pelo tratamento de dados pessoais (DPO): equipe Brito Mídias<br>
+      E-mail: <strong>britomidiascompany@gmail.com</strong></p>
+    <p>Para questões relacionadas às plataformas da Meta, consulte também a
+      <a href="https://www.facebook.com/privacy/policy/" target="_blank" rel="noopener">Política de Privacidade da Meta</a>.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="brand">
+      <svg viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="2.4"
+           stroke-linejoin="round" stroke-linecap="round" aria-label="BM Mídias">
+        <polygon points="50,4 90,27 90,73 50,96 10,73 10,27"></polygon>
+        <polygon points="50,33 65,59 35,59"></polygon>
+        <line x1="50" y1="4" x2="50" y2="33"></line><line x1="90" y1="73" x2="65" y2="59"></line>
+        <line x1="10" y1="73" x2="35" y2="59"></line><line x1="90" y1="27" x2="50" y2="33"></line>
+        <line x1="90" y1="27" x2="65" y2="59"></line><line x1="50" y1="96" x2="65" y2="59"></line>
+        <line x1="50" y1="96" x2="35" y2="59"></line><line x1="10" y1="27" x2="35" y2="59"></line>
+        <line x1="10" y1="27" x2="50" y2="33"></line>
+      </svg>
+      <span class="word"><b>BM</b><i class="bar"></i><span>MÍDIAS</span></span>
+    </div>
+    <p class="fnote">Política de Privacidade · Brito Mídias Company · Versão 1.0, publicada em 13/09/2026.
+      Aplica-se aos aplicativos e integrações da Brito Mídias com as plataformas da Meta.
+      Dúvidas: <a href="mailto:britomidiascompany@gmail.com">britomidiascompany@gmail.com</a>.</p>
+  </div>
+</footer>
+
+</body>
+</html>
