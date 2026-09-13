@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Termos de Serviço · Brito Mídias</title>
+<meta name="description" content="Termos de Serviço da Brito Mídias Company para os aplicativos e integrações que utilizam as plataformas da Meta (Facebook, Instagram e Meta Ads).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --roxo:#7C3AED; --roxo-dark:#5B21B6; --roxo-deep:#3B0F73;
+    --roxo-light:#A78BFA; --roxo-xlight:#EDE9FE;
+    --preto:#0A0A0A; --ink:#141018; --cinza:#5B5566;
+    --linha:#E7E3EE; --bg:#FFFFFF; --bg-soft:#FAF9FC;
+    --verde:#16A34A; --amarelo:#D97706; --vermelho:#DC2626;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Poppins',system-ui,-apple-system,sans-serif;font-weight:300;font-size:16px;
+    line-height:1.65;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .wrap{max-width:900px;margin:0 auto;padding:0 28px}
+  .hero{position:relative;overflow:hidden;color:#fff;
+    background:
+      radial-gradient(1100px 500px at 78% -10%, rgba(124,58,237,.55), transparent 60%),
+      linear-gradient(150deg,#0A0A0A 0%,#17111F 45%,#3B0F73 100%);}
+  .hero::before{content:"";position:absolute;inset:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.14) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.14) 1px,transparent 1px);
+    background-size:44px 44px;
+    -webkit-mask-image:radial-gradient(circle at 50% 30%,#000 25%,transparent 72%);
+    mask-image:radial-gradient(circle at 50% 30%,#000 25%,transparent 72%);pointer-events:none}
+  .hero-in{position:relative;padding:40px 0 50px}
+  .brand{display:flex;align-items:center;gap:16px}
+  .brand svg{width:46px;height:46px;flex-shrink:0}
+  .brand .word{display:flex;align-items:center;gap:14px;font-weight:300}
+  .brand .word b{font-weight:800;font-size:20px}
+  .brand .word .bar{width:2px;height:30px;background:rgba(255,255,255,.55)}
+  .brand .word span{font-size:20px;letter-spacing:.22em}
+  .crumb{margin-top:32px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+    font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--roxo-light)}
+  .crumb b{color:#fff}
+  .crumb .sep{color:rgba(255,255,255,.35);font-weight:400;letter-spacing:0;text-transform:none}
+  .hero h1{font-weight:800;font-size:clamp(28px,4.4vw,44px);letter-spacing:-.02em;line-height:1.15;
+    margin-top:12px;text-wrap:balance}
+  .hero .sub{font-weight:300;font-size:16.5px;color:rgba(255,255,255,.74);margin-top:14px;max-width:62ch}
+  .pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+  .pill{border:1px solid var(--roxo-light);color:#fff;border-radius:100px;padding:8px 16px;
+    font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
+  .pill.solid{background:linear-gradient(90deg,#7C3AED,#5B21B6);border-color:transparent}
+  .toc{background:var(--bg-soft);border:1px solid var(--linha);border-radius:14px;padding:22px 26px;margin-top:-26px;position:relative}
+  .toc h2{font-size:13px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--roxo);margin-bottom:12px}
+  .toc ol{padding-left:22px;columns:2;column-gap:32px;font-size:14px}
+  .toc li{margin:5px 0;break-inside:avoid}
+  .toc a{text-decoration:none;border-bottom:1px solid rgba(124,58,237,.25)}
+  .toc a:hover{color:var(--roxo-dark)}
+  .sec{padding:44px 0 8px}
+  .sec.soft{background:var(--bg-soft);border-top:1px solid var(--linha);border-bottom:1px solid var(--linha);padding-bottom:44px}
+  .sec:last-of-type{padding-bottom:52px}
+  .section-label{display:flex;align-items:center;gap:12px;font-size:13px;font-weight:600;
+    letter-spacing:.16em;text-transform:uppercase;color:var(--roxo)}
+  .section-label::before{content:"";width:34px;height:2px;background:var(--roxo);border-radius:2px}
+  .sec h2{font-weight:700;font-size:clamp(20px,2.8vw,26px);letter-spacing:-.01em;margin-top:12px;text-wrap:balance}
+  .sec p{color:var(--cinza);margin-top:12px;max-width:76ch}
+  .sec p strong,.sec li strong{color:var(--ink);font-weight:600}
+  .sec ul{margin-top:10px;padding-left:22px;color:var(--cinza);max-width:76ch}
+  .sec li{margin-top:7px}
+  .sec code{background:var(--roxo-xlight);color:var(--roxo-dark);padding:2px 7px;border-radius:6px;font-size:13px}
+  .sec a{color:var(--roxo-dark);text-decoration:none;border-bottom:1px solid rgba(124,58,237,.35)}
+  .callout{border:1px solid var(--linha);border-left:4px solid var(--roxo);border-radius:12px;
+    padding:20px 24px;margin-top:22px;background:#fff}
+  .callout h3{font-size:15px;font-weight:700;margin:0 0 8px}
+  .callout p{color:var(--cinza);font-size:14.5px;margin-top:0}
+  footer{background:var(--ink);color:rgba(255,255,255,.62);padding:40px 0}
+  footer .brand svg{width:34px;height:34px}
+  footer .brand .word b{font-size:15px}footer .brand .word span{font-size:15px}
+  footer .brand .word .bar{height:22px}
+  footer .fnote{margin-top:16px;font-size:12.5px;max-width:80ch;line-height:1.7}
+  footer a{color:var(--roxo-light);text-decoration:none;border-bottom:1px solid rgba(167,139,250,.4)}
+  @media (max-width:640px){ .toc ol{columns:1} }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap hero-in">
+    <div class="brand">
+      <svg viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="2.4"
+           stroke-linejoin="round" stroke-linecap="round" aria-label="BM Mídias">
+        <polygon points="50,4 90,27 90,73 50,96 10,73 10,27"></polygon>
+        <polygon points="50,33 65,59 35,59"></polygon>
+        <line x1="50" y1="4" x2="50" y2="33"></line><line x1="90" y1="73" x2="65" y2="59"></line>
+        <line x1="10" y1="73" x2="35" y2="59"></line><line x1="90" y1="27" x2="50" y2="33"></line>
+        <line x1="90" y1="27" x2="65" y2="59"></line><line x1="50" y1="96" x2="65" y2="59"></line>
+        <line x1="50" y1="96" x2="35" y2="59"></line><line x1="10" y1="27" x2="35" y2="59"></line>
+        <line x1="10" y1="27" x2="50" y2="33"></line>
+      </svg>
+      <span class="word"><b>BM</b><i class="bar"></i><span>MÍDIAS</span></span>
+    </div>
+    <div class="crumb"><b>Brito Mídias</b><span class="sep">/</span>Termos de Serviço</div>
+    <h1>Termos de Serviço</h1>
+    <p class="sub">Condições de uso dos aplicativos e integrações da Brito Mídias Company com as
+      plataformas da Meta (Facebook, Instagram e Meta Ads).</p>
+    <div class="pills">
+      <span class="pill solid">Versão 1.0 · 13/09/2026</span>
+      <span class="pill">Uso interno e para clientes</span>
+      <span class="pill">Termos da Plataforma Meta</span>
+    </div>
+  </div>
+</header>
+
+<section class="sec" style="padding-top:0">
+  <div class="wrap">
+    <nav class="toc" aria-label="Sumário">
+      <h2>Sumário</h2>
+      <ol>
+        <li><a href="#objeto">Objeto e aceitação</a></li>
+        <li><a href="#servicos">Serviços prestados</a></li>
+        <li><a href="#acesso">Acesso e permissões</a></li>
+        <li><a href="#responsabilidades-cliente">Responsabilidades do cliente</a></li>
+        <li><a href="#responsabilidades-bm">Responsabilidades da Brito Mídias</a></li>
+        <li><a href="#usos-proibidos">Usos proibidos</a></li>
+        <li><a href="#dados">Dados pessoais e privacidade</a></li>
+        <li><a href="#disponibilidade">Disponibilidade e dependência da Meta</a></li>
+        <li><a href="#propriedade">Propriedade intelectual</a></li>
+        <li><a href="#responsabilidade">Limitação de responsabilidade</a></li>
+        <li><a href="#vigencia">Vigência e encerramento</a></li>
+        <li><a href="#lei">Lei aplicável e foro</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ol>
+    </nav>
+  </div>
+</section>
+
+<section class="sec" id="objeto">
+  <div class="wrap">
+    <div class="section-label">1</div>
+    <h2>Objeto e aceitação</h2>
+    <p>Estes Termos regulam o uso dos aplicativos registrados pela <strong>Brito Mídias Company</strong>
+      ("Brito Mídias") na plataforma de desenvolvedores da Meta — como <code>#BM | N8N - MONITOR TRÁFEGO</code>
+      e <code>#BM | N8N - PUBLICOS</code> — e das automações que eles alimentam ("Serviços").</p>
+    <p>Os Serviços são <strong>ferramentas internas</strong>, operadas pela equipe da Brito Mídias em nome
+      das empresas que a contrataram ("Clientes"). Não há cadastro, login ou uso direto por usuários
+      finais. Ao conceder à Brito Mídias acesso a seus ativos no Gerenciador de Negócios da Meta, o
+      Cliente declara ter lido e aceito estes Termos, que complementam o contrato de prestação de
+      serviços firmado entre as partes.</p>
+  </div>
+</section>
+
+<section class="sec" id="servicos">
+  <div class="wrap">
+    <div class="section-label">2</div>
+    <h2>Serviços prestados</h2>
+    <ul>
+      <li><strong>Monitoramento de tráfego pago:</strong> leitura de métricas de campanhas, conjuntos e anúncios para relatórios e acompanhamento de desempenho.</li>
+      <li><strong>Gestão de campanhas e públicos:</strong> criação e ajuste de campanhas, anúncios e públicos personalizados/semelhantes, conforme instrução do Cliente.</li>
+      <li><strong>Atendimento de comentários:</strong> identificação de comentários sem resposta em anúncios e publicações das Páginas e perfis do Cliente, classificação por tipo e encaminhamento à equipe responsável — e, quando autorizado pelo Cliente, resposta em nome da Página.</li>
+    </ul>
+    <p>O escopo específico contratado por cada Cliente é definido no respectivo contrato ou proposta comercial.</p>
+  </div>
+</section>
+
+<section class="sec soft" id="acesso">
+  <div class="wrap">
+    <div class="section-label">3</div>
+    <h2>Acesso e permissões</h2>
+    <p>O acesso aos ativos do Cliente (contas de anúncio, Páginas do Facebook, contas profissionais do
+      Instagram e catálogos) é concedido pelo próprio Cliente por meio do <strong>Gerenciador de Negócios
+      da Meta</strong>, com as permissões que ele escolher. A Brito Mídias utiliza apenas as permissões
+      concedidas e apenas para as finalidades descritas nestes Termos e na
+      <a href="https://britomidiascompany-stack.github.io/brito-midias/politica-de-privacidade/">Política de Privacidade</a>.</p>
+    <p>O Cliente pode <strong>revisar, reduzir ou revogar</strong> esse acesso a qualquer momento, diretamente
+      no Gerenciador de Negócios, sem necessidade de aviso prévio à Brito Mídias.</p>
+  </div>
+</section>
+
+<section class="sec" id="responsabilidades-cliente">
+  <div class="wrap">
+    <div class="section-label">4</div>
+    <h2>Responsabilidades do Cliente</h2>
+    <ul>
+      <li>Ser titular ou ter autorização legítima sobre os ativos cujo acesso concede à Brito Mídias.</li>
+      <li>Cumprir os <a href="https://www.facebook.com/policies/" target="_blank" rel="noopener">Termos e Políticas da Meta</a>, as Políticas de Publicidade e a legislação aplicável ao seu negócio e aos seus anúncios.</li>
+      <li>Fornecer instruções claras sobre campanhas, públicos e respostas a comentários, e revisar os resultados entregues.</li>
+      <li>Responder às pessoas que interagem com seus anúncios e publicações, quando o atendimento não estiver contratado com a Brito Mídias.</li>
+      <li>Manter atualizados os dados de contato e os responsáveis pela aprovação de ações em seu nome.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec" id="responsabilidades-bm">
+  <div class="wrap">
+    <div class="section-label">5</div>
+    <h2>Responsabilidades da Brito Mídias</h2>
+    <ul>
+      <li>Atuar estritamente dentro das permissões concedidas e das instruções do Cliente.</li>
+      <li>Cumprir os Termos da Plataforma Meta, as Políticas para Desenvolvedores da Meta e a Lei Geral de Proteção de Dados (LGPD).</li>
+      <li>Manter credenciais e tokens de acesso em ambiente seguro, segregados por finalidade, e revogá-los quando deixarem de ser necessários.</li>
+      <li>Não utilizar dados de um Cliente em benefício de outro, nem para fins próprios alheios ao serviço contratado.</li>
+      <li>Comunicar ao Cliente incidentes de segurança que possam afetar seus ativos ou dados.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec soft" id="usos-proibidos">
+  <div class="wrap">
+    <div class="section-label">6</div>
+    <h2>Usos proibidos</h2>
+    <p>É vedado, a qualquer parte, utilizar os Serviços para:</p>
+    <ul>
+      <li>coletar, vender ou transferir dados de usuários da Meta a terceiros;</li>
+      <li>enviar mensagens ou respostas em massa, enganosas, não solicitadas ou que violem as políticas da Meta;</li>
+      <li>criar perfis de pessoas fora do contexto do atendimento e da publicidade do Cliente;</li>
+      <li>contornar limites, controles de segurança ou termos das plataformas da Meta;</li>
+      <li>qualquer finalidade ilícita, discriminatória ou contrária à boa-fé.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec" id="dados">
+  <div class="wrap">
+    <div class="section-label">7</div>
+    <h2>Dados pessoais e privacidade</h2>
+    <p>O tratamento de dados pessoais realizado pelos Serviços — incluindo quais dados são acessados,
+      finalidades, prazos de retenção, compartilhamento e como solicitar exclusão — está descrito na
+      <a href="https://britomidiascompany-stack.github.io/brito-midias/politica-de-privacidade/">Política de Privacidade</a>,
+      que integra estes Termos. Instruções para exclusão de dados estão em
+      <a href="https://britomidiascompany-stack.github.io/brito-midias/exclusao-de-dados/">Exclusão de dados</a>.</p>
+    <p>Em relação aos dados dos usuários do Facebook e do Instagram, o Cliente é o controlador e a Brito
+      Mídias atua como operadora, nos termos da LGPD.</p>
+  </div>
+</section>
+
+<section class="sec" id="disponibilidade">
+  <div class="wrap">
+    <div class="section-label">8</div>
+    <h2>Disponibilidade e dependência da Meta</h2>
+    <p>Os Serviços dependem das APIs, permissões e políticas da Meta, que podem mudar, ser limitadas ou
+      interrompidas sem aviso. A Brito Mídias empregará esforços razoáveis para manter os Serviços em
+      operação, mas <strong>não garante disponibilidade ininterrupta</strong> nem resultados específicos
+      de campanhas, que dependem de fatores fora de seu controle (leilão de anúncios, aprovação de
+      anúncios, comportamento do público, entre outros).</p>
+  </div>
+</section>
+
+<section class="sec soft" id="propriedade">
+  <div class="wrap">
+    <div class="section-label">9</div>
+    <h2>Propriedade intelectual</h2>
+    <p>Os fluxos de automação, códigos, modelos de relatório e demais materiais desenvolvidos pela
+      Brito Mídias para operar os Serviços são de sua propriedade. Os ativos do Cliente (marcas,
+      criativos, Páginas, contas e dados de seus anúncios) permanecem de propriedade do Cliente. Nada
+      nestes Termos transfere direitos de propriedade intelectual entre as partes além do necessário à
+      prestação dos Serviços.</p>
+  </div>
+</section>
+
+<section class="sec" id="responsabilidade">
+  <div class="wrap">
+    <div class="section-label">10</div>
+    <h2>Limitação de responsabilidade</h2>
+    <p>Na máxima extensão permitida pela lei, a Brito Mídias não responde por danos indiretos, lucros
+      cessantes, perda de dados ou de oportunidade decorrentes de indisponibilidade, alteração ou
+      restrição das plataformas da Meta, de instruções incorretas do Cliente ou de uso dos Serviços em
+      desacordo com estes Termos. A responsabilidade total da Brito Mídias, em qualquer hipótese, fica
+      limitada aos valores efetivamente pagos pelo Cliente pelos Serviços nos 12 meses anteriores ao
+      evento.</p>
+  </div>
+</section>
+
+<section class="sec" id="vigencia">
+  <div class="wrap">
+    <div class="section-label">11</div>
+    <h2>Vigência e encerramento</h2>
+    <p>Estes Termos vigoram enquanto o Cliente mantiver acesso concedido à Brito Mídias em seus ativos
+      da Meta ou enquanto durar o contrato de prestação de serviços. Qualquer das partes pode encerrar
+      a relação conforme o contrato; o Cliente pode ainda revogar o acesso a qualquer momento no
+      Gerenciador de Negócios. Após o encerramento, os dados relacionados aos ativos do Cliente são
+      excluídos conforme os prazos da Política de Privacidade.</p>
+  </div>
+</section>
+
+<section class="sec soft" id="lei">
+  <div class="wrap">
+    <div class="section-label">12</div>
+    <h2>Lei aplicável e foro</h2>
+    <p>Estes Termos são regidos pelas leis da República Federativa do Brasil. Eventuais controvérsias
+      serão resolvidas preferencialmente de forma amigável; não havendo acordo, fica eleito o foro da
+      comarca da sede da Brito Mídias, salvo disposição diversa no contrato firmado com o Cliente.</p>
+  </div>
+</section>
+
+<section class="sec" id="contato">
+  <div class="wrap">
+    <div class="section-label">13</div>
+    <h2>Contato</h2>
+    <p><strong>Brito Mídias Company</strong><br>
+      E-mail: <strong>britomidiascompany@gmail.com</strong></p>
+    <div class="callout">
+      <h3>Documentos relacionados</h3>
+      <p><a href="https://britomidiascompany-stack.github.io/brito-midias/politica-de-privacidade/">Política de Privacidade</a> ·
+         <a href="https://britomidiascompany-stack.github.io/brito-midias/exclusao-de-dados/">Exclusão de dados</a></p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="brand">
+      <svg viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="2.4"
+           stroke-linejoin="round" stroke-linecap="round" aria-label="BM Mídias">
+        <polygon points="50,4 90,27 90,73 50,96 10,73 10,27"></polygon>
+        <polygon points="50,33 65,59 35,59"></polygon>
+        <line x1="50" y1="4" x2="50" y2="33"></line><line x1="90" y1="73" x2="65" y2="59"></line>
+        <line x1="10" y1="73" x2="35" y2="59"></line><line x1="90" y1="27" x2="50" y2="33"></line>
+        <line x1="90" y1="27" x2="65" y2="59"></line><line x1="50" y1="96" x2="65" y2="59"></line>
+        <line x1="50" y1="96" x2="35" y2="59"></line><line x1="10" y1="27" x2="35" y2="59"></line>
+        <line x1="10" y1="27" x2="50" y2="33"></line>
+      </svg>
+      <span class="word"><b>BM</b><i class="bar"></i><span>MÍDIAS</span></span>
+    </div>
+    <p class="fnote">Termos de Serviço · Brito Mídias Company · Versão 1.0, publicada em 13/09/2026.
+      Aplica-se aos aplicativos e integrações da Brito Mídias com as plataformas da Meta.
+      Dúvidas: <a href="mailto:britomidiascompany@gmail.com">britomidiascompany@gmail.com</a>.</p>
+  </div>
+</footer>
+
+</body>
+</html>
