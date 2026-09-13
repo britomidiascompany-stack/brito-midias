@@ -6,7 +6,7 @@
   "atualizado_em": "2026-09-13",
   "metodologia": "Metodologia Rastracking100 (Dericson Calari) — playbook interno da Brito Mídias",
   "veredito_titulo": "O formulário está fora do domínio rastreado — e a tag do Google aponta para a conta errada",
-  "veredito": "O Jardim Hípica tem tudo que um rastreamento maduro pede: contêiner Web e de servidor no GTM, pixel com CAPI ativa, Enhanced Conversions e auto-tagging ligados. E mesmo assim está cego nos dois canais, por dois motivos confirmados na inspeção ao vivo do site. Primeiro: a captação não acontece no site. O botão leva o visitante para lislie.yayforms.link, outro domínio, onde não existe GTM, GA4 nem Google Ads — só o pixel da Meta pela integração nativa do YAY. Nenhum gatilho de formulário poderia disparar, porque não há formulário no domínio rastreado. Segundo: a única tag de Google Ads que carrega no site aponta para AW-11226975236, que não é a conta ativa — então nem a conversão que chegasse seria contada no lugar certo.",
+  "veredito": "O Jardim Hípica tem tudo que um rastreamento maduro pede: contêiner Web e de servidor no GTM, pixel com CAPI ativa, Enhanced Conversions e auto-tagging ligados. E mesmo assim está cego nos dois canais, por dois motivos confirmados na inspeção ao vivo do site. Primeiro: a captação não acontece no site. O botão leva o visitante para lislie.yayforms.link, outro domínio, onde não existe GTM, GA4 nem Google Ads — só o pixel da Meta pela integração nativa do YAY. Nenhum gatilho de formulário poderia disparar, porque não há formulário no domínio rastreado. Segundo: a única tag de Google Ads que carrega no site aponta para AW-11226975236, que não é a conta ativa — então nem a conversão que chegasse seria contada no lugar certo. (Atualização 13/09: o segundo ponto foi corrigido — tag base da conta certa em 05/09 e tag de conversão corrigida em 12/09 pela ATV187. O que resta são duas sobreposições a resolver antes de reativar campanhas: dois caminhos primários de conversão no Google e duas fontes de Lead na Meta, detalhados nos itens JH-13 e JH-01.)",
   "resumo": [
     { "valor": "0", "label": "conversões no Google em 30 dias", "tom": "critico" },
     { "valor": "R$ 568", "label": "investidos no mesmo período", "tom": "critico" },
@@ -20,7 +20,7 @@
       "nome": "Meta Ads",
       "status": "critico",
       "status_label": "Cego",
-      "resumo": "O pixel está vivo e com CAPI ativa, mas tudo o que recebe vem da integração nativa do YAY: PageView, os eventos internos do formulário e um Lead por envio. Esse Lead chega sem e-mail, telefone ou identificador de clique, e em volume tão baixo com as campanhas pausadas que a Meta nem calcula a nota dele — e é exatamente por Lead que 10 conjuntos de anúncio estão configurados para otimizar. (Correção de 13/09: a versão original desta auditoria dizia que o Lead não existia; existe, mas é cego.)",
+      "resumo": "O pixel está vivo e com CAPI ativa. O Lead chega por duas vias — a integração nativa do YAY, no envio do formulário, e a tag do GTM na página de obrigado para onde o YAY redireciona —, as duas sem e-mail, telefone ou identificador de clique, e em volume tão baixo com as campanhas pausadas que a Meta nem calcula a nota. É exatamente por Lead que 10 conjuntos de anúncio estão configurados para otimizar. (Correção de 13/09: a versão original desta auditoria dizia que o Lead não existia e que a página de obrigado não fazia parte do fluxo; os dois pontos estavam errados.)",
       "blocos": [
         {
           "titulo": "Configuração",
@@ -144,7 +144,7 @@
       "achados": [
         { "severidade": "critico", "titulo": "O formulário está em outro domínio — nenhum gatilho de formulário pode funcionar", "detalhe": "Inspeção ao vivo em 03/09: a página de captação é moraremindaiatuba.com.br e carrega corretamente o contêiner GTM-55X393B8 e os dois GA4 (Web G-3622642YV3 e Server G-CFHQ571PK9). Só que ela não tem formulário nenhum: o botão \"Agende sua visita\" leva para lislie.yayforms.link, um domínio do próprio YAY!Forms, onde não há GTM, GA4 nem Google Ads — apenas o pixel da Meta, colocado pela integração nativa do YAY. Por isso as 4 tags do bloco 01 (gatilho \"Form ID contém cst\") nunca dispararam e nunca poderiam: não existe formulário no domínio rastreado. Também explica por que todos os eventos que chegam (YFView, YFStart, YFAnswer e o Lead) vêm da integração nativa do próprio YAY, sem e-mail, telefone ou fbc." },
         { "severidade": "critico", "titulo": "A atribuição se perde na troca de domínio", "detalhe": "O fbclid e o gclid chegam em moraremindaiatuba.com.br, mas o visitante é enviado para outro domínio para preencher o formulário. O contêiner não tem o script de propagação de parâmetros (§5 do playbook), então nada disso atravessa. É a razão técnica de o fbc estar ausente em 100% dos eventos." },
-        { "severidade": "alto", "titulo": "O gatilho da página de obrigado também não corresponde ao fluxo atual", "detalhe": "Três tags dependem de o caminho da página conter \"obrigado\". O fluxo atual do YAY não passa por essa página, então esse segundo caminho de conversão também está morto." },
+        { "severidade": "alto", "titulo": "A página de obrigado existe — e agora é a segunda fonte de Lead na Meta", "detalhe": "Correção de 13/09: a versão original desta auditoria dizia que o fluxo não passava por uma página \"obrigado\". Passa: o YAY redireciona para moraremindaiatuba.com.br/obrigado, e a ATV187 provou no modo de visualização (12/09) que as tags nesse gatilho disparam. Consequência: o pixel da Meta recebe Lead de duas fontes — a integração nativa do YAY no envio e a tag do GTM na página de obrigado —, as duas sem dado de usuário e com event_id diferentes. Somar uma terceira fonte (CAPI pelo n8n) sem desligar essas duas multiplicaria a contagem." },
         { "severidade": "alto", "titulo": "Contêiner parado há 7 meses enquanto o site mudou", "detalhe": "A defasagem entre o que o contêiner espera e o que o site faz é o padrão de falha: ninguém revisita o rastreamento quando a página de captação é trocada." },
         { "severidade": "medio", "titulo": "Domínios monitorados não configurados", "detalhe": "O próprio diagnóstico do GTM classifica a qualidade do contêiner como Urgente porque detectou a tag em domínios que não estão na configuração — o que afeta durabilidade de cookie e medição de conversão." },
         { "severidade": "medio", "titulo": "Conta com um único administrador", "detalhe": "Se esse acesso for perdido, a conta fica bloqueada. O Google recomenda no mínimo dois administradores ativos." }
@@ -163,7 +163,7 @@
       "impacto": "A conta volta a registrar conversão. Combinado com o JH-12, que entrega o gclid no formulário, o Google passa a conseguir atribuir cada lead ao clique que o gerou.",
       "status": "concluido",
       "concluido_em": "2026-09-05",
-      "nota": "Integração do YAY confirmada como ATIVA. Pendência associada: despromover as duas ações antigas quebradas para secundárias assim que a nova começar a registrar."
+      "nota": "Integração do YAY confirmada como ATIVA em 05/09. ATENÇÃO (13/09): com a versão 11 do contêiner (ATV187), a ação \"Lead - Jardim Hípica\" também voltou a ter uma tag funcional — ou seja, o mesmo lead passa a ser contado por duas ações Principais (esta, off-line, e a de site). Antes de reativar campanhas, uma das duas precisa virar secundária. Sugestão: manter a de site (testada no Preview pelo Gabriel) como primária e rebaixar esta; a ação \"Enviar formulário de lead\" (meta padrão) continua quebrada e deve ser rebaixada também."
     },
     {
       "id": "JH-01",
@@ -172,7 +172,7 @@
       "severidade": "critica",
       "esforco": "~4h",
       "problema": "O formulário está em lislie.yayforms.link, fora do domínio rastreado. Não há GTM, GA4 nem Google Ads nesse domínio, então nenhum gatilho de formulário no contêiner do site pode funcionar — o problema não é o gatilho estar errado, é não existir formulário onde o contêiner roda.",
-      "acao": "Workflow construído no n8n ([JD HIPICA] Lead YAY para CAPI Meta), com webhook próprio, hash de telefone, nome, cidade e estado, e event_id igual ao id da resposta. Antes de ligar, duas coisas: (1) gerar o token de CAPI do pixel no Gerenciador de Eventos; (2) decidir o que fazer com o Lead que a integração nativa do YAY já manda pelo pixel — como ele usa outro event_id, ligar a CAPI sem desligá-lo faria a Meta contar dois Leads por envio. O caminho previsto é desligar o Lead na integração do YAY no momento em que a CAPI entrar.",
+      "acao": "Workflow construído no n8n ([JD HIPICA] Lead YAY para CAPI Meta), com webhook próprio, hash de telefone, nome, cidade e estado, e event_id igual ao id da resposta. Ele só faz sentido como SUBSTITUTO, não como adição: hoje o pixel já recebe Lead de duas fontes sem dado de usuário (integração nativa do YAY no envio e tag do GTM na página de obrigado). Sequência: (1) gerar o token de CAPI do pixel no Gerenciador de Eventos; (2) republicar o workflow (o rascunho com os IDs exatos dos campos ainda não está na versão ativa); (3) ligar o webhook no YAY; (4) no mesmo momento, desligar o Lead na integração de pixel do YAY e pausar a tag \"Meta Ads | Lead | Web\" da página de obrigado — deixando a CAPI como única fonte de Lead, a única com telefone e nome.",
       "impacto": "É o único caminho que mede o lead na Meta onde ele realmente acontece. Leva o EMQ do Lead da faixa atual para 8-9. Observação: o formulário não tem campo de e-mail, então o identificador forte disponível é telefone + nome + geo.",
       "status": "pendente",
       "concluido_em": null,
@@ -202,7 +202,7 @@
       "impacto": "A conta que investe passa a receber sinal do site: remarketing e captura de gclid. A conversão em si vem pela integração do YAY (JH-13), então este item não a bloqueia mais.",
       "status": "concluido",
       "concluido_em": "2026-09-05",
-      "nota": "Validado ao vivo: o script gtag/js?id=AW-18360192097 carrega na página e o cookie _gcl_aw é criado com o gclid. Pendência associada: descobrir de quem é o AW-11226975236 (e o AW-17583184640 que roda no outro site) para decidir se remove."
+      "nota": "Validado ao vivo em 05/09: o script gtag/js?id=AW-18360192097 carrega na página e o cookie _gcl_aw é criado com o gclid. Complemento em 12/09 (ATV187, aplicado pelo Gabriel na tela, versão 11): a tag de conversão \"01 - Google Ads | Tag de Envio de Formulário\" passou a apontar para o AW-18360192097 com o rótulo da ação \"Lead - Jardim Hípica\" e gatilho na página de obrigado — testado no Preview. Pendência associada: descobrir de quem é o AW-11226975236 (e o AW-17583184640 que roda no outro site) para decidir se remove."
     },
     {
       "id": "JH-03",
