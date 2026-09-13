@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Exclusão de dados · Brito Mídias</title>
+<meta name="description" content="Instruções para solicitar a exclusão de dados tratados pelos aplicativos e integrações da Brito Mídias Company com as plataformas da Meta.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --roxo:#7C3AED; --roxo-dark:#5B21B6; --roxo-deep:#3B0F73;
+    --roxo-light:#A78BFA; --roxo-xlight:#EDE9FE;
+    --preto:#0A0A0A; --ink:#141018; --cinza:#5B5566;
+    --linha:#E7E3EE; --bg:#FFFFFF; --bg-soft:#FAF9FC;
+    --verde:#16A34A; --amarelo:#D97706; --vermelho:#DC2626;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Poppins',system-ui,-apple-system,sans-serif;font-weight:300;font-size:16px;
+    line-height:1.65;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .wrap{max-width:900px;margin:0 auto;padding:0 28px}
+  .hero{position:relative;overflow:hidden;color:#fff;
+    background:
+      radial-gradient(1100px 500px at 78% -10%, rgba(124,58,237,.55), transparent 60%),
+      linear-gradient(150deg,#0A0A0A 0%,#17111F 45%,#3B0F73 100%);}
+  .hero::before{content:"";position:absolute;inset:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.14) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.14) 1px,transparent 1px);
+    background-size:44px 44px;
+    -webkit-mask-image:radial-gradient(circle at 50% 30%,#000 25%,transparent 72%);
+    mask-image:radial-gradient(circle at 50% 30%,#000 25%,transparent 72%);pointer-events:none}
+  .hero-in{position:relative;padding:40px 0 50px}
+  .brand{display:flex;align-items:center;gap:16px}
+  .brand svg{width:46px;height:46px;flex-shrink:0}
+  .brand .word{display:flex;align-items:center;gap:14px;font-weight:300}
+  .brand .word b{font-weight:800;font-size:20px}
+  .brand .word .bar{width:2px;height:30px;background:rgba(255,255,255,.55)}
+  .brand .word span{font-size:20px;letter-spacing:.22em}
+  .crumb{margin-top:32px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+    font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--roxo-light)}
+  .crumb b{color:#fff}
+  .crumb .sep{color:rgba(255,255,255,.35);font-weight:400;letter-spacing:0;text-transform:none}
+  .hero h1{font-weight:800;font-size:clamp(28px,4.4vw,44px);letter-spacing:-.02em;line-height:1.15;
+    margin-top:12px;text-wrap:balance}
+  .hero .sub{font-weight:300;font-size:16.5px;color:rgba(255,255,255,.74);margin-top:14px;max-width:62ch}
+  .pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+  .pill{border:1px solid var(--roxo-light);color:#fff;border-radius:100px;padding:8px 16px;
+    font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
+  .pill.solid{background:linear-gradient(90deg,#7C3AED,#5B21B6);border-color:transparent}
+  .sec{padding:48px 0}
+  .sec.soft{background:var(--bg-soft);border-top:1px solid var(--linha);border-bottom:1px solid var(--linha)}
+  .section-label{display:flex;align-items:center;gap:12px;font-size:13px;font-weight:600;
+    letter-spacing:.16em;text-transform:uppercase;color:var(--roxo)}
+  .section-label::before{content:"";width:34px;height:2px;background:var(--roxo);border-radius:2px}
+  .sec h2{font-weight:700;font-size:clamp(20px,2.8vw,26px);letter-spacing:-.01em;margin-top:12px;text-wrap:balance}
+  .sec p{color:var(--cinza);margin-top:12px;max-width:76ch}
+  .sec p strong,.sec li strong{color:var(--ink);font-weight:600}
+  .sec a{color:var(--roxo-dark);text-decoration:none;border-bottom:1px solid rgba(124,58,237,.35)}
+  .step{display:grid;grid-template-columns:60px 1fr;gap:20px;margin-top:32px}
+  .step:first-of-type{margin-top:24px}
+  .step .idx{width:60px;height:60px;border-radius:16px;flex-shrink:0;
+    background:linear-gradient(135deg,#7C3AED,#5B21B6);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:24px;
+    box-shadow:0 10px 22px rgba(124,58,237,.28)}
+  .step .body h3{font-size:18px;font-weight:700;letter-spacing:-.01em}
+  .step .body p{color:var(--cinza);font-size:14.5px;margin-top:7px}
+  .step .body p strong{color:var(--ink);font-weight:600}
+  .obs{display:flex;gap:16px;align-items:flex-start;border:1px solid var(--linha);
+    border-left:4px solid var(--amarelo);background:#FFFBEB;border-radius:12px;padding:20px 24px;margin-top:32px}
+  .obs .ic{font-size:24px;flex-shrink:0}
+  .obs h3{font-size:15px;font-weight:700;color:var(--amarelo);margin-bottom:6px}
+  .obs p{color:var(--cinza);font-size:14.5px;margin-top:0}
+  .obs strong{color:var(--ink);font-weight:600}
+  .callout{border:1px solid var(--linha);border-left:4px solid var(--verde);border-radius:12px;
+    padding:20px 24px;margin-top:22px;background:#F0FDF4}
+  .callout h3{font-size:15px;font-weight:700;margin:0 0 8px}
+  .callout p{color:var(--cinza);font-size:14.5px;margin-top:0}
+  footer{background:var(--ink);color:rgba(255,255,255,.62);padding:40px 0}
+  footer .brand svg{width:34px;height:34px}
+  footer .brand .word b{font-size:15px}footer .brand .word span{font-size:15px}
+  footer .brand .word .bar{height:22px}
+  footer .fnote{margin-top:16px;font-size:12.5px;max-width:80ch;line-height:1.7}
+  footer a{color:var(--roxo-light);text-decoration:none;border-bottom:1px solid rgba(167,139,250,.4)}
+  @media (max-width:640px){
+    .step{grid-template-columns:1fr;gap:12px}
+    .step .idx{width:48px;height:48px;font-size:20px;border-radius:13px}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap hero-in">
+    <div class="brand">
+      <svg viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="2.4"
+           stroke-linejoin="round" stroke-linecap="round" aria-label="BM Mídias">
+        <polygon points="50,4 90,27 90,73 50,96 10,73 10,27"></polygon>
+        <polygon points="50,33 65,59 35,59"></polygon>
+        <line x1="50" y1="4" x2="50" y2="33"></line><line x1="90" y1="73" x2="65" y2="59"></line>
+        <line x1="10" y1="73" x2="35" y2="59"></line><line x1="90" y1="27" x2="50" y2="33"></line>
+        <line x1="90" y1="27" x2="65" y2="59"></line><line x1="50" y1="96" x2="65" y2="59"></line>
+        <line x1="50" y1="96" x2="35" y2="59"></line><line x1="10" y1="27" x2="35" y2="59"></line>
+        <line x1="10" y1="27" x2="50" y2="33"></line>
+      </svg>
+      <span class="word"><b>BM</b><i class="bar"></i><span>MÍDIAS</span></span>
+    </div>
+    <div class="crumb"><b>Brito Mídias</b><span class="sep">/</span>Exclusão de dados</div>
+    <h1>Como solicitar a exclusão dos seus dados</h1>
+    <p class="sub">Instruções para pessoas que interagiram com anúncios ou publicações gerenciadas pela
+      Brito Mídias Company e desejam que seus dados sejam removidos dos nossos sistemas.</p>
+    <div class="pills">
+      <span class="pill solid">Resposta em até 15 dias</span>
+      <span class="pill">LGPD · Lei 13.709/2018</span>
+    </div>
+  </div>
+</header>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="section-label">Contexto</div>
+    <h2>Quais dados podemos ter sobre você</h2>
+    <p>A Brito Mídias gerencia anúncios, Páginas do Facebook e contas profissionais do Instagram de
+      empresas clientes. Se você <strong>comentou em um anúncio ou publicação</strong> de uma dessas
+      Páginas, podemos ter registrado, por tempo limitado, o texto do seu comentário, a data e o nome
+      e identificador públicos que a Meta associa ao comentário — exclusivamente para que a equipe do
+      cliente consiga responder a você. Não temos acesso a mensagens privadas, e não usamos esses
+      dados para nenhuma outra finalidade. Detalhes completos na
+      <a href="https://britomidiascompany-stack.github.io/brito-midias/politica-de-privacidade/">Política de Privacidade</a>.</p>
+  </div>
+</section>
+
+<section class="sec soft">
+  <div class="wrap">
+    <div class="section-label">Passo a passo</div>
+    <h2>Como pedir a exclusão</h2>
+
+    <div class="step">
+      <div class="idx">1</div>
+      <div class="body">
+        <h3>Envie um e-mail</h3>
+        <p>Para <strong>britomidiascompany@gmail.com</strong>, com o assunto
+          <strong>"Exclusão de dados"</strong>.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="idx">2</div>
+      <div class="body">
+        <h3>Informe como te identificar</h3>
+        <p>O <strong>nome de usuário</strong> ou o <strong>nome exibido</strong> que você usa no Facebook ou
+          no Instagram e, se souber, a Página ou o anúncio em que interagiu. Isso é tudo o que precisamos
+          — não pedimos documento, telefone nem qualquer outro dado.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="idx">3</div>
+      <div class="body">
+        <h3>Aguarde a confirmação</h3>
+        <p>Confirmaremos o recebimento e concluiremos a exclusão em até <strong>15 dias</strong>. Você
+          recebe um e-mail avisando quando estiver concluída.</p>
+      </div>
+    </div>
+
+    <div class="obs">
+      <div class="ic">⚠️</div>
+      <div>
+        <h3>Isso não apaga o comentário no Facebook ou no Instagram</h3>
+        <p>A exclusão vale para os <strong>nossos sistemas</strong>. O comentário em si continua na
+          plataforma da Meta — para removê-lo, apague-o diretamente no Facebook ou no Instagram, na
+          publicação em que foi feito.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="section-label">Se você é cliente</div>
+    <h2>Encerramento de contrato</h2>
+    <p>Ao fim da relação com um cliente, os dados relacionados aos ativos dele (relatórios, comentários
+      e configurações) são excluídos dos nossos sistemas em até <strong>30 dias</strong>, salvo obrigação
+      legal de guarda. O cliente também pode revogar o acesso da Brito Mídias a qualquer momento no
+      Gerenciador de Negócios da Meta.</p>
+    <div class="callout">
+      <h3>Outros direitos</h3>
+      <p>Além da exclusão, você pode pedir acesso, correção, anonimização ou informação sobre
+        compartilhamento dos seus dados — veja a seção "Seus direitos" da
+        <a href="https://britomidiascompany-stack.github.io/brito-midias/politica-de-privacidade/#direitos">Política de Privacidade</a>.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="brand">
+      <svg viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="2.4"
+           stroke-linejoin="round" stroke-linecap="round" aria-label="BM Mídias">
+        <polygon points="50,4 90,27 90,73 50,96 10,73 10,27"></polygon>
+        <polygon points="50,33 65,59 35,59"></polygon>
+        <line x1="50" y1="4" x2="50" y2="33"></line><line x1="90" y1="73" x2="65" y2="59"></line>
+        <line x1="10" y1="73" x2="35" y2="59"></line><line x1="90" y1="27" x2="50" y2="33"></line>
+        <line x1="90" y1="27" x2="65" y2="59"></line><line x1="50" y1="96" x2="65" y2="59"></line>
+        <line x1="50" y1="96" x2="35" y2="59"></line><line x1="10" y1="27" x2="35" y2="59"></line>
+        <line x1="10" y1="27" x2="50" y2="33"></line>
+      </svg>
+      <span class="word"><b>BM</b><i class="bar"></i><span>MÍDIAS</span></span>
+    </div>
+    <p class="fnote">Instruções de exclusão de dados · Brito Mídias Company · Versão 1.0, 13/09/2026.
+      Documentos relacionados:
+      <a href="https://britomidiascompany-stack.github.io/brito-midias/politica-de-privacidade/">Política de Privacidade</a> ·
+      <a href="https://britomidiascompany-stack.github.io/brito-midias/termos-de-servico/">Termos de Serviço</a>.</p>
+  </div>
+</footer>
+
+</body>
+</html>
