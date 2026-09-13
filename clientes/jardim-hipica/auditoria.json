@@ -3,15 +3,15 @@
   "slug": "jardim-hipica",
   "empresa": "ARMIGH Empreendimentos & Participações LTDA",
   "auditoria_em": "2026-09-02",
-  "atualizado_em": "2026-09-02",
+  "atualizado_em": "2026-09-13",
   "metodologia": "Metodologia Rastracking100 (Dericson Calari) — playbook interno da Brito Mídias",
   "veredito_titulo": "O formulário está fora do domínio rastreado — e a tag do Google aponta para a conta errada",
   "veredito": "O Jardim Hípica tem tudo que um rastreamento maduro pede: contêiner Web e de servidor no GTM, pixel com CAPI ativa, Enhanced Conversions e auto-tagging ligados. E mesmo assim está cego nos dois canais, por dois motivos confirmados na inspeção ao vivo do site. Primeiro: a captação não acontece no site. O botão leva o visitante para lislie.yayforms.link, outro domínio, onde não existe GTM, GA4 nem Google Ads — só o pixel da Meta pela integração nativa do YAY. Nenhum gatilho de formulário poderia disparar, porque não há formulário no domínio rastreado. Segundo: a única tag de Google Ads que carrega no site aponta para AW-11226975236, que não é a conta ativa — então nem a conversão que chegasse seria contada no lugar certo.",
   "resumo": [
     { "valor": "0", "label": "conversões no Google em 30 dias", "tom": "critico" },
     { "valor": "R$ 568", "label": "investidos no mesmo período", "tom": "critico" },
-    { "valor": "0", "label": "eventos Lead no pixel da Meta", "tom": "critico" },
-    { "valor": "10", "label": "conjuntos otimizando por um evento que não existe", "tom": "critico" },
+    { "valor": "2", "label": "eventos Lead na última semana — sem e-mail, telefone ou fbc", "tom": "critico" },
+    { "valor": "10", "label": "conjuntos otimizando por um Lead sem identificador", "tom": "critico" },
     { "valor": "7 meses", "label": "desde a última edição no contêiner", "tom": "alerta" }
   ],
   "sistemas": [
@@ -20,7 +20,7 @@
       "nome": "Meta Ads",
       "status": "critico",
       "status_label": "Cego",
-      "resumo": "O pixel está vivo e com CAPI ativa, mas só recebe PageView e os eventos que o próprio formulário YAY dispara. Não existe evento Lead — e é exatamente por Lead que 10 conjuntos de anúncio estão configurados para otimizar.",
+      "resumo": "O pixel está vivo e com CAPI ativa, mas tudo o que recebe vem da integração nativa do YAY: PageView, os eventos internos do formulário e um Lead por envio. Esse Lead chega sem e-mail, telefone ou identificador de clique, e em volume tão baixo com as campanhas pausadas que a Meta nem calcula a nota dele — e é exatamente por Lead que 10 conjuntos de anúncio estão configurados para otimizar. (Correção de 13/09: a versão original desta auditoria dizia que o Lead não existia; existe, mas é cego.)",
       "blocos": [
         {
           "titulo": "Configuração",
@@ -42,7 +42,7 @@
             ["YFStart", "EMQ 6,1 — só IP, user agent e fbp", "alerta"],
             ["YFAnswer", "EMQ 6,1 — só IP, user agent e fbp", "alerta"],
             ["PageView", "EMQ 6,1 — só IP, user agent e fbp", "alerta"],
-            ["Lead", "NÃO EXISTE", "critico"],
+            ["Lead", "Existe — disparado pela integração nativa do YAY a cada envio (2 na semana de 06 a 13/09). Volume baixo demais para a Meta calcular nota; sem e-mail, telefone ou fbc", "critico"],
             ["E-mail / telefone", "0% de cobertura em todos os eventos", "critico"],
             ["fbc (identificador de clique)", "Ausente em todos os eventos", "critico"]
           ]
@@ -67,7 +67,7 @@
         }
       ],
       "achados": [
-        { "severidade": "critico", "titulo": "As campanhas otimizam por um evento que o pixel nunca recebeu", "detalhe": "Os 10 conjuntos do bloco de cadastro têm promoted_object apontando para o pixel correto com custom_event_type LEAD. Como o Lead nunca chega, o algoritmo não tem sinal de conversão para aprender — a entrega degrada e o custo por resultado real fica desconhecido." },
+        { "severidade": "critico", "titulo": "As campanhas otimizam por um Lead que chega cego", "detalhe": "Os 10 conjuntos do bloco de cadastro têm promoted_object apontando para o pixel correto com custom_event_type LEAD. O Lead que chega vem da integração nativa do YAY, sem e-mail, telefone ou identificador de clique — a Meta recebe o evento mas não sabe quem o gerou, o que é o \"evento morto\" do playbook. O algoritmo aprende pouco, e a nota de correspondência nem chega a ser calculada. Detalhe que muda o custo da correção: a Meta não permite trocar o evento de otimização de um conjunto já publicado — mudar o evento significa criar conjuntos novos." },
         { "severidade": "critico", "titulo": "Nenhum evento carrega e-mail, telefone ou fbc", "detalhe": "Todos os eventos chegam apenas com IP, user agent e cookie de navegador. Mesmo o que chega não permite à Meta casar o evento com uma pessoa, o que impede público semelhante de qualidade e remarketing preciso." },
         { "severidade": "alto", "titulo": "Campanhas de WhatsApp sem pixel e sem ctwa_clid", "detalhe": "Os 9 conjuntos de mensagem otimizam por CONVERSATIONS sem promoted_object. A conversa iniciada não volta para a Meta com identificador de clique, então não há como ligar conversa a anúncio nem alimentar otimização." },
         { "severidade": "medio", "titulo": "Campanhas rodam em conta de anúncio compartilhada", "detalhe": "As campanhas do Jardim Hípica dividem a conta 674525543465006 com Actie, AGCITY e San Marino. Isso mistura histórico de aprendizado e dificulta leitura de conta." }
@@ -142,7 +142,7 @@
         }
       ],
       "achados": [
-        { "severidade": "critico", "titulo": "O formulário está em outro domínio — nenhum gatilho de formulário pode funcionar", "detalhe": "Inspeção ao vivo em 03/09: a página de captação é moraremindaiatuba.com.br e carrega corretamente o contêiner GTM-55X393B8 e os dois GA4 (Web G-3622642YV3 e Server G-CFHQ571PK9). Só que ela não tem formulário nenhum: o botão \"Agende sua visita\" leva para lislie.yayforms.link, um domínio do próprio YAY!Forms, onde não há GTM, GA4 nem Google Ads — apenas o pixel da Meta, colocado pela integração nativa do YAY. Por isso as 4 tags do bloco 01 (gatilho \"Form ID contém cst\") nunca dispararam e nunca poderiam: não existe formulário no domínio rastreado. Também explica por que os únicos eventos que chegam são YFView, YFStart e YFAnswer, disparados pelo próprio YAY, sem e-mail, telefone ou fbc." },
+        { "severidade": "critico", "titulo": "O formulário está em outro domínio — nenhum gatilho de formulário pode funcionar", "detalhe": "Inspeção ao vivo em 03/09: a página de captação é moraremindaiatuba.com.br e carrega corretamente o contêiner GTM-55X393B8 e os dois GA4 (Web G-3622642YV3 e Server G-CFHQ571PK9). Só que ela não tem formulário nenhum: o botão \"Agende sua visita\" leva para lislie.yayforms.link, um domínio do próprio YAY!Forms, onde não há GTM, GA4 nem Google Ads — apenas o pixel da Meta, colocado pela integração nativa do YAY. Por isso as 4 tags do bloco 01 (gatilho \"Form ID contém cst\") nunca dispararam e nunca poderiam: não existe formulário no domínio rastreado. Também explica por que todos os eventos que chegam (YFView, YFStart, YFAnswer e o Lead) vêm da integração nativa do próprio YAY, sem e-mail, telefone ou fbc." },
         { "severidade": "critico", "titulo": "A atribuição se perde na troca de domínio", "detalhe": "O fbclid e o gclid chegam em moraremindaiatuba.com.br, mas o visitante é enviado para outro domínio para preencher o formulário. O contêiner não tem o script de propagação de parâmetros (§5 do playbook), então nada disso atravessa. É a razão técnica de o fbc estar ausente em 100% dos eventos." },
         { "severidade": "alto", "titulo": "O gatilho da página de obrigado também não corresponde ao fluxo atual", "detalhe": "Três tags dependem de o caminho da página conter \"obrigado\". O fluxo atual do YAY não passa por essa página, então esse segundo caminho de conversão também está morto." },
         { "severidade": "alto", "titulo": "Contêiner parado há 7 meses enquanto o site mudou", "detalhe": "A defasagem entre o que o contêiner espera e o que o site faz é o padrão de falha: ninguém revisita o rastreamento quando a página de captação é trocada." },
@@ -172,7 +172,7 @@
       "severidade": "critica",
       "esforco": "~4h",
       "problema": "O formulário está em lislie.yayforms.link, fora do domínio rastreado. Não há GTM, GA4 nem Google Ads nesse domínio, então nenhum gatilho de formulário no contêiner do site pode funcionar — o problema não é o gatilho estar errado, é não existir formulário onde o contêiner roda.",
-      "acao": "Workflow já construído e publicado no n8n ([JD HIPICA] Lead YAY para CAPI Meta), com webhook próprio, hash de telefone, nome, cidade e estado, e event_id igual ao id da resposta para não duplicar. Falta apenas o token de CAPI do pixel, gerado no Gerenciador de Eventos, e ligar o webhook no YAY.",
+      "acao": "Workflow construído no n8n ([JD HIPICA] Lead YAY para CAPI Meta), com webhook próprio, hash de telefone, nome, cidade e estado, e event_id igual ao id da resposta. Antes de ligar, duas coisas: (1) gerar o token de CAPI do pixel no Gerenciador de Eventos; (2) decidir o que fazer com o Lead que a integração nativa do YAY já manda pelo pixel — como ele usa outro event_id, ligar a CAPI sem desligá-lo faria a Meta contar dois Leads por envio. O caminho previsto é desligar o Lead na integração do YAY no momento em que a CAPI entrar.",
       "impacto": "É o único caminho que mede o lead na Meta onde ele realmente acontece. Leva o EMQ do Lead da faixa atual para 8-9. Observação: o formulário não tem campo de e-mail, então o identificador forte disponível é telefone + nome + geo.",
       "status": "pendente",
       "concluido_em": null,
@@ -223,8 +223,8 @@
       "sistema": "Meta Ads",
       "severidade": "alta",
       "esforco": "~30min",
-      "problema": "10 conjuntos otimizam por LEAD, evento que nunca chegou ao pixel.",
-      "acao": "Depois de JH-01 e JH-03, conferir se o volume de Lead sustenta a fase de aprendizado. Se não sustentar, otimizar temporariamente por um evento intermediário e voltar para Lead quando houver volume.",
+      "problema": "10 conjuntos otimizam por LEAD, evento que chega ao pixel sem nenhum identificador de pessoa e em volume mínimo.",
+      "acao": "Depois de JH-01 e JH-03, conferir se o volume de Lead sustenta a fase de aprendizado. Se não sustentar, otimizar por um evento intermediário e voltar para Lead quando houver volume. Atenção: a Meta não deixa trocar o evento de otimização de conjunto já publicado — qualquer troca é criar conjunto novo, então planejar isso junto com a reativação das campanhas, não como ajuste isolado.",
       "impacto": "Evita reativar as campanhas com o mesmo problema silencioso de antes.",
       "status": "pendente",
       "concluido_em": null,
