@@ -858,36 +858,24 @@ const CLIENTES = [
       }
       ,{
         id: "cci-2026",
-        nome: "CCI-2026",
-        resumo: "Congresso presencial (2 dias, São Paulo) — venda de ingresso. Mesma conta Meta do IFB (mesma página, mesmo pixel), produto e copy diferentes da ICV. Skill dedicada cobre nomenclatura, copy fixa, UTM e a mecânica de subir criativos/campanhas.",
+        nome: "CCI 2026",
+        resumo: "Congresso presencial (2 dias, São Paulo) do Instituto Fernanda Ben — venda de ingresso via página própria, checkout na Hotmart. Mesma conta Meta do IFB (mesma página, mesmo pixel), produto e copy diferentes da ICV. Skill dedicada cobre nomenclatura, copy fixa, UTM e a mecânica de subir criativos/campanhas.",
         skills: ["criador-campanhas-cci-2026"],
         links: [
-          {label:"Planilha de criativos e resultados CCI-2026", url:"https://docs.google.com/spreadsheets/d/1eA54SYuyZp3eIf2K5KqBvZmpvdVe_xqNMR1klGO6L7k/edit"}
-        ],
-        info: [
-          {k:"Página de destino", v:"<code>https://cci2026.institutofernandaben.com.br/</code>"},
-          {k:"Campanha modelo", v:"<code>52552123122994</code> — conjunto único <code>52552602465794</code>"},
-          {k:"UTM", v:"Código <code>CCI-26</code> (não CCI-2026!) + <code>utm_term</code> extra — ver skill."},
-          {k:"Como subir criativo novo", v:"Peça \"sobe esse criativo do CCI na campanha modelo\" — a skill <b>criador-campanhas-cci-2026</b> pega o Video ID na planilha e sobe com a copy/link/UTM fixos."}
-        ]
-      },
-      {
-        id: "cci-2026",
-        nome: "CCI 2026",
-        resumo: "Evento <b>presencial</b> do Instituto Fernanda Ben — venda de ingresso via página de vendas própria, checkout na Hotmart. Projeto novo, ainda em montagem — mais informações sendo adicionadas aos poucos.",
-        skills: [],
-        links: [
-          {label:"Página de vendas — PAGINA DOMINIO-V1", url:"https://cci2026.institutofernandaben.com.br/"},
-          {label:"Checkout (Hotmart)", url:"https://pay.hotmart.com/D106818205T?off=npijh4d4&checkoutMode=10&utm_source=site_cci&utm_medium=landing_page&utm_campaign=cci2026_lancamento&utm_content=open_pre_checkout_dupla_747&cta_origem=open_pre_checkout_dupla_747&pagina_origem=cci2026_landing&lead_capture=pre_checkout_global&bid=1788291807850"},
-          {label:"Pasta de criativos (Drive)", url:"https://drive.google.com/drive/folders/1y-9RVv1sWlReR-WoZbiZgueIwcz5Sy5K"},
-          {label:"Processo: recebimento de criativo novo — \"Do Drive à Campanha\"", url:"https://claude.ai/code/artifact/f2b1e858-3a7f-4ef7-9b96-3a973e471283"}
+          {grupo:"Geral", label:"Página de vendas — PAGINA DOMINIO-V1", url:"https://cci2026.institutofernandaben.com.br/"},
+          {grupo:"Geral", label:"Checkout (Hotmart)", url:"https://pay.hotmart.com/D106818205T?off=npijh4d4&checkoutMode=10&utm_source=site_cci&utm_medium=landing_page&utm_campaign=cci2026_lancamento&utm_content=open_pre_checkout_dupla_747&cta_origem=open_pre_checkout_dupla_747&pagina_origem=cci2026_landing&lead_capture=pre_checkout_global&bid=1788291807850"},
+          {grupo:"Criativos", label:"Planilha de criativos e resultados CCI-2026", url:"https://docs.google.com/spreadsheets/d/1eA54SYuyZp3eIf2K5KqBvZmpvdVe_xqNMR1klGO6L7k/edit"},
+          {grupo:"Criativos", label:"Pasta de criativos (Drive)", url:"https://drive.google.com/drive/folders/1y-9RVv1sWlReR-WoZbiZgueIwcz5Sy5K"},
+          {grupo:"Criativos", label:"Processo: recebimento de criativo novo — \"Do Drive à Campanha\"", url:"https://claude.ai/code/artifact/f2b1e858-3a7f-4ef7-9b96-3a973e471283"}
         ],
         info: [
           {k:"Formato", v:"Evento presencial — ingresso dá acesso a todos os dias de evento"},
           {k:"Oferta", v:"Compra 1 ingresso e recebe mais 1 (dupla)"},
           {k:"Preço", v:"R$ 747,00 à vista ou 12x de R$ 79,70"},
           {k:"Fluxo de venda", v:"Página de vendas → clique em \"Comprar\" → pessoa preenche os dados (vão direto pro time comercial) → página de checkout (Hotmart)"},
-          {k:"Status", v:"Projeto em montagem — Rafael vai completar com mais informações aos poucos"}
+          {k:"Campanha modelo", v:"<code>52552123122994</code> — conjunto único <code>52552602465794</code>"},
+          {k:"UTM", v:"Código <code>CCI-26</code> (não CCI-2026!) + <code>utm_term</code> extra — ver skill."},
+          {k:"Como subir criativo novo", v:"Peça \"sobe esse criativo do CCI na campanha modelo\" — a skill <b>criador-campanhas-cci-2026</b> pega o Video ID na planilha e sobe com a copy/link/UTM fixos."}
         ]
       }
     ]
