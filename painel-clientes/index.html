@@ -301,6 +301,13 @@
           <div class="mini-grid" id="cp-meta"></div>
         </div>
 
+        <div id="cp-links-wrap">
+          <div class="section-label">LINKS GERAIS</div>
+          <div class="section">
+            <div id="cp-links"></div>
+          </div>
+        </div>
+
         <div class="section-label">ACESSO RÁPIDO</div>
         <div class="section">
           <div class="row"><span class="k">Pasta do cliente (Drive)</span><span class="v" id="cp-drive"></span></div>
@@ -1105,6 +1112,10 @@ const CLIENTES = [
     ],
     driveUrl: "",
     pastaCriativos: "",
+    links: [
+      {label:"Planilha de acompanhamento", url:"https://docs.google.com/spreadsheets/d/1m2Q-M8GvR7cf56n95i0hGHHqUu7XFCY9cpTDtzWKiLk/edit"},
+      {label:"Planilha de base de dados", url:"https://docs.google.com/spreadsheets/d/1CzZs0atelfjsMye83UQRpwiA1pPySTKZOg0P_tJhykg/edit"}
+    ],
     facebookPage: {nome:"Legado e Família", id:"318608945696050"},
     instagram: [
       {handle:"@monique.s.pereira", id:"17841410329845836", owner:"Monique de Souza Pereira", principal:true},
@@ -1430,6 +1441,8 @@ function openClient(id){
   document.getElementById('cp-meta').innerHTML = metaHtml(c);
   document.getElementById('cp-drive').innerHTML = fieldValue(c.driveUrl);
   document.getElementById('cp-criativos').innerHTML = fieldValue(c.pastaCriativos);
+  document.getElementById('cp-links-wrap').style.display = (c.links && c.links.length) ? 'block' : 'none';
+  document.getElementById('cp-links').innerHTML = linksHtml(c.links || []);
 
   document.getElementById('home').style.display = 'none';
   document.getElementById('ppage').style.display = 'none';
