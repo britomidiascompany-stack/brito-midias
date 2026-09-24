@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Processo · Criar campanha no Meta Ads · Brito Mídias</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+  /* Paleta declarada inteira no :root — nenhum literal de cor fora daqui,
+     exceto #fff/#000 e os rgba() de sombra e de grade do hero. */
+  :root{
+    --roxo:#7C3AED; --roxo-dark:#5B21B6; --roxo-deep:#3B0F73;
+    --roxo-light:#A78BFA; --roxo-xlight:#EDE9FE; --roxo-xxlight:#FCFAFF;
+    --preto:#0A0A0A; --hero-mid:#17111F; --ink:#141018; --cinza:#5B5566;
+    --linha:#E7E3EE; --bg:#FFFFFF; --bg-soft:#FAF9FC;
+    --verde:#16A34A; --verde-dark:#15803D; --verde-bg:#F0FDF4;
+    --amarelo:#D97706; --ambar-dark:#92400E; --ambar-soft:#FEF3C7; --ambar-bg:#FFFBEB;
+    --vermelho:#DC2626; --code-fg:#E9E4F5;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Poppins',system-ui,-apple-system,sans-serif;font-weight:300;font-size:16px;
+    line-height:1.6;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 28px}
+
+  /* HERO */
+  .hero{position:relative;overflow:hidden;color:#fff;
+    background:
+      radial-gradient(1100px 500px at 78% -10%, rgba(124,58,237,.55), transparent 60%),
+      linear-gradient(150deg,var(--preto) 0%,var(--hero-mid) 45%,var(--roxo-deep) 100%);}
+  .hero::before{content:"";position:absolute;inset:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.14) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.14) 1px,transparent 1px);
+    background-size:44px 44px;
+    -webkit-mask-image:radial-gradient(circle at 50% 30%,#000 25%,transparent 72%);
+    mask-image:radial-gradient(circle at 50% 30%,#000 25%,transparent 72%);pointer-events:none}
+  .hero-in{position:relative;padding:40px 0 50px}
+  .brand{display:flex;align-items:center;gap:16px}
+  .brand svg{width:46px;height:46px;flex-shrink:0}
+  .brand .word{display:flex;align-items:center;gap:14px;font-weight:300}
+  .brand .word b{font-weight:800;font-size:20px}
+  .brand .word .bar{width:2px;height:30px;background:rgba(255,255,255,.55)}
+  .brand .word span{font-size:20px;letter-spacing:.22em}
+  .crumb{margin-top:32px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+    font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--roxo-light)}
+  .crumb b{color:#fff}
+  .crumb .sep{color:rgba(255,255,255,.35);font-weight:400;letter-spacing:0;text-transform:none}
+  .hero h1{font-weight:800;font-size:clamp(28px,4.4vw,44px);letter-spacing:-.02em;line-height:1.15;
+    margin-top:12px;text-wrap:balance}
+  .hero .sub{font-weight:300;font-size:16.5px;color:rgba(255,255,255,.74);margin-top:14px;max-width:62ch}
+  .pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+  .pill{border:1px solid var(--roxo-light);color:#fff;border-radius:100px;padding:8px 16px;
+    font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
+  .pill.solid{background:linear-gradient(90deg,var(--roxo),var(--roxo-dark));border-color:transparent}
+
+  /* SEÇÕES */
+  .sec{padding:52px 0}
+  .sec.soft{background:var(--bg-soft);border-top:1px solid var(--linha);border-bottom:1px solid var(--linha)}
+  .section-label{display:flex;align-items:center;gap:12px;font-size:13px;font-weight:600;
+    letter-spacing:.16em;text-transform:uppercase;color:var(--roxo)}
+  .section-label::before{content:"";width:34px;height:2px;background:var(--roxo);border-radius:2px}
+  .sec h2{font-weight:700;font-size:clamp(22px,3vw,28px);letter-spacing:-.01em;margin-top:14px;text-wrap:balance}
+  .sec .intro{color:var(--cinza);margin-top:12px;max-width:70ch}
+  .sec .intro code{background:var(--roxo-xlight);color:var(--roxo-dark);padding:2px 6px;border-radius:5px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;overflow-wrap:anywhere}
+  .sec .intro strong{color:var(--ink);font-weight:600}
+  .sec h3.mini{font-size:16px;font-weight:700;margin-top:34px;letter-spacing:-.01em}
+
+  .callout{border:1px solid var(--linha);border-left:4px solid var(--roxo);border-radius:12px;
+    padding:20px 24px;margin-top:22px;background:#fff}
+  .callout.amber{border-left-color:var(--amarelo);background:var(--ambar-bg)}
+  .callout.green{border-left-color:var(--verde);background:var(--verde-bg)}
+  .callout h3{font-size:15px;font-weight:700;margin-bottom:8px}
+  .callout p{color:var(--cinza);font-size:14.5px}
+  .callout p+p{margin-top:9px}
+  .callout strong{color:var(--ink);font-weight:600}
+  .callout ul{margin-top:10px;padding-left:20px;color:var(--cinza);font-size:14.5px}
+  .callout li{margin-top:5px}
+  .callout code{background:var(--roxo-xlight);color:var(--roxo-dark);padding:2px 7px;border-radius:6px;
+    font-size:13px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;overflow-wrap:anywhere}
+  .callout a{color:var(--roxo-dark);font-weight:600}
+
+  /* ROADMAP (fases) */
+  .road{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:26px}
+  .fase{border:1px solid var(--linha);border-radius:14px;padding:18px 20px;background:#fff;
+    display:grid;grid-template-columns:38px 1fr;gap:14px;align-items:start}
+  .fase .num{width:38px;height:38px;border-radius:11px;
+    background:linear-gradient(135deg,var(--roxo),var(--roxo-dark));color:#fff;
+    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;
+    box-shadow:0 8px 16px rgba(124,58,237,.24)}
+  .fase h3{font-size:15.5px;font-weight:700;letter-spacing:-.01em}
+  .fase p{color:var(--cinza);font-size:13.5px;margin-top:5px}
+  .fase .done{display:block;margin-top:9px;font-size:12px;font-weight:600;color:var(--verde-dark)}
+  .fase.hot{border-color:var(--roxo-light);background:var(--roxo-xxlight)}
+
+  /* TABELA DE NOMENCLATURA */
+  .nome-ex{margin-top:18px;border:1px solid var(--linha);border-left:4px solid var(--roxo);
+    border-radius:12px;background:var(--bg-soft);padding:14px 18px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;color:var(--roxo-dark);
+    overflow-wrap:anywhere;line-height:1.75}
+  .ntab{margin-top:14px;border:1px solid var(--linha);border-radius:12px;overflow:hidden}
+  .nrow{display:grid;grid-template-columns:200px 1.1fr 1.4fr;gap:16px;padding:13px 18px;font-size:13.5px}
+  .ntab.duo .nrow{grid-template-columns:200px 1fr}
+  .nrow:nth-child(odd){background:var(--bg-soft)}
+  .nrow b{color:var(--roxo-dark);font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+    font-size:12.5px;overflow-wrap:anywhere}
+  .nrow span{color:var(--ink);font-weight:400}
+  .nrow em{color:var(--cinza);font-style:normal}
+  .nrow.head{background:var(--roxo-xlight);font-size:12px;font-weight:700;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--roxo-dark)}
+  .nrow.head span,.nrow.head em{color:var(--roxo-dark);font-weight:700}
+
+  /* CAMPOS (config) */
+  .fields{margin-top:16px;border:1px solid var(--linha);border-radius:12px;overflow:hidden}
+  .frow{display:grid;grid-template-columns:200px 1fr;gap:14px;padding:13px 18px;font-size:13.5px}
+  .frow:nth-child(odd){background:var(--bg-soft)}
+  .frow b{color:var(--roxo-dark);font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+    font-size:12.5px;overflow-wrap:anywhere}
+  .frow span{color:var(--cinza)}
+  .frow span strong{color:var(--ink);font-weight:600}
+
+  /* PASSO */
+  .step{display:grid;grid-template-columns:60px 1fr;gap:20px;margin-top:40px}
+  .step>.body{min-width:0}
+  .step:first-of-type{margin-top:24px}
+  .step .idx{width:60px;height:60px;border-radius:16px;flex-shrink:0;
+    background:linear-gradient(135deg,var(--roxo),var(--roxo-dark));color:#fff;
+    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:24px;
+    box-shadow:0 10px 22px rgba(124,58,237,.28)}
+  .step .body h3{font-size:19px;font-weight:700;letter-spacing:-.01em}
+  .step .body p{color:var(--cinza);font-size:14.5px;margin-top:7px}
+  .step .body p strong{color:var(--ink);font-weight:600}
+
+  /* CORREÇÕES DO GESTOR */
+  .fix{border:1px solid var(--linha);border-radius:14px;background:#fff;margin-top:16px;overflow:hidden}
+  .fix .cab{display:flex;align-items:center;gap:12px;padding:14px 20px;background:var(--bg-soft);
+    border-bottom:1px solid var(--linha)}
+  .fix .cab .n{width:26px;height:26px;border-radius:8px;background:var(--roxo);color:#fff;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800}
+  .fix .cab h3{font-size:15px;font-weight:700}
+  .fix .par{display:grid;grid-template-columns:1fr 1fr}
+  .fix .cel{padding:16px 20px;font-size:14px;color:var(--cinza)}
+  .fix .cel+.cel{border-left:1px solid var(--linha)}
+  .fix .cel .lab{display:block;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+    margin-bottom:6px}
+  .fix .cel.erro .lab{color:var(--vermelho)}
+  .fix .cel.regra{background:var(--verde-bg)}
+  .fix .cel.regra .lab{color:var(--verde-dark)}
+  .fix .cel strong{color:var(--ink);font-weight:600}
+  .fix code{background:var(--roxo-xlight);color:var(--roxo-dark);padding:2px 7px;border-radius:6px;
+    font-size:12.5px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+
+  /* CHECKLIST */
+  .check{margin-top:22px;border:1px solid var(--linha);border-radius:14px;overflow:hidden;background:#fff}
+  .check li{list-style:none;display:grid;grid-template-columns:24px 1fr;gap:14px;align-items:start;
+    padding:14px 20px;font-size:14.5px;color:var(--ink)}
+  .check li:nth-child(odd){background:var(--bg-soft)}
+  .check li::before{content:"";width:20px;height:20px;margin-top:2px;border-radius:6px;
+    border:2px solid var(--roxo-light);background:#fff;display:block}
+  .check li strong{font-weight:600}
+  .check li em{display:block;font-style:normal;color:var(--cinza);font-size:13px;margin-top:3px}
+
+  /* ARMADILHAS */
+  .traps{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:24px}
+  .trap{border:1px solid var(--linha);border-radius:14px;padding:18px 20px;background:#fff}
+  .trap .n{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--roxo)}
+  .trap h3{font-size:15.5px;font-weight:700;margin-top:6px;letter-spacing:-.01em}
+  .trap p{color:var(--cinza);font-size:13.5px;margin-top:7px}
+  .trap p strong{color:var(--ink);font-weight:600}
+  .trap code{background:var(--roxo-xlight);color:var(--roxo-dark);padding:2px 6px;border-radius:5px;
+    font-size:12px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;overflow-wrap:anywhere}
+  .trap.red{border-left:4px solid var(--vermelho)}
+
+  .obs{display:flex;gap:16px;align-items:flex-start;border:1px solid var(--linha);
+    border-left:4px solid var(--amarelo);background:var(--ambar-bg);border-radius:12px;padding:20px 24px;margin-top:32px}
+  .obs .ic{font-size:24px;flex-shrink:0}
+  .obs h3{font-size:15px;font-weight:700;color:var(--ambar-dark);margin-bottom:6px}
+  .obs p{color:var(--cinza);font-size:14.5px}
+  .obs p+p{margin-top:9px}
+  .obs strong{color:var(--ink);font-weight:600}
+  .obs code{background:var(--ambar-soft);color:var(--ambar-dark);padding:2px 7px;border-radius:6px;font-size:12.5px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;overflow-wrap:anywhere}
+
+  pre.code{margin-top:14px;background:var(--ink);color:var(--code-fg);border-radius:12px;padding:16px 18px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;line-height:1.7;
+    overflow-x:auto;white-space:pre}
+
+  footer{background:var(--ink);color:rgba(255,255,255,.62);padding:40px 0}
+  footer .brand svg{width:34px;height:34px}
+  footer .brand .word b{font-size:15px}footer .brand .word span{font-size:15px}
+  footer .brand .word .bar{height:22px}
+  footer .fnote{margin-top:16px;font-size:12.5px;max-width:80ch;line-height:1.7}
+  footer a{color:var(--roxo-light);text-decoration:none;border-bottom:1px solid rgba(167,139,250,.4)}
+
+  @media (max-width:640px){
+    .wrap{padding:0 18px}
+    .road{grid-template-columns:1fr}
+    .traps{grid-template-columns:1fr}
+    .nrow,.ntab.duo .nrow{grid-template-columns:1fr;gap:6px}
+    .nrow.head{display:none}
+    .nrow span::before{content:"O que significa: ";font-weight:600;color:var(--roxo-dark)}
+    .nrow em::before{content:"Por que existe: ";font-weight:600;color:var(--roxo-dark)}
+    .frow{grid-template-columns:1fr;gap:5px}
+    .step{grid-template-columns:1fr;gap:12px}
+    .step .idx{width:48px;height:48px;font-size:20px;border-radius:13px}
+    .fix .par{grid-template-columns:1fr}
+    .fix .cel+.cel{border-left:0;border-top:1px solid var(--linha)}
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap hero-in">
+    <div class="brand">
+      <svg viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="2.4" role="img"
+           stroke-linejoin="round" stroke-linecap="round" aria-label="BM Mídias">
+        <polygon points="50,4 90,27 90,73 50,96 10,73 10,27"></polygon>
+        <polygon points="50,33 65,59 35,59"></polygon>
+        <line x1="50" y1="4" x2="50" y2="33"></line><line x1="90" y1="73" x2="65" y2="59"></line>
+        <line x1="10" y1="73" x2="35" y2="59"></line><line x1="90" y1="27" x2="50" y2="33"></line>
+        <line x1="90" y1="27" x2="65" y2="59"></line><line x1="50" y1="96" x2="65" y2="59"></line>
+        <line x1="50" y1="96" x2="35" y2="59"></line><line x1="10" y1="27" x2="35" y2="59"></line>
+        <line x1="10" y1="27" x2="50" y2="33"></line>
+      </svg>
+      <span class="word"><b>BM</b><i class="bar"></i><span>MÍDIAS</span></span>
+    </div>
+
+    <div class="crumb"><b>Brito Mídias</b><span class="sep">/</span><b>Processos</b><span class="sep">/</span>Criar campanha no Meta Ads</div>
+
+    <h1>Como criar uma campanha<br>no Meta Ads</h1>
+    <p class="sub">O caminho inteiro, da tarefa no ClickUp até o anúncio ativo: qual objetivo escolher,
+      qual nomenclatura usar e por quê, e as configurações de campanha, conjunto e anúncio usadas no
+      BNCC019. Documentado a partir do lançamento BNCC019 da VOA Conhecimento.</p>
+
+    <div class="pills">
+      <span class="pill solid">Meta Ads</span>
+      <span class="pill">Lançamento</span>
+      <span class="pill">Passo a passo</span>
+    </div>
+  </div>
+</header>
+
+<!-- ROADMAP -->
+<section class="sec">
+  <div class="wrap">
+    <div class="section-label">O mapa</div>
+    <h2>As fases do processo, na ordem</h2>
+    <p class="intro">Da Fase 0 à Fase 9. Em verde, o que precisa estar pronto para a fase ser dada
+      como concluída.</p>
+
+    <div class="road">
+      <div class="fase">
+        <div class="num">0</div>
+        <div>
+          <h3>Briefing</h3>
+          <p>Tarefa no ClickUp com estrutura, orçamento, público e prazo. Ler a tarefa inteira e
+            <strong>todos</strong> os comentários antes de agir — o gestor corrige por lá.</p>
+          <span class="done">✓ Conclui quando: tarefa inteira e todos os comentários lidos</span>
+        </div>
+      </div>
+
+      <div class="fase">
+        <div class="num">1</div>
+        <div>
+          <h3>Mídia</h3>
+          <p>Baixar criativos do Drive → renomear no padrão (ADV/ADI + lançamento + fase + variação) →
+            subir na biblioteca de mídia da conta → puxar <code>video_id</code> / <code>image_hash</code>.</p>
+          <span class="done">✓ Conclui quando: IDs registrados na planilha de resultado de criativo</span>
+        </div>
+      </div>
+
+      <div class="fase">
+        <div class="num">2</div>
+        <div>
+          <h3>Copy</h3>
+          <p>Escrever legendas, títulos e descrição — reaproveitando o molde da edição anterior quando
+            existir — e enviar pro cliente aprovar. Só depois montar os criativos.</p>
+          <span class="done">✓ Conclui quando: o cliente aprovou os textos</span>
+        </div>
+      </div>
+
+      <div class="fase">
+        <div class="num">3</div>
+        <div>
+          <h3>Público</h3>
+          <p>Criar ou confirmar os públicos que vão ser usados (pixel + lista) e conferir tamanho e
+            status de cada um.</p>
+          <span class="done">✓ Conclui quando: públicos criados ou confirmados, tamanho e status conferidos</span>
+        </div>
+      </div>
+
+      <div class="fase hot">
+        <div class="num">4</div>
+        <div>
+          <h3>Planejamento de nomes</h3>
+          <p>Montar a tabela campanha → conjuntos → anúncios com os nomes <strong>completos</strong> e
+            pedir OK. É a fase que protege a UTM (regra de ouro abaixo).</p>
+          <span class="done">✓ Conclui quando: o OK nos nomes voltou</span>
+        </div>
+      </div>
+
+      <div class="fase">
+        <div class="num">5</div>
+        <div>
+          <h3>Construção</h3>
+          <p>Campanha → conjuntos (segmentação + agenda + orçamento) → criativos → anúncios.
+            Tudo nasce pausado.</p>
+          <span class="done">✓ Conclui quando: estrutura inteira criada e pausada</span>
+        </div>
+      </div>
+
+      <div class="fase">
+        <div class="num">6</div>
+        <div>
+          <h3>UTM</h3>
+          <p>Colar o parâmetro de URL padrão na tela, em massa, em todos os anúncios do lançamento.</p>
+          <span class="done">✓ Conclui quando: UTM colada e publicada</span>
+        </div>
+      </div>
+
+      <div class="fase">
+        <div class="num">7</div>
+        <div>
+          <h3>Conferência</h3>
+          <p>Rodar o checklist inteiro, item por item — inclusive o que a API não lê e só aparece na tela.</p>
+          <span class="done">✓ Conclui quando: os 12 itens do checklist conferidos</span>
+        </div>
+      </div>
+
+      <div class="fase">
+        <div class="num">8</div>
+        <div>
+          <h3>Ativação</h3>
+          <p>Nesta ordem: campanha → conjunto → anúncio. Conjunto com data futura fica "agendado".</p>
+          <span class="done">✓ Conclui quando: os três níveis ativados, na ordem</span>
+        </div>
+      </div>
+
+      <div class="fase">
+        <div class="num">9</div>
+        <div>
+          <h3>Registro</h3>
+          <p>Comentário assinado no ClickUp com IDs, decisões e pendências + base de conhecimento +
+            aviso pro gestor.</p>
+          <span class="done">✓ Conclui quando: comentário assinado no ClickUp + base de conhecimento + aviso pro gestor</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NOMENCLATURA -->
+<section class="sec soft">
+  <div class="wrap">
+    <div class="section-label">Nomenclatura</div>
+    <h2>Bloco a bloco — e por que cada bloco existe</h2>
+    <p class="intro">Nome não é enfeite: ele é o que aparece no relatório, o que vira UTM e o que
+      permite separar lançamentos dentro da mesma conta. Cada bloco abaixo está ali para responder uma
+      pergunta sem precisar abrir a campanha.</p>
+
+    <div class="callout amber">
+      <h3><span aria-hidden="true">🔴</span> Regra de ouro — o nome entra na UTM no momento da publicação</h3>
+      <p>O nome do anúncio é gravado na URL pela macro <code>{{ad.name}}</code> <strong>quando o anúncio
+        é publicado</strong>. Renomear depois <strong>não conserta</strong>: a URL já gravada continua
+        com o nome antigo e o rastreamento fica sujo.</p>
+      <p>Por isso a Fase 4 existe: <strong>apresentar o planejamento com o nome completo de campanha,
+        conjuntos e de cada anúncio, e só criar depois do OK.</strong> O nome do anúncio deve ser
+        <strong>idêntico ao nome do arquivo na biblioteca de mídia</strong> (sem extensão).</p>
+      <p style="font-size:13px;margin-top:12px">Regra definida pelo gestor (Rafael) em 17/09/2026.</p>
+    </div>
+
+    <h3 class="mini">Campanha</h3>
+    <div class="nome-ex">[01] [BNCC019] [LEMBRETE] [ENGAJAMENTO] [INTERACOES] [QUENTE] [AUTO]</div>
+    <div class="ntab">
+      <div class="nrow head"><b>Bloco</b><span>O que significa</span><em>Por que existe</em></div>
+      <div class="nrow"><b>[01]</b><span>Número sequencial da campanha dentro do lançamento</span><em>Ordena a lista do Ads Manager e dá um apelido curto ("a 01") em conversa e relatório</em></div>
+      <div class="nrow"><b>[BNCC019]</b><span>Código do lançamento</span><em>É a chave que amarra campanha ↔ criativo ↔ UTM ↔ planilha de resultados; sem ele não dá pra separar lançamentos da mesma conta</em></div>
+      <div class="nrow"><b>[LEMBRETE]</b><span>Fase do funil (CAPTACAO / LEMBRETE / EVENTO)</span><em>O mesmo público recebe mensagens diferentes em cada fase; separar por campanha permite ligar ou desligar a fase inteira</em></div>
+      <div class="nrow"><b>[ENGAJAMENTO]</b><span>Objetivo escolhido no Meta</span><em>Lê-se o objetivo sem abrir a campanha</em></div>
+      <div class="nrow"><b>[INTERACOES]</b><span>A otimização dentro do objetivo</span><em>O mesmo objetivo tem otimizações diferentes (Interações, Video View…) e isso muda a entrega e o custo</em></div>
+      <div class="nrow"><b>[QUENTE]</b><span>Temperatura do público</span><em>Público quente (já cadastrado) x frio (prospecção) — decide orçamento e expectativa de CPA</em></div>
+      <div class="nrow"><b>[AUTO]</b><span>Posicionamentos automáticos</span><em>Distingue de campanhas com posicionamento manual</em></div>
+    </div>
+
+    <h3 class="mini">Conjunto</h3>
+    <div class="nome-ex">00 | CADASTRADOS BNCC019 | 26-60 | M | ABO | PAGINA OBRIGADO | FALTAM 03 DIAS</div>
+    <div class="ntab">
+      <div class="nrow head"><b>Bloco</b><span>O que significa</span><em>Por que existe</em></div>
+      <div class="nrow"><b>00</b><span>Índice do público dentro da campanha</span><em><code>00</code> = público principal (Cadastrados); <code>01</code> = segundo público (ex.: "VIU ADS E PAGE VIEW"). Ordena e deixa óbvio qual é o público-base</em></div>
+      <div class="nrow"><b>CADASTRADOS BNCC019</b><span>Qual público</span><em>O nome do público aparece no relatório sem precisar abrir o conjunto</em></div>
+      <div class="nrow"><b>26-60</b><span>Faixa etária</span><em>Segmentação é a variável mais testada; fica no nome pra comparar conjuntos</em></div>
+      <div class="nrow"><b>M</b><span>Gênero (mulheres)</span><em>Mesma razão da faixa etária: comparar conjuntos sem abrir</em></div>
+      <div class="nrow"><b>ABO</b><span>Orçamento no conjunto (x CBO = orçamento na campanha)</span><em>Quem lê o relatório sabe onde o orçamento é controlado</em></div>
+      <div class="nrow"><b>PAGINA OBRIGADO</b><span>Destino do clique</span><em>Evita o erro clássico de mandar pra página errada</em></div>
+      <div class="nrow"><b>FALTAM 03 DIAS</b><span>O dia ou a variação</span><em>É o que diferencia os conjuntos irmãos — e é o que vira <code>utm_medium</code></em></div>
+    </div>
+
+    <h3 class="mini">Anúncio</h3>
+    <div class="nome-ex">ADV02_BNCC019_LEM_FALTAM 02 DIAS_0.53<br>ADI02_BNCC019_LEM_FALTAM 02 DIAS_V1</div>
+    <p class="intro" style="margin-top:14px">Aqui o porquê é um só e vale para todos os blocos: o nome do
+      anúncio é o que vira <code>utm_content</code> e o <code>{{ad.name}}</code> dentro do <code>src</code>,
+      então cada bloco precisa ser legível no relatório sem abrir o criativo. E o nome tem que ser
+      <strong>idêntico ao nome do arquivo na biblioteca de mídia</strong>.</p>
+    <div class="ntab duo">
+      <div class="nrow head"><b>Bloco</b><span>O que significa</span></div>
+      <div class="nrow"><b>ADV / ADI</b><span>ADV = criativo em <strong>vídeo</strong> · ADI = criativo em <strong>imagem</strong></span></div>
+      <div class="nrow"><b>02</b><span>Número do criativo — na fase LEMBRETE corresponde aos dias que faltam</span></div>
+      <div class="nrow"><b>BNCC019</b><span>Lançamento</span></div>
+      <div class="nrow"><b>LEM / EVEN / CAP</b><span>Fase: LEMbrete, EVENto, CAPtação</span></div>
+      <div class="nrow"><b>FALTAM 02 DIAS / AULA 02</b><span>A variação ou o dia</span></div>
+      <div class="nrow"><b>0.53</b><span>Duração do vídeo (53 segundos) — ajuda a ler retenção sem abrir o criativo</span></div>
+      <div class="nrow"><b>_V1 / _V2</b><span>Versão da imagem (mesma mensagem, arte diferente)</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONFIGURAÇÕES -->
+<section class="sec">
+  <div class="wrap">
+    <div class="section-label">Configurações</div>
+    <h2>Nível a nível: campanha, conjunto e anúncio</h2>
+    <p class="intro">Os valores abaixo são os que foram usados no BNCC019 (fases LEMBRETE e EVENTO).
+      Público, idade, gênero, orçamento, link e textos vêm do briefing de cada lançamento.</p>
+
+    <!-- CAMPANHA -->
+    <div class="step">
+      <div class="idx">1</div>
+      <div class="body">
+        <h3>Campanha — duas campanhas, um objetivo cada</h3>
+        <p>O mesmo conjunto de criativos roda nas duas campanhas, cada uma com um objetivo diferente.
+          Ambas <strong>ABO</strong> (orçamento no conjunto), lance de <strong>maior volume</strong>
+          (autobid) e <strong>leilão</strong> como tipo de compra. No nível da campanha só se define o
+          objetivo — otimização e local da conversão são do conjunto (bloco 2).</p>
+
+        <div class="nome-ex">[01] [BNCC019] [LEMBRETE] [ENGAJAMENTO] [INTERACOES] [QUENTE] [AUTO]</div>
+        <div class="fields">
+          <div class="frow"><b>Objetivo</b><span><strong>Engajamento</strong> — <code>objective = OUTCOME_ENGAGEMENT</code></span></div>
+        </div>
+
+        <div class="nome-ex" style="margin-top:22px">[02] [BNCC019] [LEMBRETE] [TRAFEGO] [PAGE VIEW] [QUENTE] [AUTO]</div>
+        <div class="fields">
+          <div class="frow"><b>Objetivo</b><span><strong>Tráfego</strong> — <code>objective = OUTCOME_TRAFFIC</code></span></div>
+        </div>
+
+        <div class="fields" style="margin-top:22px">
+          <div class="frow"><b>Orçamento</b><span><strong>ABO</strong> — o orçamento fica no conjunto, não na campanha</span></div>
+          <div class="frow"><b>Estratégia de lance</b><span><code>bid_strategy</code> = maior volume (autobid)</span></div>
+          <div class="frow"><b>Tipo de compra</b><span>Leilão — <code>buying_type = AUCTION</code></span></div>
+          <div class="frow"><b>Quantas campanhas</b><span>Uma por objetivo, com os mesmos criativos nas duas</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONJUNTO -->
+    <div class="step">
+      <div class="idx">2</div>
+      <div class="body">
+        <h3>Conjunto — um por dia, janela de 24 horas</h3>
+        <p>Na fase LEMBRETE é <strong>um conjunto por dia</strong> de contagem regressiva; na fase EVENTO,
+          <strong>um conjunto por aula</strong>. A segmentação é idêntica em todos — muda só o sufixo do
+          nome, a data e o orçamento. <strong>É aqui</strong> que se escolhe o local da conversão e a meta
+          de otimização.</p>
+
+        <div class="fields">
+          <div class="frow"><b>Local da conversão</b><span>Campanha <strong>[01] Engajamento</strong>: <strong>No anúncio</strong> — <code>destination_type = ON_POST</code> · Campanha <strong>[02] Tráfego</strong>: <strong>Site</strong> — <code>destination_type = WEBSITE</code></span></div>
+          <div class="frow"><b>Meta (otimização)</b><span>Campanha <strong>[01]</strong>: Tipo <strong>Interações</strong>, meta <strong>Maximizar interações</strong> — <code>optimization_goal = POST_ENGAGEMENT</code> · Campanha <strong>[02]</strong>: <strong>Visualizações da página de destino</strong> — <code>optimization_goal = LANDING_PAGE_VIEWS</code></span></div>
+          <div class="frow"><b>Público</b><span>Públicos personalizados do lançamento: <strong>[SITE] Lead | BNCC019 - 45D</strong> (<code>120252677607720222</code>, pixel, evento Lead, 45 dias) + <strong>[LISTA] [17.09] LEADS BNCC019</strong> (<code>120252677607810222</code>, lista de e-mails, 180 dias)</span></div>
+          <div class="frow"><b>Advantage+ Público</b><span><strong>DESLIGADO</strong> — <code>advantage_audience: 0</code>. Exigência do cliente (VOA)</span></div>
+          <div class="frow"><b>Idade</b><span>26 a 60 anos — <code>age_min: 26</code>, <code>age_max: 60</code></span></div>
+          <div class="frow"><b>Gênero</b><span>Mulheres — <code>genders: [2]</code></span></div>
+          <div class="frow"><b>País</b><span>Brasil — <code>countries: ["BR"]</code> (vem do briefing)</span></div>
+          <div class="frow"><b>Tipo de localização</b><span><strong>"moram ou estiveram recentemente"</strong> — <code>location_types: ["home","recent"]</code>. Obrigatório: sem isso cai no erro #1870194</span></div>
+          <div class="frow"><b>Agenda</b><span><strong>00h00 → 00h00 do dia seguinte</strong>: janela de 24h cravada, um dia por conjunto</span></div>
+          <div class="frow"><b>Posicionamentos</b><span>Automáticos (o bloco <code>[AUTO]</code> do nome da campanha)</span></div>
+          <div class="frow"><b>Orçamento diário</b><span>Por conjunto, <strong>em cada campanha</strong>. No BNCC019: R$69 (faltam 03 dias), R$69 (faltam 02 dias), R$129 (é amanhã), R$193 (é hoje) na fase LEMBRETE; R$50/dia em cada uma das 5 aulas</span></div>
+        </div>
+
+        <div class="callout">
+          <h3>Duplicar o modelo, trocar só o sufixo</h3>
+          <p>Os 5 conjuntos da fase EVENTO (<code>AULA 01</code> … <code>AULA 05</code>) nasceram de uma
+            cópia do conjunto <code>… | E HOJE | MODELO</code>. <strong>Regra do Gabriel: duplicar o
+            modelo e trocar só o sufixo</strong> — não montar conjunto do zero quando já existe um irmão
+            certo. Depois de duplicar, conferir início e término (ver correção 5).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ANÚNCIO -->
+    <div class="step">
+      <div class="idx">3</div>
+      <div class="body">
+        <h3>Anúncio — 4 das 5 correções do gestor caíram neste nível</h3>
+        <p>Fase LEMBRETE: <strong>3 anúncios por conjunto</strong> (1 vídeo + 2 imagens, V1 e V2), os
+          mesmos nas duas campanhas. Fase EVENTO: <strong>1 vídeo por conjunto</strong> — o vídeo da aula
+          daquele dia.</p>
+
+        <div class="fields">
+          <div class="frow"><b>CTA</b><span><strong>Saiba mais</strong> — <code>call_to_action_type = LEARN_MORE</code>. Sem exceção</span></div>
+          <div class="frow"><b>Link de destino</b><span><code>https://voaconhecimento.com.br/wts</code> — página de obrigado com botão para o WhatsApp</span></div>
+          <div class="frow"><b>Rastreamento</b><span><strong>Eventos do site + Eventos offline</strong> (<code>tracking_specs</code>) marcados no pixel <strong>Voa Conhecimento 2</strong> (<code>642103307974769</code>, evento <code>Lead</code>)</span></div>
+          <div class="frow"><b>Aprimoramentos por IA</b><span><strong>Todos desligados</strong>, um por um — 13 recursos em <code>OPT_OUT</code> no <code>degrees_of_freedom_spec</code></span></div>
+          <div class="frow"><b>Legenda</b><span>Uma por dia/variação, <strong>aprovada pelo cliente antes de subir</strong></span></div>
+          <div class="frow"><b>Título</b><span>Curto; muda por dia ("Faltam 2 dias!", "É amanhã!", "É hoje!") ou é fixo por arte nas imagens ("Evento 100% Online e Gratuito")</span></div>
+          <div class="frow"><b>Descrição do link</b><span><strong>Uma só, fixa</strong>, no máximo ~125 caracteres (o Meta corta). A do BNCC019, com 122: "Participe da Jornada BNCC na Prática: uma semana de aulas gratuitas para entender de fato a BNCC e colocá-la em prática."</span></div>
+          <div class="frow"><b>Página e conta</b><span>Página do Facebook <code>107966640678365</code> · conta de anúncios <strong>BNCC 03</strong> <code>act_528479071959953</code></span></div>
+        </div>
+
+        <div class="callout">
+          <h3>Quando o lançamento é reedição</h3>
+          <p>O BNCC019 é a mesma jornada do BNCC017. Nesse caso, <strong>recuperar o texto real dos
+            anúncios antigos e trocar só datas e temas</strong> — estrutura já aprovada não se reinventa.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- UTM -->
+    <div class="step">
+      <div class="idx">4</div>
+      <div class="body">
+        <h3>UTM — o padrão da casa, colado na tela</h3>
+        <p>Um único parâmetro de URL, igual em todos os anúncios do lançamento. Trocar só o código do
+          lançamento em <code>MTADS-BNCC019</code>.</p>
+
+        <pre class="code">src=MTADS-BNCC019_{{campaign.name}}_{{adset.name}}_{{ad.name}}_{{campaign.id}}_{{adset.id}}_{{ad.id}}&amp;utm_source=MTADS-BNCC019&amp;utm_medium={{adset.name}}&amp;utm_content={{ad.name}}&amp;utm_campaign={{campaign.name}}&amp;utm_term={{campaign.id}}_{{adset.id}}_{{ad.id}}</pre>
+
+        <div class="fields">
+          <div class="frow"><b>utm_source</b><span><code>MTADS-&lt;LANCAMENTO&gt;</code> = "veio do Meta Ads deste lançamento"</span></div>
+          <div class="frow"><b>utm_medium</b><span>Nome do conjunto</span></div>
+          <div class="frow"><b>utm_content</b><span>Nome do anúncio</span></div>
+          <div class="frow"><b>utm_campaign</b><span>Nome da campanha</span></div>
+          <div class="frow"><b>utm_term / src</b><span>Os IDs no fim resolvem o caso de nomes repetidos ou renomeados</span></div>
+        </div>
+
+        <div class="obs">
+          <div class="ic"><span aria-hidden="true">⚠️</span></div>
+          <div>
+            <h3>Só dá pra colar na tela</h3>
+            <p>Ads Manager → selecionar os anúncios → <strong>Editar</strong> → <strong>Parâmetros de
+              URL</strong> → colar → <strong>Publicar</strong>.</p>
+            <p>A API recusa <code>url_tags</code>; e se a UTM for embutida no <code>link_url</code> do
+              criativo, o Meta grava as chaves URL-encodadas (<code>%7B%7Bad.id%7D%7D</code>) e as macros
+              não resolvem.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CORREÇÕES DO GESTOR -->
+<section class="sec soft">
+  <div class="wrap">
+    <div class="section-label">Erros reais</div>
+    <h2>As 5 correções do gestor — e a regra que ficou</h2>
+    <p class="intro">Cada item aqui é um erro que aconteceu de verdade e voltou na revisão do
+      gestor (Rafael, 18/09/2026).</p>
+
+    <div class="fix">
+      <div class="cab"><div class="n">1</div><h3>Página de destino</h3></div>
+      <div class="par">
+        <div class="cel erro"><span class="lab">O que estava errado</span>O anúncio mandava pra home do site em vez da página <strong>/wts</strong>.</div>
+        <div class="cel regra"><span class="lab">A regra que ficou</span>"Toda vez que a gente for subir qualquer fluxo de tráfego, tem que conferir completo: abrir a página, ver se está mandando pra página certa." <strong>Abrir o link no navegador, sempre.</strong></div>
+      </div>
+    </div>
+
+    <div class="fix">
+      <div class="cab"><div class="n">2</div><h3>CTA</h3></div>
+      <div class="par">
+        <div class="cel erro"><span class="lab">O que estava errado</span>Botão "Ver detalhes" (<code>SEE_DETAILS</code>) — que é o que o Meta coloca por padrão quando o anúncio é recriado na tela.</div>
+        <div class="cel regra"><span class="lab">A regra que ficou</span>Na VOA é <strong>sempre "Saiba mais"</strong> (<code>LEARN_MORE</code>). Conferir o CTA depois de <strong>qualquer</strong> edição feita na tela.</div>
+      </div>
+    </div>
+
+    <div class="fix">
+      <div class="cab"><div class="n">3</div><h3>Aprimoramentos por IA</h3></div>
+      <div class="par">
+        <div class="cel erro"><span class="lab">O que estava errado</span>"Retoques de vídeo" e "Adicionar efeitos de vídeo" tinham vindo ligados.</div>
+        <div class="cel regra"><span class="lab">A regra que ficou</span>"Elas não querem nada de IA": <strong>todos os recursos desligados, um por um.</strong> A API não lê esse campo de volta — a conferência é na tela.</div>
+      </div>
+    </div>
+
+    <div class="fix">
+      <div class="cab"><div class="n">4</div><h3>Rastreamento</h3></div>
+      <div class="par">
+        <div class="cel erro"><span class="lab">O que estava errado</span>Rastreamento desligado no anúncio: faltavam "Eventos do site" e "Eventos offline" marcados no pixel Voa Conhecimento 2.</div>
+        <div class="cel regra"><span class="lab">A regra que ficou</span><strong>Todo anúncio nasce com os dois marcados.</strong></div>
+      </div>
+    </div>
+
+    <div class="fix">
+      <div class="cab"><div class="n">5</div><h3>Datas ao duplicar</h3></div>
+      <div class="par">
+        <div class="cel erro"><span class="lab">O que estava errado</span>Datas embaralhadas: ao duplicar um conjunto (para limpar o erro de localização), o Meta <strong>pode</strong> alterar ou remover a data de término.</div>
+        <div class="cel regra"><span class="lab">A regra que ficou</span>Depois de duplicar, <strong>conferir início e término de cada conjunto</strong>, um por um.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHECKLIST -->
+<section class="sec">
+  <div class="wrap">
+    <div class="section-label">Fase 7</div>
+    <h2>Checklist de conferência antes de ativar</h2>
+    <p class="intro">Rodar inteiro, na ordem, antes de ligar qualquer anúncio. Os itens marcados com
+      "na tela" não podem ser conferidos por API — tem que abrir o Ads Manager e olhar.</p>
+
+    <ul class="check">
+      <li><div>Nome da campanha, do conjunto e de <strong>cada anúncio</strong> exatamente como foi aprovado</div></li>
+      <li><div>Objetivo e otimização certos
+        <em>Engajamento → Interações / No anúncio · Tráfego → Visualizações da página de destino / Site</em></div></li>
+      <li><div>Público correto nos conjuntos, <strong>Advantage+ Público desligado</strong>, idade e gênero certos</div></li>
+      <li><div>Localização gravada como "moram ou estiveram recentemente"
+        <em>Sem o aviso #1870194 na publicação</em></div></li>
+      <li><div>Orçamento e <strong>datas de início e término</strong> de cada conjunto
+        <em>Janela de 24h, um dia por conjunto</em></div></li>
+      <li><div><strong>Abrir a página de destino no navegador</strong> e confirmar que é a certa</div></li>
+      <li><div>CTA = "Saiba mais" em todos os anúncios</div></li>
+      <li><div>Aprimoramentos de IA <strong>todos desligados</strong>
+        <em>Conferir na tela — a API não lê esse campo</em></div></li>
+      <li><div>Rastreamento: Eventos do site + Eventos offline no pixel certo
+        <em>Conferir na tela — a API não lê esse campo</em></div></li>
+      <li><div>Legenda, título e descrição = os textos aprovados pelo cliente</div></li>
+      <li><div>UTM colada e publicada</div></li>
+      <li><div>Nenhum conjunto de dias diferentes rodando ao mesmo tempo (sobreposição)</div></li>
+    </ul>
+
+    <div class="callout green">
+      <h3><span aria-hidden="true">✅</span> Ordem de ativação</h3>
+      <p><strong>Campanha → conjunto → anúncio.</strong> Ativar o pai não ativa os filhos, e filho ativo
+        com pai pausado não entrega. Tudo que é criado por API nasce pausado. Conjunto com data futura
+        fica "agendado".</p>
+    </div>
+  </div>
+</section>
+
+<!-- ARMADILHAS DE API -->
+<section class="sec soft">
+  <div class="wrap">
+    <div class="section-label">Quando se cria por API</div>
+    <h2>Armadilhas de quem monta a campanha por API</h2>
+    <p class="intro">Tudo abaixo foi descoberto em produção montando o BNCC019 pelo Meta Ads MCP. Se você
+      está montando na tela, pule esta seção — ela só importa pra quem automatiza.</p>
+
+    <div class="traps">
+      <div class="trap red">
+        <div class="n">O mais caro</div>
+        <h3>Campanha ativa pausa sozinha ao ser editada</h3>
+        <p>Editar uma campanha viva pela API força <code>status: PAUSED</code> — e a própria tool recusa
+          reativar (só <code>ads_activate_entity</code> reativa). <strong>Nunca editar campanha ativa por
+          API.</strong> Em ABO a data da campanha é derivada dos conjuntos, então não há motivo pra editar.</p>
+      </div>
+
+      <div class="trap">
+        <div class="n">Publicação travada</div>
+        <h3>Erro #1870194 — localização removida</h3>
+        <p>Conjunto criado por API <strong>sem</strong> <code>location_types</code> nasce com
+          <code>["home"]</code>, que é uma opção aposentada, e a publicação trava. Sempre enviar
+          <code>["home","recent"]</code>. Se o aviso voltar, na tela: Editar → Locais → remover e
+          re-adicionar o Brasil, publicando junto.</p>
+      </div>
+
+      <div class="trap">
+        <div class="n">Objetivo Engajamento</div>
+        <h3>Anúncio com link é recusado</h3>
+        <p>O destino tem que ser <code>ON_POST</code>. <code>ON_AD</code> não existe; sem destino o Meta
+          pede "promoted object"; com <code>WEBSITE</code> ele responde que a meta de performance não
+          está disponível.</p>
+      </div>
+
+      <div class="trap">
+        <div class="n">Agenda</div>
+        <h3>"Campaign Schedule Is Too Short"</h3>
+        <p>Conjunto com orçamento diário exige <strong>no mínimo 24h</strong> de agenda — 23h59 é
+          recusado. Por isso a janela 00h00 → 00h00. A mesma regra impede encurtar um conjunto que já
+          está rodando.</p>
+      </div>
+
+      <div class="trap">
+        <div class="n">Orçamento</div>
+        <h3>"Parent campaign uses CBO… do not pass daily_budget"</h3>
+        <p>Acontece em campanha <strong>ABO</strong>. Contorno: criar conjunto e anúncio juntos, com
+          <code>ads_create_ad</code> passando <code>ad_set_id: "0"</code> + <code>adset_spec</code>.</p>
+      </div>
+
+      <div class="trap">
+        <div class="n">IA e rastreamento</div>
+        <h3>Nascem no estado errado</h3>
+        <p>Os 13 recursos de IA precisam ir em <code>OPT_OUT</code> um por um (<code>standard_enhancements</code>
+          está depreciado e <code>music</code> é inválido — os dois derrubam a chamada). O rastreamento
+          nasce desligado: tem que mandar os eventos de site e offline na criação do anúncio.</p>
+      </div>
+
+      <div class="trap">
+        <div class="n">Conferência</div>
+        <h3>A API não lê tudo o que gravou</h3>
+        <p><code>ads_get_ad_entities</code> com <code>level="adset"</code> lê o <code>targeting</code>
+          inteiro (localização, públicos, idade, Advantage+). Mas <strong><code>tracking_specs</code> e
+          <code>degrees_of_freedom_spec</code> não são legíveis por API</strong> — esses dois só se
+          conferem na tela.</p>
+      </div>
+
+      <div class="trap">
+        <div class="n">Criativos</div>
+        <h3>Não se editam: recriam-se</h3>
+        <p>Criativo não é editável — errou, cria outro. Em compensação são reutilizáveis entre conjuntos
+          e campanhas pelo <code>creative_id</code>. Vídeo exige thumbnail: usar o primeiro frame
+          (<code>picture</code> do vídeo) como <code>image_url</code>.</p>
+      </div>
+
+      <div class="trap">
+        <div class="n">Limites e exclusão</div>
+        <h3>50 anúncios por conjunto</h3>
+        <p>Teto silencioso, e pausados contam. Para apagar <strong>anúncio</strong>:
+          <code>ads_update_entity</code> com <code>{"status":"DELETED"}</code> — e o
+          <code>entity_type</code> do conjunto é <code>"ad_set"</code>, não <code>"adset"</code>. Não
+          existe apagar campanha ou conjunto pela API: renomear com prefixo <code>ZZZ_</code>, pausar e
+          apagar na tela.</p>
+      </div>
+    </div>
+
+    <!-- AO PUBLICAR em /criar-campanha-meta-ads/: renomear o .md para para-ia.md
+         e trocar os dois href (este callout e o rodapé) por "./para-ia.md". -->
+    <div class="callout">
+      <h3>Versão completa, escrita pra IA executar</h3>
+      <p>A tabela completa de erros conhecidos e a receita de cada um, mais o processo em formato de
+        instrução e os blocos verificados (segmentação, agenda de 24h, <code>tracking_specs</code>,
+        <code>degrees_of_freedom_spec</code> e UTM), estão em
+        <a href="./para-ia.md"><strong>ATV207 — processo criar campanha meta (para IA).md</strong></a>
+        — é o mesmo processo desta página, escrito pra Claude/Codex executarem direto.</p>
+    </div>
+  </div>
+</section>
+
+<!-- LIMITES -->
+<section class="sec">
+  <div class="wrap">
+    <div class="section-label">Escopo</div>
+    <h2>O que este processo não cobre</h2>
+    <div class="callout amber">
+      <ul>
+        <li><strong>Campanha de captação</strong> (público frio, interesses, criativos de topo) — é outro processo.</li>
+        <li><strong>Criação de públicos</strong> — já existe processo publicado: <a href="../criacao-publicos-meta/">Criação automática de públicos no Meta</a>.</li>
+        <li><strong>Aprovação da copy pelo cliente</strong> — é fluxo do time de conteúdo.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="brand">
+      <svg viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="2.4" role="img"
+           stroke-linejoin="round" stroke-linecap="round" aria-label="BM Mídias">
+        <polygon points="50,4 90,27 90,73 50,96 10,73 10,27"></polygon>
+        <polygon points="50,33 65,59 35,59"></polygon>
+        <line x1="50" y1="4" x2="50" y2="33"></line><line x1="90" y1="73" x2="65" y2="59"></line>
+        <line x1="10" y1="73" x2="35" y2="59"></line><line x1="90" y1="27" x2="50" y2="33"></line>
+        <line x1="90" y1="27" x2="65" y2="59"></line><line x1="50" y1="96" x2="65" y2="59"></line>
+        <line x1="50" y1="96" x2="35" y2="59"></line><line x1="10" y1="27" x2="35" y2="59"></line>
+        <line x1="10" y1="27" x2="50" y2="33"></line>
+      </svg>
+      <span class="word"><b>BM</b><i class="bar"></i><span>MÍDIAS</span></span>
+    </div>
+    <p class="fnote">Processo interno · Brito Mídias — Como criar uma campanha no Meta Ads.
+      Documentado a partir do lançamento BNCC019 da VOA Conhecimento (ATV206/ATV207), com as correções
+      do gestor aplicadas. Elaborado para consulta do time e dos clientes.
+      Versão para execução por IA: <a href="./para-ia.md">ATV207 — processo criar campanha meta (para IA).md<
