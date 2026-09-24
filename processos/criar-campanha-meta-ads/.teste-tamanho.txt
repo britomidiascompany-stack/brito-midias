@@ -496,4 +496,279 @@
       <div class="body">
         <h3>Anúncio — 4 das 5 correções do gestor caíram neste nível</h3>
         <p>Fase LEMBRETE: <strong>3 anúncios por conjunto</strong> (1 vídeo + 2 imagens, V1 e V2), os
-          mesmos nas duas campanhas. Fase EVENTO: <s
+          mesmos nas duas campanhas. Fase EVENTO: <strong>1 vídeo por conjunto</strong> — o vídeo da aula
+          daquele dia.</p>
+
+        <div class="fields">
+          <div class="frow"><b>CTA</b><span><strong>Saiba mais</strong> — <code>call_to_action_type = LEARN_MORE</code>. Sem exceção</span></div>
+          <div class="frow"><b>Link de destino</b><span><code>https://voaconhecimento.com.br/wts</code> — página de obrigado com botão para o WhatsApp</span></div>
+          <div class="frow"><b>Rastreamento</b><span><strong>Eventos do site + Eventos offline</strong> (<code>tracking_specs</code>) marcados no pixel <strong>Voa Conhecimento 2</strong> (<code>642103307974769</code>, evento <code>Lead</code>)</span></div>
+          <div class="frow"><b>Aprimoramentos por IA</b><span><strong>Todos desligados</strong>, um por um — 13 recursos em <code>OPT_OUT</code> no <code>degrees_of_freedom_spec</code></span></div>
+          <div class="frow"><b>Legenda</b><span>Uma por dia/variação, <strong>aprovada pelo cliente antes de subir</strong></span></div>
+          <div class="frow"><b>Título</b><span>Curto; muda por dia ("Faltam 2 dias!", "É amanhã!", "É hoje!") ou é fixo por arte nas imagens ("Evento 100% Online e Gratuito")</span></div>
+          <div class="frow"><b>Descrição do link</b><span><strong>Uma só, fixa</strong>, no máximo ~125 caracteres (o Meta corta). A do BNCC019, com 122: "Participe da Jornada BNCC na Prática: uma semana de aulas gratuitas para entender de fato a BNCC e colocá-la em prática."</span></div>
+          <div class="frow"><b>Página e conta</b><span>Página do Facebook <code>107966640678365</code> · conta de anúncios <strong>BNCC 03</strong> <code>act_528479071959953</code></span></div>
+        </div>
+
+        <div class="callout">
+          <h3>Quando o lançamento é reedição</h3>
+          <p>O BNCC019 é a mesma jornada do BNCC017. Nesse caso, <strong>recuperar o texto real dos
+            anúncios antigos e trocar só datas e temas</strong> — estrutura já aprovada não se reinventa.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- UTM -->
+    <div class="step">
+      <div class="idx">4</div>
+      <div class="body">
+        <h3>UTM — o padrão da casa, colado na tela</h3>
+        <p>Um único parâmetro de URL, igual em todos os anúncios do lançamento. Trocar só o código do
+          lançamento em <code>MTADS-BNCC019</code>.</p>
+
+        <pre class="code">src=MTADS-BNCC019_{{campaign.name}}_{{adset.name}}_{{ad.name}}_{{campaign.id}}_{{adset.id}}_{{ad.id}}&amp;utm_source=MTADS-BNCC019&amp;utm_medium={{adset.name}}&amp;utm_content={{ad.name}}&amp;utm_campaign={{campaign.name}}&amp;utm_term={{campaign.id}}_{{adset.id}}_{{ad.id}}</pre>
+
+        <div class="fields">
+          <div class="frow"><b>utm_source</b><span><code>MTADS-&lt;LANCAMENTO&gt;</code> = "veio do Meta Ads deste lançamento"</span></div>
+          <div class="frow"><b>utm_medium</b><span>Nome do conjunto</span></div>
+          <div class="frow"><b>utm_content</b><span>Nome do anúncio</span></div>
+          <div class="frow"><b>utm_campaign</b><span>Nome da campanha</span></div>
+          <div class="frow"><b>utm_term / src</b><span>Os IDs no fim resolvem o caso de nomes repetidos ou renomeados</span></div>
+        </div>
+
+        <div class="obs">
+          <div class="ic"><span aria-hidden="true">⚠️</span></div>
+          <div>
+            <h3>Só dá pra colar na tela</h3>
+            <p>Ads Manager → selecionar os anúncios → <strong>Editar</strong> → <strong>Parâmetros de
+              URL</strong> → colar → <strong>Publicar</strong>.</p>
+            <p>A API recusa <code>url_tags</code>; e se a UTM for embutida no <code>link_url</code> do
+              criativo, o Meta grava as chaves URL-encodadas (<code>%7B%7Bad.id%7D%7D</code>) e as macros
+              não resolvem.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CORREÇÕES DO GESTOR -->
+<section class="sec soft">
+  <div class="wrap">
+    <div class="section-label">Erros reais</div>
+    <h2>As 5 correções do gestor — e a regra que ficou</h2>
+    <p class="intro">Cada item aqui é um erro que aconteceu de verdade e voltou na revisão do
+      gestor (Rafael, 18/09/2026).</p>
+
+    <div class="fix">
+      <div class="cab"><div class="n">1</div><h3>Página de destino</h3></div>
+      <div class="par">
+        <div class="cel erro"><span class="lab">O que estava errado</span>O anúncio mandava pra home do site em vez da página <strong>/wts</strong>.</div>
+        <div class="cel regra"><span class="lab">A regra que ficou</span>"Toda vez que a gente for subir qualquer fluxo de tráfego, tem que conferir completo: abrir a página, ver se está mandando pra página certa." <strong>Abrir o link no navegador, sempre.</strong></div>
+      </div>
+    </div>
+
+    <div class="fix">
+      <div class="cab"><div class="n">2</div><h3>CTA</h3></div>
+      <div class="par">
+        <div class="cel erro"><span class="lab">O que estava errado</span>Botão "Ver detalhes" (<code>SEE_DETAILS</code>) — que é o que o Meta coloca por padrão quando o anúncio é recriado na tela.</div>
+        <div class="cel regra"><span class="lab">A regra que ficou</span>Na VOA é <strong>sempre "Saiba mais"</strong> (<code>LEARN_MORE</code>). Conferir o CTA depois de <strong>qualquer</strong> edição feita na tela.</div>
+      </div>
+    </div>
+
+    <div class="fix">
+      <div class="cab"><div class="n">3</div><h3>Aprimoramentos por IA</h3></div>
+      <div class="par">
+        <div class="cel erro"><span class="lab">O que estava errado</span>"Retoques de vídeo" e "Adicionar efeitos de vídeo" tinham vindo ligados.</div>
+        <div class="cel regra"><span class="lab">A regra que ficou</span>"Elas não querem nada de IA": <strong>todos os recursos desligados, um por um.</strong> A API não lê esse campo de volta — a conferência é na tela.</div>
+      </div>
+    </div>
+
+    <div class="fix">
+      <div class="cab"><div class="n">4</div><h3>Rastreamento</h3></div>
+      <div class="par">
+        <div class="cel erro"><span class="lab">O que estava errado</span>Rastreamento desligado no anúncio: faltavam "Eventos do site" e "Eventos offline" marcados no pixel Voa Conhecimento 2.</div>
+        <div class="cel regra"><span class="lab">A regra que ficou</span><strong>Todo anúncio nasce com os dois marcados.</strong></div>
+      </div>
+    </div>
+
+    <div class="fix">
+      <div class="cab"><div class="n">5</div><h3>Datas ao duplicar</h3></div>
+      <div class="par">
+        <div class="cel erro"><span class="lab">O que estava errado</span>Datas embaralhadas: ao duplicar um conjunto (para limpar o erro de localização), o Meta <strong>pode</strong> alterar ou remover a data de término.</div>
+        <div class="cel regra"><span class="lab">A regra que ficou</span>Depois de duplicar, <strong>conferir início e término de cada conjunto</strong>, um por um.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHECKLIST -->
+<section class="sec">
+  <div class="wrap">
+    <div class="section-label">Fase 7</div>
+    <h2>Checklist de conferência antes de ativar</h2>
+    <p class="intro">Rodar inteiro, na ordem, antes de ligar qualquer anúncio. Os itens marcados com
+      "na tela" não podem ser conferidos por API — tem que abrir o Ads Manager e olhar.</p>
+
+    <ul class="check">
+      <li><div>Nome da campanha, do conjunto e de <strong>cada anúncio</strong> exatamente como foi aprovado</div></li>
+      <li><div>Objetivo e otimização certos
+        <em>Engajamento → Interações / No anúncio · Tráfego → Visualizações da página de destino / Site</em></div></li>
+      <li><div>Público correto nos conjuntos, <strong>Advantage+ Público desligado</strong>, idade e gênero certos</div></li>
+      <li><div>Localização gravada como "moram ou estiveram recentemente"
+        <em>Sem o aviso #1870194 na publicação</em></div></li>
+      <li><div>Orçamento e <strong>datas de início e término</strong> de cada conjunto
+        <em>Janela de 24h, um dia por conjunto</em></div></li>
+      <li><div><strong>Abrir a página de destino no navegador</strong> e confirmar que é a certa</div></li>
+      <li><div>CTA = "Saiba mais" em todos os anúncios</div></li>
+      <li><div>Aprimoramentos de IA <strong>todos desligados</strong>
+        <em>Conferir na tela — a API não lê esse campo</em></div></li>
+      <li><div>Rastreamento: Eventos do site + Eventos offline no pixel certo
+        <em>Conferir na tela — a API não lê esse campo</em></div></li>
+      <li><div>Legenda, título e descrição = os textos aprovados pelo cliente</div></li>
+      <li><div>UTM colada e publicada</div></li>
+      <li><div>Nenhum conjunto de dias diferentes rodando ao mesmo tempo (sobreposição)</div></li>
+    </ul>
+
+    <div class="callout green">
+      <h3><span aria-hidden="true">✅</span> Ordem de ativação</h3>
+      <p><strong>Campanha → conjunto → anúncio.</strong> Ativar o pai não ativa os filhos, e filho ativo
+        com pai pausado não entrega. Tudo que é criado por API nasce pausado. Conjunto com data futura
+        fica "agendado".</p>
+    </div>
+  </div>
+</section>
+
+<!-- ARMADILHAS DE API -->
+<section class="sec soft">
+  <div class="wrap">
+    <div class="section-label">Quando se cria por API</div>
+    <h2>Armadilhas de quem monta a campanha por API</h2>
+    <p class="intro">Tudo abaixo foi descoberto em produção montando o BNCC019 pelo Meta Ads MCP. Se você
+      está montando na tela, pule esta seção — ela só importa pra quem automatiza.</p>
+
+    <div class="traps">
+      <div class="trap red">
+        <div class="n">O mais caro</div>
+        <h3>Campanha ativa pausa sozinha ao ser editada</h3>
+        <p>Editar uma campanha viva pela API força <code>status: PAUSED</code> — e a própria tool recusa
+          reativar (só <code>ads_activate_entity</code> reativa). <strong>Nunca editar campanha ativa por
+          API.</strong> Em ABO a data da campanha é derivada dos conjuntos, então não há motivo pra editar.</p>
+      </div>
+
+      <div class="trap">
+        <div class="n">Publicação travada</div>
+        <h3>Erro #1870194 — localização removida</h3>
+        <p>Conjunto criado por API <strong>sem</strong> <code>location_types</code> nasce com
+          <code>["home"]</code>, que é uma opção aposentada, e a publicação trava. Sempre enviar
+          <code>["home","recent"]</code>. Se o aviso voltar, na tela: Editar → Locais → remover e
+          re-adicionar o Brasil, publicando junto.</p>
+      </div>
+
+      <div class="trap">
+        <div class="n">Objetivo Engajamento</div>
+        <h3>Anúncio com link é recusado</h3>
+        <p>O destino tem que ser <code>ON_POST</code>. <code>ON_AD</code> não existe; sem destino o Meta
+          pede "promoted object"; com <code>WEBSITE</code> ele responde que a meta de performance não
+          está disponível.</p>
+      </div>
+
+      <div class="trap">
+        <div class="n">Agenda</div>
+        <h3>"Campaign Schedule Is Too Short"</h3>
+        <p>Conjunto com orçamento diário exige <strong>no mínimo 24h</strong> de agenda — 23h59 é
+          recusado. Por isso a janela 00h00 → 00h00. A mesma regra impede encurtar um conjunto que já
+          está rodando.</p>
+      </div>
+
+      <div class="trap">
+        <div class="n">Orçamento</div>
+        <h3>"Parent campaign uses CBO… do not pass daily_budget"</h3>
+        <p>Acontece em campanha <strong>ABO</strong>. Contorno: criar conjunto e anúncio juntos, com
+          <code>ads_create_ad</code> passando <code>ad_set_id: "0"</code> + <code>adset_spec</code>.</p>
+      </div>
+
+      <div class="trap">
+        <div class="n">IA e rastreamento</div>
+        <h3>Nascem no estado errado</h3>
+        <p>Os 13 recursos de IA precisam ir em <code>OPT_OUT</code> um por um (<code>standard_enhancements</code>
+          está depreciado e <code>music</code> é inválido — os dois derrubam a chamada). O rastreamento
+          nasce desligado: tem que mandar os eventos de site e offline na criação do anúncio.</p>
+      </div>
+
+      <div class="trap">
+        <div class="n">Conferência</div>
+        <h3>A API não lê tudo o que gravou</h3>
+        <p><code>ads_get_ad_entities</code> com <code>level="adset"</code> lê o <code>targeting</code>
+          inteiro (localização, públicos, idade, Advantage+). Mas <strong><code>tracking_specs</code> e
+          <code>degrees_of_freedom_spec</code> não são legíveis por API</strong> — esses dois só se
+          conferem na tela.</p>
+      </div>
+
+      <div class="trap">
+        <div class="n">Criativos</div>
+        <h3>Não se editam: recriam-se</h3>
+        <p>Criativo não é editável — errou, cria outro. Em compensação são reutilizáveis entre conjuntos
+          e campanhas pelo <code>creative_id</code>. Vídeo exige thumbnail: usar o primeiro frame
+          (<code>picture</code> do vídeo) como <code>image_url</code>.</p>
+      </div>
+
+      <div class="trap">
+        <div class="n">Limites e exclusão</div>
+        <h3>50 anúncios por conjunto</h3>
+        <p>Teto silencioso, e pausados contam. Para apagar <strong>anúncio</strong>:
+          <code>ads_update_entity</code> com <code>{"status":"DELETED"}</code> — e o
+          <code>entity_type</code> do conjunto é <code>"ad_set"</code>, não <code>"adset"</code>. Não
+          existe apagar campanha ou conjunto pela API: renomear com prefixo <code>ZZZ_</code>, pausar e
+          apagar na tela.</p>
+      </div>
+    </div>
+
+    <!-- AO PUBLICAR em /criar-campanha-meta-ads/: renomear o .md para para-ia.md
+         e trocar os dois href (este callout e o rodapé) por "./para-ia.md". -->
+    <div class="callout">
+      <h3>Versão completa, escrita pra IA executar</h3>
+      <p>A tabela completa de erros conhecidos e a receita de cada um, mais o processo em formato de
+        instrução e os blocos verificados (segmentação, agenda de 24h, <code>tracking_specs</code>,
+        <code>degrees_of_freedom_spec</code> e UTM), estão em
+        <a href="./para-ia.md"><strong>ATV207 — processo criar campanha meta (para IA).md</strong></a>
+        — é o mesmo processo desta página, escrito pra Claude/Codex executarem direto.</p>
+    </div>
+  </div>
+</section>
+
+<!-- LIMITES -->
+<section class="sec">
+  <div class="wrap">
+    <div class="section-label">Escopo</div>
+    <h2>O que este processo não cobre</h2>
+    <div class="callout amber">
+      <ul>
+        <li><strong>Campanha de captação</strong> (público frio, interesses, criativos de topo) — é outro processo.</li>
+        <li><strong>Criação de públicos</strong> — já existe processo publicado: <a href="../criacao-publicos-meta/">Criação automática de públicos no Meta</a>.</li>
+        <li><strong>Aprovação da copy pelo cliente</strong> — é fluxo do time de conteúdo.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="brand">
+      <svg viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="2.4" role="img"
+           stroke-linejoin="round" stroke-linecap="round" aria-label="BM Mídias">
+        <polygon points="50,4 90,27 90,73 50,96 10,73 10,27"></polygon>
+        <polygon points="50,33 65,59 35,59"></polygon>
+        <line x1="50" y1="4" x2="50" y2="33"></line><line x1="90" y1="73" x2="65" y2="59"></line>
+        <line x1="10" y1="73" x2="35" y2="59"></line><line x1="90" y1="27" x2="50" y2="33"></line>
+        <line x1="90" y1="27" x2="65" y2="59"></line><line x1="50" y1="96" x2="65" y2="59"></line>
+        <line x1="50" y1="96" x2="35" y2="59"></line><line x1="10" y1="27" x2="35" y2="59"></line>
+        <line x1="10" y1="27" x2="50" y2="33"></line>
+      </svg>
+      <span class="word"><b>BM</b><i class="bar"></i><span>MÍDIAS</span></span>
+    </div>
+    <p class="fnote">Processo interno · Brito Mídias — Como criar uma campanha no Meta Ads.
+      Documentado a partir do lançamento BNCC019 da VOA Conhecimento (ATV206/ATV207), com as correções
+      do gestor aplicadas. Elaborado para consulta do time e dos clientes.
+      Versão para execução por IA: <a href="./para-ia.md">ATV207 — processo criar campanha meta (para IA).md<
