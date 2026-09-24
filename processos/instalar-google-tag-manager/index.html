@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Processo · Instalar o Google Tag Manager · Brito Mídias</title>
+<meta name="description" content="Como instalar o Google Tag Manager no seu site — com prompt pronto para colar na IA que criou a página.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --roxo:#7C3AED; --roxo-dark:#5B21B6; --roxo-deep:#3B0F73;
+    --roxo-light:#A78BFA; --roxo-xlight:#EDE9FE;
+    --preto:#0A0A0A; --ink:#141018; --cinza:#5B5566;
+    --linha:#E7E3EE; --bg:#FFFFFF; --bg-soft:#FAF9FC;
+    --verde:#16A34A; --amarelo:#D97706;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Poppins',system-ui,-apple-system,sans-serif;font-weight:300;font-size:16px;
+    line-height:1.6;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .wrap{max-width:960px;margin:0 auto;padding:0 28px}
+
+  /* HERO */
+  .hero{position:relative;overflow:hidden;color:#fff;
+    background:
+      radial-gradient(1100px 500px at 78% -10%, rgba(124,58,237,.55), transparent 60%),
+      linear-gradient(150deg,#0A0A0A 0%,#17111F 45%,#3B0F73 100%);}
+  .hero::before{content:"";position:absolute;inset:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.14) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.14) 1px,transparent 1px);
+    background-size:44px 44px;
+    -webkit-mask-image:radial-gradient(circle at 50% 30%,#000 25%,transparent 72%);
+    mask-image:radial-gradient(circle at 50% 30%,#000 25%,transparent 72%);pointer-events:none}
+  .hero-in{position:relative;padding:40px 0 46px}
+  .brand{display:flex;align-items:center;gap:16px}
+  .brand svg{width:46px;height:46px;flex-shrink:0}
+  .brand .word{display:flex;align-items:center;gap:14px;font-weight:300}
+  .brand .word b{font-weight:800;font-size:20px}
+  .brand .word .bar{width:2px;height:30px;background:rgba(255,255,255,.55)}
+  .brand .word span{font-size:20px;letter-spacing:.22em}
+  .crumb{margin-top:32px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+    font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--roxo-light)}
+  .crumb a{text-decoration:none}
+  .crumb b{color:#fff}
+  .crumb .sep{color:rgba(255,255,255,.35);font-weight:400;letter-spacing:0;text-transform:none}
+  .hero h1{font-weight:800;font-size:clamp(28px,4.4vw,42px);letter-spacing:-.02em;line-height:1.15;
+    margin-top:12px;text-wrap:balance}
+  .hero .sub{font-weight:300;font-size:16.5px;color:rgba(255,255,255,.74);margin-top:14px;max-width:62ch}
+  .pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+  .pill{border:1px solid var(--roxo-light);color:#fff;border-radius:100px;padding:8px 16px;
+    font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
+  .pill.solid{background:linear-gradient(90deg,#7C3AED,#5B21B6);border-color:transparent}
+
+  /* SEÇÕES */
+  .sec{padding:52px 0}
+  .sec.soft{background:var(--bg-soft);border-top:1px solid var(--linha);border-bottom:1px solid var(--linha)}
+  .section-label{display:flex;align-items:center;gap:12px;font-size:13px;font-weight:600;
+    letter-spacing:.16em;text-transform:uppercase;color:var(--roxo)}
+  .section-label::before{content:"";width:34px;height:2px;background:var(--roxo);border-radius:2px}
+  .sec h2{font-weight:700;font-size:clamp(22px,3vw,28px);letter-spacing:-.01em;margin-top:14px;text-wrap:balance}
+  .sec .intro{color:var(--cinza);margin-top:12px;max-width:70ch}
+
+  /* CALLOUT */
+  .callout{border:1px solid var(--linha);border-left:4px solid var(--roxo);border-radius:12px;
+    padding:20px 24px;margin-top:22px;background:#fff}
+  .callout.amber{border-left-color:var(--amarelo);background:#FFFBEB}
+  .callout h3{font-size:15px;font-weight:700;margin-bottom:8px}
+  .callout p{color:var(--cinza);font-size:14.5px}
+  .callout p+p{margin-top:9px}
+  .callout strong{color:var(--ink);font-weight:600}
+
+  /* PROMPT BOX (destaque topo) */
+  .promptbox{border:1.5px solid var(--roxo-light);background:linear-gradient(180deg,#fff,var(--roxo-xlight));
+    border-radius:18px;padding:28px 30px;margin-top:26px;box-shadow:0 16px 40px rgba(124,58,237,.14)}
+  .promptbox .lbl{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;
+    letter-spacing:.1em;text-transform:uppercase;color:#fff;background:linear-gradient(90deg,#7C3AED,#5B21B6);
+    border-radius:100px;padding:6px 14px}
+  .promptbox h3{font-size:19px;font-weight:700;margin-top:14px;letter-spacing:-.01em}
+  .promptbox p.desc{color:var(--cinza);font-size:14px;margin-top:8px;max-width:68ch}
+  .promptbox pre{background:var(--ink);color:#E9E2FF;border-radius:12px;padding:18px 20px;margin-top:16px;
+    font-family:'SFMono-Regular',Consolas,Menlo,monospace;font-size:12px;line-height:1.7;white-space:pre-wrap;
+    max-height:280px;overflow-y:auto}
+  .bigbtn{margin-top:16px;background:linear-gradient(90deg,#7C3AED,#5B21B6);color:#fff;border:none;
+    border-radius:10px;padding:13px 24px;font-family:'Poppins',sans-serif;font-weight:600;font-size:14.5px;
+    cursor:pointer;display:inline-flex;align-items:center;gap:9px;box-shadow:0 8px 20px rgba(124,58,237,.3)}
+  .bigbtn:hover{opacity:.92}
+  .bigbtn.copied{background:var(--verde);box-shadow:none}
+
+  /* PASSO */
+  .step{display:grid;grid-template-columns:56px 1fr;gap:20px;margin-top:40px}
+  .step:first-of-type{margin-top:26px}
+  .step .idx{width:56px;height:56px;border-radius:16px;flex-shrink:0;
+    background:linear-gradient(135deg,#7C3AED,#5B21B6);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:22px;
+    box-shadow:0 10px 22px rgba(124,58,237,.28)}
+  .step .body h3{font-size:18px;font-weight:700;letter-spacing:-.01em}
+  .step .body p{color:var(--cinza);font-size:14.5px;margin-top:7px}
+  .step .body p strong{color:var(--ink);font-weight:600}
+
+  /* CODE BOX */
+  .codebox{position:relative;background:var(--ink);color:#E9E2FF;border-radius:12px;
+    padding:20px 22px;margin-top:14px;font-family:'SFMono-Regular',Consolas,Menlo,monospace;
+    font-size:12px;line-height:1.7;overflow-x:auto;white-space:pre}
+  .copybtn{position:absolute;top:12px;right:12px;background:linear-gradient(90deg,#7C3AED,#5B21B6);
+    color:#fff;border:none;border-radius:8px;padding:7px 14px;font-family:'Poppins',sans-serif;
+    font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap}
+  .copybtn:hover{opacity:.9}
+  .copybtn.copied{background:var(--verde)}
+
+  /* AI BOX */
+  .aibox{border:1.5px dashed var(--roxo);border-radius:14px;padding:20px 24px;margin-top:22px;background:#fff}
+  .aibox .lbl{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--roxo);
+    display:flex;align-items:center;gap:8px}
+  .aibox p{color:var(--cinza);font-size:13.5px;margin-top:10px}
+  .aibox p strong{color:var(--ink);font-weight:600}
+
+  .idbadge{display:inline-flex;align-items:center;gap:8px;background:var(--roxo-xlight);color:var(--roxo-dark);
+    border-radius:10px;padding:9px 16px;font-size:13px;font-weight:600;margin-top:18px;font-family:monospace}
+
+  footer{background:var(--ink);color:rgba(255,255,255,.6);padding:36px 0;font-size:12.5px}
+</style>
+</head>
+<body>
+
+<header class="hero"><div class="wrap hero-in">
+  <div class="brand">
+    <svg viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round">
+      <polygon points="50,4 90,27 90,73 50,96 10,73 10,27"></polygon>
+      <polygon points="50,33 65,59 35,59"></polygon>
+      <line x1="50" y1="4" x2="50" y2="33"></line><line x1="90" y1="73" x2="65" y2="59"></line>
+      <line x1="10" y1="73" x2="35" y2="59"></line><line x1="90" y1="27" x2="50" y2="33"></line>
+      <line x1="90" y1="27" x2="65" y2="59"></line><line x1="50" y1="96" x2="65" y2="59"></line>
+      <line x1="50" y1="96" x2="35" y2="59"></line><line x1="10" y1="27" x2="35" y2="59"></line>
+      <line x1="10" y1="27" x2="50" y2="33"></line>
+    </svg>
+    <span class="word"><b>BM</b><i class="bar"></i><span>MÍDIAS</span></span>
+  </div>
+  <div class="crumb"><a href="../">Processos</a><span class="sep">/</span><b>Instalar o Google Tag Manager</b></div>
+  <h1>Como instalar o Google Tag Manager no seu site</h1>
+  <p class="sub">Dois trechos de código, dois lugares para colar. Se o seu site foi criado com uma IA,
+    tem um prompt pronto logo abaixo — é só copiar e colar na conversa onde você criou a página.</p>
+  <div class="pills">
+    <span class="pill solid">2 passos</span>
+    <span class="pill">Leva 2 minutos</span>
+  </div>
+</div></header>
+
+<section class="sec"><div class="wrap">
+  <div class="section-label">Para quem criou o site com IA</div>
+  <h2>Prompt pronto — só copiar e colar</h2>
+  <p class="intro">Volte na conversa (ChatGPT, Claude, Lovable, V0, ou o que você usou pra criar o site)
+    e cole o texto abaixo. Ele já explica exatamente o que a IA precisa fazer, com os dois códigos inclusos.</p>
+
+  <div class="promptbox">
+    <span class="lbl">💬 Prompt completo</span>
+    <h3>Copie e cole na IA que criou o seu site</h3>
+    <p class="desc">Esse texto já contém os dois códigos do Google Tag Manager e a instrução de onde colar
+      cada um. Não precisa editar nada — é só colar como está.</p>
+    <pre id="promptFull">Preciso que você instale o Google Tag Manager no meu site. São dois trechos de código HTML.
+
+1) Cole este código o mais alto possível dentro da tag &lt;head&gt; da página, antes dos outros scripts:
+
+&lt;!-- Google Tag Manager --&gt;
+&lt;script&gt;(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&amp;l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WNKHH8DK');&lt;/script&gt;
+&lt;!-- End Google Tag Manager --&gt;
+
+2) Cole este código imediatamente depois da tag de abertura &lt;body&gt;, no topo dela:
+
+&lt;!-- Google Tag Manager (noscript) --&gt;
+&lt;noscript&gt;&lt;iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WNKHH8DK"
+height="0" width="0" style="display:none;visibility:hidden"&gt;&lt;/iframe&gt;&lt;/noscript&gt;
+&lt;!-- End Google Tag Manager (noscript) --&gt;
+
+Cole os dois exatamente como estão, sem alterar nada, em todas as páginas do site. Depois de aplicar, me confirme que os dois trechos foram adicionados.</pre>
+    <button class="bigbtn" onclick="copyPrompt(this)">📋 Copiar prompt completo</button>
+  </div>
+
+  <div class="aibox">
+    <span class="lbl">🤖 Se uma IA está lendo esta página agora</span>
+    <p>Se o usuário te enviou o link desta página pedindo pra instalar o Google Tag Manager: copie o
+      <strong>Código 1</strong> (mais abaixo, seção "Passo 1") e cole o mais alto possível dentro da tag
+      <strong>&lt;head&gt;</strong> do HTML, antes de outros scripts. Copie o <strong>Código 2</strong>
+      ("Passo 2") e cole imediatamente após a tag de abertura <strong>&lt;body&gt;</strong>. Aplique em
+      todas as páginas do site, sem alterar o conteúdo dos códigos. Ao terminar, confirme ao usuário que
+      a instalação foi concluída.</p>
+  </div>
+</div></section>
+
+<section class="sec soft"><div class="wrap">
+  <div class="section-label">Passo a passo manual</div>
+  <h2>Prefere colar você mesmo? Segue os 2 passos</h2>
+  <p class="intro">Mesmo conteúdo do prompt acima, mas separado em blocos — cada um com o botão de copiar.
+    ID do contêiner usado nesse site:</p>
+  <span class="idbadge">🏷️ GTM-WNKHH8DK</span>
+
+  <div class="step">
+    <div class="idx">1</div>
+    <div class="body">
+      <h3>Cole este código dentro da tag &lt;head&gt;</h3>
+      <p>O mais alto possível dentro do <strong>&lt;head&gt;</strong> da página, antes dos outros scripts.</p>
+      <div class="codebox" id="codeHead">&lt;!-- Google Tag Manager --&gt;
+&lt;script&gt;(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&amp;l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WNKHH8DK');&lt;/script&gt;
+&lt;!-- End Google Tag Manager --&gt;
+        <button class="copybtn" onclick="copyCode('codeHead', this)">Copiar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="idx">2</div>
+    <div class="body">
+      <h3>Cole este código logo após o &lt;body&gt;</h3>
+      <p>Imediatamente depois da tag de abertura <strong>&lt;body&gt;</strong>, no topo dela.</p>
+      <div class="codebox" id="codeBody">&lt;!-- Google Tag Manager (noscript) --&gt;
+&lt;noscript&gt;&lt;iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WNKHH8DK"
+height="0" width="0" style="display:none;visibility:hidden"&gt;&lt;/iframe&gt;&lt;/noscript&gt;
+&lt;!-- End Google Tag Manager (noscript) --&gt;
+        <button class="copybtn" onclick="copyCode('codeBody', this)">Copiar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="idx">3</div>
+    <div class="body">
+      <h3>Teste se ficou certo (opcional)</h3>
+      <p>No próprio painel do Google Tag Manager tem um campo "Testar seu site" — cole a URL do site
+        publicado ali pra confirmar que o container está respondendo.</p>
+    </div>
+  </div>
+
+  <div class="callout amber">
+    <h3>⚠️ Atenção</h3>
+    <p>Cole os dois códigos em <strong>todas as páginas</strong> do site, não só na home — senão o
+      rastreamento fica incompleto nas páginas que faltarem.</p>
+  </div>
+</div></section>
+
+<footer><div class="wrap">Brito Mídias · Processos internos</div></footer>
+
+<script>
+function copyCode(id, btn){
+  var el = document.getElementById(id);
+  var clone = el.cloneNode(true);
+  var b = clone.querySelector('button'); if(b){ b.remove(); }
+  var text = clone.textContent.trim();
+  navigator.clipboard.writeText(text).then(function(){
+    var old = btn.textContent;
+    btn.textContent = 'Copiado ✓';
+    btn.classList.add('copied');
+    setTimeout(function(){ btn.textContent = old; btn.classList.remove('copied'); }, 2000);
+  });
+}
+function copyPrompt(btn){
+  var el = document.getElementById('promptFull');
+  var text = el.textContent;
+  navigator.clipboard.writeText(text).then(function(){
+    var old = btn.textContent;
+    btn.textContent = '✅ Copiado! Cole na sua IA';
+    btn.classList.add('copied');
+    setTimeout(function(){ btn.textContent = old; btn.classList.remove('copied'); }, 2500);
+  });
+}
+</script>
+</body>
+</html>
