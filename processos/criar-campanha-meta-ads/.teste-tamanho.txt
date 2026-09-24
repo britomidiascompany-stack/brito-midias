@@ -259,4 +259,241 @@
         <div>
           <h3>Briefing</h3>
           <p>Tarefa no ClickUp com estrutura, orçamento, público e prazo. Ler a tarefa inteira e
-            <strong>todos</strong> os
+            <strong>todos</strong> os comentários antes de agir — o gestor corrige por lá.</p>
+          <span class="done">✓ Conclui quando: tarefa inteira e todos os comentários lidos</span>
+        </div>
+      </div>
+
+      <div class="fase">
+        <div class="num">1</div>
+        <div>
+          <h3>Mídia</h3>
+          <p>Baixar criativos do Drive → renomear no padrão (ADV/ADI + lançamento + fase + variação) →
+            subir na biblioteca de mídia da conta → puxar <code>video_id</code> / <code>image_hash</code>.</p>
+          <span class="done">✓ Conclui quando: IDs registrados na planilha de resultado de criativo</span>
+        </div>
+      </div>
+
+      <div class="fase">
+        <div class="num">2</div>
+        <div>
+          <h3>Copy</h3>
+          <p>Escrever legendas, títulos e descrição — reaproveitando o molde da edição anterior quando
+            existir — e enviar pro cliente aprovar. Só depois montar os criativos.</p>
+          <span class="done">✓ Conclui quando: o cliente aprovou os textos</span>
+        </div>
+      </div>
+
+      <div class="fase">
+        <div class="num">3</div>
+        <div>
+          <h3>Público</h3>
+          <p>Criar ou confirmar os públicos que vão ser usados (pixel + lista) e conferir tamanho e
+            status de cada um.</p>
+          <span class="done">✓ Conclui quando: públicos criados ou confirmados, tamanho e status conferidos</span>
+        </div>
+      </div>
+
+      <div class="fase hot">
+        <div class="num">4</div>
+        <div>
+          <h3>Planejamento de nomes</h3>
+          <p>Montar a tabela campanha → conjuntos → anúncios com os nomes <strong>completos</strong> e
+            pedir OK. É a fase que protege a UTM (regra de ouro abaixo).</p>
+          <span class="done">✓ Conclui quando: o OK nos nomes voltou</span>
+        </div>
+      </div>
+
+      <div class="fase">
+        <div class="num">5</div>
+        <div>
+          <h3>Construção</h3>
+          <p>Campanha → conjuntos (segmentação + agenda + orçamento) → criativos → anúncios.
+            Tudo nasce pausado.</p>
+          <span class="done">✓ Conclui quando: estrutura inteira criada e pausada</span>
+        </div>
+      </div>
+
+      <div class="fase">
+        <div class="num">6</div>
+        <div>
+          <h3>UTM</h3>
+          <p>Colar o parâmetro de URL padrão na tela, em massa, em todos os anúncios do lançamento.</p>
+          <span class="done">✓ Conclui quando: UTM colada e publicada</span>
+        </div>
+      </div>
+
+      <div class="fase">
+        <div class="num">7</div>
+        <div>
+          <h3>Conferência</h3>
+          <p>Rodar o checklist inteiro, item por item — inclusive o que a API não lê e só aparece na tela.</p>
+          <span class="done">✓ Conclui quando: os 12 itens do checklist conferidos</span>
+        </div>
+      </div>
+
+      <div class="fase">
+        <div class="num">8</div>
+        <div>
+          <h3>Ativação</h3>
+          <p>Nesta ordem: campanha → conjunto → anúncio. Conjunto com data futura fica "agendado".</p>
+          <span class="done">✓ Conclui quando: os três níveis ativados, na ordem</span>
+        </div>
+      </div>
+
+      <div class="fase">
+        <div class="num">9</div>
+        <div>
+          <h3>Registro</h3>
+          <p>Comentário assinado no ClickUp com IDs, decisões e pendências + base de conhecimento +
+            aviso pro gestor.</p>
+          <span class="done">✓ Conclui quando: comentário assinado no ClickUp + base de conhecimento + aviso pro gestor</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NOMENCLATURA -->
+<section class="sec soft">
+  <div class="wrap">
+    <div class="section-label">Nomenclatura</div>
+    <h2>Bloco a bloco — e por que cada bloco existe</h2>
+    <p class="intro">Nome não é enfeite: ele é o que aparece no relatório, o que vira UTM e o que
+      permite separar lançamentos dentro da mesma conta. Cada bloco abaixo está ali para responder uma
+      pergunta sem precisar abrir a campanha.</p>
+
+    <div class="callout amber">
+      <h3><span aria-hidden="true">🔴</span> Regra de ouro — o nome entra na UTM no momento da publicação</h3>
+      <p>O nome do anúncio é gravado na URL pela macro <code>{{ad.name}}</code> <strong>quando o anúncio
+        é publicado</strong>. Renomear depois <strong>não conserta</strong>: a URL já gravada continua
+        com o nome antigo e o rastreamento fica sujo.</p>
+      <p>Por isso a Fase 4 existe: <strong>apresentar o planejamento com o nome completo de campanha,
+        conjuntos e de cada anúncio, e só criar depois do OK.</strong> O nome do anúncio deve ser
+        <strong>idêntico ao nome do arquivo na biblioteca de mídia</strong> (sem extensão).</p>
+      <p style="font-size:13px;margin-top:12px">Regra definida pelo gestor (Rafael) em 17/09/2026.</p>
+    </div>
+
+    <h3 class="mini">Campanha</h3>
+    <div class="nome-ex">[01] [BNCC019] [LEMBRETE] [ENGAJAMENTO] [INTERACOES] [QUENTE] [AUTO]</div>
+    <div class="ntab">
+      <div class="nrow head"><b>Bloco</b><span>O que significa</span><em>Por que existe</em></div>
+      <div class="nrow"><b>[01]</b><span>Número sequencial da campanha dentro do lançamento</span><em>Ordena a lista do Ads Manager e dá um apelido curto ("a 01") em conversa e relatório</em></div>
+      <div class="nrow"><b>[BNCC019]</b><span>Código do lançamento</span><em>É a chave que amarra campanha ↔ criativo ↔ UTM ↔ planilha de resultados; sem ele não dá pra separar lançamentos da mesma conta</em></div>
+      <div class="nrow"><b>[LEMBRETE]</b><span>Fase do funil (CAPTACAO / LEMBRETE / EVENTO)</span><em>O mesmo público recebe mensagens diferentes em cada fase; separar por campanha permite ligar ou desligar a fase inteira</em></div>
+      <div class="nrow"><b>[ENGAJAMENTO]</b><span>Objetivo escolhido no Meta</span><em>Lê-se o objetivo sem abrir a campanha</em></div>
+      <div class="nrow"><b>[INTERACOES]</b><span>A otimização dentro do objetivo</span><em>O mesmo objetivo tem otimizações diferentes (Interações, Video View…) e isso muda a entrega e o custo</em></div>
+      <div class="nrow"><b>[QUENTE]</b><span>Temperatura do público</span><em>Público quente (já cadastrado) x frio (prospecção) — decide orçamento e expectativa de CPA</em></div>
+      <div class="nrow"><b>[AUTO]</b><span>Posicionamentos automáticos</span><em>Distingue de campanhas com posicionamento manual</em></div>
+    </div>
+
+    <h3 class="mini">Conjunto</h3>
+    <div class="nome-ex">00 | CADASTRADOS BNCC019 | 26-60 | M | ABO | PAGINA OBRIGADO | FALTAM 03 DIAS</div>
+    <div class="ntab">
+      <div class="nrow head"><b>Bloco</b><span>O que significa</span><em>Por que existe</em></div>
+      <div class="nrow"><b>00</b><span>Índice do público dentro da campanha</span><em><code>00</code> = público principal (Cadastrados); <code>01</code> = segundo público (ex.: "VIU ADS E PAGE VIEW"). Ordena e deixa óbvio qual é o público-base</em></div>
+      <div class="nrow"><b>CADASTRADOS BNCC019</b><span>Qual público</span><em>O nome do público aparece no relatório sem precisar abrir o conjunto</em></div>
+      <div class="nrow"><b>26-60</b><span>Faixa etária</span><em>Segmentação é a variável mais testada; fica no nome pra comparar conjuntos</em></div>
+      <div class="nrow"><b>M</b><span>Gênero (mulheres)</span><em>Mesma razão da faixa etária: comparar conjuntos sem abrir</em></div>
+      <div class="nrow"><b>ABO</b><span>Orçamento no conjunto (x CBO = orçamento na campanha)</span><em>Quem lê o relatório sabe onde o orçamento é controlado</em></div>
+      <div class="nrow"><b>PAGINA OBRIGADO</b><span>Destino do clique</span><em>Evita o erro clássico de mandar pra página errada</em></div>
+      <div class="nrow"><b>FALTAM 03 DIAS</b><span>O dia ou a variação</span><em>É o que diferencia os conjuntos irmãos — e é o que vira <code>utm_medium</code></em></div>
+    </div>
+
+    <h3 class="mini">Anúncio</h3>
+    <div class="nome-ex">ADV02_BNCC019_LEM_FALTAM 02 DIAS_0.53<br>ADI02_BNCC019_LEM_FALTAM 02 DIAS_V1</div>
+    <p class="intro" style="margin-top:14px">Aqui o porquê é um só e vale para todos os blocos: o nome do
+      anúncio é o que vira <code>utm_content</code> e o <code>{{ad.name}}</code> dentro do <code>src</code>,
+      então cada bloco precisa ser legível no relatório sem abrir o criativo. E o nome tem que ser
+      <strong>idêntico ao nome do arquivo na biblioteca de mídia</strong>.</p>
+    <div class="ntab duo">
+      <div class="nrow head"><b>Bloco</b><span>O que significa</span></div>
+      <div class="nrow"><b>ADV / ADI</b><span>ADV = criativo em <strong>vídeo</strong> · ADI = criativo em <strong>imagem</strong></span></div>
+      <div class="nrow"><b>02</b><span>Número do criativo — na fase LEMBRETE corresponde aos dias que faltam</span></div>
+      <div class="nrow"><b>BNCC019</b><span>Lançamento</span></div>
+      <div class="nrow"><b>LEM / EVEN / CAP</b><span>Fase: LEMbrete, EVENto, CAPtação</span></div>
+      <div class="nrow"><b>FALTAM 02 DIAS / AULA 02</b><span>A variação ou o dia</span></div>
+      <div class="nrow"><b>0.53</b><span>Duração do vídeo (53 segundos) — ajuda a ler retenção sem abrir o criativo</span></div>
+      <div class="nrow"><b>_V1 / _V2</b><span>Versão da imagem (mesma mensagem, arte diferente)</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONFIGURAÇÕES -->
+<section class="sec">
+  <div class="wrap">
+    <div class="section-label">Configurações</div>
+    <h2>Nível a nível: campanha, conjunto e anúncio</h2>
+    <p class="intro">Os valores abaixo são os que foram usados no BNCC019 (fases LEMBRETE e EVENTO).
+      Público, idade, gênero, orçamento, link e textos vêm do briefing de cada lançamento.</p>
+
+    <!-- CAMPANHA -->
+    <div class="step">
+      <div class="idx">1</div>
+      <div class="body">
+        <h3>Campanha — duas campanhas, um objetivo cada</h3>
+        <p>O mesmo conjunto de criativos roda nas duas campanhas, cada uma com um objetivo diferente.
+          Ambas <strong>ABO</strong> (orçamento no conjunto), lance de <strong>maior volume</strong>
+          (autobid) e <strong>leilão</strong> como tipo de compra. No nível da campanha só se define o
+          objetivo — otimização e local da conversão são do conjunto (bloco 2).</p>
+
+        <div class="nome-ex">[01] [BNCC019] [LEMBRETE] [ENGAJAMENTO] [INTERACOES] [QUENTE] [AUTO]</div>
+        <div class="fields">
+          <div class="frow"><b>Objetivo</b><span><strong>Engajamento</strong> — <code>objective = OUTCOME_ENGAGEMENT</code></span></div>
+        </div>
+
+        <div class="nome-ex" style="margin-top:22px">[02] [BNCC019] [LEMBRETE] [TRAFEGO] [PAGE VIEW] [QUENTE] [AUTO]</div>
+        <div class="fields">
+          <div class="frow"><b>Objetivo</b><span><strong>Tráfego</strong> — <code>objective = OUTCOME_TRAFFIC</code></span></div>
+        </div>
+
+        <div class="fields" style="margin-top:22px">
+          <div class="frow"><b>Orçamento</b><span><strong>ABO</strong> — o orçamento fica no conjunto, não na campanha</span></div>
+          <div class="frow"><b>Estratégia de lance</b><span><code>bid_strategy</code> = maior volume (autobid)</span></div>
+          <div class="frow"><b>Tipo de compra</b><span>Leilão — <code>buying_type = AUCTION</code></span></div>
+          <div class="frow"><b>Quantas campanhas</b><span>Uma por objetivo, com os mesmos criativos nas duas</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONJUNTO -->
+    <div class="step">
+      <div class="idx">2</div>
+      <div class="body">
+        <h3>Conjunto — um por dia, janela de 24 horas</h3>
+        <p>Na fase LEMBRETE é <strong>um conjunto por dia</strong> de contagem regressiva; na fase EVENTO,
+          <strong>um conjunto por aula</strong>. A segmentação é idêntica em todos — muda só o sufixo do
+          nome, a data e o orçamento. <strong>É aqui</strong> que se escolhe o local da conversão e a meta
+          de otimização.</p>
+
+        <div class="fields">
+          <div class="frow"><b>Local da conversão</b><span>Campanha <strong>[01] Engajamento</strong>: <strong>No anúncio</strong> — <code>destination_type = ON_POST</code> · Campanha <strong>[02] Tráfego</strong>: <strong>Site</strong> — <code>destination_type = WEBSITE</code></span></div>
+          <div class="frow"><b>Meta (otimização)</b><span>Campanha <strong>[01]</strong>: Tipo <strong>Interações</strong>, meta <strong>Maximizar interações</strong> — <code>optimization_goal = POST_ENGAGEMENT</code> · Campanha <strong>[02]</strong>: <strong>Visualizações da página de destino</strong> — <code>optimization_goal = LANDING_PAGE_VIEWS</code></span></div>
+          <div class="frow"><b>Público</b><span>Públicos personalizados do lançamento: <strong>[SITE] Lead | BNCC019 - 45D</strong> (<code>120252677607720222</code>, pixel, evento Lead, 45 dias) + <strong>[LISTA] [17.09] LEADS BNCC019</strong> (<code>120252677607810222</code>, lista de e-mails, 180 dias)</span></div>
+          <div class="frow"><b>Advantage+ Público</b><span><strong>DESLIGADO</strong> — <code>advantage_audience: 0</code>. Exigência do cliente (VOA)</span></div>
+          <div class="frow"><b>Idade</b><span>26 a 60 anos — <code>age_min: 26</code>, <code>age_max: 60</code></span></div>
+          <div class="frow"><b>Gênero</b><span>Mulheres — <code>genders: [2]</code></span></div>
+          <div class="frow"><b>País</b><span>Brasil — <code>countries: ["BR"]</code> (vem do briefing)</span></div>
+          <div class="frow"><b>Tipo de localização</b><span><strong>"moram ou estiveram recentemente"</strong> — <code>location_types: ["home","recent"]</code>. Obrigatório: sem isso cai no erro #1870194</span></div>
+          <div class="frow"><b>Agenda</b><span><strong>00h00 → 00h00 do dia seguinte</strong>: janela de 24h cravada, um dia por conjunto</span></div>
+          <div class="frow"><b>Posicionamentos</b><span>Automáticos (o bloco <code>[AUTO]</code> do nome da campanha)</span></div>
+          <div class="frow"><b>Orçamento diário</b><span>Por conjunto, <strong>em cada campanha</strong>. No BNCC019: R$69 (faltam 03 dias), R$69 (faltam 02 dias), R$129 (é amanhã), R$193 (é hoje) na fase LEMBRETE; R$50/dia em cada uma das 5 aulas</span></div>
+        </div>
+
+        <div class="callout">
+          <h3>Duplicar o modelo, trocar só o sufixo</h3>
+          <p>Os 5 conjuntos da fase EVENTO (<code>AULA 01</code> … <code>AULA 05</code>) nasceram de uma
+            cópia do conjunto <code>… | E HOJE | MODELO</code>. <strong>Regra do Gabriel: duplicar o
+            modelo e trocar só o sufixo</strong> — não montar conjunto do zero quando já existe um irmão
+            certo. Depois de duplicar, conferir início e término (ver correção 5).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ANÚNCIO -->
+    <div class="step">
+      <div class="idx">3</div>
+      <div class="body">
+        <h3>Anúncio — 4 das 5 correções do gestor caíram neste nível</h3>
+        <p>Fase LEMBRETE: <strong>3 anúncios por conjunto</strong> (1 vídeo + 2 imagens, V1 e V2), os
+          mesmos nas duas campanhas. Fase EVENTO: <s
