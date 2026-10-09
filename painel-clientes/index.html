@@ -524,6 +524,7 @@ const CLIENTES = [
           {label:"2. Criativos (Drive)", url:"https://drive.google.com/drive/folders/1nelPQy7bODes65OSI-mPmpzmA9q3yI0V"},
           {label:"Criativos recebidos da cliente — CRI META ADS (Drive)", url:"https://drive.google.com/drive/folders/10yhZOfXumwtGcVOABPrmAPQLYMt_jbmV"},
           {label:"Criativos reutilizados — Re-utilizar ADS (Drive)", url:"https://drive.google.com/drive/folders/1nWXXCqWOVWcCZdQIi3KYKFvf_d3nw0gk"},
+          {label:"Planilha de resultados de criativos BNCP003", url:"https://docs.google.com/spreadsheets/d/1yuCJhVRJPxkw3FwTX5K1NDtEfh5f_pKEvN8TYk1HOAw/edit"},
           {label:"Legendas BNCP003 (para aprovação da cliente)", url:"https://docs.google.com/document/d/1yQ_6kghmQ7jZqwjE9FfqtliUvUgseLUJhPnH8jzcxAM/edit"},
           {label:"Títulos e descrições BNCP003 (para aprovação da cliente)", url:"https://docs.google.com/document/d/1S3tzjX0o_m5X7kS1eLiri_zUZb85gAOXEfekr0NXq5I/edit"},
           {label:"Base de dados BNCP — aba BNCP003 | CAP (Stract)", url:"https://docs.google.com/spreadsheets/d/1L1J6uFb5-RMihXAv0dlp2jpf0dt5uNafNxrc-aZfOtY/edit#gid=303001"},
@@ -550,11 +551,11 @@ const CLIENTES = [
           {k:"Teste de páginas", v:"Teste só de headline (mesmo formulário e layout). V1: entender de fato a BNCC Computação · V2: 5 horas para nunca mais ter dificuldade · V3: Planejamento 2027 montado (fonte do título menor)"},
           {k:"Parâmetros de URL", v:"<code style='word-break:break-all'>src=MTADS-BNCP003_{{campaign.name}}_{{adset.name}}_{{ad.name}}_{{campaign.id}}_{{adset.id}}_{{ad.id}}&utm_source=MTADS-BNCP003&utm_medium={{adset.name}}&utm_content={{ad.name}}&utm_campaign={{campaign.name}}&utm_term={{campaign.id}}_{{adset.id}}_{{ad.id}}</code><br>O <b>src</b> é obrigatório: sem ele o cache do WordPress devolve a página com as UTMs vazias"},
           {k:"Nomenclatura", v:"Criativo: ADV{NN}_BNCP003_CAP_{TEMA}_{M.SS} (M.SS = duração) · reutilizado leva _RT_ · Campanha: [NN] [BNCP003] [CAPTACAO] [CADASTRO] [LEADS] [público] [AUTO] [PAGINA Vx] [CBO]"},
-          {k:"Criativos", v:"45 vídeos: 33 novos (ADV01–33) + 12 reutilizados que já venderam (ADV34–45 RT). Nomes propostos em 08/10, aguardando aprovação para renomear"},
+          {k:"Criativos", v:"45 vídeos: 33 novos (ADV01–33) + 12 reutilizados que já venderam (ADV34–45 RT). Renomeados no Drive em 09/10 e registrados na planilha de resultados de criativos (investimento, leads e CPL puxados da base). Falta subir na biblioteca do Meta e preencher os IDs de vídeo"},
           {k:"Rastreamento", v:"GTM web GTM-TJCZ54MH · sGTM gtm.voaconhecimento.com.br · Pixel 642103307974769 · GA4 G-JEH79LZY8R · Google Ads AW-11000250132 · Clarity wgclayas0v · Lead dispara na página de obrigado (acionador <b>Page Path RegEx obrigado|obg</b>)"},
           {k:"Fluxo de dados", v:"Meta Ads → Stract (de hora em hora) → BASE DE DAOS | BNCP, aba BNCP003 | CAP → painel e gestão (IMPORTRANGE) · Leads: formulário Elementor → Mailchimp · Pesquisa: planilha nova, a receber depois do início"},
           {k:"Aprendizados do BNCC019", v:"Público <b>Coordenadora</b> converteu 0,95% dos leads em venda (2x a média), CPA R$ 264 e ROAS 3,01 · Diretora: cortar (0,17%) · Melhores criativos para refazer: ADV28 Menina escola pedindo, ADV10, ADI06 · <a href='https://claude.ai/artifact/DPFjYg3HsDwDgb4qG3vGh8' target='_blank' rel='noopener'>ver Raio-X</a>"},
-          {k:"Pendências (08/10)", v:"Publicar o GTM (Lead na /cnp-obg/ + tag de UTM) · Aprovar nomes dos criativos · Criar extração Stract BNCP003 | MTADS | CAP · Conferir lead de teste no Mailchimp · Subir vídeos na biblioteca do Meta · Estrutura de campanhas (criar pausado) · Aprovação das legendas e títulos pela cliente · Planilha de gestão, painel de dados e doc do teste de páginas"}
+          {k:"Pendências (08/10)", v:"Subir vídeos na biblioteca do Meta · Trocar a fonte do Mailchimp de MAIO 26 para NOV 26 · Apagar os 4 contatos de teste do Mailchimp · Estrutura de campanhas (criar pausado) · Aprovação das legendas e títulos pela cliente · Planilha de gestão, painel de dados e doc do teste de páginas"}
         ]
       },
       {
