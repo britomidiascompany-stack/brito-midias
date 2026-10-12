@@ -125,6 +125,7 @@
   /* PROJECT PAGE */
   .ppage{display:none}
   .epage{display:none}
+  .bmpage{display:none}
   .ep-block{margin-bottom:8px}
   .ep-block h3{font-size:15px;font-weight:700;margin-bottom:4px}
   .ep-block .ep-html{font-size:14px;line-height:1.75;color:var(--ink)}
@@ -424,6 +425,32 @@
         </div>
 
         <div id="ep-secoes"></div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="wrap">
+        <span>Brito Mídias — Painel interno</span>
+        <span>Central de Estratégia e Resultados</span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- BRITO MÍDIAS (EMPRESA) PAGE -->
+  <div class="bmpage" id="bmpage">
+    <div class="topbar">
+      <div>
+        <div class="section-label">EMPRESA</div>
+        <h1>Brito Mídias</h1>
+      </div>
+    </div>
+
+    <main>
+      <div class="wrap">
+        <div class="section-label">LINKS ÚTEIS</div>
+        <div class="section">
+          <div id="bm-links"></div>
+        </div>
       </div>
     </main>
 
@@ -1310,7 +1337,15 @@ const sidebarNavEl = document.getElementById('sidebar-nav');
 const homeTitleEl = document.getElementById('home-title');
 const homeLabelEl = document.getElementById('home-label');
 
+const EMPRESA = {
+  links: [
+    {grupo:"Atividades", label:"Controle de atividades + follow-up (em teste)", url:"https://docs.google.com/spreadsheets/d/1x66mgowpddiT1U0X_aI06nzOc50u25SEhnpM-6lOARA/edit"}
+  ]
+};
+
 const NAV_ITEMS = [
+  {section: "EMPRESA"},
+  {id: "empresa", label: "Brito Mídias", view: "empresa"},
   {section: "GERAL"},
   {id: "todos", label: "Todos os Clientes", filter: () => true},
   {section: "STATUS"},
@@ -1324,22 +1359,37 @@ const NAV_ITEMS = [
 ];
 
 let activeNav = "todos";
+let inEmpresa = false;
 let query = "";
 
 function renderSidebar(){
   sidebarNavEl.innerHTML = NAV_ITEMS.map(item => {
     if(item.section) return `<div class="snav-label">${esc(item.section)}</div>`;
+    if(item.view){
+      return `<button class="snav-item${inEmpresa?' active':''}" data-nav="${item.id}"><span>${esc(item.label)}</span></button>`;
+    }
     const n = CLIENTES.filter(item.filter).length;
-    return `<button class="snav-item${item.id===activeNav?' active':''}" data-nav="${item.id}">
+    return `<button class="snav-item${(!inEmpresa && item.id===activeNav)?' active':''}" data-nav="${item.id}">
       <span>${esc(item.label)}</span><span class="n">${n}</span>
     </button>`;
   }).join('');
   sidebarNavEl.querySelectorAll('.snav-item').forEach(btn => {
     btn.addEventListener('click', () => {
+      if(btn.dataset.nav === 'empresa'){ openEmpresa(); return; }
       activeNav = btn.dataset.nav;
       goHome();
     });
   });
+}
+
+function openEmpresa(){
+  inEmpresa = true;
+  document.getElementById('bm-links').innerHTML = linksHtml(EMPRESA.links);
+  ['home','cpage','ppage','epage'].forEach(id => document.getElementById(id).style.display = 'none');
+  document.getElementById('bmpage').style.display = 'block';
+  renderSidebar();
+  window.scrollTo(0,0);
+  history.replaceState(null, '', '#brito-midias');
 }
 
 document.getElementById('search').addEventListener('input', e => {
@@ -1349,7 +1399,7 @@ document.getElementById('search').addEventListener('input', e => {
 
 function renderGrid(){
   renderSidebar();
-  const navItem = NAV_ITEMS.find(i => i.id === activeNav) || NAV_ITEMS[1];
+  const navItem = NAV_ITEMS.find(i => i.id === activeNav) || NAV_ITEMS.find(i => i.id === "todos");
   homeTitleEl.textContent = navItem.label;
   homeLabelEl.textContent = activeNav === "todos" ? "GERAL" : (activeNav.startsWith("cat-") ? "POR NICHO" : "STATUS");
 
@@ -1516,6 +1566,8 @@ function openClient(id){
   document.getElementById('home').style.display = 'none';
   document.getElementById('ppage').style.display = 'none';
   document.getElementById('epage').style.display = 'none';
+  document.getElementById('bmpage').style.display = 'none';
+  inEmpresa = false;
   document.getElementById('cpage').style.display = 'block';
   window.scrollTo(0,0);
   history.replaceState(null, '', '#' + id);
@@ -1567,6 +1619,8 @@ function openProject(clientId, projectId){
   document.getElementById('home').style.display = 'none';
   document.getElementById('cpage').style.display = 'none';
   document.getElementById('epage').style.display = 'none';
+  document.getElementById('bmpage').style.display = 'none';
+  inEmpresa = false;
   document.getElementById('ppage').style.display = 'block';
   window.scrollTo(0,0);
   history.replaceState(null, '', '#' + clientId + '/' + projectId);
@@ -1597,6 +1651,8 @@ function openPerfil(clientId, projectId){
   document.getElementById('home').style.display = 'none';
   document.getElementById('cpage').style.display = 'none';
   document.getElementById('ppage').style.display = 'none';
+  document.getElementById('bmpage').style.display = 'none';
+  inEmpresa = false;
   document.getElementById('epage').style.display = 'block';
   window.scrollTo(0,0);
   history.replaceState(null, '', '#' + clientId + '/' + projectId + '/perfil');
@@ -1606,6 +1662,8 @@ function goHome(){
   document.getElementById('cpage').style.display = 'none';
   document.getElementById('ppage').style.display = 'none';
   document.getElementById('epage').style.display = 'none';
+  document.getElementById('bmpage').style.display = 'none';
+  inEmpresa = false;
   document.getElementById('home').style.display = 'block';
   history.replaceState(null, '', '#');
   renderGrid();
@@ -1626,7 +1684,8 @@ function goProject(){
 
 renderGrid();
 const hash = location.hash.replace('#','').split('/');
-if(hash[0] && hash[1] && hash[2] === 'perfil') openPerfil(hash[0], hash[1]);
+if(hash[0] === 'brito-midias') openEmpresa();
+else if(hash[0] && hash[1] && hash[2] === 'perfil') openPerfil(hash[0], hash[1]);
 else if(hash[0] && hash[1]) openProject(hash[0], hash[1]);
 else if(hash[0]) openClient(hash[0]);
 </script>
