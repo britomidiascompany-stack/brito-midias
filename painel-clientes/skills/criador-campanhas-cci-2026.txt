@@ -2,74 +2,68 @@
 name: criador-campanhas-cci-2026
 description: >-
   Cria e gerencia campanhas de tráfego pago (Meta Ads) do CCI 2026 (Congresso de Clínicas
-  Integrativas — Instituto Fernanda Ben / Fernanda Ben), via MCP Meta Ads, seguindo o padrão de
-  nomenclatura, targeting, copy e UTM já usado na campanha modelo. Use SEMPRE que o Rafael pedir
-  para "subir criativos do CCI", "subir criativo na campanha modelo do CCI", "criar campanha do
-  CCI 2026", "criar campanha de venda de ingresso do congresso", ou mandar/citar a planilha de
-  criativos do CCI-2026 junto com um ID de campanha/conjunto. Vale mesmo quando ele não diz
-  "skill" — se o assunto é montar/preencher campanha ou conjunto de anúncios do CCI 2026, use esta
-  skill. NÃO use para o IFB-ICV-2026 (essa é a `criador-campanhas-captacao-paga-ifb-icv-2026`) nem
-  para outros clientes — são produtos/contas diferentes mesmo compartilhando a mesma conta Meta.
+  Integrativas — Instituto Fernanda Ben, presencial 7–8/nov/2026, SP), via MCP Meta Ads: campanhas
+  de VENDA de ingresso (página cci2026…/ , PAGINA DOMINIO-V1) e de CADASTRO/lead (página /b quiz,
+  PAGINA B), subir criativos na campanha modelo, públicos (quente, VV 95% IG, exclusões), conversão
+  Lead|Quiz, nomenclatura, copy, UTM CCI-26 e regras de aprovação do Rafael. Use SEMPRE que o Rafael
+  falar de "campanha do CCI", "subir criativo do CCI", "campanha de cadastro/lead do CCI", "campanha
+  de venda de ingresso do congresso", "página B do CCI", ou citar IDs/nomes `[NN][CCI-2026]…`. NÃO use
+  para IFB-ICV-2026 (`criador-campanhas-captacao-paga-ifb-icv-2026`) nem para IFB-BLACK-2026 (lançamento
+  Black Friday, memória `ifb-black-2026`) — mesma conta Meta, produtos diferentes. Para renomear
+  criativos use `renomeador-criativos-cci-2026`; para relatório/dashboard/planilha master use `relatorio-cci-2026`.
 ---
 
-# Criador de campanhas — CCI 2026 (Congresso de Clínicas Integrativas)
+# Criador de campanhas — CCI 2026
 
-Cria e expande campanhas de **Vendas de ingresso** do CCI 2026 no Meta Ads, usando o MCP de
-anúncios. Tudo nasce **PAUSED** — a skill nunca ativa nada sem o Rafael pedir explicitamente.
+Cria e expande campanhas do **CCI 2026** (congresso presencial, 7 e 8/nov/2026, Espaço APAS, São Paulo)
+no Meta Ads via MCP. **Contexto completo (histórico, IDs, números, pendências):**
+`/Users/rafaelbrito/Claude Code/IFB/CCI-2026 HANDOVER/HANDOVER-CCI-2026.md` e memória `ifb-cci-2026`.
+Detalhes de IDs/públicos em `references/ids-e-publicos.md`; lições técnicas do MCP em
+`references/licoes-mcp-meta.md`.
 
-O CCI 2026 roda na **mesma conta Meta do IFB** (mesmo Business Manager, mesma página do Facebook e
-mesmo pixel), mas é um produto diferente (congresso presencial, não a Imersão Clínica de Valor) —
-não confundir com a skill `criador-campanhas-captacao-paga-ifb-icv-2026`.
+## Regras do Rafael (valem sempre — leia antes de criar qualquer coisa)
+1. **Tudo nasce PAUSED.** Só ativa/publica quando ele pedir explicitamente ("ative", "pode ligar", "pode publicar"). Aprovação de uma coisa não vale para outra.
+2. **Proponha o plano primeiro** (nome da campanha, nome do conjunto, anúncios com nome completo, público, otimização, orçamento, destino) e espere o "aprovado/pode fazer".
+3. **Nunca adivinhe orçamento nem URL.** Orçamento é sempre pergunta (conta ao vivo, dinheiro real). A URL do criativo não é legível via API para não-carrossel → pergunte. "Pronto, pode subir" sem o dado faltante não é aprovação: re-pergunte.
+4. **Nomes que ele dita são definitivos** (ex.: `00 | IG VV95-365D | 18-65 | H-M | CBO | PAGINA DOMINIO-V1`). Não sugira variação.
+5. **Reconsulte o estado antes de editar** (`ads_get_ad_entities`): ele duplica/pausa/ajusta orçamento na tela sem avisar (15/10: [01] cadastro estava com R$715,38 e [04]/[02] cadastro pausadas, sem registro).
+6. Não delegue a subagentes escrita em públicos/campanhas (um subagente já destruiu a regra do público VV 7D).
+7. Responda em português, direto; diga o que fez e os IDs.
 
 ## Ativos fixos
-| Item | ID |
+| Item | Valor |
 |---|---|
-| Ad account | `463327393755502` |
-| Página FB | `2300931153272351` (Instituto Fernanda Ben) |
-| Instagram | `17841409919804434` (@institutofernandaben) |
-| Pixel | `905892400214790` (Pixel completo - IFB) |
-| conversion_domain | `institutofernandaben.com.br` |
-| **Página de destino (landing page)** | `https://cci2026.institutofernandaben.com.br/` |
+| Ad account (Instituto Ben) | `463327393755502` · BM `110685860990685` · conta de públicos "Criador de Públicos IFB" `1008074127159106` |
+| Página FB / Instagram | `2300931153272351` / `17841409919804434` (@institutofernandaben) |
+| Pixel | `905892400214790` · conversion_domain `institutofernandaben.com.br` |
+| Produto Hotmart CCI 2026 | `8163271` |
+| Página de vendas (PAGINA DOMINIO-V1) | `https://cci2026.institutofernandaben.com.br/` |
+| Página B / quiz (PAGINA B) | `https://cci2026.institutofernandaben.com.br/b` |
+| Conversão personalizada Lead | `3569684349857151` "[CCI-2026] Lead \| Quiz" (Lead + URL contém `cci2026.institutofernandaben.com.br/b`) |
+| Exclusão padrão (toda campanha CCI) | `52552604043594` `SITE \| COMPRA \| INGRESSO CCI \| 730D` |
+| Exclusão extra nas campanhas de cadastro | `52560351281794` `SITE \| LEAD \| PAGINA B CCI \| 180D` |
+| GTM web (cci2026) | `GTM-NZHHDM6G` (Lead do quiz já publicado) · servidor Stape `gtm.institutofernandaben.com.br` **quebrado** |
 
-⚠️ A URL da página **não é recuperável via API** para criativos que não são carrossel (o campo
-`link`/`link_url` some do retorno de `ads_get_creatives` nesse caso, e `ads_get_ad_preview` também
-não mostra o rodapé com o domínio). Se um dia essa página mudar, peça a URL nova ao Rafael — não
-adivinhe a partir do nome da campanha.
+⚠️ Preço do ingresso diverge entre fontes (painel R$747 / página /b R$497–597): confirme antes de citar preço em copy.
 
-## Campanha modelo (referência viva — reconsulte o ID antes de assumir, pode ter mudado)
-- Campanha `52552123122994`: `[00][CCI-2026][INGRESSO][VENDA][COMPRA][P-ADVANTAGE][AUTO][PAGINA DOMINIO][CBO][MODELO]`
-- Conjunto único `52552602465794`: `00 | P-ADVANTAGE | 30-55 | H-M | CBO | PAGINA DOMINIO-V1`
+## Campanhas existentes (estado 15/10/2026 — reconsulte!)
+Modelo `[00]` `52552123122994` (conjunto `52552602465794`, PAUSED) · VENDA: `[01] QUENTE` `52552602622994` (ATIVA, R$500), `[02] P-ADVANTAGE` `52552602596994`, `[03] P-ADVANTAGE` `52556450341994`, `[04] VV95-365D` `52558111124594` · CADASTRO /b: `[01] LEAD` `52560360119194` (ATIVA), `[02] CONVP LEAD QUIZ` `52560360138194`. IDs de conjunto/anúncio e públicos: `references/ids-e-publicos.md`. Os números [01]/[02] repetem entre venda e cadastro — a tag `CADASTRO` diferencia.
 
-## Nomenclatura (padrão já em uso — reproduza exatamente)
-- **Campanha:** `[NN][CCI-2026][INGRESSO][VENDA][COMPRA][<PUBLICO>][AUTO][PAGINA DOMINIO][CBO]<[MODELO]>`
-  - `NN` sequencial — confira o maior número já usado antes de numerar uma nova
-    (`ads_get_ad_entities`, level=campaign, filtro `campaign.name CONTAIN "CCI-2026"`).
-  - `<PUBLICO>` = `P-ADVANTAGE` por padrão (Advantage+); troque conforme o Rafael pedir (quente,
-    remarketing etc, seguindo a mesma lógica da skill do IFB).
-- **Conjunto:** `00 | <PUBLICO> | 30-55 | H-M | CBO | PAGINA DOMINIO-V1`
-- **Anúncio:** o **nome completo do criativo** da planilha (ex `ADV08_CCI-2026_VENDA_APAIXONADO SE
-  SENTE PERDIDO_0.53`). ADV = vídeo, ADI = imagem. Etapa fixa no nome: `VENDA` (não `CAP` como no
-  IFB — aqui é campanha de venda direta de ingresso, não captação de lead/lançamento).
+## Nomenclatura
+- **Campanha:** `[NN][CCI-2026][INGRESSO][VENDA|CADASTRO][COMPRA|LEAD|CONVP LEAD QUIZ][<PUBLICO>][AUTO][PAGINA DOMINIO-V1|PAGINA B][CBO]` (`[MODELO]` só na modelo). Confira o maior `[NN]` (`campaign.name CONTAIN "CCI-2026"`) antes de numerar — ele cria campanhas em paralelo.
+- **Conjunto:** `00 | <PUBLICO> | 18-65 | H-M | CBO | PAGINA DOMINIO-V1|PAGINA B` (prefixo "00 |" sempre; a modelo ainda diz 30-55 só como referência).
+- **Anúncio:** nome completo do criativo, ex. `ADV08_CCI-2026_VENDA_APAIXONADO SE SENTE PERDIDO_0.53` (etapa fixa `VENDA`, não `CAP`).
+- Código no nome = `CCI-2026`; código na UTM = **`CCI-26`**.
 
-## Padrão fixo de toda campanha
-- Objetivo **Vendas** (`OUTCOME_SALES`), **CBO**, bid **maior volume** (`LOWEST_COST_WITHOUT_CAP`)
-  por padrão — pergunte se o Rafael quiser cost cap/ROAS cap (mesma mecânica documentada na skill
-  do IFB: `bid_amount` em centavos pra cost cap, `bid_constraints.roas_average_floor` pra ROAS cap,
-  nunca `optimization_goal:VALUE`).
-- Otimização **Compra**: `optimization_goal=OFFSITE_CONVERSIONS` + `promoted_object={pixel_id,
-  custom_event_type:PURCHASE}`.
-- Targeting: Brasil, **Advantage+** (`advantage_audience:1`). Aqui a campanha modelo usa
-  **age_min 18, age_max 65** (mais aberto que o IFB, que usa 25-65) — a trava real do Advantage+
-  só exige mín≤25 e máx≥65; a campanha modelo do CCI escolheu 18 como mínimo. Replique 18-65 salvo
-  instrução em contrário. A faixa "30-55" no nome do conjunto é só referência, como no IFB.
-- **UTM** (`url_tags`, no nível do criativo, nunca dentro de `link_data`/`video_data`) — **atenção:
-  o código aqui é `CCI-26`, não `CCI-2026`**, e tem um `utm_term` extra que o IFB não tem:
-  ```
-  src=CCI-26_{{adset.name}}_{{ad.name}}_{{campaign.name}}&utm_source=CCI-26&utm_medium={{adset.name}}&utm_content={{ad.name}}&utm_campaign={{campaign.name}}&utm_term={{campaign.id}}_{{adset.id}}_{{ad.id}}
-  ```
-- Sempre **PAUSED** ao criar. Só ativar se o Rafael pedir explicitamente.
+## Padrão técnico
+- Venda: `OUTCOME_SALES`, CBO, `LOWEST_COST_WITHOUT_CAP`, `OFFSITE_CONVERSIONS` + `{"pixel_id","custom_event_type":"PURCHASE"}`. Cadastro: `OUTCOME_LEADS`, `custom_event_type:"LEAD"` (evento padrão) **ou** conversão Lead|Quiz via `pixel_rule` (ver lições: `custom_conversion_id` não publica).
+- Targeting: Brasil, 18–65. Advantage+ (`advantage_audience:1`) exige idade ≤25/≥65 → 18–65. Quente/VV: `advantage_audience:0` com `custom_audiences`. `location_types:["home"]` é sobrescrito pelo Meta para `frequently_in+home` (limitação conhecida; peça ao Rafael ajustar na tela se for crítico).
+- Exclusão padrão sempre (`52552604043594`); cadastro exclui também `52560351281794`.
+- Sem enhancements de IA / "Otimizar destino do site" desligado (os anúncios de imagem antigos [01]/[02] saíram com SHARE + "Ver detalhes" e destino otimizado — Rafael nunca decidiu recriar).
+- **UTM** (no `url_tags` do criativo, nunca dentro de link_data/video_data):
+  `src=CCI-26_{{adset.name}}_{{ad.name}}_{{campaign.name}}&utm_source=CCI-26&utm_medium={{adset.name}}&utm_content={{ad.name}}&utm_campaign={{campaign.name}}&utm_term={{campaign.id}}_{{adset.id}}_{{ad.id}}`
 
-## Copy padrão (única — não há variação por página como no modelo antigo do IFB)
+## Copy padrão (única, igual para venda e cadastro)
 - Título: `Você não vai assistir ao futuro das clínicas integrativas. Vai entrar nele.`
 - Descrição: `CCI 2026 — 7 e 8 de novembro, São Paulo. Garanta sua vaga.`
 - Texto:
@@ -82,42 +76,24 @@ O CCI 2026 é o congresso presencial que reúne, em 2 dias em São Paulo, a Fern
 
 👉 Clique em Saiba mais e garanta sua vaga.
 ```
-- CTA: `LEARN_MORE` (confirmado nos 3 vídeos existentes + nos 5 vídeos novos). Um dos criativos de
-  imagem do modelo (ADI04) usava `SEE_DETAILS` em vez de `LEARN_MORE` — não sei se é intencional;
-  pergunte ao Rafael antes de replicar `SEE_DETAILS` numa imagem nova, use `LEARN_MORE` por padrão.
+- CTA `LEARN_MORE` (os ADI antigos saíram `SEE_DETAILS`; use LEARN_MORE e pergunte antes de replicar SEE_DETAILS).
 
-## Como escolher "os criativos que converteram" (se o Rafael pedir isso no CCI)
-Mesma lógica da skill do IFB: use a tabela principal de registro de criativos da planilha do
-CCI-2026 (colunas `CRIATIVOS | LINK DRIVE | TIPO | INVESTIMENTO | VENDAS META ADS | ...`), filtrando
-por `VENDAS META ADS > 0`. Não confie numa aba de série diária separada se ela existir (mesmo
-padrão de risco de desatualização visto no IFB).
+## Fluxos
+**Subir criativo na campanha modelo/conjunto existente:** achar Video ID/hash na planilha de criativos (`1eA54SYuyZp3eIf2K5KqBvZmpvdVe_xqNMR1klGO6L7k`, aba `CP | CCI-26`); vídeo precisa de thumbnail fresca (`ads_get_ad_videos` campo `picture`, URL assinada expira); montar `object_story_spec` (`video_data`/`link_data`) com copy/link/UTM acima; `ads_create_ad` no conjunto; reportar IDs, tudo PAUSED. Imagens ficam **FEED** via API; versão **Stories só pela UI** (ver `renomeador-criativos-cci-2026`).
 
-## Passo a passo pra subir criativos na campanha modelo
-1. Ache o Video ID (ou hash de imagem) na planilha do CCI-2026 (mesma estrutura de colunas do IFB:
-   `CRIATIVOS | LINK DRIVE | TIPO | ... | VIDEO ID OU HASH CONTA IFB`).
-2. Pegue a thumbnail fresca do vídeo (`ads_get_ad_videos`, campo `picture` — expira, busque na hora).
-3. Monte o `object_story_spec` com a copy e o link fixos acima (`video_data` pra vídeo, `link_data`
-   pra imagem — ver `references/fluxo-mcp.md` da skill do IFB pro JSON exato, a mecânica de API é
-   idêntica).
-4. `ads_create_ad` direto no conjunto já existente (`52552602465794` ou o que o Rafael indicar) —
-   não precisa `adset_spec`, o conjunto já existe.
-5. Confira e reporte os IDs criados, tudo PAUSED.
+**Reusar criativos de outra campanha:** `ads_get_ad_entities` (level=ad, `creative_id`) e `creative={"creative_id":"..."}` — **só quando o link de destino é idêntico**. Para outra página (ex.: /b) recrie o `object_story_spec` reaproveitando `image_hash`/`video_id` (e `image_hash` da thumb do vídeo).
 
-## Passo a passo pra criar campanha nova
-Igual à skill do IFB: **sempre proponha primeiro** o nome da campanha, do conjunto e a lista de
-criativos (com nome completo de cada um) — só cria depois que o Rafael aprovar. Pergunte sempre:
-orçamento (em centavos), tipo de público (Advantage+ padrão, ou quente/remarketing — nesse caso o
-Rafael troca o público real depois na tela), e quais criativos entram.
+**Criar campanha nova:** (1) proponha plano e peça orçamento/público/criativos; (2) `ads_create_campaign` (`campaign_name`, sem `status`, budget em centavos); (3) conjunto com `ads_create_ad_set` (não `adset_spec` em `ads_create_ad` — deu INTERNAL error); passe `start_time` no conjunto; (4) anúncios; (5) confira com `ads_get_ad_entities`; (6) publicar só com pedido: `ads_activate_entity` com `object_ids` (campanha+conjunto+anúncios) e `publish_as_active:true`; confira depois (conjunto/ads podem ficar em rascunho "EDITING").
 
-## Armadilhas conhecidas (as mesmas do IFB, valem aqui também)
-- Link/URL não aparece em `ads_get_creatives` pra criativo não-carrossel — não perca tempo tentando
-  de novo, peça direto ao Rafael se precisar confirmar.
-- `url_tags` sempre no nível do criativo, nunca dentro de `link_data`/`video_data`.
-- Vídeo sem `image_url` (thumbnail) dá erro 1443226.
-- `ads_create_ad` falha por erro transitório de conector com frequência nesta conta — trate como
-  retry normal (1-2 tentativas resolvem).
-- Tudo nasce PAUSED — nunca ative sem o Rafael pedir.
+**Campanha de cadastro /b:** criativos recriados com link `/b`; evento Lead padrão (barato: CPL R$82 em 15/10) ou conversão Lead|Quiz (R$195). O Lead real dispara só quando a pessoa responde "Sim, consigo investir agora" ou "Consigo, mas ainda tenho uma dúvida" na pergunta 5 do quiz (gatilho no GTM-NZHHDM6G).
 
-Contexto operacional mais detalhado (JSON exato de creative, mecânica de bid cap, etc.) está na
-skill irmã `criador-campanhas-captacao-paga-ifb-icv-2026` (`references/fluxo-mcp.md`) — a API é a
-mesma conta/mesmo MCP, só muda copy/link/nomenclatura.
+**Público 95% vídeo IG:** só pela UI (Públicos → Vídeo → Instagram institutofernandaben → 95%, 365 dias → selecionar vídeos por data, 5 por página). Ver `references/licoes-mcp-meta.md`.
+
+## Como escolher "criativos que converteram"
+Use a planilha de criativos (`VENDAS META ADS > 0`), não a aba MTADS. Em 15/10: ADI03 INGRESSO (14), ADI12 OBJECAO PRECO (7, melhor CPA em escala), ADV04 JA TEM RESULTADOS (6), ADI01 NOTICIA CLINICA (2); demais 0–1 venda. ADV05–08, ADI06–11/13 nunca receberam verba de verdade; ADI14/15 nunca rodaram.
+
+## Armadilhas
+- Link não aparece em `ads_get_creatives` para não-carrossel; criativo é imutável (trocar copy/link = recriar e pausar/excluir o antigo).
+- Vídeo sem thumbnail → erro 1443226. `instagram_actor_id` dá erro; use `instagram_user_id`.
+- Público não disponível (erro 1359207): compartilhar com a conta Instituto Ben (BM → Fontes de dados → Públicos → Contas atribuídas).
+- Servidor GTM quebrado: eventos "[Meta API] - Lead CCI" provavelmente não chegam; só o pixel de navegador.

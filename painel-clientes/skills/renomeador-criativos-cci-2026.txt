@@ -1,0 +1,38 @@
+---
+name: renomeador-criativos-cci-2026
+description: >-
+  Renomeia e registra criativos (vídeo ADV e imagem ADI, com versões FEED `_FD` e STORIES `_ST`) do CCI 2026
+  (Congresso de Clínicas Integrativas — Instituto Fernanda Ben), vincula ao Video ID/hash da conta Meta,
+  registra na planilha de resultados `CP | CCI-26` e sobe/ajusta o Stories dos anúncios de imagem pela UI.
+  Use SEMPRE que o Rafael mandar pasta/lista de criativos novos do CCI para "renomear", "registrar na planilha",
+  "puxar o hash/video ID", "subir na campanha modelo" ou "colocar a versão Stories". NÃO use para IFB-ICV-2026
+  (`renomeador-criativos-campanha-cap-ifb-ifb-icv-2026`) nem BLACK. Campanhas: `criador-campanhas-cci-2026`.
+---
+
+# Renomeador de criativos — CCI 2026
+
+Fluxo recorrente quando chegam criativos novos do CCI: **baixar/renomear → subir na biblioteca da conta →
+puxar hash/Video ID → registrar na planilha → subir na campanha modelo (Feed) → adicionar Stories (UI)**.
+
+## Padrão do nome
+`{TIPO}{seq}_CCI-2026_VENDA_{DESCRIÇÃO EM MAIÚSCULAS SEM ACENTO}[_{M.SS}]`
+- **ADV = vídeo** (termina com o tempo `_0.29` = 29s, `_1.06` = 1min06); **ADI = imagem** (sem tempo). Sequência própria por tipo (próximo livre: ADV09, ADI16 — confira a planilha).
+- Etapa fixa **`VENDA`** (não `CAP`). Descrição = 2–5 palavras da frase principal (imagem: texto da arte via OCR/`read_file_content`; vídeo: primeiros ~10s/transcrição).
+- **Imagens têm duas versões:** `_FD` = Feed (1080×1350) e `_ST` = Stories (1080×1920). Exemplo de arquivos: `ADI05_CCI-2026_VENDA_WEBINAR_FD.png` + `ADI05_CCI-2026_VENDA_WEBINAR_ST.png`. O **sufixo só existe no arquivo**; o nome do criativo/anúncio e da planilha fica **sem** `_FD/_ST`.
+- Mantém `.png` no arquivo do Drive; na coluna CRIATIVOS da planilha, sem extensão. Coluna TIPO: `IMAGEM` ou `VIDEO`.
+- Criativos já existentes: ADV01–08 e ADI01–15 (lista completa em `~/.claude/skills/criador-campanhas-cci-2026/references/ids-e-publicos.md`, §4).
+
+## Passo a passo
+1. **Receber a pasta.** Se a pasta é do próprio Rafael/editável (`canAddChildren`), renomear por Apps Script/Drive; se for de outra conta Google (ex.: Drive compartilhado de agência) pode não dar para renomear — baixe, renomeie localmente e peça o upload. (`setName` dá "Access denied" em arquivos somente-leitura.) A busca do Drive MCP por `parentId` pode voltar vazia em Drives compartilhados — liste pela UI se necessário.
+2. **Renomear** pelo padrão acima (proponha a tabela atual → nome novo e espere o OK do Rafael antes de renomear).
+3. **O Rafael sobe** os arquivos na biblioteca de mídia da conta Instituto Ben (`463327393755502`).
+4. **Puxar identificadores:** imagem → `ads_get_ad_images` (retorna `name` + `hash`; **feed e stories são dois hashes**); vídeo → `ads_get_ad_videos` (`id`, `picture`). Nomes na biblioteca vêm com `.png`.
+5. **Registrar na planilha** de resultados de criativos `1eA54SYuyZp3eIf2K5KqBvZmpvdVe_xqNMR1klGO6L7k`, aba `CP | CCI-26` (cabeçalho na linha 3): `CRIATIVOS | LINK DRIVE | TIPO | INVESTIMENTO | VENDAS META ADS | CUSTO POR VENDA META ADS | CHECKOUTS | CUSTO POR CHECKOUT | VIDEO ID OU HASH CONTA IFB`. **Uma linha por criativo**; para imagem, a célula de hash leva `hash_feed, hash_stories`; o link é o do arquivo FEED (`https://drive.google.com/file/d/<id>/view`). Investimento/vendas/checkouts são fórmulas (SUMIF pelo nome do anúncio na aba MTADS) — não sobrescreva. Pule duplicados conferindo a coluna CRIATIVOS. O script `references/fix_cp_cci26.gs` (idempotente) consolida as linhas ADI05–15 nesse formato; adapte para novos números.
+6. **Subir na campanha modelo** (`[00]` `52552123122994`, conjunto `52552602465794`) com a skill `criador-campanhas-cci-2026`: **imagem só FEED via API**, `creative` com `image_hash` do FD, copy/UTM padrão. Tudo PAUSED.
+7. **Adicionar o Stories (só pela UI)** — o MCP não suporta Stories para imagem. No Gerenciador de Anúncios (via Claude in Chrome, conta Instituto Ben): abrir o anúncio → **Editar** → seção **Mídia** → personalizar por posicionamento: no grupo **Stories e Status/Reels** clicar no lápis → **Alterar** → pesquisar a imagem pelo nome `…_ST` → salvar → **Publicar**. Verifique que o anúncio mantém Feed (FD) + Stories (ST) com "otimização parcial"/personalização por posicionamento e que o nome do anúncio não mudou. Feito em 18/09 para ADI05–13 (ADI06–12 pelo Claude; ADI05 e ADI13 pelo Rafael). **ADI14 e ADI15 ainda sem Stories** (e nunca rodaram).
+8. Reportar IDs criados (ad_id, creative_id) e o que ficou pendente.
+
+## Regras
+- Pergunte antes de renomear/subir; nada é ativado por esta skill.
+- Não altere linhas existentes da planilha; só adicione (ou use o script idempotente).
+- IDs/hashes grandes viram notação científica ao ler/escrever planilha — mantenha como texto.

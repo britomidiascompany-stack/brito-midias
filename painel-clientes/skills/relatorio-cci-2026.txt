@@ -1,0 +1,38 @@
+---
+name: relatorio-cci-2026
+description: >-
+  Planilha master e dashboard (Apps Script Web App) de resultados do CCI 2026 (congresso presencial IFB):
+  puxa Meta (base de dados Stract) + Hotmart (vendas do produto 8163271) + resultados de criativos, calcula
+  investimento com imposto de 13,83%, funil (impressões→cliques→visualizações de página→checkout→compra),
+  CPA, ROAS e ranking de criativos. Use quando o Rafael pedir "painel do CCI", "dashboard do CCI", "resultado
+  geral / métricas dia a dia do CCI", "atualiza a planilha do CCI", "puxa as vendas do CCI" ou "quantos
+  checkouts/vendas o CCI fez". Não use para ICV (`ifb-icv-relatorio-dashboard`) nem para campanhas.
+---
+
+# Relatório / Painel — CCI 2026
+
+Handover completo: `/Users/rafaelbrito/Claude Code/IFB/CCI-2026 HANDOVER/HANDOVER-CCI-2026.md` (§2 planilhas, §5 números).
+
+## Fontes
+| Fonte | ID / local |
+|---|---|
+| **Planilha master (válida)** "PAINEL GERAL — CCI 2026 (Consolidado) — CORRIGIDO" | `1db5KSM0sv6YV3oX7Uv2-XD54WCyVJ1PV6P3e1GDuktw` (a original com `#ERROR` é `1-0e3j7OBsx7AD7zr_QsMrXumBvmzSrnruUQeM2hU87E` — não usar) |
+| Base de dados Meta (Stract → planilha), aba **`MTADS | CCI-26 | TOTAL`** (sheetId 1171927374) | `1aoKcWzuLtpIvNLA0a9NNGbOeq7S84MY-xj_B81kYZzk` · extração Stract trigger `1788554451` (desde 01/08/2026) |
+| Resultados de criativos, aba `CP | CCI-26` | `1eA54SYuyZp3eIf2K5KqBvZmpvdVe_xqNMR1klGO6L7k` |
+| Hotmart "Fernanda Ben" (webhook; aba "Geral Hotmart") | `1-zmPlShbnkNw8hKz8eH97Xkxr794ml-5TAZOCdYkoko` |
+| Dashboard Apps Script (Web App) | `(URL do Web App — constante no handover local e na memória ifb-cci-2026; não publicada no painel público)` (sem `/u/1/` — dá 404) |
+
+## Estrutura da master (6 abas)
+`Configurações` · `Resultado Geral` · `Métricas Dia a Dia` · `Resultados dos Criativos` (IMPORTRANGE de `CP | CCI-26`) · `Base de Dados (MTADS)` (IMPORTRANGE da aba TOTAL) · `Hotmart (bruto)` (IMPORTRANGE). Cabeçalhos na linha 3, dados da linha 4. **Não mexa nos IMPORTRANGE que o Rafael ajustou** (a versão baixada em .xlsx vira `__xludf.DUMMYFUNCTION`; para editar, faça cópia dentro do Google Sheets).
+- **MTADS (A:R):** E Investimento · F Impressões · G Alcance · H Cliques no link · I Visualização de página · J Initiate Checkout · K Compra · R Valor de conversão (A = DATA).
+- **Hotmart (A:BD):** C `data_product_name` · AU `purchase_order_date` (epoch ms UTC) · AW `purchase_price_value` · BD `purchase_status`. Venda do CCI = produto contém "cci" **e** status `APPROVED` (por transação). Fórmula-base: `COUNTIFS(C,"*cci*";BD,"APPROVED")`. Cuidado: `price_value` pode ser valor de parcela → o faturamento "geral" pode estar subestimado; valide com o Rafael antes de reportar ROAS.
+- **Imposto Meta:** 13,83% sobre o investimento (`invest × 0,1383`; com imposto = `× 1,1383`) — CPA/exposição usam o valor com imposto.
+- **Métricas do funil:** Investimento com imposto, Impressões, Alcance, Cliques no link, CPC, CTR, Visualizações de página, Custo por visualização, Connect rate (visualização ÷ cliques), Conversão página→checkout, Initiate checkout, Custo por IC, Conversão checkout→compra, Compras, Custo por compra, Valor de conversão. Fórmulas em **inglês** (separador `,` ou `;` conforme locale pt_BR: via API use `;`).
+- Builder: `references/build_painel_cci2026_v4.gs` (detecta cabeçalhos dinamicamente; só toca em Resultado Geral e Métricas Dia a Dia; `setFrozenColumns` em try/catch).
+
+## Dashboard Apps Script
+`references/dashboard-Code.gs` (`doGet` serve `Dashboard`; `getDashboardData()` lê as 3 abas direto, agrega por dia, filtra Hotmart CCI+APPROVED) + `Dashboard.html` (identidade Brito Mídias: Poppins, roxo `#7C3AED`, funil desenhado, filtro de datas, cards de criativos com link do Drive, auto-refresh 5 min via `google.script.run`). Arquivos do projeto **precisam se chamar exatamente `Code`/`Código` e `Dashboard`**. Em `references/dashboard-Dashboard_parte-JS.html` está só o trecho JS recuperado (o `<head>`/CSS original está no projeto Apps Script do Rafael). Implantar: Implantar → Nova implantação → App da Web → executar como você, acesso conforme combinar.
+**Pendências do dashboard (25/09):** métrica "Checkout / Oportunidades de vendas" + custo por checkout em Resultados Gerais; funil desenhado em cima com métricas por categoria embaixo; corrigir criativos (ADI05+ zerados por mapeamento vídeo ID × hash); embutir o dashboard na planilha (`onOpen` + `showModalDialog`). Resultado final **não confirmado**; o código-fonte do dashboard no ar não foi localizado pelo Drive MCP (outra conta Google?).
+
+## Como atualizar números rápidos
+Preferir o Meta ao vivo (`ads_get_ad_entities`, `date_preset:"maximum"`, filtro `campaign.name CONTAIN "CCI-2026"`, campos `amount_spent`, `impressions`, `link_click`, `landing_page_view`, `omni_initiated_checkout`, `omni_purchase`, `lead`, `results`). Hotmart por Apps Script/xlsx (o `read_file_content` trunca planilhas grandes: nunca conclua "sem vendas" de uma leitura parcial — em 14/09 o CCI estava nas linhas ~3012–4545). Separe sempre "tráfego pago (Meta)" de "geral (Hotmart, todas as origens)".
