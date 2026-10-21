@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 700" width="680" height="700" font-family="Poppins, Arial, sans-serif">
+<title>Fluxo do lead do Meta até o RD Station</title>
+<desc>Anúncio, formulário nativo, Make e quatro destinos: e-mail, RD CRM, RD Marketing e planilha via n8n.</desc>
+<defs><marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#5B5566" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<rect width="680" height="700" fill="#FFFFFF"/>
+<style>
+.t{font-size:14px;font-weight:600;fill:#141018}
+.s{font-size:12px;font-weight:400;fill:#5B5566}
+.ar{stroke:#5B5566;stroke-width:1.5;fill:none;marker-end:url(#a)}
+.ln{stroke:#5B5566;stroke-width:1.5;fill:none}
+.bl{fill:#EDE9FE;stroke:#7C3AED;stroke-width:1}
+.pu{fill:#3B0F73;stroke:#3B0F73;stroke-width:1}
+.tl{fill:#E1F5EE;stroke:#0F6E56;stroke-width:1}
+.gr{fill:#FAF9FC;stroke:#A9A3B5;stroke-width:1}
+.am{fill:#FAEEDA;stroke:#BA7517;stroke-width:1}
+</style>
+<rect class="bl" x="60" y="30" width="250" height="56" rx="8"/>
+<text class="t" x="185" y="50" text-anchor="middle" dominant-baseline="central">Campanha [13] frio</text>
+<text class="s" x="185" y="70" text-anchor="middle" dominant-baseline="central">Interesse, 40-65, 4 estados</text>
+<rect class="bl" x="370" y="30" width="250" height="56" rx="8"/>
+<text class="t" x="495" y="50" text-anchor="middle" dominant-baseline="central">Campanha [14] quente</text>
+<text class="s" x="495" y="70" text-anchor="middle" dominant-baseline="central">IG 365D, seguidores, lista RD</text>
+<path class="ln" d="M185 86 L185 118 L340 118"/>
+<path class="ln" d="M495 86 L495 118 L340 118"/>
+<path class="ar" d="M340 118 L340 140"/>
+<rect class="bl" x="190" y="142" width="300" height="56" rx="8"/>
+<text class="t" x="340" y="162" text-anchor="middle" dominant-baseline="central">Formulário nativo do Meta</text>
+<text class="s" x="340" y="182" text-anchor="middle" dominant-baseline="central">3 perguntas + nome, e-mail, telefone</text>
+<path class="ar" d="M340 198 L340 228"/>
+<rect class="pu" x="190" y="230" width="300" height="76" rx="8"/>
+<text class="t" x="340" y="252" text-anchor="middle" dominant-baseline="central" style="fill:#fff">Make: cenário 6593799</text>
+<text class="s" x="340" y="274" text-anchor="middle" dominant-baseline="central" style="fill:#EDE9FE">Filtra o formulário certo</text>
+<text class="s" x="340" y="292" text-anchor="middle" dominant-baseline="central" style="fill:#EDE9FE">Monta UTMs com nomes do anúncio</text>
+<path class="ar" d="M250 306 L250 330 L85 330 L85 366"/>
+<path class="ar" d="M310 306 L310 330 L255 330 L255 366"/>
+<path class="ar" d="M370 306 L370 330 L425 330 L425 366"/>
+<path class="ar" d="M430 306 L430 330 L595 330 L595 366"/>
+<rect class="gr" x="20" y="368" width="130" height="70" rx="8"/>
+<text class="t" x="85" y="390" text-anchor="middle" dominant-baseline="central">1. E-mail</text>
+<text class="s" x="85" y="412" text-anchor="middle" dominant-baseline="central">Aviso à equipe</text>
+<rect class="tl" x="190" y="368" width="130" height="70" rx="8"/>
+<text class="t" x="255" y="390" text-anchor="middle" dominant-baseline="central">2. RD CRM</text>
+<text class="s" x="255" y="412" text-anchor="middle" dominant-baseline="central">Negociação criada</text>
+<rect class="tl" x="360" y="368" width="130" height="70" rx="8"/>
+<text class="t" x="425" y="390" text-anchor="middle" dominant-baseline="central">3. RD Marketing</text>
+<text class="s" x="425" y="412" text-anchor="middle" dominant-baseline="central">Contato + tag</text>
+<rect class="gr" x="530" y="368" width="130" height="70" rx="8"/>
+<text class="t" x="595" y="390" text-anchor="middle" dominant-baseline="central">4. n8n</text>
+<text class="s" x="595" y="412" text-anchor="middle" dominant-baseline="central">Webhook</text>
+<path class="ar" d="M85 438 L85 470"/>
+<path class="ar" d="M255 438 L255 470"/>
+<path class="ar" d="M425 438 L425 470"/>
+<path class="ar" d="M595 438 L595 470"/>
+<rect class="gr" x="20" y="472" width="130" height="56" rx="8"/>
+<text class="t" x="85" y="490" text-anchor="middle" dominant-baseline="central">3 caixas</text>
+<text class="s" x="85" y="508" text-anchor="middle" dominant-baseline="central">contato@, m.pereira@</text>
+<text class="s" x="85" y="522" text-anchor="middle" dominant-baseline="central" style="font-size:11px">comercial01@</text>
+<rect class="tl" x="190" y="472" width="130" height="56" rx="8"/>
+<text class="t" x="255" y="492" text-anchor="middle" dominant-baseline="central">Lead Capturado</text>
+<text class="s" x="255" y="512" text-anchor="middle" dominant-baseline="central">Funil 8ª edição</text>
+<rect class="tl" x="360" y="472" width="130" height="56" rx="8"/>
+<text class="t" x="425" y="490" text-anchor="middle" dominant-baseline="central" style="font-size:12px">meta_form_psp_frio</text>
+<text class="s" x="425" y="512" text-anchor="middle" dominant-baseline="central">Campos de perfil</text>
+<rect class="gr" x="530" y="472" width="130" height="56" rx="8"/>
+<text class="t" x="595" y="492" text-anchor="middle" dominant-baseline="central">Planilha</text>
+<text class="s" x="595" y="512" text-anchor="middle" dominant-baseline="central">Aba LEADS</text>
+<path d="M490 170 L660 170 L660 580 L560 580" fill="none" stroke="#BA7517" stroke-width="1.2" stroke-dasharray="5 4" marker-end="url(#a)"/>
+<rect class="am" x="190" y="552" width="370" height="76" rx="8"/>
+<text class="t" x="375" y="574" text-anchor="middle" dominant-baseline="central">Botão da tela final</text>
+<text class="s" x="375" y="596" text-anchor="middle" dominant-baseline="central">Vai para programas.legadoefamilia.com</text>
+<text class="s" x="375" y="614" text-anchor="middle" dominant-baseline="central">Typebot recebe as UTMs: conta o lead 2 vezes</text>
+<text class="s" x="20" y="670">Linha tracejada: caminho opcional, só se a pessoa clicar no botão</text>
+</svg>

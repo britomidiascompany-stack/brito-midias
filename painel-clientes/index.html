@@ -377,6 +377,14 @@
           </div>
         </div>
 
+        <div id="pp-diagrama-wrap">
+          <div class="section-label" id="pp-diagrama-titulo">FLUXO</div>
+          <div class="section">
+            <div id="pp-diagrama-desc" style="font-size:13px;color:var(--cinza);margin-bottom:14px;line-height:1.6"></div>
+            <img id="pp-diagrama-img" alt="" style="width:100%;max-width:760px;height:auto;display:block;margin:0 auto;border:1px solid var(--linha);border-radius:12px;background:#fff">
+          </div>
+        </div>
+
         <div class="section-label">LINKS ÚTEIS</div>
         <div class="section">
           <div class="link-list" id="pp-links"></div>
@@ -1272,6 +1280,12 @@ const CLIENTES = [
         nome: "Sucessão Empresarial e Patrimonial (PSP)",
         resumo: "Programa voltado a <b>membros de empresas familiares</b> sobre sucessão empresarial e patrimonial. Roda com duas landing pages: uma <b>página normal</b> e uma <b>versão VSL</b> do mesmo programa.",
         skills: ["renomeador-legado-familia-psp"],
+        diagrama: {
+          titulo: "FLUXO DO LEAD DO FORMULÁRIO NATIVO (META ATÉ O RD STATION)",
+          descricao: "Como o lead das campanhas de formulário nativo ([13] público frio e [14] público quente, 9ª edição) chega ao RD Marketing, ao RD CRM, à planilha e ao e-mail da equipe. Atenção: o botão da tela final leva ao Typebot da página do programa, e o painel pode contar a mesma pessoa duas vezes.",
+          src: "img/fluxo-form-nativo-psp.svg",
+          alt: "Fluxo do lead: anúncio, formulário nativo do Meta, Make e quatro destinos (e-mail, RD CRM, RD Marketing e planilha via n8n)"
+        },
         links: [
           {label:"Página normal — Sucessão Empresarial", url:"https://programas.legadoefamilia.com/"},
           {label:"Página VSL — Sucessão Empresarial e Patrimonial (Membro Empresa Familiar)", url:"https://programas.legadoefamilia.com/sucessao-empresarial-e-patrimonial-membro-empresa-familiar/"},
@@ -1692,6 +1706,13 @@ function openProject(clientId, projectId){
   document.getElementById('pp-perfil-wrap').style.display = p.perfilEstrategico ? 'block' : 'none';
   document.getElementById('pp-guia-wrap').style.display = p.guiaUrl ? 'block' : 'none';
   if(p.guiaUrl) document.getElementById('pp-guia-link').href = p.guiaUrl;
+  document.getElementById('pp-diagrama-wrap').style.display = p.diagrama ? 'block' : 'none';
+  if(p.diagrama){
+    document.getElementById('pp-diagrama-titulo').textContent = p.diagrama.titulo || 'FLUXO';
+    document.getElementById('pp-diagrama-desc').innerHTML = p.diagrama.descricao || '';
+    const im = document.getElementById('pp-diagrama-img');
+    im.src = p.diagrama.src; im.alt = p.diagrama.alt || '';
+  }
   document.getElementById('pp-links').innerHTML = linksHtml(p.links || []);
   document.getElementById('pp-info').innerHTML = (p.info && p.info.length)
     ? p.info.map(row => `<div class="row"><span class="k">${esc(row.k)}</span><span class="v">${row.v}</span></div>`).join('')
