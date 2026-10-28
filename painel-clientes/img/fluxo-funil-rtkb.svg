@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 790" width="680" height="790" font-family="Poppins, Arial, sans-serif">
+<title>Funil RTKB: do anúncio ao time comercial</title>
+<desc>Seis etapas: anúncio no Meta, página de vendas, checkout Kiwify, compra, mensagem do time comercial e entrega do rating com oferta de outros produtos financeiros.</desc>
+<defs><marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#5B5566" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<rect width="680" height="790" fill="#FFFFFF"/>
+<style>
+.t{font-size:14px;font-weight:600;fill:#141018}
+.s{font-size:12px;font-weight:400;fill:#5B5566}
+.h{font-size:11px;font-weight:600;fill:#7C3AED;letter-spacing:.12em}
+.ar{stroke:#5B5566;stroke-width:1.5;fill:none;marker-end:url(#a)}
+.bl{fill:#EDE9FE;stroke:#7C3AED;stroke-width:1}
+.pu{fill:#3B0F73;stroke:#3B0F73;stroke-width:1}
+.tl{fill:#E1F5EE;stroke:#0F6E56;stroke-width:1}
+.am{fill:#FAEEDA;stroke:#BA7517;stroke-width:1;stroke-dasharray:5 3}
+.nt{fill:#FAF9FC;stroke:#A9A3B5;stroke-width:1;stroke-dasharray:5 3}
+</style>
+
+<text class="h" x="20" y="28">ETAPA</text>
+<text class="h" x="446" y="28">O QUE MEDIMOS (17/06 A 25/08)</text>
+
+<rect class="bl" x="20" y="44" width="400" height="68" rx="8"/>
+<text class="t" x="220" y="68" text-anchor="middle" dominant-baseline="central">1. A pessoa vê o anúncio</text>
+<text class="s" x="220" y="92" text-anchor="middle" dominant-baseline="central">Meta Ads (Instagram e Facebook), vídeo da Iarla</text>
+<text class="s" x="446" y="68" dominant-baseline="central">439 mil impressões</text>
+<text class="s" x="446" y="90" dominant-baseline="central">7.260 cliques</text>
+<path class="ar" d="M220 112 L220 146"/>
+
+<rect class="bl" x="20" y="148" width="400" height="68" rx="8"/>
+<text class="t" x="220" y="172" text-anchor="middle" dominant-baseline="central">2. Vai para a página de vendas</text>
+<text class="s" x="220" y="196" text-anchor="middle" dominant-baseline="central">Consulta Rating Bancário, o botão leva ao checkout</text>
+<text class="s" x="446" y="172" dominant-baseline="central">3.844 visitas à página</text>
+<text class="s" x="446" y="194" dominant-baseline="central">53% dos cliques</text>
+<path class="ar" d="M220 216 L220 250"/>
+
+<rect class="pu" x="20" y="252" width="400" height="68" rx="8"/>
+<text class="t" x="220" y="276" text-anchor="middle" dominant-baseline="central" style="fill:#fff">3. Vai para o checkout (Kiwify)</text>
+<text class="s" x="220" y="300" text-anchor="middle" dominant-baseline="central" style="fill:#EDE9FE">R$ 79,90 · PIX ou cartão · order bumps</text>
+<text class="s" x="446" y="276" dominant-baseline="central">762 checkouts iniciados</text>
+<text class="s" x="446" y="298" dominant-baseline="central">20% das visitas</text>
+<path class="ar" d="M220 320 L220 354"/>
+
+<rect class="tl" x="20" y="356" width="400" height="68" rx="8"/>
+<text class="t" x="220" y="380" text-anchor="middle" dominant-baseline="central">4. Ela compra</text>
+<text class="s" x="220" y="404" text-anchor="middle" dominant-baseline="central">Pagamento aprovado, vira cliente da Real Plan (~90% PIX)</text>
+<text class="s" x="446" y="380" dominant-baseline="central">134 vendas</text>
+<text class="s" x="446" y="402" dominant-baseline="central">18% dos checkouts</text>
+<path class="ar" d="M220 424 L220 458"/>
+
+<rect class="tl" x="20" y="460" width="400" height="68" rx="8"/>
+<text class="t" x="220" y="484" text-anchor="middle" dominant-baseline="central">5. Recebe a mensagem do time comercial</text>
+<text class="s" x="220" y="508" text-anchor="middle" dominant-baseline="central">Avisa que em até 24h envia o rating bancário</text>
+<text class="s" x="446" y="484" dominant-baseline="central">Prazo informado: até 24h</text>
+<text class="s" x="446" y="506" dominant-baseline="central">Tempo real: a medir</text>
+<path class="ar" d="M220 528 L220 562"/>
+
+<rect class="am" x="20" y="564" width="400" height="68" rx="8"/>
+<text class="t" x="220" y="588" text-anchor="middle" dominant-baseline="central">6. Entrega o rating e vende outros produtos</text>
+<text class="s" x="220" y="612" text-anchor="middle" dominant-baseline="central">Lê o perfil de crédito e oferece produtos financeiros</text>
+<text class="s" x="446" y="588" dominant-baseline="central">Vendas do back-end:</text>
+<text class="s" x="446" y="610" dominant-baseline="central">ainda não medimos</text>
+
+<rect class="nt" x="20" y="664" width="640" height="106" rx="8"/>
+<text class="t" x="40" y="688" dominant-baseline="central">A mapear na etapa 6</text>
+<text class="s" x="40" y="712" dominant-baseline="central">Quais produtos financeiros o comercial vende depois do rating, por quanto e com que conversão.</text>
+<text class="s" x="40" y="732" dominant-baseline="central">Referência do briefing (23/03): Limpa Bacen R$ 6.000, Rating Bancário R$ 2.000 e Limpa Nome R$ 1.500,</text>
+<text class="s" x="40" y="752" dominant-baseline="central">com 10% de conversão do time. Falta confirmar o que é vendido hoje.</text>
+</svg>
