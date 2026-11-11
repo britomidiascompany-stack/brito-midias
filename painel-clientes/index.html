@@ -372,15 +372,15 @@
         </div>
 
         <div id="pp-guia-wrap">
-          <div class="section-label">LINK ÚNICO PARA EXECUTAR (COLE NO CLAUDE)</div>
+          <div class="section-label" id="pp-guia-titulo">LINK ÚNICO PARA EXECUTAR (COLE NO CLAUDE)</div>
           <div class="section" style="border-color:var(--roxo-light)">
-            <div style="font-size:13px;color:var(--cinza);margin-bottom:14px;line-height:1.6">
+            <div id="pp-guia-desc" style="font-size:13px;color:var(--cinza);margin-bottom:14px;line-height:1.6">
               Arquivo de texto único e auto-contido — qualquer pessoa da equipe, em qualquer computador, pode colar este link
               numa conversa com o Claude e pedir para executar a tarefa (ex: "sobe uma campanha com esses criativos seguindo
               esse guia"). Não precisa instalar nada nem baixar arquivo.
             </div>
             <a class="link-item" id="pp-guia-link" href="#" target="_blank" rel="noopener">
-              <span class="lbl">Guia completo — Como subir campanha (texto puro)</span>
+              <span class="lbl" id="pp-guia-lbl">Guia completo — Como subir campanha (texto puro)</span>
               <span class="go">Abrir →</span>
             </a>
           </div>
@@ -1154,64 +1154,122 @@ const CLIENTES = [
     status: "ativo",
     categorias: ["Negócios Locais"],
     skills: [],
-    funil: "Jardim Hípica — captação via YAY!Forms → WhatsApp, Google Ads em processo de configuração",
-    pagina: "https://armigh.com.br",
-    contas: [],
+    funil: "Jardim Hípica — Meta Ads + Google Ads → site moraremindaiatuba.com.br → formulário de qualificação YAY Forms → consultor Marcos no WhatsApp (agendamento de visita no plantão)",
+    pagina: "https://moraremindaiatuba.com.br",
+    contas: [
+      {label:"Best Business / Boleto e PIX (usada pro Jardim Hípica)", id:"674525543465006", tipo:"VEICULA", businessId:"391975292340222"}
+    ],
     driveUrl: "https://drive.google.com/drive/folders/1oaYM-RxLWK8DZzYRTZMHmsARraLZnu9S",
-    pastaCriativos: "",
+    pastaCriativos: "https://drive.google.com/drive/folders/1-8jAym-yNtQDj-9Jj_q6V4_scWYBI6dZ",
+    links: [
+      {label:"REPASSE COMPLETO DO PROJETO (cole este link no Claude)", url:"https://britomidiascompany-stack.github.io/brito-midias/painel-clientes/skills/jardim-hipica-repasse.txt", grupo:"Comece por aqui"},
+      {label:"Planilha de acompanhamento (funis Meta e Google + dashboard)", url:"https://docs.google.com/spreadsheets/d/1QH3ETTFBsZ8evbX05KRjcG2qvFIqNhohqNi3NbYsF5Y/edit", grupo:"Comece por aqui"}
+    ],
     projetos: [
       {
         id: "jardim-hipica",
         nome: "Jardim Hípica",
-        resumo: "Captação de leads pro lançamento residencial <b>Jardim Hípica</b> (Indaiatuba/SP), rodando em duas fontes: <b>Meta Ads</b> (ativo desde janeiro/26) e <b>Google Ads</b> (recém-configurado, ainda sem histórico). Mesmo funil de destino: site → agendar visita → formulário de qualificação (YAY!Forms) → WhatsApp.",
+        resumo: "Captação de leads pro loteamento de alto padrão <b>Jardim Hípica</b> (Indaiatuba/SP) — lotes a partir de <b>R$ 387.500</b>, parcelas a partir de <b>R$ 4.591,07</b>. Duas fontes: <b>Meta Ads</b> (desde jan/26) e <b>Google Ads Search</b> (desde set/26). Funil: anúncio → site → \"Agende sua visita\" → formulário de qualificação (YAY Forms) → consultor Marcos no WhatsApp. O KPI que importa é <b>custo por interessado em visita</b>, não CPL. <br><br><b>Pra quem está chegando:</b> abra o <i>Link único para analisar</i> abaixo e cole no Claude — ali está tudo o que foi construído até 11/11/2026 (contas, planilha, funil, regras, números, pendências e roteiros prontos de análise, divisão de verba e criação de campanha).",
+        guiaUrl: "https://britomidiascompany-stack.github.io/brito-midias/painel-clientes/skills/jardim-hipica-repasse.txt",
+        guiaTitulo: "LINK ÚNICO PARA ANALISAR (COLE NO CLAUDE)",
+        guiaDescricao: "Repasse completo e auto-contido do projeto. Cole o link numa conversa com o Claude e peça: \"como está o resultado dos últimos 30 dias?\", \"proponha a divisão de verba entre Meta e Google\" ou \"monte uma campanha nova pra Indaiatuba\". Se o Claude tiver acesso ao Google Sheets, ele lê a planilha ao vivo.",
+        guiaLabel: "Repasse completo — Jardim Hípica (texto puro, versão 11/11/2026)",
         skills: [],
         links: [
-          {label:"Página oficial do empreendimento", url:"https://moraremindaiatuba.com.br/"},
-          {label:"Formulário de qualificação (YAY!Forms)", url:"https://lislie.yayforms.link/eVadZrv"}
+          {label:"REPASSE COMPLETO (texto para colar no Claude)", url:"https://britomidiascompany-stack.github.io/brito-midias/painel-clientes/skills/jardim-hipica-repasse.txt", grupo:"Comece por aqui"},
+          {label:"Planilha de acompanhamento — funis, diários e botão do dashboard", url:"https://docs.google.com/spreadsheets/d/1QH3ETTFBsZ8evbX05KRjcG2qvFIqNhohqNi3NbYsF5Y/edit", grupo:"Comece por aqui"},
+          {label:"Auditoria de rastreamento (Meta + Google, set/26)", url:"https://britomidiascompany-stack.github.io/brito-midias/clientes/jardim-hipica/", grupo:"Comece por aqui"},
+
+          {label:"Gerenciador Meta — conta 674525543465006 (filtrar [ARMIGH][JD_HIPICA])", url:"https://adsmanager.facebook.com/adsmanager/manage/campaigns?act=674525543465006&business_id=391975292340222&global_scope_id=391975292340222", grupo:"Contas de anúncio"},
+          {label:"Google Ads — conta 478-060-2548", url:"https://ads.google.com/aw/campaigns?ocid=8443821329", grupo:"Contas de anúncio"},
+
+          {label:"Site do empreendimento", url:"https://moraremindaiatuba.com.br/", grupo:"Funil e páginas"},
+          {label:"Formulário de qualificação (YAY Forms) — não trocar a URL", url:"https://lislie.yayforms.link/eVadZrv", grupo:"Funil e páginas"},
+          {label:"Tour virtual 360°", url:"https://jardimhipica.imoveis7digitos.com.br/", grupo:"Funil e páginas"},
+
+          {label:"Base de mídia Meta + Google (por dia/anúncio)", url:"https://docs.google.com/spreadsheets/d/1udjEjwHQg28EzVOGYgP_rTFO-VAZYApa3IrX4LLPFhU/edit", grupo:"Planilhas"},
+          {label:"Respostas YAY Forms — integração nativa (só completas)", url:"https://docs.google.com/spreadsheets/d/11MJR1Fmn1YVCGE2Y5aimStPzGIwI8lZelfhunohuYfI/edit", grupo:"Planilhas"},
+          {label:"Resultados por criativo (ADVxx + link do Drive)", url:"https://docs.google.com/spreadsheets/d/1mEO5hqPYCaC77KM9AB58bk3OBHdPWdiN8bcZ8m-d2jM/edit", grupo:"Planilhas"},
+          {label:"Backup da planilha de acompanhamento (antes de 07/10/2026)", url:"https://docs.google.com/spreadsheets/d/1i9VqXAr_BUX-rbTW9dttnQXHKlcuM9e6TeV21RPo32M/edit", grupo:"Planilhas"},
+
+          {label:"Relatório de criativos (campanhas de lead, jul/26)", url:"https://britomidiascompany-stack.github.io/jardim-hipica/", grupo:"Relatórios e documentos"},
+          {label:"Atualizações entregues ao cliente (site + formulário, jul/26)", url:"https://britomidiascompany-stack.github.io/jardim-hipica/atualizacoes/", grupo:"Relatórios e documentos"},
+          {label:"Alterações do site 1 — briefing enviado ao Pedro (NÃO MODIFICAR)", url:"https://britomidiascompany-stack.github.io/jardim-hipica/alteracoes/", grupo:"Relatórios e documentos"},
+          {label:"Alterações do site 2 — lago natural + implantação", url:"https://britomidiascompany-stack.github.io/jardim-hipica/alteracoes-2/", grupo:"Relatórios e documentos"},
+
+          {label:"Pasta do cliente no Drive", url:"https://drive.google.com/drive/folders/1oaYM-RxLWK8DZzYRTZMHmsARraLZnu9S", grupo:"Drive e criativos"},
+          {label:"Criativos de vídeo (ganchos)", url:"https://drive.google.com/drive/folders/1-8jAym-yNtQDj-9Jj_q6V4_scWYBI6dZ", grupo:"Drive e criativos"},
+          {label:"Criativos ADV01 a ADV08", url:"https://drive.google.com/drive/folders/1lQKeiJSVCO8CiO-08yY1I4lu2fZJNbix", grupo:"Drive e criativos"},
+          {label:"Guia das faixas nos vídeos (parcela + agende sua visita) — cole no Claude Code", url:"https://britomidiascompany-stack.github.io/brito-midias/painel-clientes/skills/faixas-jardim-hipica.txt", grupo:"Drive e criativos"},
+
+          {label:"[ATV213] UTMs + API do YAY pra planilha — em andamento", url:"https://app.clickup.com/t/868mek8ru", grupo:"ClickUp"},
+          {label:"[ATV201] Reestruturação do formulário + lógica de qualificação", url:"https://app.clickup.com/t/868ky1877", grupo:"ClickUp"},
+          {label:"[ATV132] Status dos leads com o Marcos (seg/qua/sex)", url:"https://app.clickup.com/t/868jrnz4m", grupo:"ClickUp"}
         ],
         info: [
-          {k:"Município", v:"Indaiatuba/SP"},
-          {k:"Produto", v:"Lote a partir de R$ 387.500 · entrada 20% em até 3x sem juros · saldo em 120 meses"},
-          {k:"Pré-qualificação no criativo (Meta)", v:"Parcelas a partir de R$ 4.591,07 — filtro já no anúncio, antes de chegar no site"},
-          {k:"Campanhas Meta", v:"2 campanhas ativas por região: Indaiatuba/Campinas e áreas nobres de São Paulo"},
-          {k:"Conta Google Ads", v:"478-060-2548"},
-          {k:"Orçamento diário aprovado (Google)", v:"R$ 66/dia"},
-          {k:"Status Google Ads", v:"⚠️ Conta pausada aguardando verificação de anunciante — campanha já especificada (nomes, keywords, orçamento) mas ainda não criada de fato"},
-          {k:"Nomenclatura das campanhas (Google)", v:"[01][GOOGLE][ARMIGH][JD_HIPICA][SEARCH][BRANDING TERMS] · [02][GOOGLE][ARMIGH][JD_HIPICA][SEARCH][PRODUTO]"},
-          {k:"Automação de leads", v:"RESUMO DE LEADS ARMIGH (V3) — YAY!Forms → WhatsApp, com fechamento automático no ClickUp"},
-          {k:"Reporte manual de leads", v:"Gabriel envia os leads que chegaram toda segunda, quarta e sexta no WhatsApp — automação de aviso em tempo real (lead novo → grupo) ainda planejada, não implementada"}
+          {k:"Produto", v:"Lotes a partir de 250 m² · a partir de R$ 387.500 · entrada 20% em até 3x sem juros · saldo em até 120 meses direto com a loteadora · parcelas a partir de R$ 4.591,07 · entrega a partir de dez/2026"},
+          {k:"Município / foco geográfico", v:"Indaiatuba/SP — foco em Indaiatuba, Campinas e região (alto padrão); SP capital só como teste. Excluir Nordeste (vinha lead de Petrolina)."},
+          {k:"Público real (184 respostas)", v:"65,8% querem construir e morar (não investidor) · 60% já têm imóvel quitado · intenção de visita sobe muito com renda ≥ R$ 30 mil"},
+          {k:"Conta Meta", v:"674525543465006 (nome \"Best Business\", compartilhada com outros clientes — filtrar [ARMIGH][JD_HIPICA]) · BM 391975292340222 · pixel 914761717879073 · pré-paga"},
+          {k:"Conta Google Ads", v:"478-060-2548 · pré-paga via PIX · orçamento aprovado R$ 66/dia (~R$ 2.000/mês)"},
+          {k:"Campanhas Meta", v:"[NN][ARMIGH][JD_HIPICA][CADASTRO][LEAD]… (→ formulário) e [ENGAJAMENTO][MENSAGEM]… (→ WhatsApp, só histórico). Mais recente: [14]…[VIDEOS COM FAIXA]"},
+          {k:"Campanhas Google", v:"[01][GOOGLE][ARMIGH][JD_HIPICA][SEARCH][BRANDING TERMS] · [02][GOOGLE][ARMIGH][JD_HIPICA][SEARCH][PRODUTO]"},
+          {k:"Criativos", v:"ADVnn_ARMIGH_CP_JD HIPICA_GANCHO_m.ss · padrão atual = vídeos com faixa (\"Parcelas a partir de R$ 4.591,07\" / \"Agende sua visita no plantão\") · campeões: ADV12 Quanto Vale, ADV19 Quase Metade, ADV04 Investir, ADV18 8km de Viracopos"},
+          {k:"Qualificação (evento Lead)", v:"renda ≥ R$ 20 mil OU (renda < 20 mil E aceitou a parcela de R$ 4.591,07)"},
+          {k:"Resultado Meta (todo o período, até 18/10/26)", v:"R$ 11.784 em campanhas de lead · 328 entradas no formulário (R$ 35,93 cada) · 199 telefones · 66 querem visita (R$ 178,55 cada)"},
+          {k:"Resultado Google (01/09 a 08/11/26)", v:"R$ 1.503,79 · 970 cliques · 9 conversões reportadas (R$ 162,47) · 13 entradas por gclid (subestimado até a ATV213)"},
+          {k:"Rastreamento", v:"⚠️ Meta ainda sem UTM (\"Meta / outros\" inclui orgânico). ATV213 em andamento: aba da API criada mas ainda vazia em 11/11/26."},
+          {k:"Atenção (11/11/26)", v:"Último dado do Meta na planilha: 18/10. Google quase sem gasto desde 04/11 — conferir saldo e status antes de analisar."},
+          {k:"Equipe", v:"Rafael (estratégia) · Gabriel (operacional/ClickUp) · Marcos (consultor do cliente) · Pedro Gadelha (site) · Sueli (financeiro Armigh)"}
         ],
         perfilEstrategico: {
-          intro: "O objetivo é vender <b>lotes</b> no empreendimento Jardim Hípica (Indaiatuba/SP). Duas fontes de aquisição: <b>Meta Ads</b> (rodando desde janeiro/26, com histórico) e <b>Google Ads</b> (recém-configurado, sem histórico ainda). O desafio atual, em avaliação, é a qualidade do lead: mesmo depois de mudanças no site, nos criativos e no formulário, ainda chega pouca gente ultra qualificada.",
+          intro: "O objetivo é vender <b>lotes</b> no Jardim Hípica (Indaiatuba/SP) gerando <b>visitas ao plantão</b>. Duas fontes: <b>Meta Ads</b> (desde jan/26) e <b>Google Ads Search</b> (desde set/26). O desafio histórico é a qualidade do lead — resolvido em partes com preço e parcela no criativo, site novo e formulário que qualifica por renda. O desafio atual é <b>rastreamento</b> (UTM por criativo) e <b>retomar a mídia</b> com a verba bem dividida. O repasse completo, com tudo, está no <a href=\"https://britomidiascompany-stack.github.io/brito-midias/painel-clientes/skills/jardim-hipica-repasse.txt\" target=\"_blank\" rel=\"noopener\">link único (texto puro)</a>.",
           secoes: [
             {
               titulo: "Histórico — evolução do funil",
-              html: `<p>O funil já passou por algumas versões, todas tentando resolver o mesmo problema: lead desqualificado.</p>
-                <ol>
-                  <li><b>Versão 1 — direto pro WhatsApp:</b> o anúncio mandava a pessoa direto pra uma conversa de WhatsApp. Resultado: muito lead desqualificado, sem nenhum filtro no caminho.</li>
-                  <li><b>Versão 2 — página + formulário:</b> intercalou uma página e um formulário antes do WhatsApp. Melhorou, mas ainda vinha mais gente desqualificada do que qualificada.</li>
-                  <li><b>Versão 3 — atual (mês passado):</b> mudança no site, nos criativos e no formulário ao mesmo tempo. Resultado até agora: melhorou a atração de pessoas pras páginas, mas ainda não está aparecendo ninguém <i>ultra qualificado</i> dentro do formulário. É esse ponto que está em avaliação agora.</li>
+              html: `<ol>
+                  <li><b>V1 — direto pro WhatsApp:</b> muito lead desqualificado, sem filtro.</li>
+                  <li><b>V2 — página + formulário:</b> melhorou, mas ainda vinha mais desqualificado que qualificado.</li>
+                  <li><b>V3 — jul/26:</b> site novo (preço R$ 387.500 em destaque, botões "Agende sua visita"), vídeos <b>com faixa</b> mostrando a parcela de R$ 4.591,07 e formulário novo com faixas de renda, tela de transparência da parcela e agendamento de visita.</li>
+                  <li><b>28/08/26 — bug:</b> a tela da parcela aparecia pra quase todos e o pixel de Lead quase parou de disparar; CPL do pixel foi de R$ 65 pra R$ 753. Corrigido pela ATV201 (nova ordem de perguntas + regra de qualificação).</li>
+                  <li><b>Set/26 — Google Ads:</b> entra o Search ([01] Branding, [02] Produto). Auditoria de rastreamento corrige a tag do Google.</li>
+                  <li><b>07/10/26 — planilha reestruturada:</b> funil passa a contar parciais, separa Google de Meta e campanhas de lead de mensagem; dashboard em Apps Script.</li>
                 </ol>`
             },
             {
-              titulo: "Funil atual (Meta Ads)",
-              html: `<p>Rodam <b>2 campanhas</b> por região: <b>Indaiatuba/Campinas</b> e <b>áreas nobres de São Paulo</b>.</p>
-                <p>Os criativos já fazem uma pré-qualificação na própria peça, informando que as parcelas começam em <b>R$ 4.591,07</b> — um filtro de poder aquisitivo antes mesmo do clique. O CTA do criativo é "agendar uma visita".</p>
-                <p><b>Fluxo:</b></p>
-                <ol>
-                  <li>Anúncio (Meta) → <a href="https://moraremindaiatuba.com.br/" target="_blank" rel="noopener">site do empreendimento</a></li>
-                  <li>Pessoa clica em "Agendar uma Visita" → vai pro <a href="https://lislie.yayforms.link/eVadZrv" target="_blank" rel="noopener">formulário de qualificação (YAY!Forms)</a></li>
-                  <li>Se a pessoa responder as perguntas e for qualificada, é direcionada pro <b>WhatsApp</b></li>
+              titulo: "Funil e como medir",
+              html: `<p><b>Fluxo:</b> anúncio → <a href="https://moraremindaiatuba.com.br/" target="_blank" rel="noopener">site</a> → "Agende sua visita" → <a href="https://lislie.yayforms.link/eVadZrv" target="_blank" rel="noopener">formulário YAY</a> → Marcos no WhatsApp.</p>
+                <p><b>Três "leads" diferentes</b> — sempre dizer qual: (1) lead do pixel/conversão do Google; (2) pessoa que <b>entrou no formulário</b> (completa + parcial) — o número oficial; (3) lead <b>qualificado</b> / que <b>quer visita</b> — o que importa.</p>
+                <p><b>Qualificação:</b> evento Lead dispara se renda ≥ R$ 20 mil, ou renda menor e aceitou a parcela. Quem mais pede visita tem renda ≥ R$ 30 mil.</p>
+                <p><b>Limitação atual:</b> sem UTM no Meta, não dá pra ligar pessoa do formulário a criativo; e até a ATV213 rodar, parciais novas e respostas do Google depois de 07/10 não são separadas na planilha.</p>`
+            },
+            {
+              titulo: "Campanhas e verba",
+              html: `<p><b>Meta:</b> foco em campanhas de <b>[CADASTRO][LEAD]</b> (formulário), público Advantage com sugestão de renda alta e alto padrão em Campinas e região; vídeos com faixa. Campanhas de mensagem ficam como histórico (R$ 17/conversa, mas não qualificam).</p>
+                <p><b>Google:</b> R$ 66/dia aprovado; concentrar no [02] Produto (lote/condomínio em Indaiatuba e região), Branding é barato e só captura quem já busca a marca. Correspondência frase/exata, nunca ampla. Planejado: separar Indaiatuba/região (~70%) de SP Capital (~30%, teste).</p>
+                <p><b>Como dividir:</b> comparar custo por <b>interessado em visita</b> e por <b>telefone</b> por canal no mesmo período — nunca só o CPL da plataforma.</p>`
+            },
+            {
+              titulo: "Regras que não podem ser quebradas",
+              html: `<ul>
+                  <li>Nunca modificar a página <a href="https://britomidiascompany-stack.github.io/jardim-hipica/alteracoes/" target="_blank" rel="noopener">/alteracoes/</a> (é o briefing exato enviado ao Pedro).</li>
+                  <li>Não trocar a URL do formulário YAY.</li>
+                  <li>Análise de lead usa só o YAY Forms (o DataCrazy conectado não é deste cliente).</li>
+                  <li>Conta Meta compartilhada com outros clientes: filtrar sempre [ARMIGH][JD_HIPICA].</li>
+                  <li>Excluir leads de teste (aba EXCLUIR TESTES) antes de qualquer número.</li>
+                  <li>Fórmulas no Sheets com ";" (locale pt_BR).</li>
+                </ul>`
+            },
+            {
+              titulo: "Pendências (11/11/2026)",
+              html: `<ol>
+                  <li><b>ATV213</b> — aba "YAY FORMS COMPLETO (API)" criada mas vazia: cobrar o fluxo n8n + UTMs nos anúncios; depois refazer a BASE YAY.</li>
+                  <li><b>Mídia parada</b> — Meta sem dado desde 18/10 e Google quase sem gasto desde 04/11: conferir saldo (contas pré-pagas) e decidir retomada e verba.</li>
+                  <li>Confirmar o corte da tela da parcela (abaixo de 35k) e o aviso de lead qualificado no grupo do WhatsApp.</li>
+                  <li>Rastreamento: duas fontes de Lead no Meta e dois caminhos de conversão no Google (auditoria).</li>
+                  <li>Novos ganchos a partir dos campeões (ADV12, ADV19, ADV04, ADV18, ADV23) e padronizar nomes em ARMIGH.</li>
+                  <li>Confirmar se o Pedro aplicou as Alterações 2 do site.</li>
                 </ol>`
-            },
-            {
-              titulo: "Google Ads",
-              html: `<p>Fonte nova, configurada mas ainda sem rodar de fato — conta pausada aguardando verificação de anunciante no Google. As 2 campanhas (branding + produto) já estão especificadas (ver "Informações Principais" deste projeto), só faltando a conta ser liberada.</p>`
-            },
-            {
-              titulo: "Reporte de leads",
-              html: `<p>Hoje o reporte é manual: o <b>Gabriel</b> envia toda <b>segunda, quarta e sexta</b> no WhatsApp quais foram os leads que chegaram no período.</p>
-                <p>Já existe uma automação de fechamento (RESUMO DE LEADS ARMIGH V3, YAY!Forms → WhatsApp → ClickUp), e está planejada uma automação de <b>aviso em tempo real</b>: assim que um lead novo chegar, cair direto no grupo do WhatsApp — ainda não implementada.</p>`
             }
           ]
         }
@@ -1800,6 +1858,10 @@ function openProject(clientId, projectId){
   document.getElementById('pp-perfil-wrap').style.display = p.perfilEstrategico ? 'block' : 'none';
   document.getElementById('pp-guia-wrap').style.display = p.guiaUrl ? 'block' : 'none';
   if(p.guiaUrl) document.getElementById('pp-guia-link').href = p.guiaUrl;
+  document.getElementById('pp-guia-titulo').textContent = p.guiaTitulo || 'LINK ÚNICO PARA EXECUTAR (COLE NO CLAUDE)';
+  document.getElementById('pp-guia-lbl').textContent = p.guiaLabel || 'Guia completo — Como subir campanha (texto puro)';
+  if(!window.__guiaDescPadrao) window.__guiaDescPadrao = document.getElementById('pp-guia-desc').innerHTML;
+  document.getElementById('pp-guia-desc').innerHTML = p.guiaDescricao || window.__guiaDescPadrao;
   document.getElementById('pp-diagrama-wrap').style.display = p.diagrama ? 'block' : 'none';
   if(p.diagrama){
     document.getElementById('pp-diagrama-titulo').textContent = p.diagrama.titulo || 'FLUXO';

@@ -1,0 +1,548 @@
+REPASSE COMPLETO — JARDIM HÍPICA (Armigh Empreendimentos) · Tráfego pago Meta Ads + Google Ads
+Agência: Brito Mídias · Responsável: Rafael Brito · Versão: 11/11/2026
+
+Este arquivo é auto-contido. Cole o link dele numa conversa com o Claude (Claude.ai, Claude Code ou Cowork)
+e peça o que precisa, por exemplo:
+  - "Leia este repasse e me diga como está o resultado do Jardim Hípica nos últimos 30 dias."
+  - "Com base neste repasse, proponha a divisão de verba do mês entre Meta e Google."
+  - "Com base neste repasse, monte a estrutura de uma campanha nova de Meta para Indaiatuba."
+Tudo o que foi construído no projeto até 11/11/2026 está aqui: contas, planilhas, funil, regras,
+números, decisões e pendências.
+
+================================================================================
+PARTE 0 — INSTRUÇÕES PARA O CLAUDE QUE ESTIVER LENDO ESTE ARQUIVO
+================================================================================
+
+1. Você está ajudando um gestor de tráfego da Brito Mídias no cliente Jardim Hípica. Responda em português,
+   direto, com números e com a data a que cada número se refere.
+2. Fonte da verdade dos números = a PLANILHA DE ACOMPANHAMENTO (Parte 5). Se você tiver acesso ao
+   Google Sheets (conector/MCP), LEIA a planilha antes de responder qualquer pergunta de resultado.
+   Os números da Parte 9 são uma foto de 11/11/2026 e servem só como referência.
+3. Se tiver o conector do Meta Ads, a conta é 674525543465006. Se tiver o do ClickUp, o workspace é
+   9011482982. Nunca altere campanha, orçamento, formulário ou planilha sem o gestor pedir e confirmar.
+4. Fórmulas no Google Sheets desta conta usam o locale pt_BR: separe argumentos com ";" (ponto e vírgula).
+   Com "," a fórmula dá #ERROR!. Os nomes das funções continuam em inglês (SUMIFS, FILTER, COUNTIF).
+5. "Lead" tem três significados diferentes. Sempre diga qual você está usando:
+   a) lead do pixel do Meta / conversão do Google (o que a plataforma reporta);
+   b) pessoa que ENTROU no formulário YAY (completa + parcial), que é o número oficial do funil;
+   c) lead QUALIFICADO (regra da Parte 8) ou que QUER VISITA. O KPI que importa é custo por
+      interessado em visita, não CPL.
+6. Nunca mostre nem publique dados pessoais de leads (nome, telefone, e-mail) fora da planilha ou do
+   grupo interno.
+7. Leia a Parte 12 (regras e armadilhas) antes de propor qualquer mudança.
+
+================================================================================
+PARTE 1 — O NEGÓCIO
+================================================================================
+
+- Cliente: Armigh Empreendimentos (JARDIM HIPICA EMPREENDIMENTOS IMOBILIARIOS SPE LTDA), CRECI 025053-J.
+- Produto: loteamento fechado de alto padrão JARDIM HÍPICA, em Indaiatuba/SP (bairro Chácara Areal).
+- Oferta oficial (usar em anúncio e site):
+  · Lotes a partir de 250 m², a partir de R$ 387.500,00
+  · Entrada de 20% em até 3x sem juros, saldo em até 120 meses, direto com a loteadora
+  · Parcelas a partir de R$ 4.591,07/mês (antes da mudança de jul/26 falava-se em R$ 5–6 mil)
+  · Primeiros lotes com entrega prevista a partir de dezembro de 2026
+  · Plantão de vendas no próprio empreendimento (CTA: "Agende sua visita")
+- Argumentos de venda: 341 mil m² de área, 80 mil m² de área verde, lago natural central com pista
+  de caminhada, estrutura de resort (piscinas, lazer completo), 45% dos lotes vendidos, documentação
+  100% regularizada, 8 km do aeroporto de Viracopos. Sobre Indaiatuba: 3ª melhor cidade do Brasil
+  (Veja Negócios 2025), bicampeã em segurança, valorização média de 12% ao ano, polo industrial
+  (John Deere, Honda, GM).
+- Site/landing: https://moraremindaiatuba.com.br/ (feito e mantido pelo Pedro Gadelha)
+- Tour virtual 360°: https://jardimhipica.imoveis7digitos.com.br/ (não pode ser embedado no site;
+  vai como botão)
+- Formulário de qualificação (YAY Forms): https://lislie.yayforms.link/eVadZrv
+  NÃO TROCAR A URL DO FORMULÁRIO: isso quebra as campanhas.
+- Fee mensal da Brito Mídias: R$ 1.500,00 (NF mensal enviada à Sueli, financeiro da Armigh).
+
+PERFIL DO COMPRADOR (análise de 184 respostas do formulário, 02/08/2026)
+- 65,8% querem construir e morar; só 13,6% são investidores. É família com patrimônio fazendo upgrade
+  de padrão de vida, não investidor.
+- 60–62% já têm imóvel quitado. 53,8% querem comprar em até 6 meses.
+- A intenção de visita cresce com a renda:
+  · até 10k: 4,3%
+  · 10–20k: 11,3%
+  · 20–30k: 12,9%
+  · 30–50k: 36,4%
+  · acima de 50k: 42,1%
+  Acima de R$ 30 mil, a chance de pedir visita é cerca de 4x maior.
+- Origem pelo DDD: 11 (SP) 57%, 19 (Campinas/região) 14%. O DDD 87 (Petrolina/PE) somou 7%, que é
+  desperdício: excluir Nordeste (PE, CE, BA) da segmentação.
+- A geolocalização do YAY é por IP e NÃO é confiável; o CEP vem com default 01000. Usar o DDD do
+  telefone para saber a origem.
+
+================================================================================
+PARTE 2 — PESSOAS E PAPÉIS
+================================================================================
+
+- Rafael Brito: CEO da Brito Mídias. Decide estratégia, orçamento e aprovações.
+- Gabriel Santos: operacional da Brito Mídias. Recebe tarefas no ClickUp (lista "ATIVIDADES | GABRIEL",
+  id 901113754557). Cuida de formulário YAY, n8n/webhooks, UTMs, puxar dados e subir campanhas quando
+  pedido.
+- Willian Brito: editou os vídeos com faixas e subiu as campanhas 12 e 13 (tarefas ATV008 e ATV009
+  na lista dele).
+- Marcos: consultor comercial do Jardim Hípica. Atende os leads pelo WhatsApp e agenda as visitas.
+- Pedro Gadelha: desenvolvedor do site moraremindaiatuba.com.br.
+- Sueli: financeiro/administrativo da Armigh. Recebe as NFs.
+- Novo gestor de tráfego: quem está lendo este repasse.
+
+================================================================================
+PARTE 3 — LINHA DO TEMPO
+================================================================================
+
+- 09/01/2026: começa o Meta Ads, com a campanha [01] de MENSAGEM (WhatsApp).
+- fev–abr/2026: campanhas [01]...[0x] de CADASTRO/LEAD (P-ADVANTAGE, CBO, Página A) levando ao
+  formulário.
+- Evolução do funil:
+  · V1: anúncio direto para o WhatsApp. Muito lead desqualificado.
+  · V2: página + formulário antes do WhatsApp. Melhorou, mas ainda vinha mais desqualificado que
+    qualificado.
+  · V3 (jul/26): site, criativos e formulário mudam juntos.
+- ~20/05/2026: param de entrar leads (ATV142 analisou maio de 01 a 19 contra 20 a 31).
+- 07/07/2026: relatório de criativos publicado
+  (https://britomidiascompany-stack.github.io/jardim-hipica/).
+- 17/07/2026: briefing de alterações do site enviado ao Pedro (/alteracoes/). Ficou no ar por volta
+  de 16–23/07.
+- 23/07/2026: página para o cliente com o que já foi entregue (/atualizacoes/). Aprovado o padrão de
+  vídeos COM FAIXAS (parcela + "Agende sua visita").
+- 25/07/2026: entra o formulário novo (faixas de renda novas, tela de transparência da parcela,
+  etapa de agendamento).
+- 02/08/2026: análise do perfil do lead e do top de criativos. Estrutura do Google Search montada.
+  A conta Google estava pausada aguardando verificação do anunciante.
+- 03/08/2026: briefing 2 para o Pedro (Lago Natural Central + nova imagem da Implantação), em
+  /alteracoes-2/.
+- ago/2026: campanhas [12] e [13] de LEAD com vídeos com faixas.
+- 28/08/2026: diagnóstico de queda. Um bug no formulário mostrava a tela da parcela para quase todos,
+  e o pixel de Lead quase não disparava. Criada a ATV201 para reestruturar o formulário (concluída).
+- 01/09/2026: começa o Google Ads ([01] Branding, [02] Produto). As primeiras respostas com gclid
+  chegam em 26/09.
+- 02/09 e 13/09/2026: auditoria de rastreamento
+  (https://britomidiascompany-stack.github.io/brito-midias/clientes/jardim-hipica/).
+- 07/10/2026: planilha de acompanhamento reestruturada (parciais, origem Google, separação
+  lead/mensagem, Funil e Diário Google). Dashboard em Apps Script criado. Criada a ATV213 (UTMs + API
+  do YAY).
+- out/2026: campanha [14][...][VIDEOS COM FAIXA] no Meta (Campinas e região, alto padrão).
+- 18/10/2026: última linha do Meta na planilha.
+- 04/11/2026: o gasto do Google praticamente zera (conta pré-paga via PIX: conferir saldo).
+- 11/11/2026: este repasse.
+
+================================================================================
+PARTE 4 — ATIVOS, CONTAS E LINKS
+================================================================================
+
+META ADS
+- Conta de anúncio: 674525543465006, chamada "Best Business / Boleto e PIX". O nome é de outra
+  empresa, mas a conta é usada para o Jardim Hípica. É compartilhada com outros clientes do Grupo Best
+  Business (Actie, AGCITY, San Marino), então filtre sempre por campanhas [ARMIGH][JD_HIPICA].
+- Business Manager: Grupo Best Business, 391975292340222.
+- Pixel em uso: 914761717879073 ("Campanhas Jardim Hípica BM"), com CAPI ativa.
+- Pagamento pré-pago: recarga manual (tarefa "Adição de Saldo Meta — Jardim Hípica" no ClickUp,
+  espaço PROCESSOS).
+- Gerenciador:
+  https://adsmanager.facebook.com/adsmanager/manage/campaigns?act=674525543465006&business_id=391975292340222
+
+GOOGLE ADS
+- Conta "Jardim Hípica": 478-060-2548. Pré-paga via PIX.
+- Orçamento aprovado: R$ 66/dia, cerca de R$ 2.000/mês.
+
+PLANILHAS (Google Sheets)
+- PLANILHA DE ACOMPANHAMENTO JARDIM HÍPICA, a principal:
+  https://docs.google.com/spreadsheets/d/1QH3ETTFBsZ8evbX05KRjcG2qvFIqNhohqNi3NbYsF5Y/edit
+- Backup antes da reestruturação de 07/10:
+  https://docs.google.com/spreadsheets/d/1i9VqXAr_BUX-rbTW9dttnQXHKlcuM9e6TeV21RPo32M/edit
+- Base de mídia (Meta e Google por dia/anúncio; alimenta as abas DADOS por IMPORTRANGE):
+  https://docs.google.com/spreadsheets/d/1udjEjwHQg28EzVOGYgP_rTFO-VAZYApa3IrX4LLPFhU/edit
+- Integração nativa do YAY (só respostas completas; alimenta DADOS YAY FORMS):
+  https://docs.google.com/spreadsheets/d/11MJR1Fmn1YVCGE2Y5aimStPzGIwI8lZelfhunohuYfI/edit
+- RESULTADOS CRIATIVO | ARMIGH | JD. HIPICA (controle de criativos ADVxx, link do Drive e origem do
+  vídeo na coluna K):
+  https://docs.google.com/spreadsheets/d/1mEO5hqPYCaC77KM9AB58bk3OBHdPWdiN8bcZ8m-d2jM/edit
+
+PÁGINAS PUBLICADAS (GitHub Pages)
+- Relatório de criativos (07/07/2026): https://britomidiascompany-stack.github.io/jardim-hipica/
+- Atualizações entregues ao cliente (23/07): https://britomidiascompany-stack.github.io/jardim-hipica/atualizacoes/
+- Briefing 1 do site para o Pedro (17/07, já executado):
+  https://britomidiascompany-stack.github.io/jardim-hipica/alteracoes/
+  NUNCA MODIFICAR: é o documento exato que foi enviado.
+- Briefing 2 do site (03/08: lago + implantação):
+  https://britomidiascompany-stack.github.io/jardim-hipica/alteracoes-2/
+- Auditoria de rastreamento (02/09, atualizada 13/09):
+  https://britomidiascompany-stack.github.io/brito-midias/clientes/jardim-hipica/
+- Painel de clientes, projeto Jardim Hípica:
+  https://britomidiascompany-stack.github.io/brito-midias/painel-clientes/#armigh/jardim-hipica
+
+DRIVE
+- Pasta do cliente: https://drive.google.com/drive/folders/1oaYM-RxLWK8DZzYRTZMHmsARraLZnu9S
+- Criativos de vídeo (ganchos, principal): https://drive.google.com/drive/folders/1-8jAym-yNtQDj-9Jj_q6V4_scWYBI6dZ
+- Criativos ADV01–ADV08: https://drive.google.com/drive/folders/1lQKeiJSVCO8CiO-08yY1I4lu2fZJNbix
+- Imagens do empreendimento (renders): fachada 5 (hero) 15Fp2KbdbfFnBgP37q5J9IlPUijMyUvrS ·
+  lago 14-9m-6FchJwRImWfn-8hY3EE6dJOXs2- · masterplan 11C0f88d14tuqhtmTDlJjasFI0IUS5vsx
+  (URL: https://drive.google.com/file/d/<ID>/view)
+
+CLICKUP (workspace 9011482982)
+- Lista de atividades do Gabriel: 901113754557. Tarefas do cliente, em ordem:
+  · [001] ATV121 Campanhas 10 (CBO Escala) e 11 (ABO Teste): concluída
+  · [002] ATV142 Análise de funil de maio: concluída
+  · [003] ATV132 Status semanal dos leads com o Marcos: recorrente seg/qua/sex
+    (o nome ainda diz [001]): https://app.clickup.com/t/868jrnz4m
+  · [004] ATV177 Formulário com renda, parcela e agendamento: concluída
+  · [005] ATV187 1ª campanha de Search + conversão no GTM: concluída
+  · [006] ATV190 Campanha Search R$ 66/dia: concluída
+  · [007] ATV201 Reestruturar o formulário + lógica de qualificação: concluída
+    (https://app.clickup.com/t/868ky1877)
+  · [008] ATV213 UTMs + API do YAY para a planilha: EM ANDAMENTO
+    (https://app.clickup.com/t/868mek8ru)
+  A próxima tarefa do cliente é a [009].
+- Tarefas do Rafael ainda em aberto: 096 Revisar todo o funil · 097 Otimizar campanhas do Meta ·
+  098 Otimizar campanhas do Google · 099 Dashboard completo em cima da planilha.
+
+================================================================================
+PARTE 5 — FUNIL E RASTREAMENTO
+================================================================================
+
+FLUXO DO LEAD
+Anúncio (Meta ou Google) → site moraremindaiatuba.com.br → botão "Agende sua visita" → formulário YAY
+(lislie.yayforms.link, OUTRO domínio) → página de obrigado → contato do Marcos pelo WhatsApp.
+As campanhas Meta de MENSAGEM ([ENGAJAMENTO][MENSAGEM]) pulam tudo isso e vão direto para o WhatsApp,
+sem formulário.
+
+COMO A ORIGEM É IDENTIFICADA HOJE (11/11/2026)
+- Google: pelo gclid/gbraid/wbraid que o site repassa ao formulário como campo oculto.
+- Meta: NÃO tem UTM ainda. "Meta / outros" = tudo o que não tem gclid, incluindo orgânico e direto.
+- Por isso não dá para ligar um lead do formulário a um criativo específico. Por criativo, só existe
+  o lead do pixel do Meta.
+- ATV213 (em andamento): criar no YAY os campos ocultos utm_source, utm_medium, utm_campaign,
+  utm_content e utm_term. Nos anúncios:
+  · Meta: utm_source=facebook&utm_medium=paid&utm_campaign={{campaign.name}}&utm_content={{ad.name}}&utm_term={{adset.name}}
+  · Google: {lpurl}?utm_source=google&utm_medium=cpc&utm_campaign={campaignid}&utm_term={keyword}
+  E um n8n que a cada 15 min grava TODAS as respostas (inclusive parciais) na aba
+  "YAY FORMS COMPLETO (API)", com upsert pelo Response ID.
+  Estado em 11/11: a aba existe com o cabeçalho certo, mas está VAZIA (o fluxo ainda não gravou
+  nenhuma linha).
+
+AUDITORIA DE RASTREAMENTO (02/09 e 13/09/2026)
+- O formulário fica fora do domínio rastreado: no domínio do YAY não há GTM, GA4 nem tag do Google
+  Ads, só o pixel da Meta pela integração nativa.
+- A tag do Google apontava para a conta errada. Foi corrigida em 05/09 (tag base) e 12/09 (conversão).
+- O Lead do Meta chega por duas vias (integração do YAY + GTM na página de obrigado), sem e-mail,
+  telefone nem fbc, então o algoritmo aprende pouco. Ficaram por resolver: duas fontes de Lead no Meta
+  e dois caminhos primários de conversão no Google.
+- A Meta não deixa trocar o evento de otimização de um conjunto já publicado. Mudar o evento =
+  criar conjuntos novos.
+
+================================================================================
+PARTE 6 — A PLANILHA DE ACOMPANHAMENTO (como ler)
+================================================================================
+
+ID 1QH3ETTFBsZ8evbX05KRjcG2qvFIqNhohqNi3NbYsF5Y. Abas e o que cada uma faz:
+
+- DASHBOARD: botão roxo "Abrir dashboard", que abre o painel em Apps Script dentro da planilha
+  (Parte 7).
+- Funil Meta: mídia separada em LEAD (campanhas com CADASTRO no nome) e MENSAGEM. Mostra o funil do
+  formulário sem as respostas do Google, mais custos (CPL, custo por preenchimento, custo por
+  interessado em visita) e a distribuição das respostas.
+- Diário Meta: as mesmas métricas, uma coluna por dia, desde 09/01/2026. Para estender, copiar a
+  última coluna para a direita.
+- Funil Google / Diário Google: o mesmo para o Google (mídia desde 01/09/2026), com colunas Total,
+  [01] Branding e [02] Produto.
+- DADOS META ADS: IMPORTRANGE da base de mídia. A=data · B=campanha · C=conjunto · D=anúncio ·
+  E=investimento · F=impressões · G=alcance · H=cliques no link · I=mensagens · P=leads do pixel.
+- DADOS GOOGLE ADS: A=data · B=campanha · C=grupo · E=investimento · F=impressões · G=cliques ·
+  H=conversões.
+- DADOS GOOGLE ADS TERMOS: o mesmo por palavra-chave (D=palavra).
+- DADOS YAY FORMS: IMPORTRANGE da integração nativa. SÓ COMPLETAS, colunas A:Z fixas, X=Response ID.
+- PARCIAIS YAY: foto ESTÁTICA (export CSV de 07/10) das respostas não terminadas.
+- ORIGEM GOOGLE: lista FIXA dos Response IDs que tinham gclid (13 em 07/10).
+- EXCLUIR TESTES: Response IDs de teste. Apagar a linha volta a contar a resposta.
+- BASE YAY: (DADOS YAY FORMS + PARCIAIS YAY) − testes. AA=ORIGEM ("Google Ads" ou
+  "Meta / outros (sem UTM)"), AB=STATUS (Completo/Parcial).
+- BASE YAY META / BASE YAY GOOGLE: a BASE YAY separada por origem. Alimentam os Funis e Diários.
+- YAY FORMS COMPLETO (API): aba da ATV213, que será a fonte futura. Ainda vazia.
+
+Regras de leitura:
+- "Entrou no formulário" = completas + parciais, contadas no dia em que a pessoa COMEÇOU.
+- O horário do CSV do YAY está 1h à frente da planilha (2h antes de ~10/03/2026).
+- LIMITAÇÃO ATUAL (importante para análise): como PARCIAIS YAY e ORIGEM GOOGLE são fotos de 07/10,
+  depois de 07/10:
+  · parciais novas NÃO entram;
+  · respostas do Google que terminaram o formulário caem como "Meta / outros".
+  Resultado: o funil do Google está SUBESTIMADO depois de 07/10 (o investimento continua subindo, os
+  leads não) e o do Meta está levemente inflado. Isso só se resolve com a ATV213. Até lá, para um
+  período recente, use o export CSV do YAY (gclid e parciais) e diga essa ressalva na análise.
+- Quando a aba da API estiver enchendo: refazer a BASE YAY para ler dela pelo NOME da coluna, com
+  origem pela UTM e o gclid como reserva, e aposentar PARCIAIS YAY e ORIGEM GOOGLE. Não precisa mexer
+  nas abas Funil/Diário.
+
+================================================================================
+PARTE 7 — DASHBOARD (Apps Script)
+================================================================================
+
+- Abre pelo botão da aba DASHBOARD, num modal dentro da planilha (sem menu).
+- Mostra:
+  · resultado geral de custo, com filtro de data geral e botão "Aplicar em todas";
+  · filtro de data próprio em cada seção;
+  · chave "Incluir campanhas de mensagem";
+  · funis desenhados do Meta (só lead) e do Google;
+  · resultado por criativo, com filtro de campanha e de criativo (agrupa as grafias
+    ARMIGH/ARMIGTH/ARMGTH);
+  · resultado por palavra-chave;
+  · histórico das campanhas de mensagem.
+  Ao passar o mouse sobre os números de leads, abre a lista de pessoas (nome, data, e-mail, telefone
+  com link do WhatsApp).
+- Código: Código.gs (funções abrirDashboard, getDados, instalarBotao) + arquivo HTML "Dashboard".
+  Está em Extensões > Apps Script da planilha. Se colar HTML num arquivo .gs, dá "Unexpected token
+  '<'": o arquivo tem de ser criado como HTML.
+
+================================================================================
+PARTE 8 — FORMULÁRIO YAY E QUALIFICAÇÃO
+================================================================================
+
+ORDEM ATUAL DAS PERGUNTAS (ATV201, aplicada em set/26)
+1. O que mais te motiva a buscar um lote como esse? (Construir minha casa e morar / Investimento e
+   valorização / Planejamento para o futuro / Ainda estou avaliando)
+2. Nome
+3. "Os primeiros lotes têm entrega prevista a partir de dezembro de 2026." Prazo de compra: O quanto
+   antes / 3 a 6 meses / 6 a 12 meses / Mais para frente
+4. Telefone
+5. E-mail
+6. Faixa de renda familiar mensal: Até R$ 15.000 / R$ 15–20 mil / R$ 20–30 mil / R$ 30–35 mil /
+   Acima de R$ 35.000
+7. Transparência da parcela (condicional): "Para total transparência: após a entrada, o valor da
+   parcela começa em R$ 4.591,07 mensais." Sim/Não
+8. Você já possui algum imóvel?
+9. Quando gostaria de agendar a visita? (Esta semana / Próxima semana / Próximos 15 dias /
+   Prefiro agendar direto com o consultor) → dia → período (manhã 9–12h / tarde 13–17h)
+
+Campos ocultos: gclid, gbraid, wbraid (as UTMs entram com a ATV213).
+
+REGRA DE QUALIFICAÇÃO (definida pelo Rafael em 28/08/2026)
+- Quem vê a tela da parcela: todos, menos quem ganha acima de R$ 35 mil. A versão anterior era
+  "até 20k"; confirmar se a final ficou "abaixo de 35k".
+- Evento de Lead (pixel) dispara quando:
+  renda ≥ R$ 20 mil, OU (renda < R$ 20 mil E respondeu "Sim" para a parcela).
+- O que mais prediz visita é a renda: ≥ R$ 30 mil é o núcleo.
+
+ATENDIMENTO E REPORTE
+- ATV132 (recorrente seg/qua/sex): o Gabriel levanta os leads novos (nome + link wa.me) e pergunta ao
+  Marcos no grupo: "Marcos, consegue me atualizar como está o status desses leads do Jardim Hípica
+  desde a semana passada?" Para cada um: houve contato, visita agendada, avanço ou perda.
+- Mensagem padrão do link wa.me: "Oi, eu sou o Marcos aqui do Jardim Hípica. Estamos entrando em
+  contato com você porque você demonstrou interesse no nosso empreendimento aqui em Indaiatuba."
+- Planejado na ATV201: aviso automático de "Lead qualificado chegou" no grupo de WhatsApp (webhook do
+  YAY → n8n). Confirmar se está funcionando.
+- Pessoas que deixaram telefone e não terminaram o formulário também são contato válido: vale
+  repassar ao Marcos.
+
+================================================================================
+PARTE 9 — RESULTADOS (FOTO DE 11/11/2026 · confira sempre na planilha)
+================================================================================
+
+META ADS, TODO O PERÍODO (09/01 até o último dado, 18/10/2026)
+                         Total          LEAD (→ formulário)   MENSAGEM (→ WhatsApp)
+Investimento             R$ 13.704,79   R$ 11.784,00          R$ 1.920,79
+Impressões               165.398        117.176               48.222
+Cliques no link          7.597          7.287                 310
+CTR                      4,59%          6,22%                 0,64%
+CPC                      R$ 1,80        R$ 1,62               R$ 6,20
+Mensagens iniciadas      119            6                     113 (R$ 17,00 por mensagem)
+Leads do pixel           138            133 (CPL R$ 88,60)    5
+
+FORMULÁRIO, MEDIDO NA PLANILHA ("Meta / outros", sem Google, inclui parciais)
+- Entraram no formulário: 328 (custo por entrada R$ 35,93 sobre o gasto das campanhas de LEAD)
+- Deixaram telefone: 199 (60,7%; R$ 59,22 cada)
+- Querem agendar visita: 66 (20,1%; R$ 178,55 por interessado em visita)
+- Parcela: 85 responderam, 57 aceitaram, 28 não aceitaram
+- Motivação "Construir minha casa e morar": 61,8%
+
+GOOGLE ADS (01/09 até 08/11/2026)
+                         Total        [01] Branding   [02] Produto
+Investimento             R$ 1.503,79  R$ 41,57        R$ 1.462,22
+Impressões               15.456       697             14.759
+Cliques                  970          21              949
+CTR                      6,28%        3,01%           6,43%
+CPC                      R$ 1,55      R$ 1,98         R$ 1,54
+Conversões do Google     9            0               9 (R$ 162,47 cada)
+- No formulário: 13 entradas identificadas pelo gclid (lista fixa de 07/10, então SUBESTIMADO; ver
+  Parte 6), com 6 telefones e 4 querendo visita.
+- A [01] Branding só gastou em 01–02/09. Desde out/26, a [02] Produto tem os grupos "Condomínio
+  Fechado / Loteamento", "Lote / Terreno Indaiatuba" e "Marca Jardim Hípica". O gasto ficou em cerca
+  de R$ 30–35/dia em outubro e caiu para quase zero depois de 04/11.
+
+HISTÓRICO QUE AJUDA A DECIDIR
+- Top criativos (campanhas de lead, histórico até 01/08/2026; R$ 8.292 e 126 leads do pixel):
+  · ADV12 "Quanto Vale": 58 leads, CPL R$ 65 (campeão de volume)
+  · ADV19 "Quase Metade": 28 leads, CPL R$ 72
+  · ADV04 "Investir": 12 leads, R$ 32
+  · ADV18 "8km de Viracopos": 7 leads, R$ 32
+  · ADV05 "Grandes Investidores": 5 leads, R$ 49
+  · ADV23 "Já Pensou": 3 leads, R$ 37 (melhor hook rate, 63%)
+  · ADV10 "Lago Particular": 2 leads, R$ 31
+  · ADV29 "Viver é Diferente", ADV35 "Quando Você Sabe" e ADV37 "Para Quem Sabe": R$ 53–67
+  ADV12 e ADV19 somam 68% dos leads.
+- Antes × depois da mudança de 22/07 (análise de 28/08, campanhas CADASTRO):
+  · CTR: 8,54% → 4,73%
+  · Custo por visualização de página: R$ 1,90 → R$ 4,36
+  · Leads do pixel: 44 em 61 dias → 2 em 37 dias
+  A causa principal foi o bug do formulário e o evento de Lead quase sem disparar: o Meta perdeu o
+  sinal. Corrigido pela ATV201.
+- Setembro/2026: 22 pessoas iniciaram o formulário (14 parciais e 8 completas). 6 vieram do Google,
+  todas a partir de 26/09.
+
+================================================================================
+PARTE 10 — CAMPANHAS: ESTRUTURA E NOMENCLATURA
+================================================================================
+
+META: NOMES
+[NN][ARMIGH][JD_HIPICA][OBJETIVO][TIPO][PÚBLICO][CBO|ABO][PÁGINA][EXTRA]
+- OBJETIVO/TIPO: [CADASTRO][LEAD] → formulário (otimiza por Lead no pixel 914761717879073) ·
+  [ENGAJAMENTO][MENSAGEM][FRIO][WHATSAPP] → conversa.
+- Exemplos reais:
+  · [01][ARMIGH][JD_HIPICA][ENGAJAMENTO][MENSAGEM][FRIO][WHATSAPP][CBO][INTERESSES]
+  · [10][ARMIGH][JD_HIPICA][CADASTRO][LEAD][P-ADVANTAGE][CBO][PAGINA A]
+  · [13][ARMIGH][JD_HIPICA][CADASTRO][LEAD][P-ADVANTAGE][ABO][PAGINA A][videos com faixas]
+  · [14][ARMIGH][JD_HIPICA][CADASTRO][LEAD][P-ADVANTAGE][ABO][PAGINA A][VIDEOS COM FAIXA]
+- Conjunto da [14], como exemplo de padrão:
+  "00 | P-ADVANTAGE + SUG. RENDA ALTA + LOC. ALTO PADRAO CAMPINAS E REGIAO | 25-60 | H-M | CBO | PAGINA A"
+- Histórico: 14 campanhas no padrão [ARMIGH][JD_HIPICA]. Orçamentos entre R$ 20 e R$ 80/dia por
+  conjunto. Na [14], cerca de R$ 130/dia em out/26. Campanha 10 = CBO escala; 11 = ABO teste.
+
+CRIATIVOS
+- Nome: ADVnn_ARMIGH_CP_JD HIPICA_<GANCHO EM CAIXA ALTA>_<duração m.ss>, por exemplo
+  ADV41_ARMIGTH_CP_JD HIPICA_PARA QUEM SABE_0.37. CP = captação.
+- Existem três grafias erradas no histórico (ARMIGH, ARMIGTH, ARMGTH). Sempre agrupar as três antes
+  de somar resultados. Para novos, padronizar em ARMIGH.
+- Os vídeos COM FAIXA (padrão desde 23/07) são as versões ADV39–ADV51, as mesmas peças dos ADV04,
+  05, 10, 18, 19, 23, 29, 35, 37 etc. com faixas:
+  · faixa de cima: "Parcelas a partir de R$ 4.591,07";
+  · faixa de baixo: "Agende sua visita no plantão do empreendimento.";
+  · retângulos de ponta a ponta, azul #0c334f, Poppins Bold branco;
+  · a faixa nunca pode cobrir a legenda do vídeo.
+  Se a parcela mudar, é preciso refazer as faixas. A skill de edição está em
+  painel-clientes/skills/faixas-jardim-hipica.txt.
+- Ganchos que mais funcionaram: preço/valor ("Quanto Vale"), escassez ("Quase Metade"), investimento
+  e localização ("8km de Viracopos"), lago e estilo de vida ("Já Pensou", "Lago Particular").
+
+GOOGLE: NOMES E ESTRUTURA
+- [01][GOOGLE][ARMIGH][JD_HIPICA][SEARCH][BRANDING TERMS]: grupos "00 | MARCA JARDIM HIPICA",
+  "00 | MARCA ARMIGH" e "00 | MORAR EM INDAIATUBA". Maximizar cliques, CPC teto R$ 3.
+- [02][GOOGLE][ARMIGH][JD_HIPICA][SEARCH][PRODUTO]: grupos "Lote / Terreno Indaiatuba",
+  "Condomínio Fechado / Loteamento" e "Marca Jardim Hípica". Maximizar conversões, sem tCPA nas
+  primeiras semanas.
+- Planejado e não criado: [02]/[03] NAO MARCA separando Indaiatuba e região (Campinas, Vinhedo,
+  Itatiba, Hortolândia, Jundiaí, Valinhos, Salto, Sumaré, Louveira, Americana, Monte Mor) de SP
+  Capital (teste de 30 dias, ângulo "sair de SP").
+- Correspondência: frase e exata, nunca ampla.
+- Negativas: minha casa minha vida, mcmv, cdhu, popular, barato, leilão, aluguel, alugar, locação,
+  chácara, sítio, fazenda, rural, apartamento, kitnet, planta baixa, projeto de casa, curso, emprego,
+  vaga, prefeitura, IPTU, mapa, cep. Geo: Petrolina, Fortaleza, Bahia, Nordeste.
+- Keywords de produto (exemplos): "lote em condominio fechado indaiatuba", "loteamento fechado
+  indaiatuba", "terreno a venda indaiatuba", "comprar terreno indaiatuba", "lote parcelado
+  indaiatuba", "condominio alto padrao indaiatuba", "terreno para construir casa indaiatuba".
+- Títulos de RSA (30 caracteres): Lotes em Indaiatuba · Condomínio de Alto Padrão · Lotes a Partir de
+  250m² · A 8km de Viracopos · Lago Natural e Área Verde · Entrada em Até 3x Sem Juros · Saldo em Até
+  120 Meses · Direto com a Loteadora · 3ª Melhor Cidade do Brasil · Agende Sua Visita.
+  Path com no máximo 15 caracteres.
+
+================================================================================
+PARTE 11 — DIVISÃO DE VERBA: o que já foi definido
+================================================================================
+
+- Google: R$ 2.000/mês (R$ 66/dia) aprovado. Concentrar no Produto (lote/condomínio em Indaiatuba e
+  região). Branding é barato (R$ 1–6/dia) e só captura quem já busca a marca.
+- Divisão sugerida para o Search (02/08): cerca de 70% Indaiatuba + região e cerca de 30% SP Capital,
+  só depois que a regional estabilizar.
+- Meta: priorizar campanhas de LEAD, que levam ao formulário. As de MENSAGEM custam R$ 17 por conversa,
+  mas não qualificam, e por isso ficam fora do resultado principal (histórico de teste).
+  Foco geográfico: Indaiatuba, Campinas e região, alto padrão (renda alta). SP capital como teste.
+- Como decidir a divisão: compare custo por INTERESSADO EM VISITA e custo por pessoa que DEIXOU
+  TELEFONE por canal no mesmo período, não o CPL da plataforma. Não conclua nada com menos de cerca de
+  15–20 entradas por canal. Até a ATV213 ficar pronta, lembre que o Google está subestimado depois
+  de 07/10.
+- Benchmarks (todo o período): Meta, R$ 35,93 por entrada e R$ 178,55 por interessado em visita.
+  Google, R$ 115,68 por entrada (subestimado) e R$ 162,47 por conversão reportada.
+
+================================================================================
+PARTE 12 — REGRAS DO RAFAEL E ARMADILHAS
+================================================================================
+
+1. NUNCA modificar https://britomidiascompany-stack.github.io/jardim-hipica/alteracoes/ (é o documento
+   enviado ao Pedro). Páginas novas vão em pastas novas (/alteracoes-3/ etc.). Também não sobrescrever
+   o index.html da raiz do repo jardim-hipica (relatório de criativos).
+2. Não trocar a URL do formulário YAY.
+3. Análise de lead usa SÓ o YAY Forms. O CRM DataCrazy conectado não é deste cliente.
+4. Material para o cliente não leva raciocínio estratégico interno.
+5. Documentos e páginas seguem a identidade Brito Mídias: roxo #7C3AED, Poppins, hero escuro com grid.
+6. Tarefas para o Gabriel seguem o padrão:
+   - Nome: [ATV###] DESCRIÇÃO EM CAIXA ALTA COMEÇANDO POR VERBO | JARDIM HÍPICA [00X].
+     O ATV é um contador global: pegue o maior número da lista 901113754557, incluindo as fechadas.
+     O [00X] é por cliente; o próximo é [009].
+   - Descrição: Objetivo / Contexto / Etapas numeradas / Mensagens prontas em bloco de código /
+     Resultado esperado.
+   - O Gabriel comenta o resultado na tarefa e avisa no WhatsApp.
+7. Fórmulas de Sheets com ";".
+8. Leads de teste ("Teste", "TESTE ATVxxx - ignorar", "João Silva" com o telefone de exemplo do
+   formulário) contaminam a base. Excluir sempre, colocando o Response ID em EXCLUIR TESTES.
+9. A conta Meta tem nome de outra empresa e é compartilhada: filtre por [ARMIGH][JD_HIPICA].
+10. Copy sem travessão.
+11. As contas Meta e Google são pré-pagas. Gasto zerado de repente geralmente é falta de saldo.
+
+================================================================================
+PARTE 13 — PENDÊNCIAS EM ABERTO (11/11/2026)
+================================================================================
+
+1. ATV213: o fluxo n8n ainda não gravou nenhuma linha na aba "YAY FORMS COMPLETO (API)". Cobrar o
+   Gabriel e conferir se as UTMs estão nos anúncios do Meta e no modelo de rastreamento do Google.
+   Depois, refazer a BASE YAY a partir da aba da API.
+2. Mídia parada: o último dado do Meta é de 18/10 e o Google quase não gasta desde 04/11. Conferir
+   saldo e status das campanhas e decidir a retomada e a verba (tarefas 096, 097 e 098 do Rafael).
+3. Confirmar o corte de quem vê a tela da parcela (abaixo de 35k) e se o aviso de lead qualificado no
+   grupo do WhatsApp (ATV201) está funcionando.
+4. Rastreamento: resolver as duas fontes de Lead no Meta e os dois caminhos de conversão no Google
+   (auditoria JH-01 e JH-13). Idealmente, mandar e-mail e telefone no evento (CAPI) para melhorar a
+   correspondência.
+5. Google: subir a separação Indaiatuba/região × SP Capital, se a verba permitir. Revisar os termos
+   de pesquisa e negativar.
+6. Criativos: padronizar o nome em ARMIGH. Produzir novos ganchos a partir dos campeões (ADV12, ADV19,
+   ADV04, ADV18, ADV23).
+7. Site: confirmar se o Pedro aplicou as Alterações 2 (lago + implantação).
+8. Renomear a ATV132 de [001] para [003] no ClickUp (só organização).
+
+================================================================================
+PARTE 14 — ROTEIROS PRONTOS (o que pedir ao Claude)
+================================================================================
+
+A) ANÁLISE DE RESULTADO
+"Leia a planilha 1QH3ETTFBsZ8evbX05KRjcG2qvFIqNhohqNi3NbYsF5Y (abas DADOS META ADS, DADOS GOOGLE ADS,
+BASE YAY META, BASE YAY GOOGLE, Funil Meta, Funil Google) e me dê, para o período DD/MM a DD/MM, por
+canal: investimento, cliques, entradas no formulário, telefones, interessados em visita, custo por
+entrada e custo por interessado em visita. Compare com o período anterior de mesmo tamanho e aponte
+3 ações. Diga as ressalvas de rastreamento."
+
+B) DIVISÃO DE VERBA
+"Com base no resultado dos últimos 30 dias e nas regras da Parte 11 deste repasse, proponha a divisão
+de R$ X/mês entre Meta (lead) e Google (produto/branding), com orçamento diário por campanha e o
+critério para remanejar daqui a 14 dias."
+
+C) CAMPANHA NOVA NO META
+"Monte a estrutura (nome no padrão, objetivo Cadastro/Lead otimizando por Lead no pixel
+914761717879073, público, região, idade, orçamento, criativos ADV com faixa, URL do site com as UTMs
+da ATV213) de uma campanha nova do Jardim Hípica focada em [região]. Me entregue como checklist para
+subir no Gerenciador."
+
+D) CAMPANHA OU AJUSTE NO GOOGLE
+"Revise os termos de pesquisa da aba DADOS GOOGLE ADS TERMOS. Liste o que negativar, o que virar
+palavra-chave exata e os grupos que estão gastando sem conversão."
+
+E) CRIATIVOS
+"Agrupe os anúncios da aba DADOS META ADS pelo número ADV, juntando as grafias ARMIGH/ARMIGTH/ARMGTH,
+e ranqueie por investimento, CTR, CPC e leads do pixel no período X. Sugira quais pausar e quais
+ganchos reeditar."
+
+F) TAREFA PARA O GABRIEL
+"Crie no ClickUp (lista 901113754557) uma tarefa no padrão [ATV###] ... | JARDIM HÍPICA [009] para
+[objetivo], com contexto, etapas, mensagens em bloco de código e resultado esperado."
+
+G) REPORTE PARA O MARCOS
+"Liste as pessoas que entraram no formulário desde DD/MM com telefone e renda ≥ 20k (ou que aceitaram
+a parcela), com link wa.me e quando querem visitar, no formato do grupo." (Uso interno: dados
+pessoais.)

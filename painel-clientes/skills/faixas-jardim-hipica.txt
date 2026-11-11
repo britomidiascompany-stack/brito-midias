@@ -1,0 +1,156 @@
+GUIA — Faixas nos vídeos de anúncio do Jardim Hípica (Brito Mídias)
+Arquivo auto-contido: cole este link no Claude Code junto com o vídeo vertical e peça "coloca as faixas no padrão do Jardim Hípica".
+Requer ffmpeg + Python (Pillow, numpy) e a fonte Poppins Bold.
+
+---
+name: faixas-jardim-hipica
+description: Adiciona duas faixas horizontais (topo e rodapé) nos vídeos verticais de anúncio do Jardim Hípica — uma faixa em cima com o texto de parcelas e uma faixa embaixo com a chamada para agendar visita, sem cobrir as legendas/títulos que já existem no vídeo. Use SEMPRE que o usuário mandar um vídeo vertical (1080x1920) do Jardim Hípica e pedir para "colocar faixa", "adicionar tarja", "colocar parcelas a partir de", "colocar agende sua visita", ou pedir para editar o vídeo no mesmo padrão dos anúncios anteriores.
+---
+
+# Faixas de anúncio — Jardim Hípica
+
+## O que é isso
+
+Todo vídeo de anúncio vertical (1080×1920) do Jardim Hípica recebe duas faixas sólidas coladas nas bordas do vídeo, como uma "moldura" retangular de ponta a ponta (não é uma pastilha/botão arredondado, é uma faixa cobrindo a largura toda):
+
+- **Faixa de cima**: colada na borda superior, com o texto `Parcelas a partir de R$ 4.591,07` (ou o valor que o usuário passar).
+- **Faixa de baixo**: colada na borda inferior, com o texto `Agende sua visita no plantão do empreendimento.` (ou o texto que o usuário passar).
+
+**Estilo visual:**
+- Cor de fundo da faixa: **`#0c334f`** (azul escuro do logo Jardim Hípica) — sempre essa cor exata, a menos que o usuário informe outra.
+- Texto: **branco**, fonte **Poppins Bold**, centralizado.
+- Faixa retangular, cantos retos, largura 100% do vídeo (1080px).
+- Uma leve sombra escura (blur) na borda interna da faixa ajuda a destacá-la do vídeo por trás — opcional, mas fica mais bonito.
+- Cada faixa deve caber preferencialmente **em uma linha só**. Se o texto não couber legível em uma linha, quebra em duas linhas (reduza o tamanho da fonte antes de quebrar linha, teste primeiro reduzir a fonte).
+
+## A regra mais importante: NUNCA cobrir legenda
+
+Cada vídeo desses tem textos animados (títulos, legendas estilo TikTok, ou até um "carimbo" de câmera) que aparecem em posições diferentes — às vezes bem perto do topo, às vezes bem perto da base. **Antes de aplicar a faixa final, você precisa mapear onde esses textos aparecem no vídeo específico**, porque a posição muda de vídeo para vídeo. Não existe um valor fixo de altura de faixa que sirva para todos os vídeos.
+
+### Passo a passo obrigatório
+
+1. **Descubra a resolução e duração do vídeo:**
+   ```bash
+   ffprobe -v error -select_streams v:0 -show_entries stream=width,height,r_frame_rate -show_entries format=duration -of default=noprint_wrappers=1 "video.mp4"
+   ```
+   (Os vídeos do Jardim Hípica são todos 1080x1920.)
+
+2. **Extraia frames de amostra ao longo do vídeo inteiro** (a cada ~4 a 6 segundos, cobrindo do início ao fim):
+   ```bash
+   for t in 1 6 12 18 24 30 36; do
+     ffmpeg -v error -ss $t -i "video.mp4" -frames:v 1 "frame_${t}.jpg" -y
+   done
+   ```
+
+3. **Olhe cada frame extraído** (use a ferramenta de leitura de imagem) e observe:
+   - Existe algum texto que aparece **perto do topo** (menos de ~13% da altura, ou seja, menos de ~250px em 1920px)? Se sim, anote em que altura (pixel) o texto começa.
+   - Existe algum texto (legenda estilo subtítulo, título, ou até timestamp de câmera) que aparece **perto da base** (mais de ~85% da altura, ou seja, mais de ~1630px em 1920px)? Se sim, anote em que altura ele termina.
+
+   Dica: para medir com precisão, dá pra rodar um script rápido em Python (com Pillow + numpy) que varre linhas de pixels muito claros (texto branco) nas regiões de topo/base e reporta a faixa exata em pixels — mas conferir visualmente os frames também funciona bem, só que com mais atenção.
+
+4. **Defina a altura de cada faixa com folga de segurança (mínimo ~20-40px de margem):**
+   - **Faixa de cima padrão**: `y0=0` até `y1=176` (9,2% da altura, ~176px em 1920px). Use esse valor se nenhum texto aparecer antes dos 176px.
+   - **Se houver título que começa antes de ~200px do topo** (isso aconteceu em vários vídeos com títulos grandes tipo "VIVER é diferente" ou "localização estratégica"): **reduza a faixa de cima** para `y0=0` até `y1=130` (6,8%), o que dá folga de ~20-25px para textos que começam por volta de 150-180px. Ajuste a fonte da faixa para um tamanho um pouco menor (a faixa fica mais fina).
+   - **Faixa de baixo padrão**: `y0=1712` até `y1=1920` (89,2% até 100%). Use esse valor se a legenda mais baixa do vídeo terminar antes de ~1690px.
+   - **Se houver legenda estilo "subtítulo" bem baixa** (isso aconteceu em vídeos com pessoa falando em pé, onde a legenda de fala fica numa faixa fixa por volta de 86-89% da altura): **desça a faixa de baixo** para `y0=1750` até `y1=1920` (91,1% até 100%), garantindo folga de pelo menos ~35-40px acima do texto mais baixo detectado.
+   - Esses dois exemplos (faixa de cima reduzida, faixa de baixo descida) não são as únicas opções — o objetivo é sempre ter uma folga visível entre o texto do vídeo e a faixa. Ajuste os números conforme o que você observar nos frames.
+
+5. **Depois de decidir os números, gere a imagem de overlay** (ver script Python abaixo) e **componha sobre 2-3 frames de amostra antes de renderizar o vídeo inteiro**, para confirmar visualmente que não há sobreposição. Só depois disso renderize o vídeo completo.
+
+## Fonte Poppins
+
+O texto usa **Poppins Bold**. Procure primeiro se já existe um `.ttf` da Poppins na máquina (por exemplo em cache do CapCut, Adobe, ou pasta de fontes do sistema):
+```bash
+find / -iname "*poppins*bold*.ttf" 2>/dev/null
+find ~/Library/Fonts /Library/Fonts -iname "*poppins*" 2>/dev/null
+```
+Se não encontrar, baixe a fonte Poppins (Google Fonts, gratuita) e use o arquivo `Poppins-Bold.ttf`.
+
+## Script para gerar a imagem da faixa (overlay transparente)
+
+Salve como `make_overlay.py` e ajuste `TOP_TEXT`, `BOT_TEXT`, `TOP_Y0/TOP_Y1`, `BOT_Y0/BOT_Y1` e `FONT` conforme decidido no passo 4:
+
+```python
+#!/usr/bin/env python3
+from PIL import Image, ImageDraw, ImageFont, ImageFilter
+
+W, H = 1080, 1920
+FONT = "/caminho/para/Poppins-Bold.ttf"
+BLUE = (12, 51, 79, 255)      # #0c334f — cor oficial da faixa
+WHITE = (255, 255, 255, 255)
+OUT = "overlay.png"
+
+# ajuste estes 4 valores conforme o mapeamento de legendas do vídeo específico
+TOP_TEXT = "Parcelas a partir de R$ 4.591,07"
+BOT_TEXT = "Agende sua visita no plantão do empreendimento."
+TOP_Y0, TOP_Y1 = 0, 176        # padrão; use 0-130 se houver título muito alto
+BOT_Y0, BOT_Y1 = 1712, 1920    # padrão; use 1750-1920 se houver legenda muito baixa
+
+img = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+draw = ImageDraw.Draw(img)
+
+def fit_font(text, max_w, hi, lo):
+    """maior fonte (<=hi) que cabe em max_w numa linha só; senão usa lo e quebra em 2 linhas"""
+    for s in range(hi, lo - 1, -1):
+        f = ImageFont.truetype(FONT, s)
+        if draw.textbbox((0, 0), text, font=f)[2] <= max_w:
+            return f, s, True
+    return ImageFont.truetype(FONT, lo), lo, False
+
+def band(text, font, y0, y1, edge):
+    # sombra suave na borda interna da faixa
+    shadow = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    sd = ImageDraw.Draw(shadow)
+    if edge == 'bottom':
+        sd.rectangle([0, y1 - 4, W, y1 + 26], fill=(0, 0, 0, 120))
+    else:
+        sd.rectangle([0, y0 - 26, W, y0 + 4], fill=(0, 0, 0, 120))
+    img.alpha_composite(shadow.filter(ImageFilter.GaussianBlur(10)))
+    # faixa sólida full-width
+    draw.rectangle([0, y0, W, y1], fill=BLUE)
+    # texto centralizado
+    ascent, descent = font.getmetrics()
+    bbox = draw.textbbox((0, 0), text, font=font)
+    tw = bbox[2] - bbox[0]
+    th = ascent + descent
+    tx = (W - tw) // 2 - bbox[0]
+    ty = y0 + ((y1 - y0) - th) // 2
+    draw.text((tx, ty), text, font=font, fill=WHITE)
+
+tf, ts, _ = fit_font(TOP_TEXT, max_w=W - 120, hi=52, lo=28)
+band(TOP_TEXT, tf, TOP_Y0, TOP_Y1, edge='bottom')
+
+bf, bs, _ = fit_font(BOT_TEXT, max_w=W - 100, hi=46, lo=30)
+band(BOT_TEXT, bf, BOT_Y0, BOT_Y1, edge='top')
+
+img.save(OUT)
+print(f"TOP  font={ts}  y={TOP_Y0}-{TOP_Y1}")
+print(f"BOT  font={bs}  y={BOT_Y0}-{BOT_Y1}")
+```
+
+Requer Pillow: `pip install Pillow` (rode num venv se o Python do sistema bloquear instalação global).
+
+## Renderização final (ffmpeg)
+
+Depois de gerar `overlay.png` e confirmar visualmente sobre frames de amostra, renderize o vídeo final compondo o overlay sobre o vídeo original, mantendo o áudio original:
+
+```bash
+ffmpeg -y -i "video_original.mp4" -i "overlay.png" \
+  -filter_complex "[0:v][1:v]overlay=0:0:format=auto[v]" \
+  -map "[v]" -map "0:a" \
+  -c:v libx264 -crf 18 -preset medium -pix_fmt yuv420p \
+  -c:a copy -movflags +faststart \
+  "video_final_COM_FAIXAS.mp4"
+```
+
+## Conferência final
+
+Depois de renderizar, sempre extraia 1-2 frames do vídeo final e olhe visualmente antes de considerar concluído:
+```bash
+ffmpeg -v error -ss 10 -i "video_final_COM_FAIXAS.mp4" -frames:v 1 "check.jpg" -y
+```
+Confirme que: (1) as faixas cobrem a largura toda, coladas nas bordas certas, (2) a cor está exatamente `#0c334f`, (3) nenhuma legenda do vídeo está cortada ou coberta.
+
+## Dica de confiabilidade
+
+Se for processar **vários vídeos de uma vez**, prefira renderizar **um de cada vez** (sequencialmente), especialmente se algum vídeo for mais longo (acima de ~60-90 segundos). Rodar muitos `ffmpeg` em paralelo nessa tarefa já causou falha silenciosa de gravação do arquivo final em alguns testes — reprocessar um vídeo por vez é mais lento, mas mais confiável. Sempre confira se o arquivo de saída existe e tem tamanho coerente logo depois do render.
