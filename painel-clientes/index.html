@@ -202,6 +202,13 @@
   .sidebar-foot{padding:16px 22px;font-size:11px;line-height:1.6;color:rgba(255,255,255,.35);
     border-top:1px solid rgba(255,255,255,.08);margin-top:auto}
 
+  .snav-item.sub{margin-left:14px;width:calc(100% - 14px);padding:8px 12px;font-size:12.5px;font-weight:400;color:rgba(255,255,255,.6)}
+  .snav-item.sub.active{font-weight:600;color:#fff}
+  .grid.grid-est{grid-template-columns:repeat(auto-fill,minmax(340px,1fr))}
+  .scard{text-decoration:none}
+  .scard p{font-size:13px;font-weight:400;color:var(--cinza);line-height:1.55;margin-bottom:12px}
+  .scard-ex{font-size:12px;color:var(--cinza);margin-bottom:4px}
+
   .content{flex:1;min-width:0}
   .topbar{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;
     padding:32px 28px 0;max-width:1100px;margin:0 auto}
@@ -214,6 +221,7 @@
     .sidebar nav{display:flex;flex-wrap:wrap;gap:6px;padding:10px 16px 16px}
     .snav-label{display:none}
     .snav-item{width:auto}
+    .snav-item.sub{margin-left:0;width:auto}
   }
 </style>
 </head>
@@ -1594,6 +1602,18 @@ const EMPRESA = {
   ]
 };
 
+const ESTRATEGIAS = [
+  {
+    id: "negocio-local-seguidores-mensagens",
+    nicho: "Negócios Locais",
+    titulo: "Seguidores + Mensagens para negócio local",
+    resumo: "Para negócio local que quer crescer em seguidores e, ao mesmo tempo, manter campanha de mensagens (WhatsApp). A mensagem traz o contato de hoje; a distribuição de conteúdo constrói o público que vai mandar mensagem amanhã. Campanhas em sequência: Seguidores (C1) → Conteúdo (C2) e Depoimentos (C3) → Mensagens, com uma campanha de alcance por fora.",
+    tags: ["Meta Ads", "Seguidores", "Mensagens"],
+    exemplo: "CEVEPE",
+    url: "https://britomidiascompany-stack.github.io/cevepe/direcionamento-meta/#estrategia"
+  }
+];
+
 const NAV_ITEMS = [
   {section: "EMPRESA"},
   {id: "empresa", label: "Brito Mídias", view: "empresa"},
@@ -1604,9 +1624,13 @@ const NAV_ITEMS = [
   {id: "inativos", label: "Inativos", filter: c => c.status === "inativo"},
   {section: "POR NICHO"},
   {id: "cat-negocios-locais", label: "Negócios Locais", filter: c => (c.categorias||[]).includes("Negócios Locais")},
+  {id: "est-negocios-locais", label: "Estratégias", sub: true, nicho: "Negócios Locais"},
   {id: "cat-infoprodutos", label: "Infoprodutos", filter: c => (c.categorias||[]).includes("Infoprodutos")},
+  {id: "est-infoprodutos", label: "Estratégias", sub: true, nicho: "Infoprodutos"},
   {id: "cat-b2b", label: "B2B", filter: c => (c.categorias||[]).includes("B2B")},
-  {id: "cat-ecommerce", label: "E-commerce", filter: c => (c.categorias||[]).includes("E-commerce")}
+  {id: "est-b2b", label: "Estratégias", sub: true, nicho: "B2B"},
+  {id: "cat-ecommerce", label: "E-commerce", filter: c => (c.categorias||[]).includes("E-commerce")},
+  {id: "est-ecommerce", label: "Estratégias", sub: true, nicho: "E-commerce"}
 ];
 
 let activeNav = "todos";
@@ -1618,6 +1642,10 @@ function renderSidebar(){
     if(item.section) return `<div class="snav-label">${esc(item.section)}</div>`;
     if(item.view){
       return `<button class="snav-item${inEmpresa?' active':''}" data-nav="${item.id}"><span>${esc(item.label)}</span></button>`;
+    }
+    if(item.sub){
+      const ne = ESTRATEGIAS.filter(e => e.nicho === item.nicho).length;
+      return `<button class="snav-item sub${(!inEmpresa && item.id===activeNav)?' active':''}" data-nav="${item.id}"><span>${esc(item.label)}</span><span class="n">${ne}</span></button>`;
     }
     const n = CLIENTES.filter(item.filter).length;
     return `<button class="snav-item${(!inEmpresa && item.id===activeNav)?' active':''}" data-nav="${item.id}">
@@ -1651,6 +1679,9 @@ document.getElementById('search').addEventListener('input', e => {
 function renderGrid(){
   renderSidebar();
   const navItem = NAV_ITEMS.find(i => i.id === activeNav) || NAV_ITEMS.find(i => i.id === "todos");
+  if(navItem.sub){ renderEstrategias(navItem); return; }
+  gridEl.classList.remove('grid-est');
+  emptyEl.textContent = 'Nenhum cliente encontrado.';
   homeTitleEl.textContent = navItem.label;
   homeLabelEl.textContent = activeNav === "todos" ? "GERAL" : (activeNav.startsWith("cat-") ? "POR NICHO" : "STATUS");
 
@@ -1663,6 +1694,32 @@ function renderGrid(){
   gridEl.innerHTML = filtered.map(cardHtml).join('');
   emptyEl.style.display = filtered.length ? 'none' : 'block';
   countEl.textContent = `${filtered.length} cliente(s)`;
+}
+
+function estrategiaCardHtml(e){
+  return `
+  <a class="ccard scard" href="${esc(e.url)}" target="_blank" rel="noopener">
+    <div class="tags" style="margin-bottom:12px">${(e.tags||[]).map(t => `<span class="status-pill">${esc(t)}</span>`).join('')}</div>
+    <h2>${esc(e.titulo)}</h2>
+    <p>${esc(e.resumo)}</p>
+    ${e.exemplo ? `<div class="scard-ex">Aplicada em: <b>${esc(e.exemplo)}</b></div>` : ''}
+    <div class="entrar">Abrir estratégia →</div>
+  </a>`;
+}
+
+function renderEstrategias(navItem){
+  homeTitleEl.textContent = 'Estratégias · ' + navItem.nicho;
+  homeLabelEl.textContent = 'POR NICHO';
+  const lista = ESTRATEGIAS.filter(e => {
+    if(e.nicho !== navItem.nicho) return false;
+    const blob = (e.titulo+' '+e.resumo+' '+(e.tags||[]).join(' ')+' '+(e.exemplo||'')).toLowerCase();
+    return !query || blob.includes(query);
+  });
+  gridEl.classList.add('grid-est');
+  gridEl.innerHTML = lista.map(estrategiaCardHtml).join('');
+  emptyEl.textContent = 'Nenhuma estratégia cadastrada ainda neste nicho.';
+  emptyEl.style.display = lista.length ? 'none' : 'block';
+  countEl.textContent = `${lista.length} estratégia(s)`;
 }
 
 function contasHtml(c){
