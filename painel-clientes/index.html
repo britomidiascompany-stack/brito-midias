@@ -432,7 +432,7 @@
   <div class="epage" id="epage">
     <div class="hero cpage-hero">
       <div class="wrap">
-        <button class="voltar" onclick="goProject()">← Voltar ao projeto</button>
+        <button class="voltar" id="ep-back" onclick="goProject()">← Voltar ao projeto</button>
         <div class="cpage-head">
           <div>
             <h2 id="ep-nome">Perfil Estratégico</h2>
@@ -1606,11 +1606,170 @@ const ESTRATEGIAS = [
   {
     id: "negocio-local-seguidores-mensagens",
     nicho: "Negócios Locais",
-    titulo: "Seguidores + Mensagens para negócio local",
-    resumo: "Para negócio local que quer crescer em seguidores e, ao mesmo tempo, manter campanha de mensagens (WhatsApp). A mensagem traz o contato de hoje; a distribuição de conteúdo constrói o público que vai mandar mensagem amanhã. Campanhas em sequência: Seguidores (C1) → Conteúdo (C2) e Depoimentos (C3) → Mensagens, com uma campanha de alcance por fora.",
-    tags: ["Meta Ads", "Seguidores", "Mensagens"],
+    titulo: "Seguidores, aquecimento e mensagens para negócio local",
+    resumo: "Para negócio local que quer novos seguidores, aquecer o público que já tem, campanhas de mensagens direto no WhatsApp e tem alguma promoção ou venda direta rodando. Quatro campanhas empurram a pessoa pelo caminho — Seguidores (C1) → Conteúdo (C2) e Depoimentos (C3) → Mensagens — com a Promoção (alcance) por fora.",
+    tags: ["Meta Ads", "Seguidores", "Aquecimento", "Mensagens", "Promoção"],
     exemplo: "CEVEPE",
-    url: "https://britomidiascompany-stack.github.io/cevepe/direcionamento-meta/#estrategia"
+    perfil: {
+      intro: "Estratégia da Brito Mídias para <b>negócio local</b> que precisa, ao mesmo tempo, crescer o Instagram, aquecer quem já conhece o negócio, gerar conversas no WhatsApp e divulgar uma promoção. É um método geral — o <b>CEVEPE</b> (clínica veterinária) é o exemplo em que foi montado e testado, e o documento original dele está linkado no fim da página. Os valores de verba e as referências de custo citados são do CEVEPE, só pra dar ordem de grandeza: ajuste pro negócio de cada cliente.",
+      secoes: [
+      {
+        titulo: "A lógica da estratégia",
+        html: `<p><b>Mensagem traz o contato de hoje. Distribuição de conteúdo constrói o público que vai mandar mensagem amanhã.</b> A conta passa a fazer as duas coisas ao mesmo tempo.</p>
+                <div style="overflow-x:auto"><svg viewBox="0 0 900 300" role="img" aria-label="Caminho da pessoa: não conhece, segue, confia, chama no WhatsApp. Seguidores empurra o primeiro passo, Conteúdo e Depoimentos o segundo, Mensagens o terceiro, e a Promoção corre por fora" style="width:100%;min-width:720px;height:auto;display:block"><defs><marker id="arrEst" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#A78BFA"/></marker></defs><text x="10" y="16" font-family="Poppins, sans-serif" font-size="10" font-weight="600" letter-spacing="1.2" fill="#5B5566">CAMINHO DA PESSOA</text><rect x="10" y="28" width="190" height="64" rx="12" fill="#FAF9FC" stroke="#E7E3EE" stroke-width="1.5"/><text x="105" y="56.0" text-anchor="middle" font-family="Poppins, sans-serif" font-size="13" font-weight="600" fill="#141018">Ainda não conhece</text><text x="105" y="72.0" text-anchor="middle" font-family="Poppins, sans-serif" font-size="11.5" font-weight="400" fill="#5B5566">o negócio</text><rect x="240" y="28" width="190" height="64" rx="12" fill="#FAF9FC" stroke="#E7E3EE" stroke-width="1.5"/><text x="335" y="56.0" text-anchor="middle" font-family="Poppins, sans-serif" font-size="13" font-weight="600" fill="#141018">Segue o perfil</text><text x="335" y="72.0" text-anchor="middle" font-family="Poppins, sans-serif" font-size="11.5" font-weight="400" fill="#5B5566">no Instagram</text><rect x="470" y="28" width="190" height="64" rx="12" fill="#FAF9FC" stroke="#E7E3EE" stroke-width="1.5"/><text x="565" y="56.0" text-anchor="middle" font-family="Poppins, sans-serif" font-size="13" font-weight="600" fill="#141018">Confia no negócio</text><text x="565" y="72.0" text-anchor="middle" font-family="Poppins, sans-serif" font-size="11.5" font-weight="400" fill="#5B5566">já conhece e interage</text><rect x="700" y="28" width="190" height="64" rx="12" fill="#EDE9FE" stroke="#A78BFA" stroke-width="1.5"/><text x="795" y="56.0" text-anchor="middle" font-family="Poppins, sans-serif" font-size="13" font-weight="600" fill="#141018">Chama no WhatsApp</text><text x="795" y="72.0" text-anchor="middle" font-family="Poppins, sans-serif" font-size="11.5" font-weight="400" fill="#5B5566">contato de venda</text><line x1="202" y1="60" x2="238" y2="60" stroke="#A78BFA" stroke-width="2" marker-end="url(#arrEst)"/><line x1="432" y1="60" x2="468" y2="60" stroke="#A78BFA" stroke-width="2" marker-end="url(#arrEst)"/><line x1="662" y1="60" x2="698" y2="60" stroke="#A78BFA" stroke-width="2" marker-end="url(#arrEst)"/><text x="10" y="126" text-anchor="start" font-family="Poppins, sans-serif" font-size="10" font-weight="600" fill="#5B5566" letter-spacing="1.2">CAMPANHA QUE EMPURRA CADA PASSO</text><line x1="220" y1="134" x2="220" y2="98" stroke="#A78BFA" stroke-width="2"/><rect x="125" y="134" width="190" height="60" rx="12" fill="#7C3AED" stroke="#7C3AED" stroke-width="1.5"/><text x="220" y="160.0" text-anchor="middle" font-family="Poppins, sans-serif" font-size="13" font-weight="600" fill="#FFFFFF">Seguidores (C1)</text><text x="220" y="176.0" text-anchor="middle" font-family="Poppins, sans-serif" font-size="11.5" font-weight="400" fill="#FFFFFF">visitas ao perfil</text><line x1="450" y1="134" x2="450" y2="98" stroke="#A78BFA" stroke-width="2"/><rect x="355" y="134" width="190" height="60" rx="12" fill="#7C3AED" stroke="#7C3AED" stroke-width="1.5"/><text x="450" y="160.0" text-anchor="middle" font-family="Poppins, sans-serif" font-size="13" font-weight="600" fill="#FFFFFF">Conteúdo (C2) e</text><text x="450" y="176.0" text-anchor="middle" font-family="Poppins, sans-serif" font-size="11.5" font-weight="400" fill="#FFFFFF">Depoimentos (C3)</text><line x1="680" y1="134" x2="680" y2="98" stroke="#A78BFA" stroke-width="2"/><rect x="585" y="134" width="190" height="60" rx="12" fill="#7C3AED" stroke="#7C3AED" stroke-width="1.5"/><text x="680" y="160.0" text-anchor="middle" font-family="Poppins, sans-serif" font-size="13" font-weight="600" fill="#FFFFFF">Mensagens</text><text x="680" y="176.0" text-anchor="middle" font-family="Poppins, sans-serif" font-size="11.5" font-weight="400" fill="#FFFFFF">conversas no WhatsApp</text><rect x="10" y="218" width="880" height="44" rx="12" fill="#EDE9FE" stroke="#A78BFA" stroke-width="1.5"/><text x="450" y="244.0" text-anchor="middle" font-family="Poppins, sans-serif" font-size="13" font-weight="600" fill="#141018">Promoção (alcance) — corre por fora e avisa quem estiver em qualquer ponto do caminho</text><text x="450" y="288" text-anchor="middle" font-family="Poppins, sans-serif" font-size="11.5" font-weight="400" fill="#5B5566" font-style="italic">Stories e posts de todo dia, sem custo de anúncio, ajudam depois que a pessoa segue o perfil.</text></svg></div>
+                <p>Cada campanha empurra um passo do caminho. Seguidores leva gente nova da região pro perfil; Conteúdo e Depoimentos mostram o que o negócio faz e os casos que resolve pra quem já interagiu, e é isso que transforma seguidor em alguém que confia; Mensagens chama pro WhatsApp quem já foi aquecido (funciona melhor depois das anteriores). A Promoção corre por fora do caminho.</p>
+                <p>Aqui <b>C1, C2 e C3</b> são as três campanhas de distribuição de conteúdo: <b>C1</b> = Seguidores, <b>C2</b> = Conteúdo, <b>C3</b> = Depoimentos e casos.</p>`
+      },
+      {
+        titulo: "Para quem serve",
+        html: `<p>Negócio local que, ao mesmo tempo:</p>
+                <ul>
+                  <li>quer <b>novos seguidores</b> na região;</li>
+                  <li>quer <b>aquecer o público que já tem</b> (quem segue, interage ou assistiu vídeos);</li>
+                  <li>quer <b>campanhas de mensagens</b> direto pro WhatsApp;</li>
+                  <li>tem alguma <b>promoção ou ação de venda direta</b> rodando (ou prestes a rodar) e precisa que a cidade fique sabendo.</li>
+                </ul>
+                <p>Se o negócio não tem uma promoção no momento, a estratégia continua valendo — a campanha de Promoção simplesmente fica de fora, e a verba vai pras outras (veja "Verba").</p>`
+      },
+      {
+        titulo: "Antes de começar (pré-requisitos)",
+        html: `<ul>
+                  <li><b>Acesso de administrador</b> à conta de anúncios, com permissão pra criar campanha, editar orçamento e ver cobrança.</li>
+                  <li><b>Página, Instagram e WhatsApp</b> acessíveis, e o número de WhatsApp continuar vinculado à página — sem isso os anúncios de mensagem não rodam.</li>
+                  <li><b>Públicos personalizados e listas de clientes</b> visíveis na conta de anúncios.</li>
+                  <li><b>Pagamento / saldo</b> combinado com o cliente (como e quando entram os fundos), pra nenhuma campanha parar por falta de saldo.</li>
+                  <li><b>Perfil do Instagram ativo</b>, com stories e posts diários: eles trabalham sem custo depois que a pessoa segue.</li>
+                  <li><b>Estoque de conteúdo</b>: vídeos de casos e depoimentos de clientes são os que mais funcionam pro público quente.</li>
+                </ul>`
+      },
+      {
+        titulo: "Estrutura das campanhas",
+        html: `<p>Quatro campanhas, cada uma com um objetivo e uma métrica própria:</p>
+                <ul>
+                  <li><b>Mensagens</b> — objetivo de conversas no WhatsApp, orçamento no nível da campanha (CBO).</li>
+                  <li><b>Seguidores (C1)</b> — tráfego, otimizando <b>visitas ao perfil</b> do Instagram; público frio + Advantage; orçamento por conjunto (ABO).</li>
+                  <li><b>Conteúdo (C2) e Depoimentos (C3)</b> — engajamento, otimizando visualização de vídeo (ThruPlay); público quente; CBO. São duas campanhas separadas.</li>
+                  <li><b>Promoção</b> — reconhecimento, otimizando <b>alcance</b>; dois conjuntos (quente e local frio); ABO. Só existe enquanto a ação estiver rodando.</li>
+                </ul>`
+      },
+      {
+        titulo: "Seguidores (C1)",
+        html: `<p>Campanha de visitas ao perfil pra quem <b>ainda não conhece</b> o negócio. O objetivo real é <b>seguidor novo</b>, não a visita.</p>
+                <p><b>Público:</b> a região do negócio (ex.: cidade + 40 km), público automático do Meta, idade sugerida conforme o negócio. <b>Exclua quem já segue</b> (público "IG - Seguidores"). Entrega <b>só no Instagram</b> (Feed, Stories e Reels), sem Facebook, porque o destino é o perfil.</p>
+                <p><b>Quantos anúncios deixar ligados:</b> com verba pequena (no exemplo, R$ 14/dia), de 3 a 6 anúncios. Se só 2 ou 3 estão recebendo a verba, deixe 3 ligados e vá trocando pelos desligados.</p>
+                <p><b>O que observar:</b></p>
+                <ul>
+                  <li><b>Custo por seguidor</b>, e não custo por visita. A campanha otimiza pra visita, então o Meta pode mandar verba pra onde a visita é barata mas ninguém segue.</li>
+                  <li><b>Stories contra os outros posicionamentos.</b> Na nossa experiência com outros clientes, o seguidor que vem pelos Stories costuma sair mais barato. Abra o relatório por posicionamento e compare o custo por seguidor. Se os Stories estiverem melhores, use a regra de valor do conjunto pra priorizar Stories e reduzir Reels e Feed, sem tirar o posicionamento automático.</li>
+                  <li><b>Taxa de visita que vira seguidor.</b> Abaixo de 20%, desconfie primeiro da meta do conjunto e depois do criativo.</li>
+                  <li><b>Criativos de época.</b> Anúncio de data ou campanha sazonal (ex.: Novembro Azul) tem prazo — desligue quando passar.</li>
+                </ul>`,
+        nota: `<b>Atenção à meta do conjunto.</b> No Gerenciador existem duas metas com o mesmo nome, "visitas ao perfil". A que funciona aparece na API como <code>PROFILE_VISIT</code>. A outra, <code>VISIT_INSTAGRAM_PROFILE</code>, traz visita barata que quase não vira seguidor — nunca use. Pra criar um conjunto novo, <b>duplique o que já existe dentro do Gerenciador</b>; não crie do zero nem por ferramenta externa.`
+      },
+      {
+        titulo: "Conteúdo (C2) e Depoimentos (C3)",
+        html: `<p>Aquecem quem <b>já teve algum contato</b> com o perfil. Não pedem nada: só fazem a pessoa conhecer melhor o negócio e confiar.</p>
+                <p><b>Quem recebe (público quente), sempre na região:</b></p>
+                <ul>
+                  <li>quem se envolveu com o Instagram nos últimos 30 dias;</li>
+                  <li>quem assistiu metade de algum vídeo nos últimos 60 dias;</li>
+                  <li>quem viu os anúncios do ano;</li>
+                  <li>quem assistiu 75% de algum vídeo nos últimos 365 dias;</li>
+                  <li>os seguidores.</li>
+                </ul>
+                <p><b>O que entra em cada uma:</b></p>
+                <ul>
+                  <li><b>C2 — Conteúdo:</b> temática mais ampla, que apresenta estrutura, equipe, serviços e onde fica o negócio.</li>
+                  <li><b>C3 — Depoimentos e casos:</b> os dois tipos que mais funcionam — estudo de caso e depoimento de cliente.</li>
+                </ul>
+                <p><b>Quantos ligar:</b> com verba pequena (no exemplo, R$ 6/dia por campanha), 3 anúncios ligados bastam; os outros ficam prontos em reserva pra entrar quando um dos três cansar.</p>
+                <p><b>As duas métricas principais:</b></p>
+                <ul>
+                  <li><b>Frequência:</b> não pode passar de 3 nos últimos 7 dias. Passou, entra um criativo novo no lugar — o público é pequeno e cansa rápido.</li>
+                  <li><b>Retenção:</b> de quem assiste 25% do vídeo, cerca de 30% deve chegar a 95%. Abaixo disso o criativo não está segurando a pessoa (compare as colunas de reprodução de 25% e de 95%).</li>
+                </ul>
+                <p>A métrica secundária é o <b>custo por ThruPlay</b>; no exemplo do CEVEPE ficou entre R$ 0,02 e R$ 0,04 nesse público.</p>`
+      },
+      {
+        titulo: "Mensagens",
+        html: `<p>A campanha que traz o contato de venda. Funciona melhor quando o público já foi aquecido pelas anteriores.</p>
+                <p><b>Público:</b> semelhantes aos seguidores e a quem interage com o Instagram, na região do negócio, com interesses ligados ao que ele vende.</p>
+                <p><b>Os assuntos que funcionam:</b> a regra é concentrar nos <b>1 ou 2 assuntos que trazem a conversa mais barata</b>, ano após ano, e testar outros assuntos aos poucos, <b>um de cada vez</b>. (No CEVEPE, castração e carrapato.)</p>
+                <p><b>Mensagem pronta no WhatsApp:</b> todo anúncio novo abre a conversa com um texto já escrito, diferente por assunto. Assim a recepção vê de que anúncio a pessoa veio sem precisar perguntar. Padrão: <code>Olá! Vi o anúncio sobre [assunto] e quero mais informações.</code> A pessoa pode editar o texto antes de enviar, então não é uma medição exata, mas cobre a maior parte dos contatos.</p>
+                <p><b>O que observar:</b> o <b>custo por conversa iniciada</b>. Defina a referência saudável da conta (no CEVEPE, entre R$ 4 e R$ 5); custo bem acima dela por duas semanas seguidas (no CEVEPE, acima de R$ 7) é sinal de <b>criativo cansado</b> — troque o criativo.</p>`
+      },
+      {
+        titulo: "Promoção (alcance)",
+        html: `<p>Campanha de alcance pra <b>a cidade inteira saber</b> da promoção ou ação (no exemplo, o sorteio da comemoração de 30 anos). Dois conjuntos, com os mesmos anúncios e botão de WhatsApp:</p>
+                <ul>
+                  <li><b>01 Quente</b> — seguidores, quem interagiu com o Instagram, quem assistiu aos vídeos e as listas de clientes. Limite de <b>3 vezes por semana</b>.</li>
+                  <li><b>02 Local frio</b> — a região toda, tirando quem está no conjunto quente. Limite de <b>2 vezes por semana</b>.</li>
+                </ul>
+                <p>Todo criativo novo sobre a promoção entra aqui.</p>
+                <p><b>O que observar:</b> custo por mil pessoas alcançadas em cada anúncio; frequência (não passar de 3 na semana); retenção dos vídeos, pela mesma regra de Conteúdo e Depoimentos.</p>
+                <p><b>Lista de clientes:</b> o conjunto quente usa listas de clientes do negócio. Peça uma lista nova ao cliente e, se possível, atualize todo mês — lista em dia melhora este conjunto e qualquer público parecido criado a partir dela.</p>
+                <p><b>Quando desligar:</b> a campanha perde o sentido depois da ação. Confirme a data exata com o cliente, pause a campanha nesse dia e passe a verba pra Mensagens (ou Google).</p>`
+      },
+      {
+        titulo: "Verba",
+        html: `<p><b>Exemplo — CEVEPE, com promoção ativa (Meta, por dia):</b> Mensagens R$ 20 · Promoção R$ 20 · Seguidores (C1) R$ 14 · Conteúdo e Depoimentos R$ 12 (R$ 6 cada). Total de R$ 66 por dia no Meta, ou seja: cerca de <b>30%</b> Mensagens, <b>30%</b> Promoção, <b>21%</b> Seguidores e <b>18%</b> Conteúdo e Depoimentos. Foi um plano de fim de ano, reforçado com sobra de verba dos meses anteriores.</p>
+                <p><b>Depois que a promoção acaba:</b> a sugestão é manter Mensagens e Seguidores e alternar Conteúdo e Depoimentos conforme houver material novo. Com a verba normal do cliente, não cabem as quatro campanhas ao mesmo tempo.</p>
+                <p><b>Google e Meta:</b> quando o negócio tem demanda de busca (no Google a pessoa já está procurando o serviço; no Meta ela é interrompida), o contato do Google tende a ser mais quente. A recomendação do caso CEVEPE é subir o Google em etapas, enquanto ele conseguir gastar com custo estável, e tirar essa verba do Meta.</p>`
+      },
+      {
+        titulo: "Ritmo de gestão: a cada 4 dias",
+        html: `<p>Avaliar criativo todo dia leva a decisão precipitada: em 48 horas um anúncio pode mudar muito de resultado. O ritmo é olhar <b>a cada 4 dias</b>:</p>
+                <ol>
+                  <li><b>Veja onde a verba foi parar.</b> Em cada campanha, quais anúncios receberam entrega. Anúncio ligado que não recebe verba pode ser desligado.</li>
+                  <li><b>Compare pela métrica certa de cada campanha.</b> Mensagens: custo por conversa. Seguidores: custo por seguidor. Conteúdo e Depoimentos: frequência e retenção. Promoção: custo por mil pessoas alcançadas e frequência.</li>
+                  <li><b>Troque um de cada vez.</b> Desligue o pior e ligue um dos que estão em reserva. Trocar vários juntos impede de saber o que mudou o resultado.</li>
+                  <li><b>Confira os criativos de época.</b> Olhe todos os anúncios ligados e veja se algum fala de mês, data ou promoção que já passou.</li>
+                </ol>`
+      },
+      {
+        titulo: "Nomenclatura e UTMs",
+        html: `<p>Todo post do Instagram tem um código, e todo anúncio carrega o código do post de onde veio. Assim dá pra cruzar o resultado do anúncio com o conteúdo.</p>
+                <ul>
+                  <li><b>Post:</b> <code>POST0001</code> em diante, em ordem de publicação.</li>
+                  <li><b>Formato do anúncio:</b> <code>ADV</code> vídeo, <code>ADC</code> carrossel, <code>ADI</code> imagem. O número identifica o criativo e <b>não muda de uma campanha pra outra</b>.</li>
+                  <li><b>Uso:</b> <code>MSG</code> (mensagens), <code>DIST</code> (distribuição de conteúdo) ou <code>ENG</code> (engajamento/alcance). O mesmo post em campanhas diferentes muda só essa sigla.</li>
+                  <li>O tempo no fim do nome só existe em vídeo.</li>
+                </ul>
+                <p><b>UTMs:</b> todos os anúncios novos levam o mesmo parâmetro de URL; só o <code>source</code> muda de campanha pra campanha, no padrão <code>CLIENTE-MTADS-USO</code>:</p>
+                <ul>
+                  <li>Mensagens: <code>CLIENTE-MTADS-MSG</code></li>
+                  <li>Seguidores (C1): <code>CLIENTE-MTADS-DIST-SEGUIDORES</code></li>
+                  <li>Conteúdo (C2): <code>CLIENTE-MTADS-DIST-CONTEUDO</code></li>
+                  <li>Depoimentos (C3): <code>CLIENTE-MTADS-DIST-DEPOIMENTOS</code></li>
+                  <li>Promoção: <code>CLIENTE-MTADS-ENG</code></li>
+                </ul>
+                <p>Parâmetro completo: <code>src=CLIENTE-MTADS-MSG_{{adset.name}}_{{ad.name}}_{{campaign.name}}_{{campaign.id}}_{{adset.id}}_{{ad.id}}&amp;utm_source=CLIENTE-MTADS-MSG&amp;utm_medium={{adset.name}}&amp;utm_content={{ad.name}}&amp;utm_campaign={{campaign.name}}&amp;utm_term={{campaign.id}}_{{adset.id}}_{{ad.id}}</code></p>
+                <p><b>Planilha de posts:</b> cataloge todos os posts do perfil (uma aba por ano) com o mesmo código usado no nome do anúncio — código, tipo, data, duração, curtidas, comentários, link, legenda e em que tipo de campanha já foi usado — mais uma aba de anúncios com o post de origem e o valor investido.</p>`,
+        nota: `O Meta não deixa editar o campo de UTM depois que o anúncio é criado. Pra trocar a UTM é preciso <b>duplicar o anúncio</b>.`
+      },
+      {
+        titulo: "Rastreamento até o atendimento",
+        html: `<p>Hoje o Meta sabe quem começou uma conversa. Ele não sabe quem foi atendido, quem marcou consulta nem quem comprou. <b>Fechar esse caminho é a melhoria que mais muda o resultado da conta</b> — sem ele não dá pra afirmar se o cliente veio do Google ou do Meta (só a pergunta da recepção no fim do atendimento, e a resposta nem sempre é confiável).</p>
+                <ol>
+                  <li><b>Guardar a origem do contato.</b> Os anúncios já saem com UTM; o atendimento precisa salvar essa origem no cadastro do contato quando a conversa começa.</li>
+                  <li><b>Marcar o que aconteceu.</b> No sistema de atendimento, registrar a etapa que interessa: atendimento realizado, consulta marcada ou venda.</li>
+                  <li><b>Devolver pro Meta e pro Google.</b> Enviar esse evento pela API de Conversões do Meta e pela importação de conversões do Google. Com isso as duas plataformas passam a otimizar pra cliente, e não pra clique ou conversa.</li>
+                </ol>`,
+        nota: `No caso do CEVEPE esse rastreamento <b>não foi concluído</b> (dependia do retorno do suporte do sistema de atendimento). A automação que receberia os avisos ficou na estrutura da agência e não acompanha a conta.`
+      },
+      {
+        titulo: "Exemplo real: CEVEPE",
+        html: `<p>Clínica veterinária com pet shop em Petrolina/PE, no Meta desde 2021 (relatório do Meta disponível de out/2023 a nov/2026) e com a Brito Mídias na gestão desde 2024.</p>
+                <ul>
+                  <li><b>R$ 29.517</b> investidos em Meta Ads de 11/10/2023 a 11/11/2026, com <b>4.291 conversas</b> iniciadas no WhatsApp a partir dos anúncios.</li>
+                  <li>Custo por conversa nas campanhas de mensagem: <b>R$ 4,73 em 2026</b> (era R$ 8,08 em 2024). 83% da verba foi pra mensagens.</li>
+                  <li>A campanha de mensagens com mais história gerou 2.260 conversas a R$ 4,49 cada desde jan/2025.</li>
+                  <li>Estrutura entregue: 5 campanhas (Mensagens, Seguidores, Conteúdo, Depoimentos, Promoção 30 anos), todos os 1.348 posts do Instagram catalogados e anúncios com nome padronizado e UTM.</li>
+                </ul>
+                <p>Documento completo da passagem de conta, com números, anúncios e IDs: <a href="https://britomidiascompany-stack.github.io/cevepe/direcionamento-meta/#estrategia" target="_blank" rel="noopener">Direcionamento Meta Ads · CEVEPE</a>. O cliente aparece também em <b>Clientes → CEVEPE</b>.</p>`
+      }
+      ]
+    }
   }
 ];
 
@@ -1635,6 +1794,8 @@ const NAV_ITEMS = [
 
 let activeNav = "todos";
 let inEmpresa = false;
+let epMode = 'project';
+let currentEstrategiaId = null;
 let query = "";
 
 function renderSidebar(){
@@ -1697,14 +1858,17 @@ function renderGrid(){
 }
 
 function estrategiaCardHtml(e){
+  const abrir = e.perfil ? `onclick="openEstrategia('${e.id}')"` : '';
+  const tag = e.perfil ? 'button' : 'a';
+  const attrs = e.perfil ? abrir : `href="${esc(e.url)}" target="_blank" rel="noopener"`;
   return `
-  <a class="ccard scard" href="${esc(e.url)}" target="_blank" rel="noopener">
+  <${tag} class="ccard scard" ${attrs}>
     <div class="tags" style="margin-bottom:12px">${(e.tags||[]).map(t => `<span class="status-pill">${esc(t)}</span>`).join('')}</div>
     <h2>${esc(e.titulo)}</h2>
     <p>${esc(e.resumo)}</p>
     ${e.exemplo ? `<div class="scard-ex">Aplicada em: <b>${esc(e.exemplo)}</b></div>` : ''}
     <div class="entrar">Abrir estratégia →</div>
-  </a>`;
+  </${tag}>`;
 }
 
 function renderEstrategias(navItem){
@@ -1960,6 +2124,8 @@ function openPerfil(clientId, projectId){
   if(!p || !p.perfilEstrategico) return;
   currentClientId = clientId;
   currentProjectId = projectId;
+  epMode = 'project';
+  document.getElementById('ep-back').textContent = '← Voltar ao projeto';
   const pe = p.perfilEstrategico;
 
   document.getElementById('ep-nome').textContent = 'Perfil Estratégico — ' + p.nome;
@@ -1997,13 +2163,43 @@ function goClient(){
 
 function goProject(){
   document.getElementById('epage').style.display = 'none';
+  if(epMode === 'estrategia'){
+    const e = ESTRATEGIAS.find(x => x.id === currentEstrategiaId);
+    const sub = e && NAV_ITEMS.find(i => i.sub && i.nicho === e.nicho);
+    if(sub) activeNav = sub.id;
+    goHome();
+    return;
+  }
   if(currentClientId && currentProjectId) openProject(currentClientId, currentProjectId);
   else goHome();
+}
+
+function openEstrategia(id){
+  const e = ESTRATEGIAS.find(x => x.id === id);
+  if(!e || !e.perfil) return;
+  currentEstrategiaId = id;
+  epMode = 'estrategia';
+  inEmpresa = false;
+  const sub = NAV_ITEMS.find(i => i.sub && i.nicho === e.nicho);
+  if(sub) activeNav = sub.id;
+
+  document.getElementById('ep-nome').textContent = 'Estratégia — ' + e.titulo;
+  document.getElementById('ep-sub').textContent = 'Estratégias · ' + e.nicho;
+  document.getElementById('ep-back').textContent = '← Voltar às estratégias';
+  document.getElementById('ep-intro').innerHTML = e.perfil.intro || '';
+  document.getElementById('ep-secoes').innerHTML = (e.perfil.secoes || []).map(epSectionHtml).join('');
+
+  ['home','cpage','ppage','bmpage'].forEach(x => document.getElementById(x).style.display = 'none');
+  document.getElementById('epage').style.display = 'block';
+  renderSidebar();
+  window.scrollTo(0,0);
+  history.replaceState(null, '', '#estrategia/' + id);
 }
 
 renderGrid();
 const hash = location.hash.replace('#','').split('/');
 if(hash[0] === 'brito-midias') openEmpresa();
+else if(hash[0] === 'estrategia' && hash[1]) openEstrategia(hash[1]);
 else if(hash[0] && hash[1] && hash[2] === 'perfil') openPerfil(hash[0], hash[1]);
 else if(hash[0] && hash[1]) openProject(hash[0], hash[1]);
 else if(hash[0]) openClient(hash[0]);
