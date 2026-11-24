@@ -14,7 +14,7 @@ description: Sobe campanhas de Meta Ads da Sala Secreta (SST — workshop semana
 
 # Skill: Subir Campanhas SST — Sala Secreta / Marketex
 
-**Sala Secreta**: workshop gratuito semanal (toda quarta, 18h) sobre IA, da **Ana Tex**. Funil de **Cadastros/Leads**.
+**Sala Secreta**: workshop gratuito semanal (toda quarta, 10h30) sobre IA, da **Ana Tex**. Funil de **Cadastros/Leads**.
 Cliente **Marketex** · BM **ANEX BM** `182240426173935`.
 
 > Relatório desse funil = skill `relatorios-sala-secreta-marketex`. Esta aqui é **só pra subir campanha/anúncio**.
@@ -37,7 +37,9 @@ Copy já está **fixa e validada** em `copies.md` (texto único). Se o Rafael pe
 | Instagram | `17841400072450024` · **@anatex** |
 | Pixel | `1117829508632155` · **Pixel Oficial** |
 | Evento de conversão | **Lead** |
-| Landing page | `https://lp.marketex.com.br/sala-secreta-aulas-gratuitas-com-anatex-td` |
+| Página A | `https://lp.marketex.com.br/sala-secreta-aulas-gratuitas-com-anatex-td` |
+| Página B | `https://lp.lucrocomia.com.br/salasecreta/page` |
+| Página C | `https://lp.lucrocomia.com.br/salasecreta/page-2` |
 
 ⚠️ **A ANEX 08 é a conta oficial de subir campanha nova.** Confirmado pelo Rafael em 27/08/26: *"a gente só vai subir campanhas da 08. A 08 é a conta oficial de subir campanhas."*
 A **ANEX 03** tem dezenas de campanhas SST antigas (histórico de 2025/início 2026) — **todas pausadas** exceto a `[03] ... [ADV13-ADV16]` (`120241272474990109`, ainda ativa). **Não criar campanha nova na ANEX 03.** Se precisar mexer numa campanha antiga de lá, confirmar com o Rafael antes.
@@ -52,6 +54,8 @@ Tem **duas** campanhas modelo — uma por página de destino. Sempre subir o cri
 |---|---|---|
 | **A** | `120255073018440196` · `[00] [SST] [CAPTACAO] [CADASTROS] [LEADS] [ADVANTAGE] [VIDEO] [AUTO] [PAGINA A] [CBO] [MODELO]` — PAUSADA | `120255073018480196` · `00 \| P-ADVANTAGE \| HM \| 30-50 \| CBO` — ATIVO |
 | **B** | `120255668870840196` · `[00] [SST] [CAPTACAO] [CADASTROS] [LEADS] [ADVANTAGE] [VIDEO] [AUTO] [PAGINA B] [CBO] [MODELO]` — PAUSADA | `120255668870820196` · `00 \| P-ADVANTAGE \| M \| 30-50 \| CBO \| PAGINA B` — ATIVO |
+
+**Página C não tem campanha modelo própria.** As campanhas [12] e [16] usam o conjunto `01 | P-ADVANTAGE | M | 30-50 | CBO | PAGINA C`.
 
 Se o Rafael não disser qual página, **perguntar** — não assumir A.
 
@@ -87,6 +91,10 @@ Se o Rafael não disser qual página, **perguntar** — não assumir A.
 ### Público — o que o Rafael manda no prompt
 Idade, gênero, localização e segmentos **vêm sempre no prompt na hora de subir**. Não assumir um público fixo.
 
+⚠️ **Regra da idade mínima (confirmada 27/08/26):** sempre que a idade **sugerida** (`age_range`) começar acima de 25 — por exemplo "mulheres de 30 a 55" — a **idade mínima hard** (`age_min`) fica em **25**, não no início da sugestão. `age_range` é só a sugestão pro Advantage+; `age_min`/`age_max` são o piso/teto reais. Pra essa suggestion funcionar de verdade (e não ser ignorada, virando `age_min: 18` por padrão do Meta), sempre mandar junto `targeting_automation.individual_setting: {"age":1,"gender":1}` — sem isso a API aceita o `age_range` mas não aplica, e a idade mínima real cai pra 18.
+
+⚠️ **Nov/26:** ao **editar** um conjunto existente por API, a ferramenta tira o `individual_setting`. Para mudar a idade de conjunto que já roda, fazer **na tela**. Com o Advantage+ ligado, gênero e idade sugerida são só sugestão, e o Meta não aceita idade máxima fixa abaixo de 65.
+
 **Referência do que está rodando hoje** (conjuntos modelo A e B, ambos iguais nisso) — usar só como fallback se o Rafael não especificar nada:
 - Localização: Brasil (`countries: ["BR"]`)
 - Idade: `age_min 25` / `age_max 65`, sugestão `30-50`
@@ -105,10 +113,13 @@ Idade, gênero, localização e segmentos **vêm sempre no prompt na hora de sub
 Campo **"Parâmetros de URL"** do criativo (`url_tags`), **sem o `?` inicial**:
 
 ```
-src=MTADS-SST_{{adset.name}}_{{ad.name}}_MTADS-SST_{{campaign.name}}_{{adset.name}}_{{ad.name}}&utm_source=MTADS-SST&utm_medium={{adset.name}}&utm_content={{ad.name}}&utm_campaign=MTADS-SST_{{campaign.name}}_{{adset.name}}_{{ad.name}}
+src=MTADS-SST_{{adset.name}}_{{ad.name}}_{{campaign.name}}_{{campaign.id}}_{{adset.id}}_{{ad.id}}&utm_source=MTADS-SST&utm_medium={{adset.name}}&utm_content={{ad.name}}&utm_campaign={{campaign.name}}&utm_term={{campaign.id}}_{{adset.id}}_{{ad.id}}&vk_source=paid_metaads&vk_ad_id={{ad.id}}
 ```
 
 Sigla do funil = **`SST`**. Os placeholders `{{...}}` são preenchidos pelo Meta na entrega — não editar manualmente.
+
+⚠️ **UTM atualizada em 23/10/26** (padrão do Rafael): agora leva os IDs (`utm_term`) e os parâmetros do VK (`vk_source`, `vk_ad_id`). Vale pra **todo anúncio novo**. Anúncios antigos com a UTM anterior **não** são refeitos (zera aprendizado) — o dashboard identifica a campanha pelo `[NN]` do nome.
+Por API: mandar `url_tags` no nível de cima do `creative` do `ads_create_ad` (junto do `object_story_spec`) — o `ads_create_creative` não aceita `url_tags`.
 
 ---
 
@@ -117,7 +128,7 @@ Sigla do funil = **`SST`**. Os placeholders `{{...}}` são preenchidos pelo Meta
 - **Página:** Anatex `100849768829838`
 - **Instagram:** `17841400072450024` (campo `instagram_user_id`)
 - **CTA:** `LEARN_MORE` (Saiba mais)
-- **Destino:** `https://lp.marketex.com.br/sala-secreta-aulas-gratuitas-com-anatex-td`
+- **Destino:** a página do teste (A, B ou C, ver tabela no topo), batendo com a tag `[PAGINA X]` do nome
 - **Texto / Título / Descrição:** `copies.md` (texto único fixo)
 - **Parâmetros de URL:** o bloco acima
 - Status: **PAUSED**
@@ -142,7 +153,7 @@ Depois de criado, **pegar o `creative_id`** desse anúncio (`ads_get_ad_entities
   2. No modal "Aplicar recomendações" → **DESMARCAR tudo**.
   3. "Campanha existente" → buscar a campanha-destino pelo nome exato.
   4. Publicar → **renomear o conjunto** antes ou depois de publicar.
-  5. **Apagar o anúncio que veio junto** da duplicação (herdado do modelo) — ele não é o criativo do teste.
+  5. **Apagar o anúncio que veio junto** da duplicação (herdado do modelo) — ele não é o criativo do teste. Só apagar se **nunca gastou**; anúncio que já gastou verba é apenas **desligado**.
   6. ⚠️ Antes de publicar, checar "Conferir e publicar": pode ter **rascunhos pendentes de outras campanhas** na fila — desmarcar tudo que não for seu antes de confirmar.
 
 ### Passo 3 — Anúncio na campanha de teste · **API** ✅
@@ -153,11 +164,17 @@ Depois de criado, **pegar o `creative_id`** desse anúncio (`ads_get_ad_entities
 ## 🏷️ Nomenclatura (padrão observado na conta)
 
 **Campanha:**
-`[NN] [SST] [CAPTACAO] [CADASTROS] [LEADS] [PUBLICO] [FORMATO] [AUTO] [PAGINA X] [CBO]`
-Ex.: `[08] [SST] [CAPTACAO] [CADASTROS] [LEADS] [ADVANTAGE] [VIDEO] [AUTO] [PAGINA B] [CBO]`
+`[NN][SST][CAPTACAO][CADASTROS][LEADS][PUBLICO][FORMATO][AUTO][PAGINA X][CBO][<criativos>]`
 
-**Conjunto:**
-`01 | P-ADVANTAGE | HM | 30-50 | CBO` (Página A) ou `01 | P-ADVANTAGE | M | 30-50 | CBO | PAGINA B` (Página B)
+⚠️ **SEM espaço entre colchetes** — diferente do LS, que usa espaço (`[00] [LS] ...`). Confirmado pelo Rafael em 27/08/26: *"nessa campanha em específico eu não tenho esses espaços entre os colchetes... se não vai dar ruim quando eu for puxar esses dados nas regras que eu tenho lá."* Não confundir os dois padrões.
+
+Tag de público: **`[P-ADVANTAGE]`** (não `[ADVANTAGE]`).
+
+Ex.: `[10][SST][CAPTACAO][CADASTROS][LEADS][P-ADVANTAGE][IMAGEM][AUTO][PAGINA B][CBO][ADI17-ADI20]`
+Campanha global: acrescenta `[GLOBAL]` antes do range de criativos.
+
+**Conjunto** (aqui SIM leva espaço, com `|` — outro padrão, não é o de colchetes):
+`01 | P-ADVANTAGE | HM | 30-50 | CBO` (Página A) ou `01 | P-ADVANTAGE | M | 30-50 | CBO | PAGINA B` (Página B). Campanha global acrescenta `| GLOBAL` no fim.
 
 **Criativo:** `ADV<nº>_SST_CAP_<nome>_<duração>` (ex.: `ADV18_SST_CAP_CLAUDE SKILS 01_2.26` = 2min26s)
 `ADV` = vídeo · `ADI` = imagem · `ADC` = carrossel (mesmo padrão do LS/Aplicação).
@@ -166,7 +183,29 @@ Ex.: `[08] [SST] [CAPTACAO] [CADASTROS] [LEADS] [ADVANTAGE] [VIDEO] [AUTO] [PAGI
 
 ---
 
+## 📊 Referência de custos (medição atual, desde 15/10/26)
+
+Desde 14/10/26 o Lead vem do **Unnichat**. Dados até 23/11/26, sem imposto:
+- **CPL médio:** R$ 2,72 (primeira semana R$ 2,91 · novembro R$ 2,58)
+- **Custo por entrada no grupo do WhatsApp:** R$ 3,99 (de 15 a 31/10 R$ 4,11 · novembro R$ 3,87)
+- **Promover criativo:** custo por entrada no grupo abaixo de cerca de R$ 3,70
+- O CPL antigo (R$ 1,70 a R$ 2,00) **não é referência**: o lead era contado quase em dobro.
+
+## 🧭 Regras de operação (nov/26)
+
+1. Criativo/anúncio que já gastou verba **nunca é apagado**, só desligado (PAUSED).
+2. Campanha nova só na ANEX 08. Na ANEX 03, editar a [03] por API **pausa** a campanha: reativar em seguida.
+3. Na ANEX 08 as edições por API ficam em **rascunho** até publicar. Publicar só o que foi aprovado.
+4. Teste de criativos: **todos os criativos da rodada no mesmo conjunto**. O teste nativo do Meta exige campanha com orçamento total. Não mexer na campanha enquanto o teste roda.
+5. Verba de novembro/26: até R$ 6.000 **com impostos**.
+6. Pendência: as 2 exclusões só reconhecem a Página A (marketex.com.br), não as páginas B e C.
+
+---
+
 ## ⚠️ Armadilhas
+
+0. **Campanha Worldwide pede o anunciante de Singapura E Taiwan separado, na tela.** Além da declaração de Taiwan (já documentada), o Meta também pede o campo "Anunciante" pra **Singapura** quando a segmentação é worldwide — são dois dropdowns distintos, um por país regulado. ⚠️ **Clicar no dropdown sem digitar pode auto-selecionar a primeira opção da lista errada** (ex.: escolheu a empresa de outro cliente, sem eu mandar). A entidade certa da Marketex/ANEX BM é **`ANEX SOLUCOES EM VENDAS E TREINAMENTO LTDA`** — sempre clicar o dropdown, checar a tela antes de confirmar, e limpar/reselecionar se vier errado.
+0.1. Depois de trocar a localização pra Worldwide na tela, sempre voltar e conferir **gênero, `age_range` e `locales`** — a mudança de localização não reseta nem preenche esses campos sozinha; eles ficam com o valor herdado do conjunto que foi duplicado até serem editados à parte.
 
 1. **Subir campanha na ANEX 03 por engano.** A conta oficial é a ANEX 08. ANEX 03 é histórico/pausado.
 2. **Esquecer qual página (A/B).** Cada uma tem campanha modelo e conjunto modelo próprios — não misturar.
@@ -205,6 +244,7 @@ Ex.: `[08] [SST] [CAPTACAO] [CADASTROS] [LEADS] [ADVANTAGE] [VIDEO] [AUTO] [PAGI
 ## 📅 Histórico
 
 - **27/08/26** — Skill criada a partir do documento do Rafael + confirmação ao vivo na conta. Confirmado por API: as 2 campanhas modelo (Página A e B, a B não estava no docx original — Rafael corrigiu na hora), público e exclusões dos conjuntos modelo, e que a ANEX 03 tem histórico extenso de SST mas está desativada pra novas campanhas (só ANEX 08 é oficial).
+- **24/11/26** — Guia revisado: página C, custos de referência da medição atual (Unnichat), regras de operação de novembro e correção do horário da aula (10h30). UTM e nomenclatura alinhadas com as de 23/10 e 27/08.
 
 
 ================================================================================
@@ -216,7 +256,9 @@ PARTE 2 — COPIES POR FUNIL: legendas, títulos e descrições (copies.md)
 Legenda, título e descrição do funil da **Sala Secreta**. Texto único — validado pelo Rafael, usado em todos os criativos da conta (documento-fonte, 06/07/26).
 
 **CTA:** Saiba mais (`LEARN_MORE`)
-**Destino:** `https://lp.marketex.com.br/sala-secreta-aulas-gratuitas-com-anatex-td`
+**Destino:** página A, B ou C, conforme o teste
+
+> ⚠️ **HORÁRIO EM REVISÃO (24/11/26):** a copy e o título abaixo dizem **18h**, mas as páginas e o @anatex anunciam **10h30**. Confirmar com o Rafael antes de subir anúncio novo. O texto foi mantido como aprovado até a confirmação.
 
 ---
 
@@ -275,12 +317,13 @@ Toque em "Saiba mais" e entre no grupo VIP do WhatsApp
 Campo **"Parâmetros de URL"** do criativo (`url_tags`) — **sem o `?` inicial**:
 
 ```
-src=MTADS-SST_{{adset.name}}_{{ad.name}}_MTADS-SST_{{campaign.name}}_{{adset.name}}_{{ad.name}}&utm_source=MTADS-SST&utm_medium={{adset.name}}&utm_content={{ad.name}}&utm_campaign=MTADS-SST_{{campaign.name}}_{{adset.name}}_{{ad.name}}
+src=MTADS-SST_{{adset.name}}_{{ad.name}}_{{campaign.name}}_{{campaign.id}}_{{adset.id}}_{{ad.id}}&utm_source=MTADS-SST&utm_medium={{adset.name}}&utm_content={{ad.name}}&utm_campaign={{campaign.name}}&utm_term={{campaign.id}}_{{adset.id}}_{{ad.id}}&vk_source=paid_metaads&vk_ad_id={{ad.id}}
 ```
+
+(Atualizada em 23/10/26 — padrão novo do Rafael, com IDs e parâmetros do VK.)
 
 ---
 
 ## Histórico
 
 - **27/08/26** — Copy migrada do documento-fonte do Rafael (`SETUP_CAMPANHAS_SALA_SECRETA_MARKETEX`, gerado 06/07/26) pra dentro da skill.
-
