@@ -1,0 +1,23 @@
+CÓDIGOS DOS RELATÓRIOS DA SALA SECRETA (25/11/2026)
+
+Code.gs + Index.html      painel do menu "Dashboard SS" da planilha (Apps Script). O HTML lá se chama Index.
+github-painel/            gera a cópia estática do painel (relatório completo do GitHub)
+  xlsx2json.py            planilha xlsx -> dash_data.json
+  gera_painel.py          monta o HTML (troca pessoa por código embaralhado: não sai nome, e-mail nem telefone)
+  valida.js               confere se os números batem com o cálculo original
+funil/                    gera o funil em uma tela
+  periodos.json           datas, Salas, perfil do Meta, posts do Instagram, dias com falha. EDITAR A CADA ATUALIZAÇÃO
+  calcula.js, modelo.html, gera.sh
+reuniao-geral/            gerador da reunião de 23/11. A página publicada foi editada depois direto no HTML.
+
+PASSO A PASSO
+1. Criar uma pasta de trabalho P, com P/dl/planilha_ss.xlsx (planilha Tráfego Pago Sala Secreta em xlsx).
+2. python3 -I github-painel/xlsx2json.py P
+3. cp Code.gs P/code_dash.js
+4. Editar funil/periodos.json. Rodar: funil/gera.sh P P/funil.html
+5. cp -R github-painel P/painel
+   python3 github-painel/gera_painel.py P <pasta com Code.gs e Index.html> P/painel/index.html "DD/MM/AAAA HH:MM"
+   node P/painel/valida.js
+6. Publicar em pastas novas no repo marketex (relatorios/ss-funil-DD.MM.AA e ss-painel-DD.MM.AA) com card no index.html.
+   Trocar a data dos links cruzados: rodapé de funil/modelo.html e github-painel/sumario.html.
+Precisa de python3 com openpyxl e de node. P/dash_data.json e o xlsx têm dados de leads: NUNCA publicar a pasta P.

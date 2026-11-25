@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard Sala Secreta · Brito Mídias</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --roxo:#7C3AED; --roxo-dark:#5B21B6; --roxo-deep:#3B0F73; --roxo-light:#A78BFA; --roxo-xlight:#EDE9FE;
+    --preto:#0A0A0A; --ink:#141018; --cinza:#5B5566; --linha:#E7E3EE; --bg:#FFFFFF; --bg-soft:#FAF9FC;
+    --good:#16A34A; --warn:#D97706; --bad:#DC2626;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:'Poppins',-apple-system,sans-serif;font-weight:300;background:var(--bg);color:var(--ink);line-height:1.55;font-size:15px}
+  a{color:var(--roxo);text-decoration:none} a:hover{text-decoration:underline}
+
+  /* HERO */
+  .hero{background:radial-gradient(1100px 500px at 78% -10%,rgba(124,58,237,.55),transparent 60%),linear-gradient(150deg,#0A0A0A 0%,#17111F 45%,#3B0F73 100%);color:#fff;padding:28px 28px 30px;position:relative;overflow:hidden}
+  .hero::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);background-size:44px 44px;mask-image:radial-gradient(ellipse at 50% 30%,black 40%,transparent 80%);-webkit-mask-image:radial-gradient(ellipse at 50% 30%,black 40%,transparent 80%);pointer-events:none}
+  .hero-inner{max-width:1180px;margin:0 auto;position:relative;z-index:1}
+  .hero-top{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+  .brand{display:flex;align-items:center;gap:12px}
+  .brand svg{width:36px;height:36px}
+  .brand .word{display:flex;align-items:center;gap:10px;font-weight:300;color:#fff}
+  .brand .word b{font-weight:800;font-size:17px}
+  .brand .word .bar{width:2px;height:24px;background:rgba(255,255,255,.55)}
+  .brand .word span{font-size:15px;letter-spacing:.22em}
+  .hero .eyebrow{color:var(--roxo-light);font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;margin-bottom:6px}
+  .hero h1{font-size:30px;font-weight:800;letter-spacing:-.02em;margin:0 0 4px;color:#fff;line-height:1.1}
+  .hero .sub{font-size:13px;color:rgba(255,255,255,.62)}
+
+  /* PERIODO */
+  .periodo{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:14px 16px;margin-top:18px}
+  .periodo .campo{display:flex;flex-direction:column;gap:4px}
+  .periodo label{font-size:10.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--roxo-light)}
+  .periodo input,.periodo select{font-family:inherit;font-size:13.5px;font-weight:500;color:#fff;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.18);border-radius:10px;padding:9px 12px;outline:none;min-width:150px}
+  .periodo input:focus,.periodo select:focus{border-color:var(--roxo-light)}
+  .periodo select option{color:#141018;background:#fff}
+  .periodo input::-webkit-calendar-picker-indicator{filter:invert(1);opacity:.8;cursor:pointer}
+  .btn{font-family:inherit;background:linear-gradient(90deg,var(--roxo),var(--roxo-dark));color:#fff;border:none;border-radius:10px;padding:11px 22px;font-weight:600;font-size:13.5px;cursor:pointer;letter-spacing:.02em}
+  .btn:hover{filter:brightness(1.08)} .btn:disabled{opacity:.55;cursor:default}
+  .btn.ghost{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.35)}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{font-family:inherit;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);color:#fff;padding:6px 13px;border-radius:100px;font-size:11.5px;font-weight:600;letter-spacing:.04em;cursor:pointer}
+  .chip:hover,.chip.on{background:linear-gradient(90deg,var(--roxo),var(--roxo-dark));border-color:transparent}
+
+  /* LAYOUT */
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+  section{padding:34px 0} section.soft{background:var(--bg-soft)}
+  .section-label{display:flex;align-items:center;gap:12px;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--roxo);margin-bottom:8px}
+  .section-label::before{content:"";width:34px;height:2px;background:var(--roxo);border-radius:2px}
+  h2{font-size:22px;font-weight:700;letter-spacing:-.01em;margin:0 0 4px;color:var(--ink)}
+  .lead{color:var(--cinza);font-size:13.5px;margin:0 0 18px;max-width:820px}
+  .row-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+  /* KPI */
+  .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .kpis.six{grid-template-columns:repeat(6,1fr)}
+  .kpis.four{grid-template-columns:repeat(4,1fr)}
+  @media (max-width:980px){.kpis.six{grid-template-columns:repeat(3,1fr)}.kpis.four{grid-template-columns:1fr 1fr}}
+  @media (max-width:620px){.kpis,.kpis.six,.kpis.four{grid-template-columns:1fr 1fr}}
+  .kpi{border:1px solid var(--linha);border-radius:16px;padding:18px 20px;background:#fff}
+  .kpi.hero-kpi{border-color:var(--roxo);background:linear-gradient(180deg,#fff,var(--roxo-xlight) 220%);box-shadow:0 8px 24px rgba(124,58,237,.08)}
+  .kpi small{color:var(--roxo);font-size:10.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;display:block;margin-bottom:6px}
+  .kpi b{font-size:26px;font-weight:700;display:block;color:var(--ink);line-height:1.1;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+  .kpi.hero-kpi b{font-size:32px}
+  .kpi .hint{font-size:11px;color:var(--cinza);margin-top:6px;display:block}
+  .kpi b.roxo{color:var(--roxo)} .kpi b.good{color:var(--good)} .kpi b.bad{color:var(--bad)} .kpi b.muted{color:var(--cinza);font-weight:500;font-size:20px}
+  .mini{border:1px solid var(--linha);border-radius:14px;padding:14px 16px;background:var(--bg-soft)}
+  .mini small{color:var(--roxo);font-size:10.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;display:block;margin-bottom:3px}
+  .mini b{font-size:19px;font-weight:700;display:block;color:var(--ink);font-variant-numeric:tabular-nums}
+
+  /* TABELAS */
+  .table-wrap{overflow-x:auto;border:1px solid var(--linha);border-radius:16px;background:#fff}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:640px}
+  thead th{background:var(--bg-soft);color:var(--cinza);font-weight:600;text-transform:uppercase;font-size:10.5px;letter-spacing:.1em;padding:12px 14px;text-align:right;border-bottom:1px solid var(--linha);white-space:nowrap}
+  thead th:first-child{text-align:left}
+  tbody td{padding:12px 14px;text-align:right;border-bottom:1px solid var(--linha);font-weight:400;font-variant-numeric:tabular-nums;white-space:nowrap}
+  tbody td:first-child{text-align:left;font-weight:500;color:var(--ink);white-space:normal;min-width:260px}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr.hero-row td{background:var(--roxo-xlight)}
+  tbody tr.hero-row td:first-child{color:var(--roxo-dark);font-weight:700}
+  tbody tr:hover td{background:#FAF9FC}
+  tbody tr.hero-row:hover td{background:var(--roxo-xlight)}
+  .rank{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:8px;background:var(--roxo-xlight);color:var(--roxo-dark);font-weight:700;font-size:11.5px;margin-right:10px;vertical-align:middle}
+  .rank.r1{background:linear-gradient(90deg,var(--roxo),var(--roxo-dark));color:#fff}
+  .good{color:var(--good);font-weight:600}.bad{color:var(--bad);font-weight:600}.warn{color:var(--warn);font-weight:600}
+  .tag{display:inline-block;font-size:9.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border-radius:100px;border:1px solid var(--roxo-light);color:var(--roxo-dark);margin-left:8px;vertical-align:middle}
+  .tag.gray{border-color:var(--linha);color:var(--cinza)}
+  .obar{display:inline-block;width:90px;height:7px;background:var(--roxo-xlight);border-radius:4px;vertical-align:middle;margin-right:8px;overflow:hidden}
+  .obar i{display:block;height:100%;background:var(--roxo);border-radius:4px}
+  .ext::after{content:" ↗";font-size:11px;color:var(--roxo-light)}
+  .nolink{color:var(--cinza)}
+
+  .notes{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media (max-width:900px){.notes{grid-template-columns:1fr}}
+  .note-card{border:1px solid var(--linha);border-radius:16px;padding:20px 22px;background:#fff}
+  .note-card.roxo{border-color:var(--roxo-light);background:linear-gradient(180deg,#fff,var(--roxo-xlight) 400%)}
+  .note-card h3{font-size:15px;font-weight:700;margin:0 0 10px;color:var(--ink)}
+  .note-card p,.note-card li{color:var(--cinza);font-size:13px}
+  .note-card ul{margin:6px 0 0;padding-left:18px}
+  .note-card b{color:var(--ink);font-weight:600}
+
+  /* FILTRO POR SEÇÃO */
+  .fbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:0 0 16px;padding:10px 12px;border:1px solid var(--linha);border-radius:12px;background:var(--bg-soft)}
+  .fbar.on{border-color:var(--roxo-light);background:var(--roxo-xlight)}
+  .fbar small{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--cinza)}
+  .fbar input[type=date]{font-family:inherit;font-size:12.5px;font-weight:500;color:var(--ink);background:#fff;border:1px solid var(--linha);border-radius:8px;padding:6px 9px;outline:none}
+  .fbar input[type=date]:focus{border-color:var(--roxo)}
+  .fbtn{font-family:inherit;font-size:12px;font-weight:600;border:1px solid var(--linha);background:#fff;color:var(--ink);border-radius:8px;padding:7px 12px;cursor:pointer;white-space:nowrap}
+  .fbtn:hover{border-color:var(--roxo-light)}
+  .fbtn.ativo{background:linear-gradient(90deg,var(--roxo),var(--roxo-dark));color:#fff;border-color:transparent}
+  .fbtn.link{border:none;background:none;color:var(--roxo);text-decoration:underline;padding:7px 4px}
+  .fstatus{font-size:11.5px;color:var(--cinza);margin-left:auto}
+  .fstatus b{color:var(--roxo-dark);font-weight:600}
+  /* painel de campanhas */
+  #campPanel{position:fixed;z-index:200;background:#fff;border:1px solid var(--linha);border-radius:12px;box-shadow:0 12px 32px rgba(0,0,0,.16);padding:10px;display:none;max-height:320px;overflow:auto;min-width:300px}
+  #campPanel.on{display:block}
+  #campPanel .cp-head{display:flex;gap:8px;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid var(--linha)}
+  #campPanel label{display:flex;align-items:flex-start;gap:8px;padding:6px 7px;border-radius:8px;cursor:pointer;font-size:12.5px;line-height:1.35}
+  #campPanel label:hover{background:var(--bg-soft)}
+  #campPanel input{margin-top:2px;accent-color:var(--roxo);flex:none}
+  #campPanel .cp-tag{font-size:9.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:1px 6px;border-radius:100px;margin-left:4px;white-space:nowrap}
+  #campPanel .cp-tag.sem{background:#FEF3C7;color:#92400E}
+
+  /* FUNIL */
+  .funil-box{border:1px solid var(--linha);border-radius:16px;background:#fff;padding:20px 20px 10px}
+  .funil-box svg{width:100%;height:250px;display:block;overflow:visible}
+  .funil .barra{cursor:pointer}
+  .funil .conector{fill:var(--roxo-xlight)}
+  .funil .valor{fill:#fff;font-weight:700;font-size:17px;font-family:inherit;font-variant-numeric:tabular-nums}
+  .funil .etapa-lbl{fill:var(--roxo);font-weight:600;font-size:10px;letter-spacing:.14em;font-family:inherit}
+  .funil .taxa{fill:var(--cinza);font-weight:600;font-size:11.5px;font-family:inherit;font-variant-numeric:tabular-nums}
+  .etapas{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:18px}
+  @media (max-width:980px){.etapas{grid-template-columns:repeat(3,1fr)}}
+  @media (max-width:620px){.etapas{grid-template-columns:1fr 1fr}}
+  .etapa{border:1px solid var(--linha);border-radius:14px;overflow:hidden;background:#fff}
+  .etapa .cab{background:linear-gradient(135deg,var(--roxo),var(--roxo-dark));color:#fff;padding:12px 14px}
+  .etapa .cab small{display:block;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;opacity:.88;margin-bottom:2px}
+  .etapa .cab b{font-size:21px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.01em;line-height:1.15;display:block}
+  .etapa .lin{display:flex;justify-content:space-between;align-items:baseline;gap:8px;padding:9px 14px;border-top:1px solid var(--linha);font-size:12px;color:var(--cinza)}
+  .etapa .lin span{min-width:0}
+  .etapa .lin b{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
+
+  /* CHARTS */
+  .charts{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+  @media (max-width:900px){.charts{grid-template-columns:1fr}}
+  .chart{border:1px solid var(--linha);border-radius:16px;background:#fff;padding:16px 18px 10px;position:relative}
+  .chart h4{margin:0 0 8px;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--cinza)}
+  .chart svg{width:100%;height:190px;display:block;overflow:visible}
+  .chart .bar{fill:var(--roxo);cursor:pointer;transition:fill .12s} .chart .bar:hover{fill:var(--roxo-dark)}
+  .chart .line{fill:none;stroke:var(--roxo);stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+  .chart .dot{fill:#fff;stroke:var(--roxo);stroke-width:2;cursor:pointer}
+  .chart .grid{stroke:var(--linha);stroke-width:1}
+  .chart .axis{font-size:10px;fill:var(--cinza);font-family:inherit}
+  .chart .ref{stroke:var(--roxo-light);stroke-dasharray:4 4;stroke-width:1.2}
+  .tip{position:fixed;pointer-events:none;background:var(--ink);color:#fff;font-size:12px;padding:8px 11px;border-radius:9px;box-shadow:0 8px 24px rgba(0,0,0,.18);z-index:99;display:none;line-height:1.4;font-variant-numeric:tabular-nums}
+  .tip b{font-weight:600;color:var(--roxo-light)}
+
+  /* estados */
+  #loading{position:fixed;inset:0;background:rgba(255,255,255,.82);display:none;align-items:center;justify-content:center;z-index:50;font-weight:500;color:var(--roxo-dark);flex-direction:column;gap:12px}
+  #loading.on{display:flex}
+  .spin{width:34px;height:34px;border:3px solid var(--roxo-xlight);border-top-color:var(--roxo);border-radius:50%;animation:sp .8s linear infinite}
+  @keyframes sp{to{transform:rotate(360deg)}}
+  .erro{background:#FEF2F2;border:1px solid #FECACA;color:#991B1B;border-radius:12px;padding:14px 16px;font-size:13px;margin:18px auto;max-width:1180px}
+  .empty{color:var(--cinza);font-size:13px;padding:18px;text-align:center}
+
+  footer{background:var(--ink);color:rgba(255,255,255,.62);padding:22px 28px;text-align:center;font-size:12px}
+  footer .brand-mini{display:inline-flex;align-items:center;gap:8px;margin-bottom:4px;color:#fff;font-weight:500}
+</style>
+</head>
+<body>
+
+<div id="loading"><div class="spin"></div><div>Lendo a planilha…</div></div>
+<div class="tip" id="tip"></div>
+<div id="campPanel"></div>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-top">
+      <div>
+        <div class="eyebrow">Sala Secreta · Tráfego Pago · Marketex</div>
+        <h1>Dashboard Sala Secreta</h1>
+        <div class="sub" id="sub">Selecione o período para ver investimento, leads, CPL, vendas e melhores criativos.</div>
+      </div>
+      <div class="brand">
+        <svg viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" aria-label="BM Mídias">
+          <polygon points="50,4 90,27 90,73 50,96 10,73 10,27"></polygon>
+          <polygon points="50,33 65,59 35,59"></polygon>
+          <line x1="50" y1="4" x2="50" y2="33"></line><line x1="90" y1="73" x2="65" y2="59"></line>
+          <line x1="10" y1="73" x2="35" y2="59"></line><line x1="90" y1="27" x2="50" y2="33"></line>
+          <line x1="90" y1="27" x2="65" y2="59"></line><line x1="50" y1="96" x2="65" y2="59"></line>
+          <line x1="50" y1="96" x2="35" y2="59"></line><line x1="10" y1="27" x2="35" y2="59"></line>
+          <line x1="10" y1="27" x2="50" y2="33"></line>
+        </svg>
+        <span class="word"><b>BM</b><i class="bar"></i><span>MÍDIAS</span></span>
+      </div>
+    </div>
+
+    <div class="periodo">
+      <div class="campo"><label for="ini">Início</label><input type="date" id="ini"></div>
+      <div class="campo"><label for="fim">Fim</label><input type="date" id="fim"></div>
+      <div class="campo"><label for="preset">Atalho (semanas quinta→quarta)</label>
+        <select id="preset"><option value="">— escolher —</option></select>
+      </div>
+      <button class="btn" id="aplicar" onclick="carregar()">Aplicar período</button>
+      <button class="btn ghost" id="aplicarTodas" onclick="aplicarEmTodas()" title="Faz todas as seções voltarem a usar este período">Aplicar em todas as seções</button>
+    </div>
+    <div class="chips" id="chips"></div>
+  </div>
+</header>
+
+<div id="erro" class="erro" style="display:none"></div>
+
+<main id="main" style="display:none">
+
+<!-- TRÁFEGO -->
+<section>
+<div class="wrap">
+  <div class="row-head">
+    <div>
+      <div class="section-label">Tráfego pago</div>
+      <h2>Investimento, leads e custo por lead</h2>
+      <p class="lead" id="trafego-lead"></p>
+    </div>
+  </div>
+  <div class="fbar" id="fbar-trafego"></div>
+  <div class="kpis">
+    <div class="kpi hero-kpi"><small>Investimento no período</small><b id="k-inv">—</b><span class="hint" id="k-inv-h"></span></div>
+    <div class="kpi hero-kpi"><small>Leads captados</small><b id="k-leads">—</b><span class="hint" id="k-leads-h"></span></div>
+    <div class="kpi hero-kpi"><small>Custo por lead</small><b class="roxo" id="k-cpl">—</b><span class="hint" id="k-cpl-h"></span></div>
+  </div>
+  <div class="kpis six" style="margin-top:14px">
+    <div class="mini"><small>CPM</small><b id="k-cpm">—</b></div>
+    <div class="mini"><small>CPC</small><b id="k-cpc">—</b></div>
+    <div class="mini"><small>CTR</small><b id="k-ctr">—</b></div>
+    <div class="mini"><small>Connect rate</small><b id="k-cr">—</b></div>
+    <div class="mini"><small>Conv. da página</small><b id="k-conv">—</b></div>
+    <div class="mini"><small>Custo por visualização</small><b id="k-clpv">—</b></div>
+  </div>
+  <div class="charts">
+    <div class="chart"><h4>Leads por dia</h4><svg id="ch-leads"></svg></div>
+    <div class="chart"><h4>Custo por lead por dia (linha tracejada = média do período)</h4><svg id="ch-cpl"></svg></div>
+  </div>
+</div>
+</section>
+
+<!-- FUNIL -->
+<section class="soft">
+<div class="wrap">
+  <div class="section-label">Funil</div>
+  <h2>Da impressão ao lead</h2>
+  <p class="lead" id="funil-lead"></p>
+  <div class="fbar" id="fbar-funil"></div>
+  <div class="funil-box">
+    <div class="funil"><svg id="ch-funil"></svg></div>
+    <div class="etapas" id="etapas"></div>
+  </div>
+</div>
+</section>
+
+<!-- FUNIL ATÉ O GRUPO (Unnichat + Clint) -->
+<section>
+<div class="wrap">
+  <div class="section-label">Cadastro e entrada no grupo</div>
+  <h2>Do lead até o grupo de WhatsApp</h2>
+  <p class="lead" id="grupo-lead"></p>
+  <div class="fbar" id="fbar-grupo"></div>
+  <div class="fbar" id="fbar-grupo-base"></div>
+  <div id="grupo-aviso"></div>
+
+  <div class="kpis six">
+    <div class="kpi hero-kpi"><small>Leads (Meta)</small><b id="g-leads">—</b><span class="hint" id="g-leads-h"></span></div>
+    <div class="kpi hero-kpi"><small>Cadastros</small><b id="g-cad">—</b><span class="hint" id="g-cad-h"></span></div>
+    <div class="kpi hero-kpi"><small>Entraram no grupo</small><b id="g-grp">—</b><span class="hint" id="g-grp-h"></span></div>
+    <div class="mini"><small>Custo por lead</small><b id="g-cpl">—</b></div>
+    <div class="mini"><small>Custo por cadastro</small><b id="g-ccad">—</b></div>
+    <div class="mini"><small>Custo por entrada</small><b id="g-cgrp">—</b></div>
+  </div>
+
+  <div class="kpis" style="margin-top:12px">
+    <div class="mini"><small>Cadastros com campanha identificada</small><b id="g-match">—</b><span class="hint" id="g-match-h"></span></div>
+    <div class="mini"><small>Cadastros que sabemos do grupo</small><b id="g-cob">—</b><span class="hint" id="g-cob-h"></span></div>
+    <div class="mini"><small>Vindos do Unnichat / Clint</small><b id="g-fontes">—</b><span class="hint" id="g-fontes-h"></span></div>
+  </div>
+
+  <div class="table-wrap" style="margin-top:18px">
+    <table>
+      <thead><tr><th>Dia</th><th>Invest.</th><th>Leads</th><th>Cadastros</th><th>Grupo</th><th>CPL</th><th>Custo/cad.</th><th>Custo/grupo</th><th>Cad./lead</th><th>Grupo/cad.</th></tr></thead>
+      <tbody id="tb-grupo"></tbody>
+    </table>
+  </div>
+
+  <h3 style="font-size:15px;font-weight:700;margin:26px 0 4px">Cadastros por origem</h3>
+  <p class="lead" id="grupo-origem-lead" style="margin:0 0 10px"></p>
+  <div class="table-wrap">
+    <table style="min-width:640px">
+      <thead><tr><th>Origem</th><th>Cadastros</th><th>% do total</th><th>Grupo</th><th>Grupo/cad.</th><th>Custo/cad.</th><th>Custo/grupo</th></tr></thead>
+      <tbody id="tb-grupo-origem"></tbody>
+    </table>
+  </div>
+
+  <div class="notes" style="margin-top:18px">
+    <div class="note-card">
+      <h3>Por campanha</h3>
+      <div class="table-wrap">
+        <table style="min-width:420px">
+          <thead><tr><th>Campanha</th><th>Leads</th><th>Cadastros</th><th>Grupo</th><th>Grupo/cad.</th><th>Custo/grupo</th></tr></thead>
+          <tbody id="tb-grupo-camp"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="note-card roxo">
+      <h3>Como ler</h3>
+      <ul>
+        <li><b>Leads</b> é o que o Meta contou. <b>Cadastros</b> é pessoa única somando Unnichat + Clint. <b>Grupo</b> é quem entrou no WhatsApp.</li>
+        <li>A taxa de grupo é sempre sobre <b>quem tem essa informação</b> — o Clint não tem a coluna, então esses cadastros ficam de fora da conta.</li>
+        <li>Campanhas marcadas como <b>sem investimento</b> aparecem no funil, mas ficam sem custo — o MTADS ainda não traz elas.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- COMUNIDADE / VENDAS -->
+<section class="soft">
+<div class="wrap">
+  <div class="section-label">Comunidade e vendas</div>
+  <h2>O que aconteceu nas Salas do período</h2>
+  <p class="lead" id="vendas-lead"></p>
+
+  <div class="kpis four">
+    <div class="kpi"><small>Entradas no grupo</small><b id="k-entradas" class="muted">—</b><span class="hint" id="k-entradas-h"></span></div>
+    <div class="kpi"><small>Salas no período</small><b id="k-salas">—</b><span class="hint">quartas dentro do intervalo</span></div>
+    <div class="kpi"><small>Pico médio de audiência</small><b id="k-pico">—</b><span class="hint" id="k-pico-h"></span></div>
+    <div class="kpi"><small>Presença média</small><b id="k-pres">—</b><span class="hint">pico ÷ comunidade no dia</span></div>
+  </div>
+
+  <div class="section-label" style="margin-top:28px">Vendas na Sala · quantidade</div>
+  <div class="kpis six">
+    <div class="mini"><small>Workshop / TP010</small><b id="v-ws">—</b></div>
+    <div class="mini"><small>Gravação / 12 meses</small><b id="v-grav">—</b></div>
+    <div class="mini"><small>Palestras em minutos</small><b id="v-pal">—</b></div>
+    <div class="mini"><small>Fotos em minutos</small><b id="v-fotos">—</b></div>
+    <div class="mini"><small>Aplicações mentoria</small><b id="v-aplic">—</b></div>
+    <div class="mini"><small>Mentoria 3m · 6m</small><b id="v-ment">—</b></div>
+  </div>
+
+  <div class="kpis four" style="margin-top:14px">
+    <div class="kpi"><small>Total de vendas</small><b id="v-total">—</b><span class="hint" id="v-total-h"></span></div>
+    <div class="kpi"><small>Receita do período</small><b id="v-rec">—</b><span class="hint" id="v-rec-h"></span></div>
+    <div class="kpi"><small>Ticket médio</small><b id="v-ticket">—</b><span class="hint">receita ÷ vendas</span></div>
+    <div class="kpi"><small>ROAS</small><b id="v-roas">—</b><span class="hint">receita ÷ investimento · meta ≥ 3x</span></div>
+  </div>
+</div>
+</section>
+
+<!-- CRIATIVOS -->
+<section class="soft">
+<div class="wrap">
+  <div class="row-head">
+    <div>
+      <div class="section-label">Criativos</div>
+      <h2>Melhores criativos do período</h2>
+      <p class="lead" id="cri-lead">Ranking por volume de leads; CPL ao lado mostra o custo. Clique no nome para abrir o criativo.</p>
+    </div>
+    <div class="chips" style="margin:0 0 18px">
+      <button class="chip on" id="ord-leads" onclick="ordenar('leads')">Mais leads</button>
+      <button class="chip" id="ord-cpl" onclick="ordenar('cpl')">Menor CPL</button>
+    </div>
+  </div>
+  <div class="fbar" id="fbar-criativos"></div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Criativo</th><th>Leads</th><th>Share</th><th>Investimento</th><th>CPL</th><th>CTR</th></tr></thead>
+      <tbody id="tb-cri"></tbody>
+    </table>
+  </div>
+</div>
+</section>
+
+<!-- SALAS -->
+<section>
+<div class="wrap">
+  <div class="section-label">Sala a sala</div>
+  <h2>Cada quarta dentro do período</h2>
+  <p class="lead">Tráfego da semana (quinta→quarta), audiência ao vivo e vendas registradas em cada Sala.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Sala · tema</th><th>Invest.</th><th>Leads</th><th>CPL</th><th>Conv. pág.</th><th>Pico</th><th>Presença</th><th>Vendas SS</th><th>Mentoria</th><th>Receita</th></tr></thead>
+      <tbody id="tb-salas"></tbody>
+    </table>
+  </div>
+
+  <div class="notes" style="margin-top:18px">
+    <div class="note-card">
+      <h3>Como ler este painel</h3>
+      <ul>
+        <li><b>Tráfego</b> (investimento, leads, CPL, criativos) vem do MTADS, dia a dia — qualquer intervalo de datas é exato.</li>
+        <li><b>Vendas e audiência</b> vêm do Consolidado SS, uma linha por Sala. Entram as quartas dentro do intervalo; cada uma carrega a semana quinta→quarta.</li>
+        <li>Pra bater 100% tráfego × vendas, use os atalhos de semana/mês (que seguem o mesmo corte quinta→quarta da planilha).</li>
+      </ul>
+    </div>
+    <div class="note-card roxo">
+      <h3>Próximos passos do painel</h3>
+      <ul>
+        <li><b>Entradas no grupo:</b> preencher a aba <b>"Entradas Grupo"</b> (menu 📊 Dashboard SS → criar aba). O card passa a somar automaticamente.</li>
+        <li><b>Cruzamento Hotmart:</b> próxima etapa — bater e-mail dos leads (aba "Cadastros com UTM") com as vendas exportadas da Hotmart para atribuir venda → criativo/campanha.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</section>
+
+</main>
+
+<footer>
+  <div class="brand-mini">
+    <svg viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" style="width:18px;height:18px">
+      <polygon points="50,4 90,27 90,73 50,96 10,73 10,27"></polygon><polygon points="50,33 65,59 35,59"></polygon>
+    </svg>
+    <span><b>BM</b> Mídias · Sala Secreta · Marketex</span>
+  </div>
+  <div id="foot">Fonte: planilha Sala Secreta (MTADS · Consolidado SS · _Links Criativos)</div>
+</footer>
+
+<script>
+// ---------- utils ----------
+var D = null, ORD = 'leads';
+// Filtro de cada seção. ini/fim null = herda o período do topo.
+// camps null = todas as campanhas.
+var SECOES = ['trafego','funil','grupo','criativos'];
+var FILTROS = { trafego:{ini:null,fim:null,camps:null}, funil:{ini:null,fim:null,camps:null},
+                grupo:{ini:null,fim:null,camps:null,base:'todos'}, criativos:{ini:null,fim:null,camps:null} };
+function $(id){ return document.getElementById(id); }
+function brl(v, dec){ if (v===null||v===undefined||isNaN(v)) return '—'; dec = dec===undefined?2:dec; return 'R$ ' + v.toLocaleString('pt-BR',{minimumFractionDigits:dec,maximumFractionDigits:dec}); }
+function num(v, dec){ if (v===null||v===undefined||isNaN(v)) return '—'; dec = dec||0; return v.toLocaleString('pt-BR',{minimumFractionDigits:dec,maximumFractionDigits:dec}); }
+function pct(v, dec){ if (v===null||v===undefined||isNaN(v)) return '—'; dec = dec===undefined?1:dec; return (v*100).toLocaleString('pt-BR',{minimumFractionDigits:dec,maximumFractionDigits:dec}) + '%'; }
+function br(iso){ if(!iso) return '—'; var p = iso.split('-'); return p[2]+'/'+p[1]+'/'+p[0]; }
+function brShort(iso){ var p = iso.split('-'); return p[2]+'/'+p[1]; }
+function isoOf(d){ var m=('0'+(d.getMonth()+1)).slice(-2), dd=('0'+d.getDate()).slice(-2); return d.getFullYear()+'-'+m+'-'+dd; }
+function esc(s){ return String(s||'').replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+function cplClass(c){ if(c===null) return ''; if(c<=1.8) return 'good'; if(c>=2.6) return 'bad'; return ''; }
+
+// ---------- período ----------
+function setPeriodo(a,b){ $('ini').value=a; $('fim').value=b; }
+function preset(tipo){
+  var hoje = new Date(); hoje.setHours(0,0,0,0);
+  var a, b = new Date(hoje);
+  if (tipo==='mes'){ a = new Date(hoje.getFullYear(), hoje.getMonth(), 1); }
+  else if (tipo==='mes-ant'){ a = new Date(hoje.getFullYear(), hoje.getMonth()-1, 1); b = new Date(hoje.getFullYear(), hoje.getMonth(), 0); }
+  else if (tipo==='7'){ a = new Date(hoje); a.setDate(a.getDate()-6); }
+  else if (tipo==='14'){ a = new Date(hoje); a.setDate(a.getDate()-13); }
+  else if (tipo==='30'){ a = new Date(hoje); a.setDate(a.getDate()-29); }
+  else if (tipo==='4sem'){ a = new Date(hoje); a.setDate(a.getDate()-27); }
+  else if (tipo==='tudo'){ a = (D && D.meta && D.meta.dataMin) ? new Date(D.meta.dataMin+'T00:00:00') : new Date(2026,0,1); }
+  setPeriodo(isoOf(a), isoOf(b));
+  document.querySelectorAll('#chips .chip').forEach(function(c){ c.classList.toggle('on', c.dataset.t===tipo); });
+  $('preset').value='';
+  carregar();
+}
+var CHIPS = [['7','Últimos 7 dias'],['14','Últimos 14 dias'],['30','Últimos 30 dias'],['mes','Este mês'],['mes-ant','Mês passado'],['4sem','Últimas 4 semanas'],['tudo','Histórico completo']];
+$('chips').innerHTML = CHIPS.map(function(c){ return '<button class="chip" data-t="'+c[0]+'" onclick="preset(\''+c[0]+'\')">'+c[1]+'</button>'; }).join('');
+
+$('preset').addEventListener('change', function(){
+  var v = this.value; if(!v) return;
+  var p = v.split('|'); setPeriodo(p[0], p[1]);
+  document.querySelectorAll('#chips .chip').forEach(function(c){ c.classList.remove('on'); });
+  carregar();
+});
+
+function carregarPresets(){
+  google.script.run.withSuccessHandler(function(p){
+    var sel = $('preset'), html = '<option value="">— escolher —</option>';
+    if (p.meses.length){ html += '<optgroup label="Meses (corte da planilha)">' + p.meses.map(function(m){ return '<option value="'+m.inicio+'|'+m.fim+'">'+esc(m.label)+' · '+br(m.inicio)+' a '+br(m.fim)+'</option>'; }).join('') + '</optgroup>'; }
+    if (p.semanas.length){ html += '<optgroup label="Semanas (Sala de quarta)">' + p.semanas.slice().reverse().map(function(m){ return '<option value="'+m.inicio+'|'+m.fim+'">Sala '+esc(m.label)+' · '+br(m.inicio)+' a '+br(m.fim)+'</option>'; }).join('') + '</optgroup>'; }
+    sel.innerHTML = html;
+  }).withFailureHandler(function(){}).getPresets();
+}
+
+// ---------- carregar ----------
+function carregar(){
+  var a = $('ini').value, b = $('fim').value;
+  if(!a||!b){ mostrarErro('Escolha início e fim.'); return; }
+  if(a>b){ mostrarErro('A data inicial é maior que a final.'); return; }
+  $('erro').style.display='none'; $('loading').classList.add('on'); $('aplicar').disabled=true;
+  google.script.run
+    .withSuccessHandler(function(d){ D=d; render(); $('loading').classList.remove('on'); $('aplicar').disabled=false; })
+    .withFailureHandler(function(e){ $('loading').classList.remove('on'); $('aplicar').disabled=false; mostrarErro('Erro ao ler a planilha: '+(e&&e.message?e.message:e)); })
+    .getDashboardData(a,b);
+}
+function mostrarErro(m){ var e=$('erro'); e.textContent=m; e.style.display='block'; }
+
+// ---------- filtros por seção ----------
+function aplicarEmTodas(){
+  SECOES.forEach(function(s){
+    var b = FILTROS[s].base;
+    FILTROS[s]={ini:null,fim:null,camps:null};
+    if (b) FILTROS[s].base = b;            // o seletor de base não é período
+  });
+  if(D) render();
+}
+function limparFiltro(sec){
+  var b = FILTROS[sec].base;
+  FILTROS[sec]={ini:null,fim:null,camps:null};
+  if (b) FILTROS[sec].base = b;
+  render();
+}
+function periodoDe(sec){
+  var f=FILTROS[sec];
+  return { ini: f.ini || D.periodo.inicio, fim: f.fim || D.periodo.fim, proprio: !!(f.ini||f.fim) };
+}
+function campsDe(sec){ return FILTROS[sec].camps; }
+function passaCamp(sec, cod){ var c=campsDe(sec); return c===null || c.indexOf(cod)>=0; }
+
+function detDe(sec){
+  var p=periodoDe(sec);
+  return D.detalhe.filter(function(d){ return d.data>=p.ini && d.data<=p.fim && passaCamp(sec,d.camp); });
+}
+function cadDe(sec){
+  var p=periodoDe(sec);
+  return D.cadastros.filter(function(d){ return d.data>=p.ini && d.data<=p.fim && passaCamp(sec,d.camp); });
+}
+// soma registros do detalhe e deriva as métricas (mesmo formato do D.trafego)
+function agrega(det){
+  var t={investimento:0,impressoes:0,alcance:0,cliques:0,lpv:0,leads:0}, dias={};
+  det.forEach(function(d){
+    t.investimento+=d.investimento; t.impressoes+=d.impressoes; t.alcance+=d.alcance;
+    t.cliques+=d.cliques; t.lpv+=d.lpv; t.leads+=d.leads; dias[d.data]=1;
+  });
+  return {investimento:t.investimento, impressoes:t.impressoes, alcance:t.alcance, cliques:t.cliques,
+    lpv:t.lpv, leads:t.leads,
+    cpl: t.leads? t.investimento/t.leads : null,
+    cpm: t.impressoes? t.investimento/t.impressoes*1000 : null,
+    cpc: t.cliques? t.investimento/t.cliques : null,
+    ctr: t.impressoes? t.cliques/t.impressoes : null,
+    connectRate: t.cliques? t.lpv/t.cliques : null,
+    convPagina: t.lpv? t.leads/t.lpv : null,
+    custoLpv: t.lpv? t.investimento/t.lpv : null,
+    diasComDados: Object.keys(dias).length};
+}
+function serieDe(det){
+  var m={};
+  det.forEach(function(d){
+    if(!m[d.data]) m[d.data]={data:d.data,investimento:0,leads:0};
+    m[d.data].investimento+=d.investimento; m[d.data].leads+=d.leads;
+  });
+  return Object.keys(m).sort().map(function(k){ var x=m[k]; x.cpl=x.leads? x.investimento/x.leads : null; return x; });
+}
+
+function montarFbar(sec){
+  var el=$('fbar-'+sec); if(!el) return;
+  var f=FILTROS[sec], p=periodoDe(sec);
+  var nCamp = f.camps===null ? 'todas' : f.camps.length+' selec.';
+  var proprio = p.proprio || f.camps!==null;
+  el.className = 'fbar' + (proprio?' on':'');
+  el.innerHTML =
+    '<small>Filtro desta seção</small>'+
+    '<input type="date" value="'+p.ini+'" onchange="setData(\''+sec+'\',\'ini\',this.value)">'+
+    '<input type="date" value="'+p.fim+'" onchange="setData(\''+sec+'\',\'fim\',this.value)">'+
+    '<button class="fbtn'+(f.camps!==null?' ativo':'')+'" onclick="abrirCamps(event,\''+sec+'\')">Campanhas: '+nCamp+' ▾</button>'+
+    (proprio? '<button class="fbtn link" onclick="limparFiltro(\''+sec+'\')">voltar ao período geral</button>':'')+
+    '<span class="fstatus">'+(proprio? '<b>filtro próprio</b> · '+br(p.ini)+' a '+br(p.fim) : 'usando o período geral')+'</span>';
+}
+function setData(sec,qual,val){ if(!val) return; FILTROS[sec][qual]=val; render(); }
+
+function abrirCamps(ev, sec){
+  ev.stopPropagation();
+  var pane=$('campPanel'), f=FILTROS[sec];
+  var html='<div class="cp-head"><button class="fbtn" onclick="todasCamps(\''+sec+'\',true)">Todas</button>'+
+           '<button class="fbtn" onclick="todasCamps(\''+sec+'\',false)">Nenhuma</button>'+
+           '<button class="fbtn" onclick="soUnnichat(\''+sec+'\')">Só as do Unnichat</button></div>';
+  D.campanhas.forEach(function(c){
+    var mark = (f.camps===null || f.camps.indexOf(c.cod)>=0) ? ' checked' : '';
+    var tag = (c.temMtads ? '' : '<span class="cp-tag sem">sem investimento</span>')
+            + (c.temClint && !c.temUnnichat ? '<span class="cp-tag sem">só Clint (sem info de grupo)</span>' : '');
+    html += '<label><input type="checkbox"'+mark+' onchange="toggleCamp(\''+sec+'\',\''+c.cod+'\',this.checked)">'+
+            '<span>'+esc(c.nome.length>46? c.nome.slice(0,46)+'…' : c.nome)+tag+'</span></label>';
+  });
+  pane.innerHTML=html; pane.classList.add('on');
+  var r=ev.currentTarget.getBoundingClientRect();
+  pane.style.left=Math.min(r.left, window.innerWidth-330)+'px';
+  pane.style.top=(r.bottom+6)+'px';
+  pane.dataset.sec=sec;
+}
+function toggleCamp(sec, cod, on){
+  var f=FILTROS[sec];
+  if(f.camps===null) f.camps=D.campanhas.map(function(c){return c.cod;});
+  var i=f.camps.indexOf(cod);
+  if(on && i<0) f.camps.push(cod);
+  if(!on && i>=0) f.camps.splice(i,1);
+  if(f.camps.length===D.campanhas.length) f.camps=null;
+  render();
+}
+function todasCamps(sec,todas){ FILTROS[sec].camps = todas? null : []; render(); }
+function soUnnichat(sec){
+  FILTROS[sec].camps = D.campanhas.filter(function(c){return c.temUnnichat;}).map(function(c){return c.cod;});
+  render();
+}
+document.addEventListener('click', function(e){
+  var p=$('campPanel');
+  if(p && p.classList.contains('on') && !p.contains(e.target)) p.classList.remove('on');
+});
+
+// ---------- render ----------
+function render(){
+  var v=D.vendas, au=D.audiencia, p=D.periodo;
+  SECOES.forEach(montarFbar);
+  var t=agrega(detDe('trafego'));
+  $('main').style.display='block';
+  $('sub').textContent = 'Período: '+br(p.inicio)+' a '+br(p.fim)+' · '+p.dias+' dias · dados até '+br(D.meta.dataMax)+' · atualizado '+(D.meta.atualizadoEm||'');
+  $('foot').textContent = 'Fonte: planilha Sala Secreta (MTADS · Consolidado SS · _Links Criativos) · dados até '+br(D.meta.dataMax);
+
+  // tráfego
+  $('k-inv').textContent = brl(t.investimento);
+  $('k-inv-h').textContent = t.diasComDados+' dias com tráfego · '+brl(t.diasComDados?t.investimento/t.diasComDados:null)+'/dia';
+  $('k-leads').textContent = num(t.leads);
+  $('k-leads-h').textContent = (t.diasComDados?num(t.leads/t.diasComDados,0):'—')+' leads/dia em média';
+  var kc = $('k-cpl'); kc.textContent = brl(t.cpl); kc.className = cplClass(t.cpl)||'roxo';
+  $('k-cpl-h').textContent = t.cpl===null?'sem leads no período':(t.cpl<=1.8?'dentro da faixa saudável (R$ 1,70–2,00)':(t.cpl<=2.6?'acima da faixa saudável':'atenção: bem acima do histórico'));
+  $('k-cpm').textContent = brl(t.cpm); $('k-cpc').textContent = brl(t.cpc); $('k-ctr').textContent = pct(t.ctr,2);
+  $('k-cr').textContent = pct(t.connectRate); $('k-conv').textContent = pct(t.convPagina); $('k-clpv').textContent = brl(t.custoLpv);
+  $('trafego-lead').textContent = t.leads ? ('Foram '+num(t.leads)+' leads com '+brl(t.investimento)+' investidos — CPL de '+brl(t.cpl)+'. '+num(t.impressoes)+' impressões, '+num(t.cliques)+' cliques e '+num(t.lpv)+' visualizações de página.') : 'Sem dados de tráfego nesse intervalo.';
+
+  // comunidade
+  var ke=$('k-entradas');
+  if (!au.entradasDisponivel){ ke.textContent='—'; ke.className='muted'; $('k-entradas-h').textContent='crie a aba "Entradas Grupo" no menu 📊 Dashboard SS e preencha por dia'; }
+  else if (au.entradasGrupo===null){ ke.textContent='—'; ke.className='muted'; $('k-entradas-h').textContent='aba criada, sem registros nesse período'; }
+  else { ke.textContent=num(au.entradasGrupo); ke.className=''; $('k-entradas-h').textContent='soma da aba "Entradas Grupo"'; }
+  $('k-salas').textContent = num(au.salas);
+  $('k-pico').textContent = au.picoMedio===null?'—':num(au.picoMedio,0);
+  $('k-pico-h').textContent = au.comunidadeUltima?('comunidade: '+num(au.comunidadeUltima)+' na última Sala'):'';
+  $('k-pres').textContent = pct(au.presencaMedia);
+
+  // vendas
+  $('v-ws').textContent=num(v.workshop); $('v-grav').textContent=num(v.gravacao); $('v-pal').textContent=num(v.palestras); $('v-fotos').textContent=num(v.fotos);
+  $('v-aplic').textContent=num(v.aplicacoesMentoria); $('v-ment').textContent=num(v.mentoria3)+' · '+num(v.mentoria6);
+  $('v-total').textContent=num(v.vendasQtd); $('v-total-h').textContent=num(v.totalSS)+' produtos SS + '+num(v.mentoria3+v.mentoria6)+' mentorias';
+  $('v-rec').textContent=brl(v.receitaTotal,0); $('v-rec-h').textContent=brl(v.receitaProdutos,0)+' produtos · '+brl(v.receitaMentoria,0)+' mentoria';
+  $('v-ticket').textContent=brl(v.ticketMedio,0);
+  var kr=$('v-roas'); kr.textContent = v.roas===null?'—':num(v.roas,2)+'x'; kr.className = v.roas===null?'':(v.roas>=3?'good':(v.roas<1?'bad':''));
+  $('vendas-lead').textContent = au.salas ? (au.salas+' Sala'+(au.salas>1?'s':'')+' no período: '+num(v.vendasQtd)+' vendas e '+brl(v.receitaTotal,0)+' de receita'+(v.roas!==null?' — ROAS '+num(v.roas,2)+'x':'')+'.') : 'Nenhuma Sala (quarta) dentro do intervalo — vendas e audiência ficam vazias.';
+
+  renderFunil();
+  renderGrupo();
+  renderCriativos();
+
+  // salas
+  var tb=$('tb-salas');
+  if(!D.salas.length){ tb.innerHTML='<tr><td colspan="10" class="empty">Nenhuma Sala no intervalo.</td></tr>'; }
+  else tb.innerHTML = D.salas.map(function(s){
+    var men = s.mentoria3+s.mentoria6;
+    return '<tr'+(s.receitaTotal>=5000?' class="hero-row"':'')+'><td><b>'+br(s.data)+'</b> · Sem. '+esc(s.sem)+'<br><span style="font-weight:300;color:var(--cinza)">'+esc(s.tema)+'</span></td>'+
+      '<td>'+brl(s.investimento)+'</td><td>'+num(s.leads)+'</td><td class="'+cplClass(s.cpl)+'">'+brl(s.cpl)+'</td><td>'+pct(s.convPagina)+'</td>'+
+      '<td>'+num(s.pico)+'</td><td>'+pct(s.presenca)+'</td><td>'+num(s.totalSS)+'</td><td>'+(men?('<span class="good">'+num(men)+'</span>'):'0')+(s.aplicacoesMentoria?' <span class="tag gray">'+num(s.aplicacoesMentoria)+' aplic.</span>':'')+'</td><td>'+brl(s.receitaTotal,0)+'</td></tr>';
+  }).join('');
+
+  var serieT = serieDe(detDe('trafego'));
+  desenharBarras('ch-leads', serieT, 'leads');
+  desenharLinha('ch-cpl', serieT, t.cpl);
+}
+
+// ---------- funil até o grupo (Unnichat + Clint) ----------
+// BASE['todos']  = os dois cadastros somados, pessoa única por e-mail
+// BASE['match']  = só quem tem campanha identificada na UTM
+function setBaseGrupo(v){ FILTROS.grupo.base = v; render(); }
+
+var ORIGEM_NOME = {
+  pago:        'Tráfego pago (Meta)',
+  ig_unnichat: 'Instagram — comentário/stories (Unnichat)',
+  bio:         'Link da bio',
+  email:       'E-mail',
+  whatsapp:    'WhatsApp (disparos)',
+  org_outros:  'Outros orgânicos (site, YouTube, Telegram…)',
+  outro_funil: 'Anúncio de outro funil',
+  sem_utm:     'Sem UTM'
+};
+
+function renderGrupo(){
+  var base = FILTROS.grupo.base || 'todos';
+  var det=detDe('grupo'), cad=cadDe('grupo'), t=agrega(det);
+  if (base==='match') cad = cad.filter(function(x){ return x.camp!=='SN'; });
+
+  var C=0,G=0,U=0,CL=0,SI=0,CM=0;
+  cad.forEach(function(x){
+    C+=x.cadastros; G+=x.grupo; U+=x.unnichat||0; CL+=x.clint||0;
+    SI+=x.semGrupoInfo||0;
+    if(x.camp!=='SN') CM+=x.cadastros;
+  });
+  var comInfo = C - SI;                 // só o Unnichat sabe dizer se entrou
+  var inv=t.investimento, leads=t.leads;
+
+  $('g-leads').textContent=num(leads);
+  $('g-leads-h').textContent='o que o Meta contou';
+  $('g-cad').textContent=num(C);
+  $('g-cad-h').textContent = leads? pct(C/leads)+' dos leads viraram cadastro' : 'pessoa única (e-mail)';
+  $('g-grp').textContent=num(G);
+  // a taxa é sempre sobre quem TEM informação de grupo, nunca sobre o total
+  $('g-grp-h').textContent = comInfo? pct(G/comInfo)+' de quem dá pra saber' : 'sem base com info de grupo';
+  $('g-cpl').textContent = leads? brl(inv/leads) : '—';
+  $('g-ccad').textContent = C? brl(inv/C) : '—';
+  $('g-cgrp').textContent = G? brl(inv/G) : '—';
+
+  $('g-match').textContent = num(CM);
+  $('g-match-h').textContent = C? pct(CM/C)+' dos cadastros têm UTM de campanha' : '';
+  $('g-cob').textContent = num(comInfo);
+  $('g-cob-h').textContent = C? pct(C? comInfo/C : 0)+' da base (o resto é Clint, que não tem a coluna)' : '';
+  $('g-fontes').textContent = num(U)+' / '+num(CL);
+  $('g-fontes-h').textContent = 'duplicados por e-mail contam uma vez';
+
+  // seletor da base
+  $('fbar-grupo-base').innerHTML =
+    '<small>Base de cadastro</small>'+
+    '<button class="fbtn'+(base==='todos'?' ativo':'')+'" onclick="setBaseGrupo(\'todos\')">Todos os cadastros</button>'+
+    '<button class="fbtn'+(base==='match'?' ativo':'')+'" onclick="setBaseGrupo(\'match\')">Só com campanha na UTM</button>'+
+    '<span class="fstatus">'+(base==='match'
+      ? 'ignorando quem chegou sem UTM de campanha (orgânico, link da bio, sem UTM)'
+      : 'Unnichat + Clint somados, pessoa única por e-mail')+'</span>';
+
+  // avisos
+  var avisos=[];
+  var semInv = D.campanhas.filter(function(c){ return c.temUnnichat && !c.temMtads && passaCamp('grupo',c.cod) && c.cod!=='SN'; });
+  var temCad = semInv.filter(function(c){ return cad.some(function(x){return x.camp===c.cod;}); });
+  if(temCad.length) avisos.push('<b>'+temCad.map(function(c){return '['+c.cod+']';}).join(', ')+
+    '</b> tem cadastro mas não tem investimento no MTADS — o custo por entrada está subestimado.');
+  if(SI) avisos.push('<b>'+num(SI)+' cadastro(s)</b> vieram só do Clint, que não tem a coluna "Entrou no Grupo" — '+
+    'eles contam como cadastro, mas não entram na conta do grupo.');
+  if(D.meta.clintDataMax && D.meta.clintDataMax < D.periodo.fim) avisos.push(
+    'O Clint não recebe cadastro novo desde <b>'+br(D.meta.clintDataMax)+'</b>. '+
+    'Depois dessa data o número vem só do Unnichat.');
+  $('grupo-aviso').innerHTML = avisos.length
+    ? '<div class="fbar" style="border-color:#FDE68A;background:#FFFBEB;align-items:flex-start">'+
+      '<small style="color:var(--warn)">⚠️ Leia antes</small><span style="font-size:12.5px;color:var(--warn);line-height:1.5">'+
+      avisos.join('<br>')+'</span></div>'
+    : '';
+
+  $('grupo-lead').textContent = C
+    ? ('De '+num(leads)+' leads do Meta, '+num(C)+' viraram cadastro (pessoa única) e '+num(G)+' entraram no grupo'+
+       (comInfo<C? ' — de '+num(comInfo)+' que dá pra saber' : '')+'.')
+    : 'Nenhum cadastro no recorte selecionado.';
+
+  // tabela dia a dia
+  var porDia={};
+  function dref(k){ return porDia[k] || (porDia[k]={inv:0,leads:0,cad:0,grp:0,si:0}); }
+  det.forEach(function(d){ var x=dref(d.data); x.inv+=d.investimento; x.leads+=d.leads; });
+  cad.forEach(function(x){ var y=dref(x.data); y.cad+=x.cadastros; y.grp+=x.grupo; y.si+=x.semGrupoInfo||0; });
+  var dias=Object.keys(porDia).sort().reverse();
+  $('tb-grupo').innerHTML = dias.length ? dias.map(function(k){
+    var x=porDia[k], ci=x.cad-x.si;
+    return '<tr><td>'+br(k)+'</td><td>'+brl(x.inv)+'</td><td>'+num(x.leads)+'</td><td><b>'+num(x.cad)+'</b></td>'+
+      '<td class="good">'+num(x.grp)+(x.si?' <span class="tag gray">'+num(x.si)+' s/ info</span>':'')+'</td>'+
+      '<td>'+(x.leads?brl(x.inv/x.leads):'—')+'</td>'+
+      '<td>'+(x.cad?brl(x.inv/x.cad):'—')+'</td><td>'+(x.grp?brl(x.inv/x.grp):'—')+'</td>'+
+      '<td>'+(x.leads?pct(x.cad/x.leads):'—')+'</td><td>'+(ci?pct(x.grp/ci):'—')+'</td></tr>';
+  }).join('') : '<tr><td colspan="10" class="empty">Sem dados no recorte.</td></tr>';
+
+  // por origem (utm_source/utm_medium). Custo só faz sentido no pago.
+  var po={};
+  cad.forEach(function(x){
+    var k=x.origem||'sem_utm', y=po[k]||(po[k]={cad:0,grp:0,si:0});
+    y.cad+=x.cadastros; y.grp+=x.grupo; y.si+=x.semGrupoInfo||0;
+  });
+  var origs=Object.keys(po).sort(function(a,b){ return po[b].cad-po[a].cad; });
+  var pago=po.pago||{cad:0,grp:0};
+  $('grupo-origem-lead').textContent = C
+    ? (pct(pago.cad/C)+' dos cadastros vieram do tráfego pago. O custo por cadastro do pago, sem contar o orgânico, é '+
+       (pago.cad? brl(inv/pago.cad) : '—')+'.')
+    : '';
+  $('tb-grupo-origem').innerHTML = origs.length ? origs.map(function(k){
+    var x=po[k], ci=x.cad-x.si, share=C? x.cad/C : 0, ehPago=(k==='pago');
+    return '<tr><td>'+(ehPago?'<b>':'')+esc(ORIGEM_NOME[k]||k)+(ehPago?'</b>':'')+'</td>'+
+      '<td><b>'+num(x.cad)+'</b></td>'+
+      '<td><span class="obar"><i style="width:'+(share*100).toFixed(1)+'%"></i></span>'+pct(share)+'</td>'+
+      '<td class="good">'+num(x.grp)+(x.si?' <span class="tag gray">'+num(x.si)+' s/ info</span>':'')+'</td>'+
+      '<td>'+(ci?pct(x.grp/ci):'—')+'</td>'+
+      '<td>'+(ehPago&&x.cad&&inv?brl(inv/x.cad):'—')+'</td>'+
+      '<td>'+(ehPago&&x.grp&&inv?brl(inv/x.grp):'—')+'</td></tr>';
+  }).join('') : '<tr><td colspan="7" class="empty">Sem dados.</td></tr>';
+
+  // por campanha
+  var pc={};
+  function cref(c){ return pc[c] || (pc[c]={cad:0,grp:0,inv:0,leads:0,si:0}); }
+  cad.forEach(function(x){ var y=cref(x.camp); y.cad+=x.cadastros; y.grp+=x.grupo; y.si+=x.semGrupoInfo||0; });
+  det.forEach(function(d){ var y=cref(d.camp); y.inv+=d.investimento; y.leads+=d.leads; });
+  var cods=Object.keys(pc).sort(function(a,b){ return pc[b].cad-pc[a].cad || pc[b].leads-pc[a].leads; });
+  var nomeDe={}; D.campanhas.forEach(function(c){ nomeDe[c.cod]=c.nome; });
+  $('tb-grupo-camp').innerHTML = cods.length ? cods.map(function(c){
+    var x=pc[c], n=nomeDe[c]||('['+c+']'), ci=x.cad-x.si;
+    var alerta = (x.leads>=30 && x.cad===0) ? ' <span class="tag gray">sem cadastro</span>' : '';
+    return '<tr><td>'+esc(n.length>32?n.slice(0,32)+'…':n)+alerta+'</td><td>'+num(x.leads)+'</td>'+
+      '<td>'+num(x.cad)+'</td><td>'+num(x.grp)+(x.si?' <span class="tag gray">'+num(x.si)+' s/ info</span>':'')+'</td>'+
+      '<td>'+(ci?pct(x.grp/ci):'—')+'</td><td>'+(x.grp&&x.inv?brl(x.inv/x.grp):'—')+'</td></tr>';
+  }).join('') : '<tr><td colspan="6" class="empty">Sem dados.</td></tr>';
+}
+
+// ---------- funil ----------
+function renderFunil(){
+  var t=agrega(detDe('funil')), v=D.vendas;
+  // a etapa de venda só faz sentido quando o funil está com o período/campanhas gerais
+  var pf=periodoDe('funil');
+  var temSala = D.audiencia.salas>0 && !pf.proprio && campsDe('funil')===null;
+
+  var etapas=[
+    {lbl:'IMPRESSÕES', v:t.impressoes},
+    {lbl:'CLIQUES NO LINK', v:t.cliques, taxa:t.ctr, taxaLbl:'CTR'},
+    {lbl:'VISUALIZAÇÕES', v:t.lpv, taxa:t.connectRate, taxaLbl:'connect rate'},
+    {lbl:'LEADS', v:t.leads, taxa:t.convPagina, taxaLbl:'conversão da página'}
+  ];
+  if(temSala) etapas.push({lbl:'VENDAS NA SALA', v:v.vendasQtd, taxa:t.leads?v.vendasQtd/t.leads:null, taxaLbl:'lead → venda'});
+  desenharFunil('ch-funil', etapas);
+
+  var freq = t.alcance ? t.impressoes/t.alcance : null;
+  var cards=[
+    {lbl:'MÍDIA', val:brl(t.investimento), lins:[['Impressões',num(t.impressoes)],['Alcance',num(t.alcance)],['CPM',brl(t.cpm)],['Frequência',freq===null?'—':num(freq,2)]]},
+    {lbl:'CLIQUE', val:num(t.cliques), lins:[['CPC',brl(t.cpc)],['CTR',pct(t.ctr,2)],['Custo total',brl(t.investimento)]]},
+    {lbl:'PÁGINA', val:num(t.lpv), lins:[['Custo/LPV',brl(t.custoLpv)],['Connect rate',pct(t.connectRate)],['Perda no clique',pct(t.connectRate===null?null:1-t.connectRate)]]},
+    {lbl:'LEAD', val:num(t.leads), lins:[['CPL',brl(t.cpl)],['Conv. da página',pct(t.convPagina)],['Leads/dia',t.diasComDados?num(t.leads/t.diasComDados,0):'—']]}
+  ];
+  if(temSala) cards.push({lbl:'VENDA NA SALA', val:num(v.vendasQtd), lins:[['Custo por venda',brl(v.custoPorVenda,0)],['Lead → venda',pct(t.leads?v.vendasQtd/t.leads:null,2)],['Ticket médio',brl(v.ticketMedio,0)],['Receita',brl(v.receitaTotal,0)]]});
+
+  $('etapas').innerHTML = cards.map(function(c){
+    return '<div class="etapa"><div class="cab"><small>'+c.lbl+'</small><b>'+c.val+'</b></div>'+
+      c.lins.map(function(l){ return '<div class="lin"><span>'+l[0]+'</span><b>'+l[1]+'</b></div>'; }).join('')+'</div>';
+  }).join('');
+
+  $('funil-lead').textContent = t.impressoes
+    ? ('De '+num(t.impressoes)+' impressões até '+num(t.leads)+' leads'+(temSala?(' e '+num(v.vendasQtd)+' vendas'):'')+'. As porcentagens mostram quanto passa de uma etapa para a outra.'+(temSala?'':' A etapa de venda só aparece quando há uma Sala (quarta) dentro do período.'))
+    : 'Sem dados de tráfego nesse intervalo.';
+}
+
+function desenharFunil(id, etapas){
+  var svg=$(id); var W=svg.clientWidth||960, H=250, baseY=196, topMin=14;
+  svg.setAttribute('viewBox','0 0 '+W+' '+H); svg.innerHTML='';
+  var vals=etapas.map(function(e){return e.v;});
+  if(!vals.length || !vals[0]){ svg.innerHTML='<text x="'+(W/2)+'" y="'+(H/2)+'" text-anchor="middle" class="taxa">sem dados</text>'; return; }
+  var max=Math.max.apply(null,vals), pos=vals.filter(function(x){return x>0;});
+  var min=pos.length?Math.min.apply(null,pos):1;
+  var maxH=baseY-topMin, n=etapas.length;
+  var bw=W/(n*1.62), gap=n>1?(W-n*bw)/(n-1):0;
+
+  function altura(v){
+    if(!v||v<=0) return 6;
+    if(max===min) return maxH;
+    var f=0.44+0.56*(Math.log(v)-Math.log(min))/(Math.log(max)-Math.log(min));
+    return Math.max(10, maxH*f);
+  }
+  var geo=etapas.map(function(e,i){ var h=altura(e.v), x=i*(bw+gap); return {x:x, y:baseY-h, h:h}; });
+
+  var g='<defs><linearGradient id="fg" x1="0" y1="0" x2="0" y2="1">'+
+        '<stop offset="0%" stop-color="#8B5CF6"/><stop offset="100%" stop-color="#5B21B6"/></linearGradient></defs>';
+
+  // conectores (atrás das barras)
+  for(var i=0;i<n-1;i++){
+    var a=geo[i], b=geo[i+1];
+    g+='<polygon class="conector" points="'+(a.x+bw)+','+a.y+' '+b.x+','+b.y+' '+b.x+','+baseY+' '+(a.x+bw)+','+baseY+'"/>';
+    var e=etapas[i+1];
+    if(e.taxa!==null && e.taxa!==undefined){
+      var cx=(a.x+bw+b.x)/2, cy=((a.y+b.y)/2+baseY)/2;
+      g+='<text class="taxa" x="'+cx+'" y="'+cy+'" text-anchor="middle">'+pct(e.taxa, e.taxa<0.1?2:1)+'</text>';
+    }
+  }
+  // barras
+  etapas.forEach(function(e,i){
+    var q=geo[i];
+    g+='<rect class="barra" x="'+q.x+'" y="'+q.y+'" width="'+bw+'" height="'+q.h+'" rx="10" fill="url(#fg)" data-i="'+i+'"/>';
+    g+='<text class="valor" x="'+(q.x+bw/2)+'" y="'+(q.y+q.h/2+6)+'" text-anchor="middle">'+num(e.v)+'</text>';
+    g+='<text class="etapa-lbl" x="'+(q.x+bw/2)+'" y="'+(baseY+26)+'" text-anchor="middle">'+e.lbl+'</text>';
+  });
+  svg.innerHTML=g;
+
+  svg.querySelectorAll('.barra').forEach(function(r){
+    var i=+r.dataset.i, e=etapas[i], base=etapas[0].v;
+    r.addEventListener('mouseenter',function(ev){
+      var html='<b>'+e.lbl+'</b><br>'+num(e.v);
+      if(e.taxa!==null&&e.taxa!==undefined) html+='<br>'+e.taxaLbl+': '+pct(e.taxa, e.taxa<0.1?2:1);
+      if(i>0&&base) html+='<br>'+pct(e.v/base,3)+' das impressões';
+      showTip(ev,html);
+    });
+    r.addEventListener('mousemove',moveTip); r.addEventListener('mouseleave',hideTip);
+  });
+}
+
+function ordenar(o){ ORD=o; $('ord-leads').classList.toggle('on',o==='leads'); $('ord-cpl').classList.toggle('on',o==='cpl'); renderCriativos(); }
+function renderCriativos(){
+  // monta o ranking a partir do detalhe filtrado desta seção
+  var agg={}, totLeads=0;
+  detDe('criativos').forEach(function(d){
+    if(!d.criativo) return;
+    var a = agg[d.criativo] || (agg[d.criativo]={nome:d.criativo,investimento:0,leads:0,impressoes:0,cliques:0});
+    a.investimento+=d.investimento; a.leads+=d.leads; a.impressoes+=d.impressoes; a.cliques+=d.cliques;
+    totLeads+=d.leads;
+  });
+  var linkDe={}; D.criativos.forEach(function(c){ linkDe[c.nome]=c.link; });
+  var todos = Object.keys(agg).map(function(k){ return agg[k]; }).filter(function(c){ return c.leads>0; })
+    .map(function(c){ c.cpl=c.investimento/c.leads; c.share=totLeads? c.leads/totLeads : 0;
+                      c.ctr=c.impressoes? c.cliques/c.impressoes : null; c.link=linkDe[c.nome]||''; return c; })
+    .sort(function(a,b){ return b.leads-a.leads || a.cpl-b.cpl; });
+  var totalAtivos = todos.length;
+  var lista = todos.slice(0, 10);
+  var MIN_LEADS_CPL = 20;
+  if (ORD==='cpl'){
+    var f = lista.filter(function(c){ return c.leads >= MIN_LEADS_CPL; });
+    if (f.length) lista = f;
+    lista.sort(function(a,b){ return a.cpl-b.cpl || b.leads-a.leads; });
+  }
+  var tb=$('tb-cri');
+  if(!lista.length){ tb.innerHTML='<tr><td colspan="6" class="empty">Nenhum criativo com leads no intervalo.</td></tr>'; return; }
+  tb.innerHTML = lista.map(function(c,i){
+    var nome = c.link ? '<a class="ext" href="'+esc(c.link)+'" target="_blank" rel="noopener">'+esc(c.nome)+'</a>' : '<span class="nolink" title="sem link na aba _Links Criativos">'+esc(c.nome)+'</span>';
+    return '<tr'+(i===0?' class="hero-row"':'')+'><td><span class="rank'+(i===0?' r1':'')+'">'+(i+1)+'</span>'+nome+'</td>'+
+      '<td><b>'+num(c.leads)+'</b></td><td>'+pct(c.share)+'</td><td>'+brl(c.investimento)+'</td><td class="'+cplClass(c.cpl)+'">'+brl(c.cpl)+'</td><td>'+pct(c.ctr,2)+'</td></tr>';
+  }).join('');
+  $('cri-lead').textContent = 'Top '+lista.length+' de '+totalAtivos+' criativos com leads no recorte, ordenado por '+(ORD==='cpl'?'menor custo por lead (mín. '+MIN_LEADS_CPL+' leads)':'volume de leads')+'. Clique no nome para abrir o criativo.';
+}
+
+// ---------- gráficos (SVG puro) ----------
+var tip=$('tip');
+function showTip(e,html){ tip.innerHTML=html; tip.style.display='block'; moveTip(e); }
+function moveTip(e){ tip.style.left=(e.clientX+14)+'px'; tip.style.top=(e.clientY-10)+'px'; }
+function hideTip(){ tip.style.display='none'; }
+
+function desenharBarras(id, serie, campo){
+  var svg=$(id); var W=svg.clientWidth||520, H=190, padL=36, padB=24, padT=8;
+  svg.setAttribute('viewBox','0 0 '+W+' '+H); svg.innerHTML='';
+  if(!serie.length){ svg.innerHTML='<text x="'+(W/2)+'" y="'+(H/2)+'" text-anchor="middle" class="axis">sem dados</text>'; return; }
+  var max=Math.max.apply(null, serie.map(function(s){return s[campo];}))||1;
+  var n=serie.length, gap=2, bw=Math.max(2,(W-padL)/n - gap), ih=H-padB-padT;
+  var g='';
+  [0,.5,1].forEach(function(f){ var y=padT+ih-(ih*f); g+='<line class="grid" x1="'+padL+'" x2="'+W+'" y1="'+y+'" y2="'+y+'"/><text class="axis" x="'+(padL-6)+'" y="'+(y+3)+'" text-anchor="end">'+num(max*f,0)+'</text>'; });
+  serie.forEach(function(s,i){
+    var h=ih*(s[campo]/max), x=padL+i*((W-padL)/n), y=padT+ih-h;
+    g+='<rect class="bar" x="'+x+'" y="'+y+'" width="'+bw+'" height="'+h+'" rx="3" data-i="'+i+'"/>';
+    if(n<=16 || i%Math.ceil(n/12)===0) g+='<text class="axis" x="'+(x+bw/2)+'" y="'+(H-6)+'" text-anchor="middle">'+brShort(s.data)+'</text>';
+  });
+  svg.innerHTML=g;
+  svg.querySelectorAll('.bar').forEach(function(r){
+    var s=serie[+r.dataset.i];
+    r.addEventListener('mouseenter',function(e){ showTip(e,'<b>'+br(s.data)+'</b><br>'+num(s.leads)+' leads · '+brl(s.investimento)+'<br>CPL '+brl(s.cpl)); });
+    r.addEventListener('mousemove',moveTip); r.addEventListener('mouseleave',hideTip);
+  });
+}
+function desenharLinha(id, serie, media){
+  var svg=$(id); var W=svg.clientWidth||520, H=190, padL=44, padB=24, padT=8;
+  svg.setAttribute('viewBox','0 0 '+W+' '+H); svg.innerHTML='';
+  var pts=serie.filter(function(s){return s.cpl!==null;});
+  if(!pts.length){ svg.innerHTML='<text x="'+(W/2)+'" y="'+(H/2)+'" text-anchor="middle" class="axis">sem dados</text>'; return; }
+  var max=Math.max.apply(null, pts.map(function(s){return s.cpl;}).concat([media||0]))*1.15||1;
+  var ih=H-padB-padT, n=serie.length, step=(W-padL)/Math.max(1,n-1);
+  var g='';
+  [0,.5,1].forEach(function(f){ var y=padT+ih-(ih*f); g+='<line class="grid" x1="'+padL+'" x2="'+W+'" y1="'+y+'" y2="'+y+'"/><text class="axis" x="'+(padL-6)+'" y="'+(y+3)+'" text-anchor="end">'+brl(max*f).replace('R$ ','')+'</text>'; });
+  if(media){ var ym=padT+ih-(ih*media/max); g+='<line class="ref" x1="'+padL+'" x2="'+W+'" y1="'+ym+'" y2="'+ym+'"/>'; }
+  var d='', first=true;
+  serie.forEach(function(s,i){ if(s.cpl===null) return; var x=padL+i*step, y=padT+ih-(ih*s.cpl/max); d+=(first?'M':'L')+x+' '+y+' '; first=false; });
+  g+='<path class="line" d="'+d+'"/>';
+  serie.forEach(function(s,i){ if(s.cpl===null) return; var x=padL+i*step, y=padT+ih-(ih*s.cpl/max); g+='<circle class="dot" cx="'+x+'" cy="'+y+'" r="'+(n>40?2.5:4)+'" data-i="'+i+'"/>'; if(n<=16 || i%Math.ceil(n/12)===0) g+='<text class="axis" x="'+x+'" y="'+(H-6)+'" text-anchor="middle">'+brShort(s.data)+'</text>'; });
+  svg.innerHTML=g;
+  svg.querySelectorAll('.dot').forEach(function(c){
+    var s=serie[+c.dataset.i];
+    c.addEventListener('mouseenter',function(e){ showTip(e,'<b>'+br(s.data)+'</b><br>CPL '+brl(s.cpl)+'<br>'+num(s.leads)+' leads · '+brl(s.investimento)); });
+    c.addEventListener('mousemove',moveTip); c.addEventListener('mouseleave',hideTip);
+  });
+}
+window.addEventListener('resize', function(){
+  if(!D) return;
+  renderFunil();
+  var s=serieDe(detDe('trafego'));
+  desenharBarras('ch-leads', s, 'leads');
+  desenharLinha('ch-cpl', s, agrega(detDe('trafego')).cpl);
+});
+
+// ---------- init ----------
+carregarPresets();
+preset('mes');
+</script>
+<!-- ===================== BLOCO: META → UNNICHAT → GRUPO (topo) ===================== -->
+<style>
+  .t3{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:10px;align-items:stretch}
+  @media (max-width:860px){.t3{grid-template-columns:1fr}.t3 .seta3{display:none}}
+  .t3 .et{border:1px solid var(--linha);border-radius:16px;padding:18px 20px;background:#fff;display:flex;flex-direction:column;gap:6px}
+  .t3 .et.fim{border-color:var(--roxo);background:linear-gradient(180deg,#fff,var(--roxo-xlight) 220%);box-shadow:0 8px 24px rgba(124,58,237,.08)}
+  .t3 .et small{color:var(--roxo);font-size:10.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
+  .t3 .et .n{font-size:32px;font-weight:700;line-height:1.1;font-variant-numeric:tabular-nums;color:var(--ink)}
+  .t3 .et .pc{font-size:12.5px;color:var(--cinza)}
+  .t3 .et .pc b{color:var(--ink);font-weight:600}
+  .t3 .et .cu{margin-top:auto;padding-top:10px;border-top:1px solid var(--linha);display:flex;justify-content:space-between;align-items:baseline;font-size:12.5px;color:var(--cinza)}
+  .t3 .et .cu b{font-size:18px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums}
+  .t3 .seta3{display:flex;align-items:center;color:var(--roxo-light);font-size:22px;font-weight:300}
+  .faixa{display:inline-block;font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:100px;margin-top:6px;align-self:flex-start}
+  .faixa.ok{background:#DCFCE7;color:#166534}.faixa.atencao{background:#FEF3C7;color:#92400E}.faixa.alto{background:#FEE2E2;color:#991B1B}
+  .t3-extra{margin-top:14px;font-size:13px;color:var(--cinza);border-left:3px solid var(--roxo-light);padding:8px 12px;background:var(--bg-soft);border-radius:0 10px 10px 0}
+  .t3-extra b{color:var(--ink);font-weight:600}
+  .t3-aviso{margin-top:10px;font-size:12.5px;color:#92400E;border-left:3px solid #FCD34D;padding:8px 12px;background:#FFFBEB;border-radius:0 10px 10px 0}
+</style>
+
+<section id="sec-topo-grupo">
+<div class="wrap">
+  <div class="section-label">Sala Secreta em 1 número</div>
+  <h2>Do cadastro no Meta até o grupo</h2>
+  <p class="lead" id="t3-lead"></p>
+  <div class="t3" id="t3-cards"></div>
+  <div class="t3-extra" id="t3-extra"></div>
+  <div id="t3-aviso"></div>
+  <div class="table-wrap" style="margin-top:18px">
+    <table>
+      <thead><tr><th>Página</th><th>Investido</th><th>Cad. Meta</th><th>Custo</th><th>Cad. Unnichat</th><th>% do Meta</th><th>Custo</th><th>No grupo</th><th>% do Unnichat</th><th>Custo</th></tr></thead>
+      <tbody id="t3-pag"></tbody>
+    </table>
+  </div>
+</div>
+</section>
+
+<script>
+// Faixa de custo por pessoa no grupo definida na reunião de 12/10 (ajuste aqui se a meta mudar)
+var FAIXA_GRUPO = { ok: 3.20, atencao: 4.00 };   // até 3,20 verde · até 4,00 amarelo · acima vermelho
+var DATA_LEAD_UNNICHAT = '2026-10-15';           // antes disso o Lead do Meta usava outra contagem
+
+// Conta pura: usa o período geral do topo e todas as campanhas.
+// "Pago" = cadastro com campanha identificada na UTM; o resto é orgânico.
+function calcTopoGrupo(D){
+  var nome = {}; (D.campanhas||[]).forEach(function(c){ nome[c.cod] = c.nome; });
+  function pag(cod){
+    if (cod === 'SN') return null;
+    var m = String(nome[cod]||'').match(/PAGINA ([A-Z])/i);
+    return m ? 'Página ' + m[1].toUpperCase() : 'Sem página no nome';
+  }
+  var tot = {inv:0, meta:0, uni:0, grp:0}, org = {uni:0, grp:0}, pg = {};
+  function P(k){ return pg[k] || (pg[k] = {pag:k, inv:0, meta:0, uni:0, grp:0}); }
+  (D.detalhe||[]).forEach(function(d){
+    tot.inv += d.investimento; tot.meta += d.leads;
+    var k = pag(d.camp) || 'Sem página no nome'; P(k).inv += d.investimento; P(k).meta += d.leads;
+  });
+  (D.cadastros||[]).forEach(function(x){
+    var u = x.unnichat || 0, g = x.grupo || 0;
+    if (x.camp === 'SN') { org.uni += u; org.grp += g; return; }
+    tot.uni += u; tot.grp += g;
+    var p = P(pag(x.camp)); p.uni += u; p.grp += g;
+  });
+  var paginas = Object.keys(pg).sort().map(function(k){ return pg[k]; })
+    .filter(function(p){ return p.inv || p.meta || p.uni || p.grp; });
+  return { tot: tot, org: org, paginas: paginas };
+}
+
+function faixaGrupo(c){
+  if (c === null || c === undefined || !isFinite(c)) return '';
+  if (c <= FAIXA_GRUPO.ok) return '<span class="faixa ok">dentro da faixa</span>';
+  if (c <= FAIXA_GRUPO.atencao) return '<span class="faixa atencao">acima da faixa</span>';
+  return '<span class="faixa alto">bem acima da faixa</span>';
+}
+
+function renderTopoGrupo(){
+  if (!D) return;
+  var r = calcTopoGrupo(D), t = r.tot, o = r.org;
+  function div(a,b){ return b ? a/b : null; }
+  var cMeta = div(t.inv,t.meta), cUni = div(t.inv,t.uni), cGrp = div(t.inv,t.grp);
+
+  function card(cls, rot, n, pcTxt, custo, extra){
+    return '<div class="et'+cls+'"><small>'+rot+'</small><div class="n">'+num(n)+'</div>'+
+      '<div class="pc">'+pcTxt+'</div>'+(extra||'')+
+      '<div class="cu"><span>custo por pessoa</span><b>'+brl(custo)+'</b></div></div>';
+  }
+  $('t3-cards').innerHTML =
+    card('', 'Cadastros no Meta', t.meta, 'o que o Meta contou como lead', cMeta) +
+    '<div class="seta3">→</div>' +
+    card('', 'Cadastros no Unnichat', t.uni, '<b>'+pct(div(t.uni,t.meta))+'</b> dos cadastros do Meta', cUni) +
+    '<div class="seta3">→</div>' +
+    card(' fim', 'Entraram no grupo', t.grp, '<b>'+pct(div(t.grp,t.uni))+'</b> dos cadastros do Unnichat', cGrp,
+         faixaGrupo(cGrp) + '<div class="pc" style="font-size:11px">faixa: até '+brl(FAIXA_GRUPO.ok)+'</div>');
+
+  $('t3-lead').textContent = t.inv
+    ? ('Com '+brl(t.inv)+' investidos: '+num(t.meta)+' cadastros no Meta, '+num(t.uni)+' chegaram no Unnichat e '+num(t.grp)+' entraram no grupo. Só pessoas que vieram de campanha.')
+    : 'Sem investimento no período.';
+
+  var gTodos = t.grp + o.grp;
+  $('t3-extra').innerHTML = 'Fora do pago (orgânico e sem UTM): <b>'+num(o.uni)+'</b> cadastros no Unnichat e <b>'+num(o.grp)+'</b> entraram no grupo ('+pct(div(o.grp,o.uni))+'). '+
+    'Somando pago + orgânico: <b>'+num(gTodos)+'</b> no grupo, '+brl(div(t.inv,gTodos))+' por pessoa.';
+
+  $('t3-aviso').innerHTML = (D.periodo.inicio < DATA_LEAD_UNNICHAT)
+    ? '<div class="t3-aviso">O período começa antes de 15/10. Até 14/10 o Meta contava o lead pela página de obrigado e registrava quase o dobro dos cadastros reais, então os números de "Cadastros no Meta" e o custo dessa etapa não são comparáveis com os de depois.</div>'
+    : '';
+
+  $('t3-pag').innerHTML = r.paginas.length ? r.paginas.map(function(p){
+    var cg = div(p.inv,p.grp);
+    return '<tr><td><b>'+esc(p.pag)+'</b></td><td>'+brl(p.inv,0)+'</td>'+
+      '<td>'+num(p.meta)+'</td><td>'+brl(div(p.inv,p.meta))+'</td>'+
+      '<td>'+num(p.uni)+'</td><td>'+pct(div(p.uni,p.meta))+'</td><td>'+brl(div(p.inv,p.uni))+'</td>'+
+      '<td><b>'+num(p.grp)+'</b></td><td>'+pct(div(p.grp,p.uni))+'</td>'+
+      '<td class="'+(cg===null?'':(cg<=FAIXA_GRUPO.ok?'good':(cg>FAIXA_GRUPO.atencao?'bad':'')))+'"><b>'+brl(cg)+'</b></td></tr>';
+  }).join('') : '<tr><td colspan="10" class="empty">Sem dados no período.</td></tr>';
+}
+
+// Coloca o bloco como primeira seção do painel e liga ele ao render existente
+(function(){
+  var sec = document.getElementById('sec-topo-grupo'), main = document.getElementById('main');
+  if (sec && main) main.insertBefore(sec, main.firstChild);
+  if (typeof render === 'function') {
+    var renderOriginal = render;
+    render = function(){ renderOriginal(); renderTopoGrupo(); };
+    if (D) renderTopoGrupo();
+  }
+})();
+</script>
+<!-- =================== FIM DO BLOCO META → UNNICHAT → GRUPO =================== -->
+
+</body>
+</html>

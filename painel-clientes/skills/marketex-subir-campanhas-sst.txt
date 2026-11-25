@@ -185,9 +185,9 @@ Campanha global: acrescenta `[GLOBAL]` antes do range de criativos.
 
 ## 📊 Referência de custos (medição atual, desde 15/10/26)
 
-Desde 14/10/26 o Lead vem do **Unnichat**. Dados até 23/11/26, sem imposto:
-- **CPL médio:** R$ 2,72 (primeira semana R$ 2,91 · novembro R$ 2,58)
-- **Custo por entrada no grupo do WhatsApp:** R$ 3,99 (de 15 a 31/10 R$ 4,11 · novembro R$ 3,87)
+Desde 14/10/26 o Lead vem do **Unnichat**. Dados até 24/11/26, sem imposto:
+- **CPL médio:** R$ 2,71 (primeira semana R$ 2,91 · novembro R$ 2,57)
+- **Custo por entrada no grupo do WhatsApp:** R$ 3,98 (de 15 a 31/10 R$ 4,11 · novembro R$ 3,86)
 - **Promover criativo:** custo por entrada no grupo abaixo de cerca de R$ 3,70
 - O CPL antigo (R$ 1,70 a R$ 2,00) **não é referência**: o lead era contado quase em dobro.
 
@@ -199,6 +199,19 @@ Desde 14/10/26 o Lead vem do **Unnichat**. Dados até 23/11/26, sem imposto:
 4. Teste de criativos: **todos os criativos da rodada no mesmo conjunto**. O teste nativo do Meta exige campanha com orçamento total. Não mexer na campanha enquanto o teste roda.
 5. Verba de novembro/26: até R$ 6.000 **com impostos**.
 6. Pendência: as 2 exclusões só reconhecem a Página A (marketex.com.br), não as páginas B e C.
+7. Idade por API: editar o público tira o `individual_setting`. Mudar idade **na tela**.
+8. Página C não tem campanha modelo: usar como base a [16] `120257852217950196` ou a [12] `120256789156700196`.
+9. Antes de promover criativo, olhar o custo por entrada no grupo **e** a idade dos leads (ADV39, ADV51, ADV54 e ADV57 trazem de 57% a 68% de 55+).
+
+### Teste de criativos nativo do Meta (como foi feito na [16])
+1. Campanha Leads em CBO com **orçamento total** (não diário) e data de fim.
+2. Um conjunto só, com todos os criativos da rodada. Nascem pausados.
+3. Conferir a elegibilidade e criar o teste (tipo criativo) com 2 a 5 anúncios do mesmo conjunto. Na [16], 80% da verba ficou no teste, dividida por igual.
+4. O criativo de controle pode ficar fora do teste (na [16], o ADV37).
+5. Não mexer na campanha até o fim. Ler por custo por entrada no grupo, não só por CPL.
+
+### Público semelhante (proposta, não aprovada)
+"Semelhante (1%) - LISTA | MENTORIA IA" `120253534759390401`, na conta Criadora de Públicos. Advantage+ desligado, mulheres 30 a 54, Brasil, ADV14 + ADV40, R$ 20/dia, pausada para revisão. Conferir antes se a ANEX 08 acessa o público.
 
 ---
 
@@ -244,6 +257,7 @@ Desde 14/10/26 o Lead vem do **Unnichat**. Dados até 23/11/26, sem imposto:
 ## 📅 Histórico
 
 - **27/08/26** — Skill criada a partir do documento do Rafael + confirmação ao vivo na conta. Confirmado por API: as 2 campanhas modelo (Página A e B, a B não estava no docx original — Rafael corrigiu na hora), público e exclusões dos conjuntos modelo, e que a ANEX 03 tem histórico extenso de SST mas está desativada pra novas campanhas (só ANEX 08 é oficial).
+- **25/11/26** — Horário 10h30 confirmado na copy e no título. Custos até 24/11, teste nativo do Meta, público semelhante e página C.
 - **24/11/26** — Guia revisado: página C, custos de referência da medição atual (Unnichat), regras de operação de novembro e correção do horário da aula (10h30). UTM e nomenclatura alinhadas com as de 23/10 e 27/08.
 
 
@@ -258,7 +272,7 @@ Legenda, título e descrição do funil da **Sala Secreta**. Texto único — va
 **CTA:** Saiba mais (`LEARN_MORE`)
 **Destino:** página A, B ou C, conforme o teste
 
-> ⚠️ **HORÁRIO EM REVISÃO (24/11/26):** a copy e o título abaixo dizem **18h**, mas as páginas e o @anatex anunciam **10h30**. Confirmar com o Rafael antes de subir anúncio novo. O texto foi mantido como aprovado até a confirmação.
+> ✅ **HORÁRIO: 10h30** (confirmado pelo Rafael em 25/11/26). Os anúncios que já rodam ainda dizem 18h: não editar, subir anúncios novos com a copy abaixo.
 
 ---
 
@@ -271,7 +285,7 @@ Um espaço exclusivo onde poucos têm acesso, mas quem entra desbloqueia estrat�
 
 Agora, imagine ter acesso a isso TODA SEMANA! 👀
 
-Toda quarta-feira, às 18h, uma aula gratuita e ao vivo, onde você aprende a usar IA para crescer, otimizar processos e gerar mais resultados.
+Toda quarta-feira, às 10h30, uma aula gratuita e ao vivo, onde você aprende a usar IA para crescer, otimizar processos e gerar mais resultados.
 
 🔥 O QUE VOCÊ VAI DESCOBRIR?
 
@@ -295,7 +309,7 @@ Toda quarta-feira, às 18h, uma aula gratuita e ao vivo, onde você aprende a us
 ## Título (padrão)
 
 ```
-Aula gratuita toda quarta, 18h
+Aula gratuita toda quarta, 10h30
 ```
 
 **Alternativas para teste** (usar só se o Rafael pedir variação):

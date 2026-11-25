@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Funil Sala Secreta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--roxo:#7C3AED;--roxo-dark:#5B21B6;--roxo-deep:#3B0F73;--roxo-light:#A78BFA;--roxo-xlight:#EDE9FE;--preto:#0A0A0A;--ink:#141018;--cinza:#5B5566;--linha:#E7E3EE;--soft:#FAF9FC;--ok:#15803D;--ok-bg:#DCFCE7;--ruim:#B91C1C;--ruim-bg:#FEE2E2;--avi:#92400E;--avi-bg:#FEF3C7}
+*{box-sizing:border-box}html,body{margin:0}
+body{font-family:Poppins,-apple-system,sans-serif;font-weight:400;color:var(--ink);background:#fff;font-size:15px;line-height:1.5;font-variant-numeric:tabular-nums}
+.top{background:linear-gradient(120deg,#0A0A0A 0%,#17111F 45%,#3B0F73 100%);color:#fff}
+.top .in{max-width:1240px;margin:0 auto;padding:16px 24px;display:flex;align-items:center;gap:14px 26px;flex-wrap:wrap}
+.top svg{width:34px;height:34px;flex:none}.top h1{font-size:22px;font-weight:700;margin:0;line-height:1.2}.top p{margin:0;font-size:13px;color:rgba(255,255,255,.72)}
+.seg{display:flex;gap:6px;margin-left:auto;flex-wrap:wrap}
+.seg button{font:600 13.5px Poppins,sans-serif;color:#fff;background:transparent;border:1px solid rgba(255,255,255,.35);border-radius:10px;padding:8px 14px;cursor:pointer;text-align:left;line-height:1.25}
+.seg button small{display:block;font-weight:400;font-size:11.5px;opacity:.78}.seg button.on{background:#fff;color:var(--roxo-dark);border-color:#fff}
+.seg button:hover:not(.on){background:rgba(255,255,255,.1)}
+main{max-width:1240px;margin:0 auto;padding:16px 24px 30px}
+.dica{display:flex;gap:8px 20px;flex-wrap:wrap;align-items:baseline;justify-content:space-between;font-size:14px;color:var(--cinza);margin-bottom:10px}.dica b{color:var(--ink);font-weight:600}
+.aviso{background:var(--avi-bg);color:var(--avi);border-radius:10px;padding:8px 14px;font-size:13.5px;margin-bottom:12px}
+.grid{display:grid;grid-template-columns:minmax(0,1.62fr) minmax(0,1fr);column-gap:34px}
+.ch{display:flex;align-items:baseline;justify-content:space-between;gap:10px;border-bottom:2px solid var(--roxo);padding-bottom:6px;margin-bottom:10px}
+.ch.o{border-color:#2A2433}.ch h2{font-size:17px;font-weight:700;margin:0}.ch span{font-size:13px;color:var(--cinza)}
+.lin{display:grid;grid-template-columns:108px minmax(0,1fr) 138px;align-items:center;gap:12px}
+.org .lin{grid-template-columns:minmax(0,1fr) 138px}
+.lado{font-size:12.5px;color:var(--cinza);text-align:right;line-height:1.3}.lado b{display:block;color:var(--ink);font-size:15px;font-weight:600}.lado u{text-decoration:none;display:block;font-size:11.5px;font-weight:500}.lado .ok{color:var(--ok)}.lado .ruim{color:var(--ruim)}
+.et{position:relative;height:62px;border:0;padding:0;background:none;font-family:inherit;color:#fff;cursor:help;width:100%;display:block}
+.et i{position:absolute;inset:0;display:block}.et span{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.15}
+.et b{font-size:24px;font-weight:700;letter-spacing:-.01em}.et em{font-style:normal;font-size:12.5px;font-weight:500;opacity:.93}
+.et:hover i,.et.on i,.et:focus-visible i{filter:brightness(1.18)}
+.dl{font-size:12.5px;font-weight:600;border-radius:8px;padding:3px 8px;display:inline-block;line-height:1.3;white-space:nowrap}.dl small{display:block;font-weight:400;font-size:11px}
+.dl.ok{color:var(--ok);background:var(--ok-bg)}.dl.ruim{color:var(--ruim);background:var(--ruim-bg)}.dl.n{color:var(--cinza);background:#F1EFF5}
+.tx{display:flex;justify-content:center;position:relative;height:34px;align-items:center}
+.tx::before{content:"";position:absolute;top:0;bottom:0;left:50%;width:2px;background:var(--linha)}
+.pil{position:relative;font:600 13px Poppins,sans-serif;color:var(--roxo-dark);background:var(--roxo-xlight);border:1px solid #D9CCFB;border-radius:100px;padding:3px 13px;cursor:help;white-space:nowrap}
+.pil.forte{background:#fff;border:2px solid var(--roxo);font-size:14px;padding:3px 15px}
+.pil:hover,.pil.on,.pil:focus-visible{background:var(--roxo);color:#fff;border-color:var(--roxo)}
+.org .pil{color:#2A2433;background:#F1EFF5;border-color:#DCD7E4}.org .pil:hover,.org .pil.on,.org .pil:focus-visible{background:#2A2433;color:#fff;border-color:#2A2433}
+.org{display:flex;flex-direction:column}
+.fontes{flex:1;display:flex;flex-direction:column;gap:8px;justify-content:center;padding-bottom:4px}
+.fo{display:grid;grid-template-columns:122px minmax(0,1fr) 46px;gap:10px;align-items:center;font:400 14px Poppins,sans-serif;text-align:left;border:0;background:none;padding:5px 6px;border-radius:8px;cursor:help;color:var(--ink);width:100%}
+.fo:hover,.fo.on,.fo:focus-visible{background:#F1EFF5}.fo u{display:block;height:14px;border-radius:0 4px 4px 0;background:#4A4356}.fo b{text-align:right;font-weight:600}
+.cx{border:1px solid var(--linha);border-radius:12px;padding:9px 14px;text-align:left;font-family:inherit;background:#fff;cursor:help;width:100%;color:var(--ink);font-size:13.5px;display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px}
+.cx b{font-size:18px;font-weight:700}.cx:hover,.cx.on,.cx:focus-visible{border-color:var(--roxo);background:var(--soft)}
+.junta{display:grid;grid-template-columns:minmax(0,1.62fr) minmax(0,1fr);column-gap:34px;height:26px}
+.junta svg{width:100%;height:26px;display:block}.junta .u{grid-column:1/-1}
+.fim{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.fb{border:0;border-radius:14px;color:#fff;font-family:inherit;text-align:left;padding:13px 18px;cursor:help;background:linear-gradient(100deg,#3B0F73,#24103F);min-height:104px}
+.fb:nth-child(1){background:linear-gradient(100deg,#7C3AED,#3B0F73)}
+.fb:hover,.fb.on,.fb:focus-visible{filter:brightness(1.2)}
+.fb em{font-style:normal;font-size:13px;opacity:.9;display:block}.fb b{font-size:30px;font-weight:700;line-height:1.15;display:block}.fb small{font-size:12.5px;opacity:.85;display:block}
+button:focus-visible{outline:3px solid var(--roxo-light);outline-offset:2px}
+#pop{position:absolute;z-index:50;width:430px;max-width:calc(100vw - 24px);background:#fff;border:1px solid #D9D3E4;border-radius:14px;box-shadow:0 18px 50px rgba(20,16,24,.22);padding:16px 18px;font-size:13.5px;display:none}
+#pop.v{display:block}#pop h3{margin:0 0 4px;font-size:16px;font-weight:700;padding-right:26px}#pop p{margin:0 0 10px;color:var(--cinza);line-height:1.45}#pop h4{margin:12px 0 5px;font-size:13px;font-weight:600;color:var(--roxo-dark)}
+#pop p.nt{margin:10px 0 0;font-size:12.5px}#pop p b{color:var(--ink);font-weight:600}
+#pop .x{position:absolute;right:10px;top:10px;border:0;background:#F1EFF5;border-radius:8px;width:28px;height:28px;font-size:14px;cursor:pointer;display:none}#pop.fx .x{display:block}
+.br{display:grid;grid-template-columns:104px minmax(0,1fr) 78px;gap:9px;align-items:center;padding:2.5px 0}.br span{color:var(--cinza);font-size:12.5px}.br u{display:block;height:13px;border-radius:0 4px 4px 0;background:#CFC8DA;min-width:2px}.br.at u{background:var(--roxo)}.br b{text-align:right;font-weight:600}.br.at span{color:var(--ink);font-weight:500}
+#pop table{width:100%;border-collapse:collapse;font-size:12.5px}#pop th{font-weight:500;color:var(--cinza);text-align:right;padding:3px 5px;border-bottom:1px solid var(--linha);line-height:1.25}#pop td{text-align:right;padding:4px 5px;border-bottom:1px solid #F3F0F7;white-space:nowrap}#pop th:first-child,#pop td:first-child{text-align:left;padding-left:0}#pop td:first-child{white-space:normal}#pop tr.t td{font-weight:600;border-bottom:0}
+#pop a{color:var(--roxo-dark)}
+footer{max-width:1240px;margin:0 auto;padding:0 24px 26px;font-size:12.5px;color:var(--cinza)}footer a{color:var(--roxo-dark);font-weight:500}
+@media(max-width:900px){.grid,.junta{grid-template-columns:minmax(0,1fr)}.org{margin-top:22px}.junta{display:none}.fim{grid-template-columns:1fr 1fr;margin-top:18px}.seg{margin-left:0}.lin{grid-template-columns:70px minmax(0,1fr) 88px;gap:7px}.org .lin{grid-template-columns:minmax(0,1fr) 88px}.dl{white-space:normal}main,.top .in{padding-left:16px;padding-right:16px}.et b{font-size:20px}.et em{font-size:11px}.lado{font-size:11px}.lado b{font-size:13px}.dl{font-size:11px;padding:3px 6px}.dl small{font-size:10px}.fb b{font-size:24px}.et,.pil,.fo,.cx,.fb{cursor:pointer}
+#pop{position:fixed;left:0!important;right:0;bottom:0;top:auto!important;width:auto;max-width:none;border-radius:18px 18px 0 0;max-height:74vh;overflow:auto}#pop .x{display:block}}
+</style></head><body>
+<header class="top"><div class="in">
+<svg viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round" aria-label="BM Mídias"><polygon points="50,4 90,27 90,73 50,96 10,73 10,27"/><polygon points="50,33 65,59 35,59"/><line x1="50" y1="4" x2="50" y2="33"/><line x1="90" y1="73" x2="65" y2="59"/><line x1="10" y1="73" x2="35" y2="59"/><line x1="90" y1="27" x2="50" y2="33"/><line x1="90" y1="27" x2="65" y2="59"/><line x1="50" y1="96" x2="65" y2="59"/><line x1="50" y1="96" x2="35" y2="59"/><line x1="10" y1="27" x2="35" y2="59"/><line x1="10" y1="27" x2="50" y2="33"/></svg>
+<div><h1>Funil da Sala Secreta</h1><p id="sub"></p></div><div class="seg" id="seg" role="group" aria-label="Período"></div></div></header>
+<main><div class="dica"><span id="cmp"></span><span>Passe o mouse (ou toque) em qualquer número para ver os detalhes. Clique para fixar.</span></div><div id="av"></div>
+<div class="grid"><section class="pago" aria-label="Tráfego pago"><div class="ch"><h2>Tráfego pago</h2><span id="perfil"></span></div><div id="pg"></div></section>
+<section class="org" aria-label="Orgânico"><div class="ch o"><h2>Orgânico</h2><span>sem verba de anúncio</span></div><div id="og" style="display:contents"></div></section></div>
+<div class="junta"><svg class="u" viewBox="0 0 1000 26" preserveAspectRatio="none" aria-hidden="true"><path d="M310 0V13H800V0M500 13V26" fill="none" stroke="#CFC8DA" stroke-width="2" vector-effect="non-scaling-stroke"/></svg></div>
+<div class="fim" id="fim"></div></main>
+<footer><span id="rod"></span> · <a href="../ss-painel-25.11.26/">Abrir o relatório completo</a></footer>
+<div id="pop" role="dialog" aria-live="polite"></div>
+<script>
+var F=/*DADOS*/;
+var P,$=function(s){return document.querySelector(s)};
+function n0(v){return Math.round(v).toLocaleString('pt-BR')}
+function nd(v,d){return v.toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d})}
+function rs(v){return v==null||!isFinite(v)?'–':'R$ '+nd(v,2)}
+function rs0(v){return 'R$ '+n0(v)}
+function pc(v,d){return v==null||!isFinite(v)?'–':nd(v*100,d==null?1:d)+'%'}
+function dv(a,b){return b?a/b:null}
+var ORG={ig_unnichat:'Instagram (ESPIAR)',bio:'Link da bio',email:'E-mail',whatsapp:'WhatsApp',org_outros:'Outros'};
+// ---- comparação
+function dl(c,p,o){o=o||{};if(p==null||c==null||!isFinite(c)||!isFinite(p)||!p)return'';
+ if(o.pp){var d=(c-p)*100;var k=Math.abs(d)<0.5?'n':(d>0?'ok':'ruim');return '<span class="dl '+k+'">'+(d>=0?'+':'−')+nd(Math.abs(d),1)+' p.p.<small>antes '+pc(p)+'</small></span>'}
+ var q=c/p-1,b=o.inv?-q:q,k2=o.neutro||Math.abs(q)<0.02?'n':(b>0?'ok':'ruim');
+ return '<span class="dl '+k2+'">'+(q>=0?'▲ ':'▼ ')+n0(Math.abs(q*100))+'%<small>'+(o.txt||('antes '+(o.f||n0)(p)))+'</small></span>'}
+function vol(m,k){return P.porDia?m[k]/m.dias:m[k]}
+function dvol(k,o){var a=vol(P.cur,k),b=vol(P.prev,k);o=o||{};if(P.porDia)o.txt=(o.f||n0)(a)+' por dia, antes '+(o.f||n0)(b).replace('R$ ','');return dl(a,b,o)}
+// grupo: compara por dia, sem os dias em que o link do grupo falhou
+function gd(m,k){return m.v.dias?m.v[k]/m.v.dias:null}
+function dgrp(k,nt){var falha=P.cur.v.dias<P.cur.dias||P.prev.v.dias<P.prev.dias;if(!falha&&!P.porDia)return dl(P.cur[k],P.prev[k],{neutro:nt});
+ return dl(gd(P.cur,k),gd(P.prev,k),{neutro:nt,txt:nd(gd(P.cur,k),0)+' por dia, antes '+nd(gd(P.prev,k),0)+(falha?'*':'')})}
+function txg(m,t){return dv(m.v['grp'+t],m.v['cad'+t])}
+function cpe(m){return dv(m.v.inv,m.v.grpP)}
+// ---- blocos do pop
+function bars(tit,rows){var mx=Math.max.apply(null,rows.map(function(r){return r[1]||0}))||1;
+ return (tit?'<h4>'+tit+'</h4>':'')+rows.map(function(r){return '<div class="br'+(r[3]?' at':'')+'"><span>'+r[0]+'</span><u style="width:'+Math.max(2,(r[1]||0)/mx*100)+'%"></u><b>'+r[2]+'</b></div>'}).join('')}
+function tend(tit,f,fm){if(!P.trend.length){var a=f(P.prev),b=f(P.cur);return bars(tit,[[P.prevL,a,fm(a)],[P.curL,b,fm(b),1]])}
+ return bars(tit,P.trend.map(function(t,i){var v=f(t.m);return [t.l,v,fm(v),i===P.trend.length-1]}))}
+function tab(h,rows,tot){return '<table><tr>'+h.map(function(x){return '<th>'+x+'</th>'}).join('')+'</tr>'+rows.map(function(r,i){return '<tr'+(tot&&i===rows.length-1?' class="t"':'')+'>'+r.map(function(x){return '<td>'+x+'</td>'}).join('')+'</tr>'}).join('')+'</table>'}
+function cods(m){return Object.keys(m.camp).filter(function(c){return c!=='SN'&&m.camp[c].inv>1}).sort(function(a,b){return m.camp[b].inv-m.camp[a].inv})}
+function pags(){return ['A','B','C'].filter(function(p){return P.cur.pags[p]||P.prev.pags[p]})}
+function g(m,p,k){return m.pags[p]?m.pags[p][k]:0}
+function nomeCri(n){return n.replace(/_SST_CAP_/,' ').replace(/_SST_CARROSSEL_CAP_/,' ').replace(/[_.]\d+[.]\d+$/,'').replace(/\.0$/,'').replace(/_\d\d\.\d\d\.\d\d$/,'')}
+function vs(){return P.porDia?' por dia':''}
+var falhaTxt='* Em 15 e 16/11 o link do grupo falhou e poucas entradas foram registradas. Taxa, custo e comparação de entradas deixam esses dois dias fora.';
+function temFalha(){return P.cur.v.dias<P.cur.dias||P.prev.v.dias<P.prev.dias}
+var POP={
+ inv:function(){var im=1+F.imposto,c=F.mes.inv*im,r=F.teto-c;var rows=cods(P.cur).map(function(k){var x=P.cur.camp[k];return ['['+k+']&nbsp;página&nbsp;'+(/PAGINA ([ABC])/.exec(P.cur.nomes[k])||['','?'])[1],rs0(x.inv),x.cad,rs(dv(x.inv,x.cad)),rs(dv(x.inv,x.grp))]});
+  rows.push(['Total',rs0(P.cur.inv),P.cur.cadP,rs(dv(P.cur.inv,P.cur.cadP)),rs(dv(P.cur.inv,P.cur.grpP))]);
+  return ['Investimento','Gasto no Meta, sem imposto. Com o imposto de 13,83%: <b>'+rs0(P.cur.inv*im)+'</b>.',tab(['Campanha','Investido','Cadastros','Custo por cadastro','Custo por entrada'],rows,1)+'<p class="nt">Novembro até '+F.corte+': <b>'+rs0(c)+'</b> com imposto, do teto de '+rs0(F.teto)+'. Restam '+rs0(r)+', ou '+rs0(r/F.mes.diasRest/im)+' por dia no gerenciador até 30/11.</p>']},
+ impr:function(){return ['Impressões','Quantas vezes os anúncios apareceram. O CPM é o preço de mil impressões.',tend('CPM (R$ por mil impressões)',function(m){return dv(m.inv,m.impr)*1000},rs)]},
+ ctr:function(){return ['Taxa de clique (CTR)','De cada 100 vezes que o anúncio aparece, quantas viram clique no link.',tend('CTR',function(m){return dv(m.clk,m.impr)},function(v){return pc(v,2)})]},
+ clk:function(){return ['Cliques no link','Pessoas que clicaram para ir à página.',tend('Custo por clique',function(m){return dv(m.inv,m.clk)},rs)+'<h4>Criativos que mais gastaram</h4>'+tab(['Criativo','Investido','Cliques','CTR'],P.cur.cri.slice(0,5).map(function(c){return [nomeCri(c.n),rs0(c.inv),c.clk,pc(dv(c.clk,c.impr),2)]}))]},
+ con:function(){return ['Carregamento da página','De cada 100 cliques, quantos esperaram a página abrir. Quando cai, vale checar a velocidade da página.',tend('Cliques que abriram a página',function(m){return dv(m.lpv,m.clk)},pc)]},
+ lpv:function(){return ['Visualizações da página','Pessoas que abriram uma das três páginas de captura.','<h4>Por página</h4>'+tab(['Página','Agora','Antes'],pags().map(function(p){return ['Página&nbsp;'+p,n0(g(P.cur,p,'lpv')),n0(g(P.prev,p,'lpv'))]}).concat([['Total',n0(P.cur.lpv),n0(P.prev.lpv)]]),1)+tend('Custo por visualização',function(m){return dv(m.inv,m.lpv)},rs)]},
+ conv:function(){return ['Conversão da página','De cada 100 pessoas que abrem a página, quantas se cadastram.',bars('Por página, '+P.curL,pags().map(function(p){var v=dv(g(P.cur,p,'leads'),g(P.cur,p,'lpv'));return ['Página&nbsp;'+p,v,pc(v),1]}))+'<h4>Comparação</h4>'+tab(['',P.prevL,P.curL,'Visualizações','Leads','Custo por cadastro'],pags().map(function(p){var x=P.cur.pags[p]||{};return ['Página&nbsp;'+p,pc(dv(g(P.prev,p,'leads'),g(P.prev,p,'lpv'))),'<b>'+pc(dv(x.leads,x.lpv))+'</b>',n0(x.lpv||0),n0(x.leads||0),rs(dv(x.inv,x.cad))]}).concat([['Geral',pc(dv(P.prev.leads,P.prev.lpv)),pc(dv(P.cur.leads,P.cur.lpv)),n0(P.cur.lpv),n0(P.cur.leads),rs(dv(P.cur.inv,P.cur.cadP))]]),1)+tend('Conversão geral',function(m){return dv(m.leads,m.lpv)},pc)+'<p class="nt">Leads e visualizações contados pelo Meta. As páginas rodam em campanhas e públicos diferentes, então a diferença entre elas não é um teste controlado.</p>']},
+ cadP:function(){var h=tend('Custo por cadastro',function(m){return dv(m.inv,m.cadP)},rs);
+  h+='<h4>Criativos (custo por lead no Meta)</h4>'+tab(['Criativo','Investido','Leads','Custo'],P.cur.cri.slice(0,6).map(function(c){return [nomeCri(c.n),rs0(c.inv),c.leads,rs(dv(c.inv,c.leads))]}));
+  return ['Cadastros do tráfego pago','Pessoas únicas que se cadastraram pelo anúncio, sem repetição. O Meta contou '+n0(P.cur.leads)+' leads no período.',h]},
+ perf:function(){var a=P.cur.aud,b=P.prev.aud;function l(o,k){return o&&o[k]?o[k]:{n:0,m:0,h:0,v55:0}}var ks=Object.keys(a).filter(function(k){return k!=='T'}).sort();
+  return ['Perfil de quem virou lead','Idade e gênero informados pelo Meta.',tab(['','Mulheres antes','Mulheres agora','55+ antes','55+ agora'],ks.concat(['T']).map(function(k){var x=l(a,k),y=l(b,k);return [k==='T'?'Total':'['+k+']',y.n?pc(y.m/y.n,0):'–',x.n?pc(x.m/x.n,0):'–',y.n?pc(y.v55/y.n,0):'–',x.n?pc(x.v55/x.n,0):'–']}),1)+'<p class="nt">Agora: '+P.curL+'. Antes: '+P.prevL+'. O criativo ADV39, que trazia homens de 55+, foi desligado em 16/11.</p>']},
+ txP:function(){return ['Entrada no grupo, pago','De cada 100 cadastrados pelo anúncio, quantos entraram no grupo do WhatsApp.',tend('Taxa de entrada'+(temFalha()?'*':''),function(m){return txg(m,'P')},pc)+(temFalha()?'<p class="nt">'+falhaTxt+'</p>':'')]},
+ grpP:function(){return ['Entradas no grupo, tráfego pago','Cadastrados pelo anúncio que entraram no grupo do WhatsApp.','<h4>Por página, '+P.curL+'</h4>'+tab(['Página','Cadastros','Entradas','Taxa','Custo por entrada'],pags().filter(function(p){return g(P.cur,p,'inv')>1}).map(function(p){var x=P.cur.pags[p];return ['Página&nbsp;'+p,x.cad,x.grp,pc(dv(x.grp,x.cad),0),rs(dv(x.inv,x.grp))]}).concat([['Total',P.cur.cadP,P.cur.grpP,pc(dv(P.cur.grpP,P.cur.cadP),0),rs(dv(P.cur.inv,P.cur.grpP))]]),1)+tend('Custo por entrada'+(temFalha()?'*':''),cpe,rs)+tend('Entradas por dia'+(temFalha()?'*':''),function(m){return gd(m,'grpP')},function(v){return nd(v,1)})+'<p class="nt">Referência para aprovar criativo: custo por entrada abaixo de cerca de R$ 3,70. '+(temFalha()?falhaTxt:'')+'</p>']},
+ ig:function(){var a=P.cur.ig,b=P.prev.ig;function e(x){return x?x.filter(function(p){return p.k==='ESPIAR'}):[]}function s(x){return e(x).reduce(function(t,p){return t+p.c},0)}
+  var h=tab(['No perfil @anatex',b?P.prevL:'',P.curL],[['Posts no total',b?b.length:'',a.length],['Posts pedindo ESPIAR',b?e(b).length:'','<b>'+e(a).length+'</b>'],['Comentários nesses posts',b?n0(s(b)):'','<b>'+n0(s(a))+'</b>'],['Posts pedindo MAPEAMENTO',b?b.filter(function(p){return p.k==='MAPEAMENTO'}).length:'',a.filter(function(p){return p.k==='MAPEAMENTO'}).length]]);
+  h+='<h4>Posts com ESPIAR, '+P.curL+'</h4>'+tab(['Post','Comentários'],e(a).sort(function(x,y){return y.c-x.c}).map(function(p){return ['<a href="https://www.instagram.com/p/'+p.u+'/" target="_blank" rel="noopener">'+p.t+' '+p.d.slice(8)+'/'+p.d.slice(5,7)+'</a> '+p.n,n0(p.c)]}));
+  return ['Posts com ESPIAR','Quem comenta ESPIAR no Instagram recebe o link da Sala no direct.',h+'<p class="nt">Conferido direto no perfil em '+F.igLido+'. Stories e Reels de teste não aparecem na grade. O Unnichat não registra de qual post veio cada cadastro.</p>']},
+ cadO:function(){return ['Cadastros do orgânico','Pessoas que chegaram sem anúncio: comentário ESPIAR, link da bio, e-mail e outros.',tend('Cadastros orgânicos'+(P.porDia?' por dia':''),function(m){return vol(m,'cadO')},P.porDia?function(v){return nd(v,1)}:n0)+'<h4>De onde vieram</h4>'+tab(['Origem',P.prevL,P.curL],Object.keys(ORG).filter(function(k){return P.cur.org[k]||P.prev.org[k]}).map(function(k){return [ORG[k],(P.prev.org[k]||[0])[0],(P.cur.org[k]||[0])[0]]}))+(P.trend.length&&P.id==='atual'?'<p class="nt">A semana de 12 a 17/11 teve o pico dos Reels de 12 e 14/11. Contra 05 a 10/11, a semana atual está acima.</p>':'')]},
+ txO:function(){return ['Entrada no grupo, orgânico','De cada 100 cadastrados do orgânico, quantos entraram no grupo do WhatsApp.',tend('Taxa de entrada'+(temFalha()?'*':''),function(m){return txg(m,'O')},pc)+(temFalha()?'<p class="nt">'+falhaTxt+'</p>':'')]},
+ grpO:function(){return ['Entradas no grupo, orgânico','Pessoas do orgânico que entraram no grupo do WhatsApp.','<h4>Por origem, '+P.curL+'</h4>'+tab(['Origem','Cadastros','Entradas','Taxa'],Object.keys(ORG).filter(function(k){return P.cur.org[k]}).map(function(k){var x=P.cur.org[k];return [ORG[k],x[0],x[1],pc(dv(x[1],x[0]),0)]}).concat([['Total',P.cur.cadO,P.cur.grpO,pc(dv(P.cur.grpO,P.cur.cadO),0)]]),1)+tend('Entradas por dia'+(temFalha()?'*':''),function(m){return gd(m,'grpO')},function(v){return nd(v,1)})+(temFalha()?'<p class="nt">'+falhaTxt+'</p>':'')]},
+ tot:function(){var t=tg(P.cur);return ['Entradas no grupo, total','Todas as pessoas que entraram no grupo, do anúncio e do orgânico.',tab(['Origem','Cadastros','Entradas','Parte do total'],[['Tráfego pago',P.cur.cadP,P.cur.grpP,pc(P.cur.grpP/t,0)],['Orgânico',P.cur.cadO,P.cur.grpO,pc(P.cur.grpO/t,0)],['Sem origem registrada',P.cur.cadS,P.cur.grpS,pc(P.cur.grpS/t,0)],['Total',P.cur.cadP+P.cur.cadO+P.cur.cadS,t,'']],1)+tend('Entradas por dia'+(temFalha()?'*':''),function(m){return tgd(m)},function(v){return nd(v,1)})+'<p class="nt">Verba dividida por todas as entradas, pagas e orgânicas: <b>'+rs(dv(P.cur.inv,t))+'</b>. '+(temFalha()?falhaTxt:'')+'</p>']},
+ com:function(){return ['Pessoas na comunidade','Total de pessoas na comunidade do WhatsApp no dia de cada Sala.',bars('',P.salaTrend.map(function(s,i){return ['Sala '+dm(s.d),s.com,n0(s.com),i===P.salaTrend.length-1]}))+'<p class="nt">O total quase não muda, mesmo com as entradas da semana. Saídas e pessoas que já estavam no grupo explicam a diferença, mas ainda não medimos quantas saem.</p>']},
+ pico:function(){return ['Pico ao vivo','Maior número de pessoas ao mesmo tempo na Sala.',bars('',P.salaTrend.map(function(s,i){return ['Sala '+dm(s.d),s.pico,n0(s.pico),i===P.salaTrend.length-1]}))+'<h4>Temas</h4>'+tab(['Sala','Pico','% da comunidade'],P.salaTrend.map(function(s){return [dm(s.d)+' · '+s.tema,n0(s.pico),pc(dv(s.pico,s.com))]}))]},
+ ven:function(){var L=P.salaTrend.filter(function(s){return s.d>='2026-11-01'||P.id!=='mes'});return ['Vendas na Sala','Vendas e aplicações lançadas na planilha para cada Sala.',tab(['Sala','Workshop','Outros','Mentoria','Receita'],L.map(function(s){return s.lanc?[dm(s.d),s.ws,s.gr+s.pl+s.ft,s.m3+s.m6,rs0(s.rec)]:[dm(s.d),'–','–','–','sem lançamento']}))+'<p class="nt">"Sem lançamento" quer dizer que a planilha está vazia naquela Sala. Pode não ter havido oferta ou ainda faltar preencher.</p>']}
+};
+function dm(d){return d.slice(8)+'/'+d.slice(5,7)}
+function tg(m){return m.grpP+m.grpO+m.grpS}
+function tgd(m){return m.v.dias?(m.v.grpP+m.v.grpO+m.v.grpS)/m.v.dias:null}
+// ---- desenho
+var W=[100,84,70,56,44,34];
+function trap(i,cor){var a=W[i],b=W[i+1],x=(100-a)/2,y=(100-b)/2;return '<i style="background:'+cor+';clip-path:polygon('+x+'% 0,'+(100-x)+'% 0,'+(100-y)+'% 100%,'+y+'% 100%)"></i>'}
+function et(k,i,cor,v,l){return '<button type="button" class="et" data-k="'+k+'">'+trap(i,cor)+'<span><b>'+v+'</b><em>'+l+'</em></span></button>'}
+function lado(a,b,l){var q=a/b-1,k=!isFinite(q)||Math.abs(q)<0.02?'':(q<0?'ok':'ruim');return '<div class="lado"><b>'+rs(a)+'</b>'+l+'<u class="'+k+'">'+(k?(q<0?'▼ ':'▲ '):'')+'antes '+nd(b,2)+'</u></div>'}
+function tx(k,t,f){return '<div class="tx"><button type="button" class="pil'+(f?' forte':'')+'" data-k="'+k+'">'+t+'</button></div>'}
+function linP(esq,m,d){return '<div class="lin">'+esq+m+'<div>'+(d||'')+'</div></div>'}
+var C=['#8B5CF6','#7C3AED','#6D28D9','#5B21B6','#4C1D95'];
+function desenha(){
+ var c=P.cur,p=P.prev;
+ $('#sub').textContent=P.sub+' · dados de '+P.curL+' · lidos em '+F.atualizado;
+ $('#cmp').innerHTML='<b>'+P.curL+'</b> comparado com <b>'+P.prevL+'</b>'+(P.porDia?', em média por dia':'');
+ $('#av').innerHTML=temFalha()?'<div class="aviso">'+falhaTxt+'</div>':'';
+ $('#perfil').innerHTML=c.aud?'<button type="button" class="pil" data-k="perf">Perfil: '+pc(c.aud.T.m/c.aud.T.n,0)+' mulheres · '+pc(c.aud.T.v55/c.aud.T.n,0)+' com 55+</button>':'';
+ var conv=dv(c.leads,c.lpv),convA=dv(p.leads,p.lpv);
+ var h='<div class="lin" style="margin-bottom:8px"><div class="lado">Verba</div><button type="button" class="cx" style="margin:0;justify-content:center" data-k="inv"><b>'+rs0(c.inv)+'</b> investidos</button><div>'+dvol('inv',{neutro:1,f:rs0})+'</div></div>';
+ h+=linP(lado(dv(c.inv,c.impr)*1000,dv(p.inv,p.impr)*1000,'CPM'),et('impr',0,C[0],n0(c.impr),'impressões'),dvol('impr',{neutro:1}));
+ h+=linP('<div></div>',tx('ctr','CTR '+pc(dv(c.clk,c.impr),2)),'');
+ h+=linP(lado(dv(c.inv,c.clk),dv(p.inv,p.clk),'por clique'),et('clk',1,C[1],n0(c.clk),'cliques no link'),dvol('clk',{neutro:1}));
+ h+=linP('<div></div>',tx('con','Abriram a página '+pc(dv(c.lpv,c.clk))),'');
+ h+=linP(lado(dv(c.inv,c.lpv),dv(p.inv,p.lpv),'por visualização'),et('lpv',2,C[2],n0(c.lpv),'visualizações da página'),dvol('lpv',{neutro:1}));
+ h+=linP('<div></div>',tx('conv','Conversão da página '+pc(conv),1),dl(conv,convA,{pp:1}));
+ h+=linP(lado(dv(c.inv,c.cadP),dv(p.inv,p.cadP),'por cadastro'),et('cadP',3,C[3],n0(c.cadP),'cadastros'),dvol('cadP',{neutro:1}));
+ h+=linP('<div></div>',tx('txP','Entraram no grupo '+pc(txg(c,'P'),0)+(c.v.dias<c.dias?'*':'')),'');
+ h+=linP(lado(cpe(c),cpe(p),'por entrada'+(temFalha()?'*':'')),et('grpP',4,C[4],n0(c.grpP),'entradas no grupo'),dgrp('grpP',1));
+ $('#pg').innerHTML=h;
+ var o='';
+ if(c.ig){var e=c.ig.filter(function(x){return x.k==='ESPIAR'}),sm=e.reduce(function(t,x){return t+x.c},0);var ep=p.ig?p.ig.filter(function(x){return x.k==='ESPIAR'}).length:null;
+  o+='<button type="button" class="cx" data-k="ig"><span><b>'+e.length+'</b> posts com ESPIAR'+(ep!=null?' <span style="color:#5B5566">(antes '+ep+')</span>':'')+'</span><span>'+n0(sm)+' comentários</span></button>'}
+ var ks=Object.keys(ORG).filter(function(k){return c.org[k]}),mx=Math.max.apply(null,ks.map(function(k){return c.org[k][0]}));
+ o+='<div class="fontes">'+ks.map(function(k){return '<button type="button" class="fo" data-k="cadO"><span>'+ORG[k]+'</span><u style="width:'+Math.max(2,c.org[k][0]/mx*100)+'%"></u><b>'+n0(c.org[k][0])+'</b></button>'}).join('')+'</div>';
+ var CO=['#3A3346','#241D2E'];
+ o+='<div class="lin">'+et('cadO',0,CO[0],n0(c.cadO),'cadastros')+'<div>'+dvol('cadO')+'</div></div>';
+ o+='<div class="lin">'+tx('txO','Entraram no grupo '+pc(txg(c,'O'),0)+(c.v.dias<c.dias?'*':''))+'<div></div></div>';
+ o+='<div class="lin">'+et('grpO',1,CO[1],n0(c.grpO),'entradas no grupo')+'<div>'+dgrp('grpO')+'</div></div>';
+ $('#og').innerHTML=o;
+ var t=tg(c),sa=P.salas,sp=P.salasPrev,u=sa[sa.length-1],up=sp[sp.length-1];
+ var com=u.com,va=sa.filter(function(s){return s.lanc});
+ var med=function(l){return l.reduce(function(x,s){return x+s.pico},0)/l.length};
+ var qv=function(l){return l.reduce(function(x,s){return x+s.ws+s.gr+s.pl+s.ft+s.m3+s.m6},0)},rv=function(l){return l.reduce(function(x,s){return x+s.rec},0)};
+ var pct=function(a,b){var q=a/b-1;return (q>=0?'▲ ':'▼ ')+n0(Math.abs(q)*100)+'%'};
+ var f=function(k,e,b,s){return '<button type="button" class="fb" data-k="'+k+'"><em>'+e+'</em><b>'+b+'</b><small>'+s+'</small></button>'};
+ var tdC=P.porDia||temFalha();
+ $('#fim').innerHTML=f('tot','Entradas no grupo, total',n0(t),pct(tdC?tgd(c):t,tdC?tgd(p):tg(p))+' · '+(tdC?nd(tgd(c),0)+' por dia, antes '+nd(tgd(p),0)+(temFalha()?'*':''):'antes '+n0(tg(p))))
+ +f('com','Pessoas na comunidade',n0(com),'Sala de '+dm(u.d)+' · antes '+n0(up.com))
+ +(sa.length>1?f('pico','Pico ao vivo, média',n0(med(sa)),sa.length+' Salas · antes '+n0(med(sp))):f('pico','Pico ao vivo, Sala de '+dm(u.d),n0(u.pico),pct(u.pico,up.pico)+' · antes '+n0(up.pico)))
+ +(va.length?f('ven','Vendas na Sala',n0(qv(va)),rs0(rv(va))+' · '+va.map(function(s){return dm(s.d)}).join(', ')):f('ven','Vendas na Sala','–','Sala de '+dm(u.d)+' ainda sem lançamento'));
+ $('#rod').textContent='Cadastros e entradas contam pessoas únicas. A coluna do grupo pode levar 1 ou 2 dias para completar. A largura das faixas é ilustrativa. No pago, a cor marca custo e conversão; o volume fica em cinza porque depende da verba.';
+ document.querySelectorAll('[data-k]').forEach(function(b){b.addEventListener('mouseenter',function(){if(!fix&&!tel())abre(b)});b.addEventListener('mouseleave',function(){if(!fix&&!tel())agenda()});
+  b.addEventListener('focus',function(){if(!fix&&!tel()&&b.matches(':focus-visible'))abre(b)});b.addEventListener('blur',function(){if(!fix&&!tel())fecha()});
+  b.addEventListener('click',function(ev){ev.stopPropagation();if(fix&&atual===b){fix=false;fecha();return}abre(b);fix=true;pop.classList.add('fx')})});
+}
+var pop=$('#pop'),fix=false,atual=null,tm=null;
+function tel(){return matchMedia('(max-width:900px),(hover:none)').matches}
+function abre(b){clearTimeout(tm);if(atual)atual.classList.remove('on');atual=b;b.classList.add('on');var r=POP[b.dataset.k]();
+ pop.classList.remove('fx');pop.innerHTML='<button class="x" type="button" aria-label="Fechar">✕</button><h3>'+r[0]+'</h3><p>'+r[1]+'</p>'+r[2];pop.classList.add('v');
+ pop.querySelector('.x').onclick=function(e){e.stopPropagation();fix=false;fecha()};
+ if(matchMedia('(max-width:900px)').matches)return;
+ var q=b.getBoundingClientRect(),w=pop.offsetWidth,hh=pop.offsetHeight,vw=document.documentElement.clientWidth,vh=innerHeight,x,y;
+ var cx=q.left+q.width/2,larg=b.classList.contains('et')&&b.closest('.pago')?q.width*.36:q.width/2;
+ if(b.classList.contains('fb')){x=cx-w/2;y=q.top-hh-10}else{x=cx+larg+14;if(x+w>vw-10)x=cx-larg-14-w;if(x<10)x=Math.max(10,vw-w-10);y=q.top+q.height/2-hh/2}
+ x=Math.min(Math.max(10,x),vw-w-10);y=Math.min(Math.max(8,y),Math.max(8,vh-hh-8));
+ pop.style.left=(x+scrollX)+'px';pop.style.top=(y+scrollY)+'px'}
+function agenda(){tm=setTimeout(fecha,180)}
+function fecha(){clearTimeout(tm);fix=false;pop.classList.remove('v','fx');if(atual){atual.classList.remove('on');atual=null}}
+pop.addEventListener('mouseenter',function(){clearTimeout(tm)});pop.addEventListener('mouseleave',function(){if(!fix&&!tel())agenda()});
+pop.addEventListener('click',function(e){e.stopPropagation()});
+document.addEventListener('click',fecha);document.addEventListener('keydown',function(e){if(e.key==='Escape')fecha()});
+function troca(id){P=F.periodos.find(function(p){return p.id===id})||F.periodos[0];fecha();
+ $('#seg').innerHTML=F.periodos.map(function(p){return '<button type="button" class="'+(p===P?'on':'')+'" aria-pressed="'+(p===P)+'" data-p="'+p.id+'">'+p.rot+'<small>'+p.curL+'</small></button>'}).join('');
+ $('#seg').querySelectorAll('button').forEach(function(b){b.onclick=function(){troca(b.dataset.p)}});desenha();try{history.replaceState(null,'','#'+P.id)}catch(e){}}
+var alvo=(location.hash||'').slice(1).split(':');troca(alvo[0]||'atual');if(alvo[1]){var bt=document.querySelector('[data-k="'+alvo[1]+'"]');if(bt){abre(bt);fix=true}}
+</script></body></html>
